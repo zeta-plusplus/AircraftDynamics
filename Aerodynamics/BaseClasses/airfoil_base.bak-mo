@@ -1,0 +1,71 @@
+within AircraftDynamics.Aerodynamics.BaseClasses;
+
+partial model airfoil_base
+  //----- imports -----
+  import Modelica.Constants;
+  
+  /********************************************************
+     Declaration
+  ********************************************************/
+  //********** Package **********
+  //##### none #####
+  
+  //********** Parameters **********
+  parameter Real Cl_alpha=1.5/(15*3.14/180)
+    ""
+    annotation(
+    Dialog(group = "Characteristics"));
+  parameter Real Cl0=0.0
+    ""
+    annotation(
+    Dialog(group = "Characteristics"));
+  parameter  Real Cd0= 0.001
+    ""
+    annotation(
+    Dialog(group = "Characteristics"));
+  parameter Modelica.SIunits.Angle alpha4Clmax=15*3.14/180
+    ""
+    annotation(
+    Dialog(group = "Characteristics"));
+  parameter Modelica.SIunits.Angle alpha4Clmin=-15*3.14/180
+    ""
+    annotation(
+    Dialog(group = "Characteristics"));
+  
+  //********** Internal variables **********
+  Modelica.SIunits.Angle alpha(start=5.0*3.14/180);
+  Real Cl(start= Cl0);
+  Real Cd(start= Cd0);
+  
+  //********** Interfaces **********
+  Modelica.Blocks.Interfaces.RealInput u_AoA annotation(
+    Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput y_Cl annotation(
+    Placement(visible = true, transformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput y_Cd annotation(
+    Placement(visible = true, transformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+algorithm
+  //********** interface, input **********
+  alpha:= u_AoA;
+  
+  /*********************************************
+  calclate Cl
+    linear model
+  *********************************************/
+  if(alpha < alpha4Clmin)then
+    Cl:=0.0;
+  elseif(alpha4Clmax < alpha)then
+    Cl:=0.0;
+  else
+    Cl:= Cl0 + Cl_alpha*alpha;
+  end if;
+  
+  //********** interface, output **********
+  y_Cl:= Cl;
+  y_Cd:= Cd;
+  
+equation
+  //##### none #####
+  
+  
+end airfoil_base;

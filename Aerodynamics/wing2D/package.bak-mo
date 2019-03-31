@@ -1,0 +1,5 @@
+within AircraftDynamics.Aerodynamics;
+
+package wing2D
+  extends Modelica.Icons.Package;
+end wing2D;
