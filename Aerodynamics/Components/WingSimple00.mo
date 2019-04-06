@@ -1,6 +1,6 @@
-within AircraftDynamics.Aerodynamics.BaseClasses;
+within AircraftDynamics.Aerodynamics.Components;
 
-partial model wing_base
+model WingSimple00
   //----- imports -----
   import Modelica.Constants;
   
@@ -31,5 +31,5 @@ partial model wing_base
 algorithm
     
 equation
-  
-end wing_base;
+
+end WingSimple00;
