@@ -103,22 +103,22 @@ model Flight2Fluid
     Placement(visible = true, transformation(origin = {0, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   
   //********** Interfaces **********
-  Modelica.Blocks.Interfaces.RealInput alt_in if switchInput_alt == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal annotation(
+  Modelica.Blocks.Interfaces.RealInput u_alt if switchInput_alt == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal annotation(
     Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput MN_in if switchInput_MN == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal annotation(
+  Modelica.Blocks.Interfaces.RealInput u_Mn if switchInput_MN == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal annotation(
     Placement(visible = true, transformation(origin = {-120, 50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput dTamb_in if switchInput_dTamb == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal annotation(
+  Modelica.Blocks.Interfaces.RealInput u_dTamb if switchInput_dTamb == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal annotation(
     Placement(visible = true, transformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput AoA_in if switchInput_AoA == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal annotation(
+  Modelica.Blocks.Interfaces.RealInput u_AoA if switchInput_AoA == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal annotation(
     Placement(visible = true, transformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput sideSlip_in if switchInput_sideSlip == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal annotation(
+  Modelica.Blocks.Interfaces.RealInput u_sideSlip if switchInput_sideSlip == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal annotation(
     Placement(visible = true, transformation(origin = {-120, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput relHum_in if switchInput_relHum == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal annotation(
+  Modelica.Blocks.Interfaces.RealInput u_relHum if switchInput_relHum == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal annotation(
     Placement(visible = true, transformation(origin = {-120, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Fluid.Interfaces.FluidPort_b port_fluidAmb(redeclare package Medium = Medium, m_flow(min = if allowFlowReversal then -Constants.inf else 0.0, start = m_flow_start)) annotation(
     Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput V_tot_out annotation(
-    Placement(visible = true, transformation(origin = {100, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput y_V_tot annotation(
+    Placement(visible = true, transformation(origin = {100, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //********** Initialization **********
   parameter Medium.AbsolutePressure p_a_start = 101.3 * 1000 "Start value of pressure at port a" annotation(
     Dialog(tab = "Initialization"));
@@ -129,6 +129,8 @@ model Flight2Fluid
     Dialog(tab = "Initialization"));
   Modelica.Icons.SignalBus signalBus1 annotation(
     Placement(visible = true, transformation(origin = {70, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {70, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput y_Mn annotation(
+    Placement(visible = true, transformation(origin = {100, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 protected
   //********** Protected objects **********
   //##### none #####
@@ -150,30 +152,31 @@ equation
 //********** Connections, interface <-> internal variables **********
 //-- alt --
   if switchInput_alt == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal then
-    alt = alt_in;
+    alt = u_alt;
   end if;
 //-- MN --
   if switchInput_MN == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal then
-    MN = MN_in;
+    MN = u_Mn;
   end if;
 //-- dTamb --
   if switchInput_dTamb == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal then
-    dTamb = dTamb_in;
+    dTamb = u_dTamb;
   end if;
 //-- relHum --
   if switchInput_relHum == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal then
-    relHum = relHum_in;
+    relHum = u_relHum;
   end if;
 //-- AoA --
   if switchInput_AoA == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal then
-    AoA = AoA_in;
+    AoA = u_AoA;
   end if;
 //-- sieslip --
   if switchInput_sideSlip == PropulsionSystem.Types.switches.switch_parameter_input.use_inputSignal then
-    sideSlip = sideSlip_in;
+    sideSlip = u_sideSlip;
   end if;
   //***** output signal *****
-  V_tot_out = V_tot;
+  y_V_tot = V_tot;
+  y_Mn= u_Mn;
   
   //********** Eqns describing physics **********
   //-- regression curve of atmospheric table --
