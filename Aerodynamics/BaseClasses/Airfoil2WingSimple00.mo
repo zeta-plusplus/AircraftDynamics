@@ -91,6 +91,7 @@ equation
     Line);
   connect(CD0, signalBus2.CD0);
   connect(CDi, signalBus2.CDi);
+  connect(S,signalBus2.S);
   
   //********** Geometries **********
   AR = b ^ 2 / S;

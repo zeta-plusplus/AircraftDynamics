@@ -11,13 +11,14 @@ model AirfoilSimple00
   
   //********** Parameters **********
   //--- design parameter ---
-  parameter Real ClmaxDes = 1.5 "" annotation(
+  parameter Real ClmaxDes = 1.5 
+    "" annotation(
     Dialog(group = "Characteristics"));
   parameter Modelica.SIunits.Angle alpha4Cl0des = 0.0 "" annotation(
     Dialog(group = "Characteristics"));
-  parameter Modelica.SIunits.Angle alpha4ClmaxDes = 7.0 * Modelica.Constants.pi / 180 "" annotation(
+  parameter Modelica.SIunits.Angle alpha4ClmaxDes = 15.0 * Modelica.Constants.pi / 180 "" annotation(
     Dialog(group = "Characteristics"));
-  parameter Modelica.SIunits.Angle alpha4ClminDes = -7.0 * Modelica.Constants.pi / 180 "" annotation(
+  parameter Modelica.SIunits.Angle alpha4ClminDes = -15.0 * Modelica.Constants.pi / 180 "" annotation(
     Dialog(group = "Characteristics"));
   parameter Real CdfDes = 0.01 "" annotation(
     Dialog(group = "Characteristics"));
@@ -78,6 +79,7 @@ equation
   connect(alpha4Cl0, signalBus2.alpha4Cl0);
   connect(alpha4Clmin, signalBus2.alpha4Clmin);
   connect(alpha4Clmax, signalBus2.alpha4Clmax);
+  connect(alpha, signalBus2.alpha);
 //********** Geometries **********
 //##### none #####
 //********** Connections, interface <-> internal variables *********
