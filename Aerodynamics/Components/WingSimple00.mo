@@ -10,7 +10,6 @@ model WingSimple00
   //********** Package **********
   replaceable package Medium= Modelica.Media.Interfaces.PartialMedium
     annotation (choicesAllMatching= true);
-  
   //********** Parameters **********
   //--- inner-connected, to AirfoilSimple ---
   inner parameter Real ClmaxDes = 1.5 "" annotation(
@@ -29,7 +28,6 @@ model WingSimple00
     Dialog(group = "Characteristics, airfoil"));
   inner parameter Real pwrCdpDes = 4.0 "" annotation(
     Dialog(group = "Characteristics, airfoil"));
-  
   //--- inner-connected, to Airfoil2WingSimple ---
   inner parameter Real ARdes = 5.0 "" annotation(
     Dialog(group = "Geometry and Characteristics, wing"));
@@ -43,7 +41,6 @@ model WingSimple00
     Dialog(group = "Geometry and Characteristics, wing"));
   inner parameter Modelica.SIunits.Length ChRootDes = 1.0 "" annotation(
     Dialog(group = "Geometry and Characteristics, wing"));
-  
   //********** Initialization Parameters **********
   //--- fluid_amb, port_amb ---
   parameter Modelica.SIunits.MassFlowRate m_flowAmb_init(displayUnit="kg/s")= 0.0
@@ -61,7 +58,6 @@ model WingSimple00
   parameter Modelica.SIunits.SpecificEnthalpy hAmb_init(displayUnit="J/kg")= 1.004*1000*288.15
     ""
     annotation(Dialog(tab="Initialization", group="Fluid states"));
-  
   //********** Internal variables **********
   Modelica.SIunits.Force Lf;
   Modelica.SIunits.Force Df;
@@ -78,8 +74,6 @@ model WingSimple00
     state.T.start = Tamb_init, h.start = hAmb_init
   ) 
   "flow station of amb";
-  
-  
   //********** Interfaces **********
   Modelica.Fluid.Interfaces.FluidPort_a port_amb
   (
@@ -95,9 +89,9 @@ model WingSimple00
   Modelica.Blocks.Interfaces.RealInput u_Mn annotation(
     Placement(visible = true, transformation(origin = {-110, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_Lf annotation(
-    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput y_Df annotation(
-    Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.Aerodynamics.BaseClasses.AirfoilSimple00 airfoilSimple001 annotation(
     Placement(visible = true, transformation(origin = {-50, 30}, extent = {{-10, -8}, {10, 8}}, rotation = 0)));
   AircraftDynamics.Aerodynamics.BaseClasses.Airfoil2WingSimple00 airfoil2WingSimple001 annotation(
@@ -111,24 +105,22 @@ equation
     Line(points = {{-110, -10}, {-16, -10}, {-16, 20}, {-14, 20}}, color = {0, 0, 127}));
   connect(airfoilSimple001.signalBus2, airfoil2WingSimple001.signalBus1) annotation(
     Line(points = {{-44, 22}, {-44, 22}, {-44, 8}, {-14, 8}, {-14, 20}, {-14, 20}}, color = {255, 204, 51}, thickness = 0.5));
-  
-  //********** Connections, interface <-> internal variables **********
-  //-- port_amb --
+//********** Connections, interface <-> internal variables **********
+//-- port_amb --
   fluid_amb.p = port_amb.p;
   port_amb.h_outflow= fluid_amb.h;
   fluid_amb.h= actualStream(port_amb.h_outflow);
   fluid_amb.Xi= actualStream(port_amb.Xi_outflow);
   port_amb.m_flow=1.0;
-  //-- else --
-  Mn= u_Mn;
+//-- else --
+  Mn = u_Mn;
   y_Lf= Lf;
   y_Df= Df;
   CL= airfoil2WingSimple001.signalBus2.CL;
   CD= airfoil2WingSimple001.signalBus2.CD;
   S= airfoil2WingSimple001.signalBus2.S;
-    
-  //********** Eqns describing physics **********
-  Mn= Vflow/Medium.velocityOfSound(fluid_amb.state);
+//********** Eqns describing physics **********
+  Mn = Vflow / Medium.velocityOfSound(fluid_amb.state);
   Lf= CL*S*1/2*fluid_amb.d*(sign(Vflow)*abs(Vflow)^(2.0));
   Df= CD*S*1/2*fluid_amb.d*(sign(Vflow)*abs(Vflow)^(2.0));
   

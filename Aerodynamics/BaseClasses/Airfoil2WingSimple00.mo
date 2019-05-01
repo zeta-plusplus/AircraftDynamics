@@ -61,7 +61,7 @@ model Airfoil2WingSimple00
   Modelica.Icons.SignalBus signalBus2 annotation(
     Placement(visible = true, transformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 algorithm
-  //********** assignment, design parameter to variables **********
+  //********** assignment, design parameter to variables (calculated parameters) **********
   AR := ARdes;
   rambda := rambdaDes;
   sweep := sweepDes;
