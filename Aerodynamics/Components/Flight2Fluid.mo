@@ -4,7 +4,7 @@ model Flight2Fluid
   import Modelica.Constants;
   /********************************************************
                  Declaration
-              ********************************************************/
+  ********************************************************/
   //********** Package **********
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium annotation(
     choicesAllMatching = true);
