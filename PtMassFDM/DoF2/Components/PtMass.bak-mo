@@ -1,0 +1,14 @@
+within AircraftDynamics.PtMassFDM.DoF2.Components;
+
+model PtMass
+  Modelica.Mechanics.MultiBody.Parts.PointMass pointMass1 annotation(
+    Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealVectorInput u_lifts annotation(
+    Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealVectorInput u_drags annotation(
+    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealVectorInput u_thrusts annotation(
+    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, -4.44089e-16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+equation
+
+end PtMass;

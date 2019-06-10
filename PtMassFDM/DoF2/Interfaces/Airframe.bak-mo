@@ -1,0 +1,6 @@
+within AircraftDynamics.PtMassFDM.DoF2.Interfaces;
+
+partial model Airframe
+  Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_drag annotation(
+    Placement(visible = true, transformation(origin = {-100, 6}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-100, 6}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+end Airframe;
