@@ -56,9 +56,9 @@ model Airfoil2WingSimple00
   Modelica.SIunits.Angle alpha4CLmax;
   //---
   //********** Interfaces **********
-  Modelica.Icons.SignalBus signalBus1 annotation(
+  AircraftDynamics.Types.InfoBus signalBus1 annotation(
     Placement(visible = true, transformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Icons.SignalBus signalBus2 annotation(
+  AircraftDynamics.Types.InfoBus signalBus2 annotation(
     Placement(visible = true, transformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 algorithm
   //********** assignment, design parameter to variables (calculated parameters) **********
@@ -69,19 +69,19 @@ algorithm
   S := Sdes;
   ChRoot := ChRootDes;
 equation
-  connect(signalBus1.alpha, alpha) annotation(
+  connect(alpha, signalBus1.alpha) annotation(
     Line);
-  connect(signalBus1.Mn, Mn) annotation(
+  connect(Mn, signalBus1.Mn) annotation(
     Line);
-  connect(signalBus1.Cl_alpha, Cl_alpha) annotation(
+  connect(Cl_alpha, signalBus1.Cl_alpha) annotation(
     Line);
-  connect(signalBus1.Cl0, Cl0) annotation(
+  connect(Cl0, signalBus1.Cl0) annotation(
     Line);
-  connect(signalBus1.Cdf, Cdf);
-  connect(signalBus1.Cdp, Cdp);
-  connect(signalBus1.alpha4Cl0, alpha4Cl0);
-  connect(signalBus1.alpha4Clmin, alpha4Clmin);
-  connect(signalBus1.alpha4Clmax, alpha4Clmax);
+  connect(Cdf, signalBus1.Cdf);
+  connect(Cdp, signalBus1.Cdp);
+  connect(alpha4Cl0, signalBus1.alpha4Cl0);
+  connect(alpha4Clmin, signalBus1.alpha4Clmin);
+  connect(alpha4Clmax, signalBus1.alpha4Clmax);
   
   connect(CL_alpha, signalBus2.CL_alpha);
   connect(CL0, signalBus2.CL0);

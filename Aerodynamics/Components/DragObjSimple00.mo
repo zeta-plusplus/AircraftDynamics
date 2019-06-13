@@ -51,9 +51,9 @@ model DragObjSimple00
   "flow station of amb";
   
   //********** Interfaces **********
-  Modelica.Icons.SignalBus signalBus1 annotation(
+  AircraftDynamics.Types.InfoBus signalBus1 annotation(
     Placement(visible = true, transformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Icons.SignalBus signalBus2 annotation(
+  AircraftDynamics.Types.InfoBus signalBus2 annotation(
     Placement(visible = true, transformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Fluid.Interfaces.FluidPort_a port_amb 
   (

@@ -47,9 +47,9 @@ model AirfoilSimple00
   Real Cl;
   Real Cd(start = CdfDes);
   //********** Interfaces **********
-  Modelica.Icons.SignalBus signalBus1 "" annotation(
+  AircraftDynamics.Types.InfoBus signalBus1 "" annotation(
     Placement(visible = true, transformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Icons.SignalBus signalBus2 "" annotation(
+  AircraftDynamics.Types.InfoBus signalBus2 "" annotation(
     Placement(visible = true, transformation(origin = {50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 algorithm
 //********** assignment, design parameter to variables **********
@@ -62,7 +62,7 @@ algorithm
   kCdp := kCdpDes;
   pwrCdp := pwrCdpDes;
 equation
-  connect(signalBus1.alpha, alpha) annotation(
+  connect(alpha, signalBus1.alpha) annotation(
     Line);
   connect(Cd, signalBus2.Cd) annotation(
     Line);

@@ -136,7 +136,7 @@ model Flight2Fluid
   parameter Medium.MassFlowRate m_flow_start = 10.0 "Start value for mass flow rate" annotation(
     Evaluate = true,
     Dialog(tab = "Initialization"));
-  Modelica.Icons.SignalBus signalBus1 annotation(
+  AircraftDynamics.Types.InfoBus signalBus1 annotation(
     Placement(visible = true, transformation(origin = {70, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {70, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_Mn annotation(
     Placement(visible = true, transformation(origin = {100, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -3,6 +3,7 @@ within AircraftDynamics.Aerodynamics.Example.test;
 model WingSimple00_test02
   extends Modelica.Icons.Example;
   package atmAir = Modelica.Media.Air.DryAirNasa;
+  //redeclare package Medium = atmAir
   //----
   inner Modelica.Fluid.System system annotation(
     Placement(visible = true, transformation(origin = {-90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -12,8 +13,6 @@ model WingSimple00_test02
     Placement(visible = true, transformation(origin = {60, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Ramp ramp1(duration = 20, height = -0.5, offset = 0.9, startTime = 30)  annotation(
     Placement(visible = true, transformation(origin = {-80, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Ramp ramp2(duration = 20, height = 40 * Modelica.Constants.pi / 180, offset = -20 * Modelica.Constants.pi / 180, startTime = 30)  annotation(
-    Placement(visible = true, transformation(origin = {-60, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min1 annotation(
     Placement(visible = true, transformation(origin = {-20, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Max max1 annotation(
@@ -27,14 +26,14 @@ model WingSimple00_test02
   PropulsionSystem.Utilities.SetIndependent setIndependent1(independent(start = 4 * Modelica.Constants.pi / 180))  annotation(
     Placement(visible = true, transformation(origin = {-90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
+  connect(ramp1.y, wingSimple001.busFltStates1.Mn) annotation(
+    Line(points = {{-68, 10}, {52, 10}, {52, 20}, {52, 20}}, color = {0, 0, 127}));
+  connect(max1.y, wingSimple001.busFltStates1.alpha) annotation(
+    Line(points = {{32, -30}, {52, -30}, {52, 20}, {52, 20}}, color = {0, 0, 127}));
   connect(wingSimple001.y_Lf, setDependent1.dependent_in) annotation(
     Line(points = {{60, 42}, {60, 50}, {79, 50}}, color = {0, 0, 127}));
   connect(boundary.ports[1], wingSimple001.port_amb) annotation(
     Line(points = {{-60, 50}, {52, 50}, {52, 40}}, color = {0, 127, 255}));
-  connect(ramp1.y, wingSimple001.u_Mn) annotation(
-    Line(points = {{-68, 10}, {-42, 10}, {-42, 28}, {49, 28}}, color = {0, 0, 127}));
-  connect(max1.y, wingSimple001.u_alpha) annotation(
-    Line(points = {{32, -30}, {36, -30}, {36, 24}, {49, 24}}, color = {0, 0, 127}));
   connect(setIndependent1.independent_out, min1.u1) annotation(
     Line(points = {{-78, -30}, {-76, -30}, {-76, -12}, {-42, -12}, {-42, -24}, {-32, -24}, {-32, -24}}, color = {0, 0, 127}));
   connect(const1.y, max1.u2) annotation(
