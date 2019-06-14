@@ -10,6 +10,11 @@ model WingSimple00
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium annotation(
     choicesAllMatching = true);
   //********** Parameters **********
+  parameter Modelica.SIunits.Angle inciAng_param=0.0
+    "wing incident angle with respect to aircraft ref. center line"
+    annotation(
+    Dialog(group="Geometry and Characteristics, wing"));
+  
   //--- inner-connected, to AirfoilSimple ---
   inner parameter Real ClmaxDes = 1.5 "" annotation(
     Dialog(group = "Characteristics, airfoil"));
@@ -53,12 +58,22 @@ model WingSimple00
   //********** Internal variables **********
   Modelica.SIunits.Force Lf;
   Modelica.SIunits.Force Df;
+  Modelica.SIunits.Force Df0 "total of zero-lift(parasite) drag";
+  Modelica.SIunits.Force DfFric "friction drag";
+  Modelica.SIunits.Force DfPress "pressure drag";
+  Modelica.SIunits.Force DfInduced "induced drag";
   Modelica.SIunits.Velocity Vflow;
   Modelica.SIunits.Velocity Vsound;
   Modelica.SIunits.Angle alpha;
+  Modelica.SIunits.Angle alphaFlt;
+  Modelica.SIunits.Angle inciAng;
   Real Mn;
   Real CL;
   Real CD;
+  Real CD0;
+  Real CDf;
+  Real CDp;
+  Real CDi;
   Real LqD;
   Modelica.SIunits.Area S;
   Medium.BaseProperties fluid_amb(p.start = pAmb_init, T.start = Tamb_init, state.p.start = pAmb_init, state.T.start = Tamb_init, h.start = hAmb_init) "flow station of amb";
@@ -82,7 +97,7 @@ equation
     Line(points = {{-55, 22}, {-55, 8}, {15, 8}, {15, 20}}, color = {255, 204, 51}, thickness = 0.5));
   connect(busFltStates1.Vflow, Vflow);
   connect(busFltStates1.Vsound, Vsound);
-  connect(alpha, busFltStates1.alpha);
+  connect(alphaFlt, busFltStates1.alpha);
   connect(Mn, busFltStates1.Mn);
   connect(alpha, airfoilSimple001.signalBus1.alpha);
   connect(Mn, airfoil2WingSimple001.signalBus1.Mn);
@@ -98,13 +113,24 @@ equation
   y_Df = Df;
   CL = airfoil2WingSimple001.signalBus2.CL;
   CD = airfoil2WingSimple001.signalBus2.CD;
+  CD0 = airfoil2WingSimple001.signalBus2.CD0;
+  CDf = airfoil2WingSimple001.signalBus2.CDf;
+  CDp = airfoil2WingSimple001.signalBus2.CDp;
+  CDi = airfoil2WingSimple001.signalBus2.CDi;
   S = airfoil2WingSimple001.signalBus2.S;
 //********** Eqns describing physics **********
+  inciAng= inciAng_param;
+  alpha=alphaFlt+inciAng;
   Vsound = Medium.velocityOfSound(fluid_amb.state);
   Mn = Vflow / Vsound;
   Lf = CL * S * 1 / 2 * fluid_amb.d * (sign(Vflow) * abs(Vflow) ^ 2.0);
   Df = CD * S * 1 / 2 * fluid_amb.d * (sign(Vflow) * abs(Vflow) ^ 2.0);
-  if 0 < Df and 0 < Lf then
+  Df0 = CD0 * S * 1 / 2 * fluid_amb.d * (sign(Vflow) * abs(Vflow) ^ 2.0);
+  DfFric = CDf * S * 1 / 2 * fluid_amb.d * (sign(Vflow) * abs(Vflow) ^ 2.0);
+  DfPress = CDp * S * 1 / 2 * fluid_amb.d * (sign(Vflow) * abs(Vflow) ^ 2.0);
+  DfInduced = CDi * S * 1 / 2 * fluid_amb.d * (sign(Vflow) * abs(Vflow) ^ 2.0);
+  
+  if (0 < Df) and (0 < Lf) then
     LqD = Lf / Df;
   else
     LqD = 0.0;

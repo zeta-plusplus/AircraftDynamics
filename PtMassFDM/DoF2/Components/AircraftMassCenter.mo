@@ -15,8 +15,7 @@ model AircraftMassCenter
   Modelica.SIunits.Force weight(start = massBase * 9.81);
   Modelica.SIunits.Angle theta(start=0) "pitch angle";
   Modelica.SIunits.Angle gamma(start=0) "flight path angle";
-  Modelica.SIunits.Angle alpha(start=0) "angle of attack";
-  Modelica.SIunits.Angle epsiron(start=0) "thrust vector offset angle";
+  Modelica.SIunits.Angle alpha(start=0) "angle of attack, airflow vs. aircraft reference center line";
   Modelica.SIunits.Velocity Vflow(start=100) "TAS";
   Real Mn(start=0.5) "flight mach number";
   Modelica.SIunits.Length radiPerpend(start=0) "radius of centripital motion, perpendicular to aircraft center line";
@@ -30,7 +29,6 @@ algorithm
 
 equation
   connect(busFltStates1.alpha, alpha);
-  connect(busFltStates1.epsiron, epsiron);
   connect(busFltStates1.Vflow, Vflow);
   connect(busFltStates1.Mn, Mn);
   

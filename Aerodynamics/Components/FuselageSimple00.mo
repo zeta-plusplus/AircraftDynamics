@@ -9,13 +9,11 @@ model FuselageSimple00
   //********** Package **********
   replaceable package Medium= Modelica.Media.Interfaces.PartialMedium
     annotation (choicesAllMatching= true);
-  
   //********** Parameters **********
   parameter Real CDdes = 0.02 "drag coefficient" annotation(
     Dialog(group = "Characteristics"));
   parameter Modelica.SIunits.Area SrefDes=1.0 "reference area" annotation(
     Dialog(group = "Geometry"));
-  
   //********** Initialization Parameters **********
   //--- fluid_amb, port_amb ---
   parameter Modelica.SIunits.MassFlowRate m_flowAmb_init(displayUnit="kg/s")= 0.0
@@ -33,7 +31,6 @@ model FuselageSimple00
   parameter Modelica.SIunits.SpecificEnthalpy hAmb_init(displayUnit="J/kg")= 1.004*1000*288.15
     ""
     annotation(Dialog(tab="Initialization", group="Fluid states"));
-  
   //********** variables **********
   //---calculated parameters---
   Real CD(start=CDdes);
@@ -49,42 +46,30 @@ model FuselageSimple00
     state.T.start = Tamb_init, h.start = hAmb_init
   ) 
   "flow station of amb";
-  
   //********** Interfaces **********
-  Modelica.Icons.SignalBus signalBus1 annotation(
-    Placement(visible = true, transformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Icons.SignalBus signalBus2 annotation(
-    Placement(visible = true, transformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Fluid.Interfaces.FluidPort_a port_amb 
-  (
-    redeclare package Medium = Medium,
-    m_flow.start= m_flowAmb_init,
-    h_outflow.start= hAmb_init
-  )
-    ""
-    annotation(
+  Modelica.Fluid.Interfaces.FluidPort_a port_amb(redeclare package Medium = Medium, m_flow.start = m_flowAmb_init, h_outflow.start = hAmb_init) "" annotation(
     Placement(visible = true, transformation(origin = {-80, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-80, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput u_Mn annotation(
-    Placement(visible = true, transformation(origin = {-110, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_Df annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AircraftDynamics.Types.InfoBus busFltStates1 annotation(
+    Placement(visible = true, transformation(origin = {-70, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-70, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 algorithm
-  //********** assignment, design parameter to variables (calculated parameters) **********
+//********** assignment, design parameter to variables (calculated parameters) **********
   CD:= CDdes;
   Sref:= SrefDes;
   
 equation
-  //********** Connections, interface <-> internal variables **********
-  //-- port_amb --
+//********** Connections, interface <-> internal variables **********
+  connect(Mn, busFltStates1.Mn);
+//-- port_amb --
   fluid_amb.p = port_amb.p;
   port_amb.h_outflow= fluid_amb.h;
   fluid_amb.h= actualStream(port_amb.h_outflow);
   fluid_amb.Xi= actualStream(port_amb.Xi_outflow);
   port_amb.m_flow=1.0;
-  //-- else --
-  Mn = u_Mn;
-  y_Df= Df;
-  //********** Eqns describing physics **********
+//-- else --
+  y_Df = Df;
+//********** Eqns describing physics **********
   Mn = Vflow / Medium.velocityOfSound(fluid_amb.state);
   Df= CD*Sref*1/2*fluid_amb.d*(sign(Vflow)*abs(Vflow)^(2.0));
   

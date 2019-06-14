@@ -48,6 +48,8 @@ model Airfoil2WingSimple00
   Real CL;
   Real CD;
   Real CD0;
+  Real CDf;
+  Real CDp;
   Real CDi;
   Modelica.SIunits.Angle alphaEff;
   Modelica.SIunits.Angle alphaInd;
@@ -89,8 +91,10 @@ equation
     Line);
   connect(CD, signalBus2.CD) annotation(
     Line);
-  connect(CD0, signalBus2.CD0);
+  connect(CD0,signalBus2.CD0);
   connect(CDi, signalBus2.CDi);
+  connect(CDf, signalBus2.CDf);
+  connect(CDp, signalBus2.CDp);
   connect(S,signalBus2.S);
   
   //********** Geometries **********
@@ -126,7 +130,9 @@ equation
   calclate Cd
     linear model
   *********************************************/
-  CD0= Cdf+Cdp;
+  CDf=Cdf;
+  CDp= Cdp;
+  CD0= CDf+CDp;
   CDi= CL^2/(Modelica.Constants.pi*effOs*AR);
   CD= CD0+CDi;
   
