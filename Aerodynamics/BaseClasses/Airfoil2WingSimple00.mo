@@ -111,7 +111,7 @@ equation
   alpha4CLmin= alpha4Clmin;
   alpha4CLmax= alpha4Clmax;
     
-  CL_alpha = Cl_alpha * cos(sweep) / (sqrt(1 - Mn ^ 2 * cos(sweep) ^ 2 + (Cl_alpha * cos(sweep) / (Modelica.Constants.pi * effOs * AR)) ^ 2) + Cl_alpha * cos(sweep) / (Modelica.Constants.pi * effOs * AR));
+  CL_alpha = Cl_alpha * cos(sweep) / (sqrt(abs(1 - Mn ^ 2 * cos(sweep) ^ 2 + (Cl_alpha * cos(sweep) / (Modelica.Constants.pi * effOs * AR)) ^ 2)) + Cl_alpha * cos(sweep) / (Modelica.Constants.pi * effOs * AR));
   
   CL0= CL_alpha*(0-alpha4CL0);
   
