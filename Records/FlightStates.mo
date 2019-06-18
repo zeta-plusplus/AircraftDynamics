@@ -12,7 +12,6 @@ record FlightStates
   Modelica.SIunits.Velocity V "flight velocity, or 'TAS'";
   Real Mn "flight mach number";
   
-  
   /*-------------------------
   -------------------------*/
   Modelica.SIunits.Force X "Force along airframe x-axis";
@@ -21,9 +20,9 @@ record FlightStates
   
   /*-------------------------
   -------------------------*/
-  Modelica.SIunits.Angle alpha "";
-  Modelica.SIunits.Angle gamma "";
-  Modelica.SIunits.Angle beta "";
+  Modelica.SIunits.Angle alpha "angle of attack";
+  Modelica.SIunits.Angle gamma "flight path angle";
+  Modelica.SIunits.Angle beta "sideslip angle";
   
   /*-------------------------
   -------------------------*/
