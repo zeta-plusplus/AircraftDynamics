@@ -16,15 +16,17 @@ model AirfoilSimple00
     Dialog(group = "Characteristics"));
   parameter Modelica.SIunits.Angle alpha4Cl0des = 0.0 "" annotation(
     Dialog(group = "Characteristics"));
-  parameter Modelica.SIunits.Angle alpha4ClmaxDes = 15.0 * Modelica.Constants.pi / 180 "" annotation(
+  parameter Modelica.SIunits.Angle alpha4ClmaxDes(displayUnit="deg")
+   = 15.0 * Modelica.Constants.pi / 180 "" annotation(
     Dialog(group = "Characteristics"));
-  parameter Modelica.SIunits.Angle alpha4ClminDes = -15.0 * Modelica.Constants.pi / 180 "" annotation(
+  parameter Modelica.SIunits.Angle alpha4ClminDes(displayUnit="deg")
+   = -15.0 * Modelica.Constants.pi / 180 "" annotation(
     Dialog(group = "Characteristics"));
   parameter Real CdfDes = 0.01 "" annotation(
     Dialog(group = "Characteristics"));
-  parameter Real alpha_CdpMinDes = 0.0 * Modelica.Constants.pi / 180 "" annotation(
+  parameter Modelica.SIunits.Angle alpha_CdpMinDes(displayUnit="deg") = 0.0 * Modelica.Constants.pi / 180 "" annotation(
     Dialog(group = "Characteristics"));
-  parameter Real kCdpDes = 100.0 "" annotation(
+  parameter Real kCdpDes = 0.29 "" annotation(
     Dialog(group = "Characteristics"));
   parameter Real pwrCdpDes = 4.0 "" annotation(
     Dialog(group = "Characteristics"));
@@ -33,15 +35,15 @@ model AirfoilSimple00
   Real Clmax(start = ClmaxDes);
   Real Cl_alpha(start = ClmaxDes / (alpha4ClmaxDes - alpha4Cl0des));
   Real Cl0(start = 0);
-  Modelica.SIunits.Angle alpha4Cl0(start = alpha4Cl0des);
-  Modelica.SIunits.Angle alpha4Clmax(start = alpha4ClmaxDes);
-  Modelica.SIunits.Angle alpha4Clmin(start = alpha4ClminDes);
+  Modelica.SIunits.Angle alpha4Cl0(displayUnit="deg", start = alpha4Cl0des);
+  Modelica.SIunits.Angle alpha4Clmax(displayUnit="deg", start = alpha4ClmaxDes);
+  Modelica.SIunits.Angle alpha4Clmin(displayUnit="deg", start = alpha4ClminDes);
   Real Cdf(start = CdfDes);
   Real alpha_CdpMin(start = alpha_CdpMinDes);
   Real kCdp(start = kCdpDes);
   Real pwrCdp(start = pwrCdpDes);
   //---
-  Modelica.SIunits.Angle alpha(start = 5.0 * Modelica.Constants.pi / 180);
+  Modelica.SIunits.Angle alpha(displayUnit="deg", start = 5.0 * Modelica.Constants.pi / 180);
   //---
   Real Cdp;
   Real Cl;

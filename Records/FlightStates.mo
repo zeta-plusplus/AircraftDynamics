@@ -18,6 +18,9 @@ record FlightStates
   Modelica.SIunits.Force Y "Force along airframe y-axis";
   Modelica.SIunits.Force Z "Force along airframe z-axis";
   
+  Modelica.SIunits.Force Ftan "force tangent to flight velocity, not along x-axis";
+  Modelica.SIunits.Force Fcentr "centripital force which is perpendicular to flight velocity, not along z-axis";
+  
   /*-------------------------
   -------------------------*/
   Modelica.SIunits.Angle alpha "angle of attack";

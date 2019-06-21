@@ -104,13 +104,20 @@ equation
   /*------------------------------
   eqns of dynamics
   ------------------------------*/
-  fltStates.X= sum_u_thrusts - sum_u_drags - weight*sin(fltStates.theta);
-  fltStates.Z= sum_u_lifts - weight*cos(fltStates.theta);
-  massTotal*(der(fltStates.V))= fltStates.X;
-  massTotal*(fltStates.V*der(fltStates.gamma))= fltStates.Z;
+  fltStates.Ftan= sum_u_thrusts*cos(fltStates.alpha) - sum_u_drags - weight*sin(fltStates.gamma);
+  fltStates.Fcentr= sum_u_thrusts*sin(fltStates.alpha) + sum_u_lifts - weight*cos(fltStates.gamma);
+  
+  fltStates.X= sum_u_thrusts + sum_u_lifts*sin(fltStates.alpha) - sum_u_drags*cos(fltStates.alpha) - weight*sin(fltStates.theta);
+  fltStates.Z= sum_u_lifts*cos(fltStates.alpha) + sum_u_drags*sin(fltStates.alpha) - weight*cos(fltStates.theta);
+  
+  massTotal*(der(fltStates.V))= fltStates.Ftan;
+  massTotal*(fltStates.V*der(fltStates.gamma))= fltStates.Fcentr;
   der(fltStates.gamma)=fltStates.q;
   fltStates.V= radiPerpend*fltStates.gamma;
   
+  /*------------------------------
+  convert angles for display
+  ------------------------------*/
   [fltAng4disp.alpha, fltAng4disp.theta, fltAng4disp.gamma]
     = AircraftDynamics.Functions.calcAngles4display([fltStates.alpha, fltStates.theta, fltStates.gamma]);
   
