@@ -11,15 +11,15 @@ model WingSimple00_test02
     Placement(visible = true, transformation(origin = {-50, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.Aerodynamics.Components.WingSimple00 wingSimple001(redeclare package Medium = atmAir, inciAng_param = 0.0872665) annotation(
     Placement(visible = true, transformation(origin = {35, 35}, extent = {{-35, -35}, {35, 35}}, rotation = 0)));
-  Modelica.Blocks.Sources.Ramp ramp1(duration = 80, height = -0.5, offset = 0.9, startTime = 10) annotation(
+  Modelica.Blocks.Sources.Ramp ramp1(duration = 80, height = -0.6, offset = 0.9, startTime = 10) annotation(
     Placement(visible = true, transformation(origin = {-80, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min1 annotation(
     Placement(visible = true, transformation(origin = {-50, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Max max1 annotation(
     Placement(visible = true, transformation(origin = {-10, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const(k = 15 * Modelica.Constants.pi / 180) annotation(
+  Modelica.Blocks.Sources.Constant const(k = 14 * Modelica.Constants.pi / 180) annotation(
     Placement(visible = true, transformation(origin = {-70, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Sources.Constant const1(k = -15 * Modelica.Constants.pi / 180) annotation(
+  Modelica.Blocks.Sources.Constant const1(k = -14 * Modelica.Constants.pi / 180) annotation(
     Placement(visible = true, transformation(origin = {-30, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   PropulsionSystem.Utilities.SetDependent setDependent1(tgtVal = 5000) annotation(
     Placement(visible = true, transformation(origin = {90, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

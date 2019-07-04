@@ -9,6 +9,18 @@ model Airfoil2WingSimple00
   //********** Package **********
   //##### none #####
   //********** Parameters **********
+  //----- switches -----
+  parameter AircraftDynamics.Types.switches.switch_input switchInput_Sdes
+      =AircraftDynamics.Types.switches.switch_input.use_desValue
+   ""
+    annotation(
+    Dialog(group = "switch"),
+    choicesAllMatching= true,   
+    Evaluate = true,
+    HideResult = true
+    );
+  
+  
   parameter Real ARdes = 5.0 "" annotation(
     Dialog(group = "Geometry"));
   parameter Real rambdaDes = 1.0 "" annotation(
@@ -68,7 +80,9 @@ algorithm
   rambda := rambdaDes;
   sweep := sweepDes;
   effOs := effOsDes;
-  S := Sdes;
+  
+  
+  
   ChRoot := ChRootDes;
 equation
   connect(alpha, signalBus1.alpha) annotation(
@@ -96,6 +110,12 @@ equation
   connect(CDf, signalBus2.CDf);
   connect(CDp, signalBus2.CDp);
   connect(S,signalBus2.S);
+  
+  if(switchInput_Sdes==AircraftDynamics.Types.switches.switch_input.use_desValue)then
+    S = Sdes;
+  elseif(switchInput_Sdes==AircraftDynamics.Types.switches.switch_input.via_expConnector)then
+    connect(S, signalBus1.S);
+  end if;
   
   //********** Geometries **********
   AR = b ^ 2 / S;

@@ -5,7 +5,7 @@ type switch_input= enumeration
   asCalculated "",
   use_inputSignal "",
   use_desValue "",
-  calc_variOfSubcomponent "",
+  calc_varOfSubcomponent "",
   via_expConnector "",
   notUsed ""
 )

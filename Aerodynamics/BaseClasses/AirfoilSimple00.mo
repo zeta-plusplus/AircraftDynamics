@@ -26,7 +26,7 @@ model AirfoilSimple00
     Dialog(group = "Characteristics"));
   parameter Modelica.SIunits.Angle alpha_CdpMinDes(displayUnit="deg") = 0.0 * Modelica.Constants.pi / 180 "" annotation(
     Dialog(group = "Characteristics"));
-  parameter Real kCdpDes = 0.29 "" annotation(
+  parameter Real kCdpDes = 0.2 "" annotation(
     Dialog(group = "Characteristics"));
   parameter Real pwrCdpDes = 4.0 "" annotation(
     Dialog(group = "Characteristics"));
