@@ -1,0 +1,29 @@
+within AircraftDynamics.PtMassFDM.DoF2.Examples.tests;
+
+model testAircraft002
+  extends Modelica.Icons.Example;
+  package atmAir = Modelica.Media.Air.DryAirNasa;
+  //redeclare package Medium = atmAir
+  //----------
+  AircraftDynamics.PtMassFDM.DoF2.Components.AircraftMassCenter aircraftMassCenter1(massBase = 1000, nIn_FxBackward = 0, nIn_FxForward = 0, nIn_Fz = 0, switchDef_modeStabilityLongi = AircraftDynamics.Types.switches.switch_modeStabilityLongi.maintainAoA) annotation(
+    Placement(visible = true, transformation(origin = {50, 10}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
+  inner Modelica.Fluid.System system annotation(
+    Placement(visible = true, transformation(origin = {-90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  inner Modelica.Mechanics.MultiBody.World world annotation(
+    Placement(visible = true, transformation(origin = {-60, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain gain1(k = Modelica.Constants.pi / 180)  annotation(
+    Placement(visible = true, transformation(origin = {-50, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant const(k = 1)  annotation(
+    Placement(visible = true, transformation(origin = {-90, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant const1(k = 0.1) annotation(
+    Placement(visible = true, transformation(origin = {-50, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+equation
+  connect(const1.y, aircraftMassCenter1.busFltStates1.Mn) annotation(
+    Line(points = {{-38, -30}, {26, -30}, {26, -20}, {26, -20}}, color = {0, 0, 127}));
+  connect(gain1.y, aircraftMassCenter1.busFltStates1.alphaCmd) annotation(
+    Line(points = {{-38, -90}, {26, -90}, {26, -20}, {26, -20}}, color = {0, 0, 127}));
+  connect(const.y, gain1.u) annotation(
+    Line(points = {{-78, -90}, {-62, -90}, {-62, -90}, {-62, -90}}, color = {0, 0, 127}));
+annotation(
+    experiment(StartTime = 0, StopTime = 200, Tolerance = 1e-6, Interval = 0.002),
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));end testAircraft002;

@@ -33,11 +33,11 @@ model AircraftMassCenter
     annotation(
     Dialog(tab = "Initialization", group = "Flight states"));
   
-  parameter Modelica.SIunits.Angle gammaInit=1.0*Modelica.Constants.pi/180.0 ""
+  parameter Modelica.SIunits.Angle gammaInit=0.000001*Modelica.Constants.pi/180.0 ""
     annotation(
     Dialog(tab = "Initialization", group = "Flight states"));
   
-  parameter Modelica.SIunits.AngularVelocity qInit=0.0 ""
+  parameter Modelica.SIunits.AngularVelocity qInit=0.000001*Modelica.Constants.pi/180.0 ""
     annotation(
     Dialog(tab = "Initialization", group = "Flight states"));
   
@@ -59,10 +59,18 @@ model AircraftMassCenter
   AircraftDynamics.Records.angles4display fltAng4disp;
   
   Modelica.SIunits.Mass massTotal(start = massBase);
+  
+  Modelica.SIunits.Force lift;
+  Modelica.SIunits.Force drag;
+  Modelica.SIunits.Force thrust;
+  
   Modelica.SIunits.Force weight(start = massBase * 9.81);
   Modelica.SIunits.Length radiPerpend(start=0) "radius of centripital motion, perpendicular to aircraft center line";
   Modelica.SIunits.Position xWorld(start=xWorldInit) "x-position in world frame";
   Modelica.SIunits.Position alt(start=altInit) "altitude(y-position) in world frame";
+  
+  Real LqD;
+  
   //********** Internal objects **********
 equation
   connect(busFltStates1.alpha, fltStates.alpha);
@@ -80,8 +88,8 @@ equation
     connect(fltStates.theta, busFltStates1.thetaCmd);
   end if;
   
-  if (0 < nIn_masses) then
-    massTotal = sum_u_masses + massBase;
+  if (0 < nIn_mass) then
+    massTotal = sum_u_mass + massBase;
   else
     massTotal = massBase;
   end if;
@@ -91,8 +99,8 @@ equation
   /*------------------------------
   eqns of kinematics
   ------------------------------*/
-  fltStates.theta = fltStates.gamma + fltStates.alpha;
-// relation among angles
+  fltStates.theta = fltStates.gamma + fltStates.alpha; // relation among angles
+  
   der(xWorld) = fltStates.V * cos(fltStates.gamma);
   der(alt)= fltStates.V*sin(fltStates.gamma);
   fltStates.u= fltStates.V*cos(fltStates.alpha);
@@ -101,16 +109,22 @@ equation
   /*------------------------------
   eqns of dynamics
   ------------------------------*/
-  fltStates.Ftan= sum_u_thrusts*cos(fltStates.alpha) - sum_u_drags - weight*sin(fltStates.gamma);
-  fltStates.Fcentr= sum_u_thrusts*sin(fltStates.alpha) + sum_u_lifts - weight*cos(fltStates.gamma);
+  thrust= sum_u_FxForward;
+  fltStates.Ftan= thrust*cos(fltStates.alpha) - drag - weight*sin(fltStates.gamma);
+  fltStates.Fcentr= thrust*sin(fltStates.alpha) + lift - weight*cos(fltStates.gamma);
   
-  fltStates.X= sum_u_thrusts + sum_u_lifts*sin(fltStates.alpha) - sum_u_drags*cos(fltStates.alpha) - weight*sin(fltStates.theta);
-  fltStates.Z= sum_u_lifts*cos(fltStates.alpha) + sum_u_drags*sin(fltStates.alpha) - weight*cos(fltStates.theta);
+  fltStates.X= -1.0*(sum_u_FxForward - sum_u_FxBackward - weight*sin(fltStates.theta));
+  fltStates.Z= -1.0*(sum_u_Fz - weight*cos(fltStates.theta));
+  
+  fltStates.X= -1.0*( thrust + lift*sin(fltStates.alpha) - drag*cos(fltStates.alpha) - weight*sin(fltStates.theta) );
+  fltStates.Z= -1.0*( lift*cos(fltStates.alpha) + drag*sin(fltStates.alpha) - weight*cos(fltStates.theta) );
   
   massTotal*(der(fltStates.V))= fltStates.Ftan;
   massTotal*(fltStates.V*der(fltStates.gamma))= fltStates.Fcentr;
   der(fltStates.gamma)=fltStates.q;
   fltStates.V= radiPerpend*der(fltStates.gamma);
+  
+  LqD= lift/drag;
   
   /*------------------------------
   convert angles for display
