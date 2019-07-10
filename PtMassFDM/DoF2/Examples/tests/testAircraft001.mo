@@ -5,8 +5,8 @@ model testAircraft001
   package atmAir = Modelica.Media.Air.DryAirNasa;
   //redeclare package Medium = atmAir
   //----------
-  AircraftDynamics.PtMassFDM.DoF2.Components.AircraftMassCenter aircraftMassCenter1(Vinit = 62.78, gammaInit = 0.0174533,massBase = 1160, switchDef_modeStabilityLongi = AircraftDynamics.Types.switches.switch_modeStabilityLongi.maintainAoA) annotation(
-    Placement(visible = true, transformation(origin = {50, 10}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
+  AircraftDynamics.PtMassFDM.DoF2.Components.AircraftMassCenter aircraftMassCenter1(Vinit = 100, gammaInit = 1.74533e-05,massBase = 1160, switchDef_modeStabilityLongi = AircraftDynamics.Types.switches.switch_modeStabilityLongi.maintainAoA) annotation(
+    Placement(visible = true, transformation(origin = {50, 0}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   inner Modelica.Mechanics.MultiBody.World world annotation(
     Placement(visible = true, transformation(origin = {-50, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0.0 * 2600) annotation(
@@ -20,23 +20,23 @@ model testAircraft001
   Modelica.Blocks.Sources.Constant const1(k = 2) annotation(
     Placement(visible = true, transformation(origin = {-90, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(k = Modelica.Constants.pi / 180)  annotation(
-    Placement(visible = true, transformation(origin = {-50, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-60, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
-  connect(const1.y, gain1.u) annotation(
-    Line(points = {{-78, -90}, {-62, -90}}, color = {0, 0, 127}));
   connect(gain1.y, aircraftMassCenter1.busFltStates1.alphaCmd) annotation(
-    Line(points = {{-39, -90}, {26, -90}, {26, -20}}, color = {0, 0, 127}));
-  connect(wingSimple001.y_Fx, aircraftMassCenter1.u_FxBackward[1]) annotation(
-    Line(points = {{2, -34}, {92, -34}, {92, 10}, {80, 10}, {80, 10}}, color = {0, 0, 127}));
-  connect(wingSimple001.y_Fz, aircraftMassCenter1.u_Fz[1]) annotation(
-    Line(points = {{-20, -18}, {-20, -18}, {-20, 50}, {50, 50}, {50, 40}, {50, 40}}, color = {0, 0, 127}));
+    Line(points = {{-49, -90}, {26, -90}, {26, -30}}, color = {0, 0, 127}));
+  connect(const1.y, gain1.u) annotation(
+    Line(points = {{-78, -90}, {-72, -90}}, color = {0, 0, 127}));
   connect(const.y, aircraftMassCenter1.u_FxForward[1]) annotation(
-    Line(points = {{-78, 10}, {20, 10}, {20, 10}, {20, 10}}, color = {0, 0, 127}));
+    Line(points = {{-79, 10}, {-29, 10}, {-29, 0}, {20, 0}}, color = {0, 0, 127}));
+  connect(wingSimple001.busFltStates1, aircraftMassCenter1.busFltStates1) annotation(
+    Line(points = {{-36, -60}, {-36, -66}, {26, -66}, {26, -30}}, color = {255, 204, 51}, thickness = 0.5));
+  connect(wingSimple001.y_Fz, aircraftMassCenter1.u_Fz[1]) annotation(
+    Line(points = {{-20, -18}, {-20, 46}, {50, 46}, {50, 30}}, color = {0, 0, 127}));
+  connect(wingSimple001.y_Fx, aircraftMassCenter1.u_FxBackward[1]) annotation(
+    Line(points = {{2, -34}, {92, -34}, {92, 0}, {80, 0}}, color = {0, 0, 127}));
   connect(boundary.ports[1], wingSimple001.port_amb) annotation(
     Line(points = {{-80, 50}, {-36, 50}, {-36, -20}}, color = {0, 127, 255}));
-  connect(wingSimple001.busFltStates1, aircraftMassCenter1.busFltStates1) annotation(
-    Line(points = {{-36, -60}, {-36, -66}, {26, -66}, {26, -20}}, color = {255, 204, 51}, thickness = 0.5));
   annotation(
     experiment(StartTime = 0, StopTime = 300, Tolerance = 1e-06, Interval = 0.02),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
