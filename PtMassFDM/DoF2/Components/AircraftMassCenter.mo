@@ -1,7 +1,7 @@
 within AircraftDynamics.PtMassFDM.DoF2.Components;
 
 model AircraftMassCenter
-  extends AircraftDynamics.PtMassFDM.DoF2.Interfaces.PtMass;
+  extends AircraftDynamics.Interfaces.PtMassFrame;
   //----- imports -----
   import Modelica.Constants;
   import AircraftDynamics.Types.switches;
