@@ -20,6 +20,16 @@ model Airfoil2WingSimple00
     HideResult = true
     );
   
+  parameter AircraftDynamics.Types.switches.switch_input switchInput_ARdes
+      =AircraftDynamics.Types.switches.switch_input.use_desValue
+   ""
+    annotation(
+    Dialog(group = "switch"),
+    choicesAllMatching= true,   
+    Evaluate = true,
+    HideResult = true
+    );
+  
   
   parameter Real ARdes = 5.0 "" annotation(
     Dialog(group = "Geometry"));
@@ -76,11 +86,9 @@ model Airfoil2WingSimple00
     Placement(visible = true, transformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 algorithm
   //********** assignment, design parameter to variables (calculated parameters) **********
-  AR := ARdes;
   rambda := rambdaDes;
   sweep := sweepDes;
   effOs := effOsDes;
-  
   
   
   ChRoot := ChRootDes;
@@ -111,11 +119,20 @@ equation
   connect(CDp, signalBus2.CDp);
   connect(S,signalBus2.S);
   
+  //----- S -----
   if(switchInput_Sdes==AircraftDynamics.Types.switches.switch_input.use_desValue)then
     S = Sdes;
   elseif(switchInput_Sdes==AircraftDynamics.Types.switches.switch_input.via_expConnector)then
     connect(S, signalBus1.S);
   end if;
+  
+  //----- AR -----
+  if(switchInput_ARdes==AircraftDynamics.Types.switches.switch_input.use_desValue)then
+    AR=ARdes;
+  elseif(switchInput_ARdes==AircraftDynamics.Types.switches.switch_input.via_expConnector)then
+    connect(AR, signalBus1.AR);
+  end if;
+  
   
   //********** Geometries **********
   AR = b ^ 2 / S;
