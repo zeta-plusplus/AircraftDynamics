@@ -84,6 +84,10 @@ model WingSimple00
   Real LqD;
   Modelica.SIunits.Area S;
   Real AR;
+  Real rambda;
+  Real sweep;
+  Real effOs;
+  Modelica.SIunits.Length ChRoot;
   Medium.BaseProperties fluid_amb(p.start = pAmb_init, T.start = Tamb_init, state.p.start = pAmb_init, state.T.start = Tamb_init, h.start = hAmb_init) "flow station of amb";
   //********** Interfaces **********
   Modelica.Fluid.Interfaces.FluidPort_a port_amb(redeclare package Medium = Medium, m_flow.start = m_flowAmb_init, h_outflow.start = hAmb_init) "" annotation(
@@ -96,7 +100,7 @@ model WingSimple00
     Placement(visible = true, transformation(origin = {-49.75, 39.8}, extent = {{-50.25, -40.2}, {50.25, 40.2}}, rotation = 0)));
   AircraftDynamics.Types.InfoBus busFltStates1 annotation(
     Placement(visible = true, transformation(origin = {-80, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-30, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.Aerodynamics.BaseClasses.Airfoil2WingSimple00 airfoil2WingSimple001(switchInput_ARdes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_Sdes = AircraftDynamics.Types.switches.switch_input.via_expConnector)  annotation(
+  AircraftDynamics.Aerodynamics.BaseClasses.Airfoil2WingSimple00 airfoil2WingSimple001(switchInput_ARdes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_ChRootDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_Sdes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_effOsDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_rambdaDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_sweepDes = AircraftDynamics.Types.switches.switch_input.via_expConnector)  annotation(
     Placement(visible = true, transformation(origin = {40, -30}, extent = {{-50, -50}, {50, 50}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_Fz annotation(
     Placement(visible = true, transformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {0, 145}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
@@ -137,6 +141,16 @@ equation
   S = airfoil2WingSimple001.signalBus1.S;
   AR=ARdes;
   AR= airfoil2WingSimple001.signalBus1.AR;
+  rambda=rambdaDes;
+  rambda=airfoil2WingSimple001.signalBus1.rambda;
+  sweep=sweepDes;
+  sweep=airfoil2WingSimple001.signalBus1.sweep;
+  effOs=effOsDes;
+  effOs=airfoil2WingSimple001.signalBus1.effOs;
+  ChRoot=ChRootDes;
+  ChRoot=airfoil2WingSimple001.signalBus1.ChRoot;
+  
+  
 //********** Eqns describing physics **********
   inciAng = inciAng_param;
   alpha=alphaFlt+inciAng;

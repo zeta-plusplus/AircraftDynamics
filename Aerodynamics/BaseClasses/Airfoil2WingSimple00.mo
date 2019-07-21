@@ -30,6 +30,46 @@ model Airfoil2WingSimple00
     HideResult = true
     );
   
+  parameter AircraftDynamics.Types.switches.switch_input switchInput_rambdaDes
+      =AircraftDynamics.Types.switches.switch_input.use_desValue
+   ""
+    annotation(
+    Dialog(group = "switch"),
+    choicesAllMatching= true,   
+    Evaluate = true,
+    HideResult = true
+    );
+  
+  parameter AircraftDynamics.Types.switches.switch_input switchInput_sweepDes
+      =AircraftDynamics.Types.switches.switch_input.use_desValue
+   ""
+    annotation(
+    Dialog(group = "switch"),
+    choicesAllMatching= true,   
+    Evaluate = true,
+    HideResult = true
+    );
+  
+  parameter AircraftDynamics.Types.switches.switch_input switchInput_effOsDes
+      =AircraftDynamics.Types.switches.switch_input.use_desValue
+   ""
+    annotation(
+    Dialog(group = "switch"),
+    choicesAllMatching= true,   
+    Evaluate = true,
+    HideResult = true
+    );
+  
+  parameter AircraftDynamics.Types.switches.switch_input switchInput_ChRootDes
+      =AircraftDynamics.Types.switches.switch_input.use_desValue
+   ""
+    annotation(
+    Dialog(group = "switch"),
+    choicesAllMatching= true,   
+    Evaluate = true,
+    HideResult = true
+    );
+  
   
   parameter Real ARdes = 5.0 "" annotation(
     Dialog(group = "Geometry"));
@@ -86,12 +126,11 @@ model Airfoil2WingSimple00
     Placement(visible = true, transformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 algorithm
   //********** assignment, design parameter to variables (calculated parameters) **********
-  rambda := rambdaDes;
-  sweep := sweepDes;
-  effOs := effOsDes;
+  //rambda := rambdaDes;
+  //sweep := sweepDes;
+  //effOs := effOsDes;
+  //ChRoot := ChRootDes;
   
-  
-  ChRoot := ChRootDes;
 equation
   connect(alpha, signalBus1.alpha) annotation(
     Line);
@@ -131,6 +170,34 @@ equation
     AR=ARdes;
   elseif(switchInput_ARdes==AircraftDynamics.Types.switches.switch_input.via_expConnector)then
     connect(AR, signalBus1.AR);
+  end if;
+  
+  //----- rambda -----
+  if(switchInput_rambdaDes==AircraftDynamics.Types.switches.switch_input.use_desValue)then
+    rambda=rambdaDes;
+  elseif(switchInput_rambdaDes==AircraftDynamics.Types.switches.switch_input.via_expConnector)then
+    connect(rambda, signalBus1.rambda);
+  end if;
+  
+  //----- sweep -----
+  if(switchInput_sweepDes==AircraftDynamics.Types.switches.switch_input.use_desValue)then
+    sweep=sweepDes;
+  elseif(switchInput_sweepDes==AircraftDynamics.Types.switches.switch_input.via_expConnector)then
+    connect(sweep, signalBus1.sweep);
+  end if;
+  
+  //----- effOs -----
+  if(switchInput_effOsDes==AircraftDynamics.Types.switches.switch_input.use_desValue)then
+    effOs=effOsDes;
+  elseif(switchInput_effOsDes==AircraftDynamics.Types.switches.switch_input.via_expConnector)then
+    connect(effOs, signalBus1.effOs);
+  end if;
+  
+  //----- ChRoot -----
+  if(switchInput_ChRootDes==AircraftDynamics.Types.switches.switch_input.use_desValue)then
+    ChRoot=ChRootDes;
+  elseif(switchInput_ChRootDes==AircraftDynamics.Types.switches.switch_input.via_expConnector)then
+    connect(ChRoot, signalBus1.ChRoot);
   end if;
   
   
