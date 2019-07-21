@@ -9,8 +9,6 @@ model WingSimple00_test02
     Placement(visible = true, transformation(origin = {-90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Fluid.Sources.Boundary_pT boundary(redeclare package Medium = atmAir, T = 288.15, nPorts = 1, p = 101.3 * 1000) annotation(
     Placement(visible = true, transformation(origin = {-50, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.Aerodynamics.Components.WingSimple00 wingSimple001(redeclare package Medium = atmAir, inciAng_param = 0.0872665) annotation(
-    Placement(visible = true, transformation(origin = {40, 30}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
   Modelica.Blocks.Sources.Ramp ramp1(duration = 80, height = -0.6, offset = 0.9, startTime = 10) annotation(
     Placement(visible = true, transformation(origin = {-80, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Min min1 annotation(
@@ -25,7 +23,17 @@ model WingSimple00_test02
     Placement(visible = true, transformation(origin = {90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   PropulsionSystem.Utilities.SetIndependent setIndependent1(independent(start = 4 * Modelica.Constants.pi / 180)) annotation(
     Placement(visible = true, transformation(origin = {-90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AircraftDynamics.Aerodynamics.Components.WingSimple00 wingSimple001(redeclare package Medium = atmAir, ARdes = 5, alpha_CdpMinDes(displayUnit = "")) annotation(
+    Placement(visible = true, transformation(origin = {31.4286, 40}, extent = {{-11.4286, -40}, {11.4286, 40}}, rotation = 0)));
 equation
+  connect(boundary.ports[1], wingSimple001.port_amb) annotation(
+    Line(points = {{-40, 90}, {23, 90}, {23, 80}}, color = {0, 127, 255}));
+  connect(ramp1.y, wingSimple001.busFltStates1.Mn) annotation(
+    Line(points = {{-68, 10}, {-12.5, 10}, {-12.5, 0}, {23, 0}}, color = {0, 0, 127}));
+  connect(wingSimple001.y_Lf, setDependent1.dependent_in) annotation(
+    Line(points = {{39, 81}, {39, 90}, {79, 90}}, color = {0, 0, 127}));
+  connect(max1.y, wingSimple001.busFltStates1.alpha) annotation(
+    Line(points = {{1, -30}, {1, -30.5}, {23, -30.5}, {23, 0}}, color = {0, 0, 127}));
   connect(const1.y, max1.u2) annotation(
     Line(points = {{-30, -49}, {-30, -36}, {-22, -36}}, color = {0, 0, 127}));
   connect(const.y, min1.u2) annotation(
@@ -34,14 +42,6 @@ equation
     Line(points = {{-78, -30}, {-76, -30}, {-76, -24}, {-62, -24}}, color = {0, 0, 127}));
   connect(min1.y, max1.u1) annotation(
     Line(points = {{-38, -30}, {-34, -30}, {-34, -24}, {-22, -24}, {-22, -24}}, color = {0, 0, 127}));
-  connect(max1.y, wingSimple001.busFltStates1.alpha) annotation(
-    Line(points = {{1, -30}, {1, -30.5}, {8, -30.5}, {8, -10}}, color = {0, 0, 127}));
-  connect(wingSimple001.y_Lf, setDependent1.dependent_in) annotation(
-    Line(points = {{56, 74}, {56, 90}, {79, 90}}, color = {0, 0, 127}));
-  connect(ramp1.y, wingSimple001.busFltStates1.Mn) annotation(
-    Line(points = {{-68, 10}, {-12.5, 10}, {-12.5, -10}, {8, -10}}, color = {0, 0, 127}));
-  connect(boundary.ports[1], wingSimple001.port_amb) annotation(
-    Line(points = {{-40, 90}, {8, 90}, {8, 70}}, color = {0, 127, 255}));
   annotation(
     Icon(coordinateSystem(initialScale = 0.05)),
     Diagram(coordinateSystem(initialScale = 0.05), graphics = {Text(origin = {-91, -43}, extent = {{-9, 3}, {9, -3}}, textString = "AoA"), Text(origin = {-81, -7}, extent = {{-9, 3}, {9, -3}}, textString = "Mn")}),
