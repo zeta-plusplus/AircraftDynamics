@@ -116,10 +116,10 @@ equation
   fltStates.Ftan= thrust*cos(fltStates.alpha) - drag - weight*sin(fltStates.gamma);
   fltStates.Fcentr= thrust*sin(fltStates.alpha) + lift - weight*cos(fltStates.gamma);
   
-  fltStates.X= -1.0*(sum_u_FxForward - sum_u_FxBackward - weight*sin(fltStates.theta));
+  fltStates.X= (sum_u_FxForward - sum_u_FxBackward - weight*sin(fltStates.theta));
   fltStates.Z= -1.0*(sum_u_Fz - weight*cos(fltStates.theta));
   
-  fltStates.X= -1.0*( thrust + lift*sin(fltStates.alpha) - drag*cos(fltStates.alpha) - weight*sin(fltStates.theta) );
+  fltStates.X= ( thrust + lift*sin(fltStates.alpha) - drag*cos(fltStates.alpha) - weight*sin(fltStates.theta) );
   fltStates.Z= -1.0*( lift*cos(fltStates.alpha) + drag*sin(fltStates.alpha) - weight*cos(fltStates.theta) );
   
   massTotal*(der(fltStates.V))= fltStates.Ftan;

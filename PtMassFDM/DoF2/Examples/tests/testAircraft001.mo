@@ -5,7 +5,7 @@ model testAircraft001
   package atmAir = Modelica.Media.Air.DryAirNasa;
   //redeclare package Medium = atmAir
   //----------
-  AircraftDynamics.PtMassFDM.DoF2.Components.AircraftMassCenter aircraftMassCenter1(Vinit = 100, gammaInit = 1.74533e-05,massBase = 1160, nIn_FxBackward = 2, switchDef_modeStabilityLongi = AircraftDynamics.Types.switches.switch_modeStabilityLongi.maintainAoA) annotation(
+  AircraftDynamics.PtMassFDM.DoF2.Components.AircraftMassCenter aircraftMassCenter1(Vinit = 70, gammaInit = 1.74533e-05,massBase = 1160, nIn_FxBackward = 2, switchDef_modeStabilityLongi = AircraftDynamics.Types.switches.switch_modeStabilityLongi.maintainAoA) annotation(
     Placement(visible = true, transformation(origin = {30, -10}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   inner Modelica.Mechanics.MultiBody.World world annotation(
     Placement(visible = true, transformation(origin = {-60, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
