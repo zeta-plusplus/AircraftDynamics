@@ -142,6 +142,8 @@ equation
   fltStates.v = 0.0;
   //--- force ---
   fltStates.Y = 0.0;
+  //--
+  fltStates.Fturn= 0.0;
   //--- angle ---
   fltStates.beta = 0.0;
   fltStates.phi=0.0;
@@ -165,4 +167,5 @@ equation
     __OpenModelica_commandLineOptions = "",
   experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-6, Interval = 0.002),
   __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
+
 end AircraftMassCenter;

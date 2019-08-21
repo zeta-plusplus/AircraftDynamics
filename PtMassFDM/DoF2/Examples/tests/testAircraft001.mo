@@ -5,7 +5,7 @@ model testAircraft001
   package atmAir = Modelica.Media.Air.DryAirNasa;
   //redeclare package Medium = atmAir
   //----------
-  AircraftDynamics.PtMassFDM.DoF2.Components.AircraftMassCenter aircraftMassCenter1(Vinit = 70, gammaInit = 1.74533e-05,massBase = 1160, nIn_FxBackward = 2, switchDef_modeStabilityLongi = AircraftDynamics.Types.switches.switch_modeStabilityLongi.maintainAoA) annotation(
+  AircraftDynamics.PtMassFDM.DoF2.Components.AircraftMassCenter aircraftMassCenter1(Vinit = 70, gammaInit = 1.74533e-05,massBase = 1160, nIn_FxBackward = 2, nIn_Fz = 2, switchDef_modeStabilityLongi = AircraftDynamics.Types.switches.switch_modeStabilityLongi.maintainAoA) annotation(
     Placement(visible = true, transformation(origin = {30, -10}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   inner Modelica.Mechanics.MultiBody.World world annotation(
     Placement(visible = true, transformation(origin = {-60, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -24,6 +24,8 @@ model testAircraft001
   AircraftDynamics.Aerodynamics.Components.DragObjSimple00 dragObjSimple001(redeclare package Medium = atmAir, CDdes = 0.005, SrefDes = 16) annotation(
     Placement(visible = true, transformation(origin = {97, -10.2}, extent = {{-17, -10.2}, {17, 10.2}}, rotation = 0)));
 equation
+  connect(dragObjSimple001.y_Fz, aircraftMassCenter1.u_Fz[2]) annotation(
+    Line(points = {{98, 2}, {96, 2}, {96, 44}, {30, 44}, {30, 20}, {30, 20}}, color = {0, 0, 127}));
   connect(dragObjSimple001.y_Fx, aircraftMassCenter1.u_FxBackward[2]) annotation(
     Line(points = {{116, -10}, {122, -10}, {122, 18}, {60, 18}, {60, -10}, {60, -10}}, color = {0, 0, 127}));
   connect(const1.y, gain1.u) annotation(

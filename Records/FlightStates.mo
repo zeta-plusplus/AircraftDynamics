@@ -20,6 +20,7 @@ record FlightStates
   
   Modelica.SIunits.Force Ftan "force tangent to flight velocity, not along x-axis";
   Modelica.SIunits.Force Fcentr "centripital force which is perpendicular to flight velocity, not along z-axis";
+  Modelica.SIunits.Force Fturn "centripital force of horizontal turning circle";
   
   /*-------------------------
   -------------------------*/
