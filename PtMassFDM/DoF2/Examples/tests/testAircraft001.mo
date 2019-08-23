@@ -46,10 +46,12 @@ equation
     Line(points = {{-45.7143, 41.7857}, {-45.7143, 49.7857}, {30, 49.7857}, {30, 20}}, color = {0, 0, 127}));
   connect(boundary.ports[1], wingSimple001.port_amb) annotation(
     Line(points = {{-80, 50}, {-68, 50}, {-68, 40}, {-56, 40}}, color = {0, 127, 255}));
+  
   annotation(
     experiment(StartTime = 0, StopTime = 200, Tolerance = 1e-06, Interval = 0.02),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
   Diagram(coordinateSystem(extent = {{-100, -120}, {140, 100}}, initialScale = 0.1), graphics = {Text(origin = {-88, -53}, extent = {{-8, 3}, {8, -3}}, textString = "Thrust Source"), Text(origin = {-85, -93}, extent = {{-13, 3}, {13, -3}}, textString = "AoA to be sustained")}),
   Icon(coordinateSystem(extent = {{-100, -120}, {140, 100}})),
   __OpenModelica_commandLineOptions = "");
+
 end testAircraft001;
