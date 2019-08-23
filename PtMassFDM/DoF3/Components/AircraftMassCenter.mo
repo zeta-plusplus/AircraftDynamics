@@ -77,6 +77,10 @@ model AircraftMassCenter
   Modelica.SIunits.Position xWorld(start=xWorldInit) "x-position in world frame";
   Modelica.SIunits.Position alt(start=altInit) "altitude(y-position) in world frame";
   
+  Modelica.SIunits.KineticEnergy EKinetic "";
+  Modelica.SIunits.PotentialEnergy EPotential "";
+  Modelica.SIunits.Energy EMechanical "";
+  
   Real LqD;
   
   //---
@@ -151,6 +155,10 @@ equation
   fltStates.V= radiPerpend*der(fltStates.gamma);
   
   LqD= lift/drag;
+  
+  EKinetic= (1.0/2.0)*massTotal*fltStates.V^(2.0);
+  EPotential= massTotal*world.g*alt;
+  EMechanical= EKinetic + EPotential;
   
   //---
   fltStates.Fturn= (thrust*sin(fltStates.alpha) + lift) *sin(fltStates.phi)  ;  // added, 2DoF -> 3DoF
