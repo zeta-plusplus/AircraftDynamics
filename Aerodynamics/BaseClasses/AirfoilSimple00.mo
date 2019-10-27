@@ -64,8 +64,11 @@ algorithm
   kCdp := kCdpDes;
   pwrCdp := pwrCdpDes;
 equation
+  //********** interface **********
+  //***** signalBus1 *****
   connect(alpha, signalBus1.alpha) annotation(
     Line);
+  //***** signalBus2 *****
   connect(Cd, signalBus2.Cd) annotation(
     Line);
   connect(Cdp, signalBus2.Cdp) annotation(
@@ -93,9 +96,9 @@ equation
     linear model
   *********************************************/
   if alpha < alpha4Clmin then
-    Cl = 0.0;
+    Cl = 0;
   elseif alpha4Clmax < alpha then
-    Cl = 0.0;
+    Cl = 0;
   else
     Cl = Cl0 + Cl_alpha * alpha;
   end if;
