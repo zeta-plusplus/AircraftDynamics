@@ -2,7 +2,7 @@ within AircraftDynamics.Aerodynamics.Example.test;
 
 model airfoil00_test01
   extends Modelica.Icons.Example;
-  Modelica.Blocks.Sources.Ramp ramp1(duration = 20, height = 7 * 2 * (Modelica.Constants.pi / 180), offset = -7 * (Modelica.Constants.pi / 180), startTime = 10) annotation(
+  Modelica.Blocks.Sources.Ramp ramp1(duration = 20, height = 20 * 2 * (Modelica.Constants.pi / 180), offset = -20 * (Modelica.Constants.pi / 180), startTime = 10) annotation(
     Placement(visible = true, transformation(origin = {-70, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.Aerodynamics.BaseClasses.AirfoilSimple00 airfoilSimple001 annotation(
     Placement(visible = true, transformation(origin = {-40.25, 30.2}, extent = {{-12.25, -9.8}, {12.25, 9.8}}, rotation = 0)));

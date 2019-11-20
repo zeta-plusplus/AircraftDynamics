@@ -26,10 +26,16 @@ model AirfoilSimple00
     Dialog(group = "Characteristics"));
   parameter Modelica.SIunits.Angle alpha_CdpMinDes(displayUnit="deg") = 0.0 * Modelica.Constants.pi / 180 "" annotation(
     Dialog(group = "Characteristics"));
-  parameter Real kCdpDes = 0.2 "" annotation(
+  parameter Real kCdpDes = 0.1 "" annotation(
     Dialog(group = "Characteristics"));
   parameter Real pwrCdpDes = 4.0 "" annotation(
     Dialog(group = "Characteristics"));
+  
+  parameter Real kCdp_1_des = 0.8 "" annotation(
+    Dialog(group = "Characteristics"));
+  parameter Real pwrCdp_1_des = 5.0 "" annotation(
+    Dialog(group = "Characteristics"));
+  
   //********** Internal variables **********
   //--- calculated parameters ---
   Real Clmax(start = ClmaxDes);
@@ -40,12 +46,19 @@ model AirfoilSimple00
   Modelica.SIunits.Angle alpha4Clmin(displayUnit="deg", start = alpha4ClminDes);
   Real Cdf(start = CdfDes);
   Real alpha_CdpMin(start = alpha_CdpMinDes);
+  
   Real kCdp(start = kCdpDes);
   Real pwrCdp(start = pwrCdpDes);
+  
+  Real kCdp_1(start = kCdp_1_des);
+  Real pwrCdp_1(start = pwrCdp_1_des);
+  Real intcptCdp_1;
+  
   //---
   Modelica.SIunits.Angle alpha(displayUnit="deg", start = 5.0 * Modelica.Constants.pi / 180);
   //---
   Real Cdp;
+  Real CdpStall;
   Real Cl;
   Real Cd(start = CdfDes);
   //********** Interfaces **********
@@ -63,6 +76,8 @@ algorithm
   alpha_CdpMin := alpha_CdpMinDes;
   kCdp := kCdpDes;
   pwrCdp := pwrCdpDes;
+  kCdp_1:= kCdp_1_des;
+  pwrCdp_1:= pwrCdp_1_des;
 equation
   //********** interface **********
   //***** signalBus1 *****
@@ -106,7 +121,17 @@ equation
   calclate Cd
     linear model
   *********************************************/
-  Cdp = kCdp * (alpha - alpha_CdpMin) ^ pwrCdp;
+  CdpStall= kCdp*(alpha4Clmax - alpha_CdpMin)^pwrCdp;
+  intcptCdp_1= kCdp_1*(alpha4Clmax-alpha_CdpMin)^(pwrCdp_1) - CdpStall;
+  
+  if (alpha < alpha4Clmin) then
+    Cdp = kCdp_1 * (abs(alpha - alpha_CdpMin)) ^ pwrCdp_1 - intcptCdp_1;
+  elseif (alpha4Clmax < alpha) then
+    Cdp = kCdp_1 * (alpha - alpha_CdpMin) ^ pwrCdp_1 - intcptCdp_1;
+  else
+    Cdp = kCdp * (abs(alpha - alpha_CdpMin)) ^ pwrCdp;
+  end if;
+  
   Cd = Cdf + Cdp;
 //--
   annotation(

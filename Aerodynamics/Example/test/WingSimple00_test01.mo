@@ -4,12 +4,10 @@ model WingSimple00_test01
   extends Modelica.Icons.Example;
   package engineAir = Modelica.Media.Air.DryAirNasa;
   //----
-  
-  
   AircraftDynamics.Aerodynamics.Components.Flight2Fluid flight2Fluid1(redeclare package Medium = engineAir, MNdes = 0.3, switchInput_AoA = AircraftDynamics.Types.switches.switch_input.use_inputSignal, switchInput_MN = AircraftDynamics.Types.switches.switch_input.use_inputSignal, switchInput_alt = AircraftDynamics.Types.switches.switch_input.use_inputSignal, switchInput_dTamb = AircraftDynamics.Types.switches.switch_input.use_inputSignal, switchInput_relHum = AircraftDynamics.Types.switches.switch_input.use_inputSignal, switchInput_sideSlip = AircraftDynamics.Types.switches.switch_input.use_inputSignal) annotation(
     Placement(visible = true, transformation(origin = {-30, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.Aerodynamics.Components.WingSimple00 wingSimple001(redeclare package Medium = engineAir) annotation(
-    Placement(visible = true, transformation(origin = {10, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {29, -9}, extent = {{-29, -29}, {29, 29}}, rotation = 0)));
   Modelica.Blocks.Sources.Ramp ramp1(duration = 20, height = 0, offset = 0.8, startTime = 30)  annotation(
     Placement(visible = true, transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Ramp ramp2(duration = 20, height = 5 * Modelica.Constants.pi / 180, offset = 5 * Modelica.Constants.pi / 180, startTime = 30) annotation(
@@ -25,6 +23,8 @@ model WingSimple00_test01
   Modelica.Blocks.Sources.Ramp ramp7(duration = 20, height = 0, offset = 0, startTime = 30) annotation(
     Placement(visible = true, transformation(origin = {-90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
+  connect(flight2Fluid1.port_fluidAmb, wingSimple001.port_amb) annotation(
+    Line(points = {{-30, 20}, {-30, 26}, {7, 26}, {7, 20}}, color = {0, 127, 255}));
   connect(ramp6.y, flight2Fluid1.u_sideSlip) annotation(
     Line(points = {{-78, -30}, {-70, -30}, {-70, 4}, {-40, 4}, {-40, 6}}, color = {0, 0, 127}));
   connect(ramp7.y, flight2Fluid1.u_alt) annotation(
@@ -35,8 +35,6 @@ equation
     Line(points = {{-78, -60}, {-66, -60}, {-66, 2}, {-41, 2}}, color = {0, 0, 127}));
   connect(ramp3.y, flight2Fluid1.u_dTamb) annotation(
     Line(points = {{-78, 30}, {-74, 30}, {-74, 12}, {-41, 12}}, color = {0, 0, 127}));
-  connect(flight2Fluid1.port_fluidAmb, wingSimple001.port_amb) annotation(
-    Line(points = {{-30, 20}, {-30, 26}, {2, 26}, {2, 20}}, color = {0, 127, 255}));
   connect(flight2Fluid1.y_Mn, wingSimple001.u_Mn) annotation(
     Line(points = {{-19, 8}, {-1, 8}}, color = {0, 0, 127}));
   connect(flight2Fluid1.u_Mn, ramp1.y) annotation(

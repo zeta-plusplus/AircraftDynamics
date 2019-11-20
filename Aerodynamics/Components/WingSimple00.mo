@@ -32,10 +32,15 @@ model WingSimple00
   inner parameter Real alpha_CdpMinDes(displayUnit="deg")
    = 0.0 * Modelica.Constants.pi / 180 "" annotation(
     Dialog(group = "Characteristics, airfoil"));
-  inner parameter Real kCdpDes = 0.2 "" annotation(
+  inner parameter Real kCdpDes = 0.1 "" annotation(
     Dialog(group = "Characteristics, airfoil"));
   inner parameter Real pwrCdpDes = 4.0 "" annotation(
     Dialog(group = "Characteristics, airfoil"));
+  inner parameter Real kCdp_1_des = 0.8 "" annotation(
+    Dialog(group = "Characteristics, airfoil"));
+  inner parameter Real pwrCdp_1_des = 5.0 "" annotation(
+    Dialog(group = "Characteristics, airfoil"));
+  
   //--- inner-connected, to Airfoil2WingSimple ---
   inner parameter Real ARdes = 5.0 "" annotation(
     Dialog(group = "Geometry and Characteristics, wing"));
@@ -100,7 +105,15 @@ model WingSimple00
     Placement(visible = true, transformation(origin = {-49.75, 39.8}, extent = {{-50.25, -40.2}, {50.25, 40.2}}, rotation = 0)));
   AircraftDynamics.Types.InfoBus busFltStates1 annotation(
     Placement(visible = true, transformation(origin = {-80, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-30, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.Aerodynamics.BaseClasses.Airfoil2WingSimple00 airfoil2WingSimple001(switchInput_ARdes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_ChRootDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_Sdes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_effOsDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_rambdaDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_sweepDes = AircraftDynamics.Types.switches.switch_input.via_expConnector)  annotation(
+  AircraftDynamics.Aerodynamics.BaseClasses.Airfoil2WingSimple00 airfoil2WingSimple001
+  (
+    switchInput_ARdes = AircraftDynamics.Types.switches.switch_input.via_expConnector, 
+    switchInput_ChRootDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, 
+    switchInput_Sdes = AircraftDynamics.Types.switches.switch_input.via_expConnector,
+    switchInput_effOsDes = AircraftDynamics.Types.switches.switch_input.via_expConnector,
+    switchInput_rambdaDes = AircraftDynamics.Types.switches.switch_input.via_expConnector,
+    switchInput_sweepDes = AircraftDynamics.Types.switches.switch_input.via_expConnector
+   )  annotation(
     Placement(visible = true, transformation(origin = {40, -30}, extent = {{-50, -50}, {50, 50}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_Fz annotation(
     Placement(visible = true, transformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {0, 145}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
