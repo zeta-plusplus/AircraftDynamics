@@ -1,0 +1,67 @@
+<html>
+<head>
+	<style type="text/css">
+		h3
+		{
+			line-height: 1em;
+			margin: 0.5em 0px;
+		}
+		
+		h4
+		{
+			line-height: 1em;
+			margin: 0.5em 0px;
+		}
+		
+		p
+		{
+			padding-left: 1em;
+			text-indent: 2em;
+			line-height: 1em;
+			margin: 0em 0px;
+		}
+		
+		p1
+		{
+			padding-left: 2em;
+			text-indent: 4em;
+			line-height: 1em;
+			margin: 0em 0px;
+		}
+		
+		ul
+		{
+			margin: 0em 0px;
+		}
+		
+		li
+		{
+			text-indent: 2em;
+			line-height: 1em;
+			margin: 0em 0px;
+		}
+		
+	</style>
+</head>
+
+<body>
+	<h3>WingSimple00 </h3>
+		<p>calculates aerodynamic force on wing with given airfoil characteristics, flight states, and fluid property surrounding by simplest model.</p>
+		<p> &emsp; </p>
+		
+	<h4>Scope </h4>
+		<p>estimation of lift & drag or foces along wing's local frame.
+		<ul>
+		<li>use lift&drag output for flight performance analysis.</li>
+		<li>use forces along local frame for flight dynamic simulation</li>
+		</ul>
+		</p>
+	<h4>Assumptions </h4>	
+		<ul>
+		<li>The 2d airfoil characteristics are calculated by simple 2d airfoil model, <a href="../BaseClasses/AirfoilSimple00.html"> "AirfoilSimple00" </a></li>
+		<li>The wing planform is trapezoid (straight, tapered). </li>
+		<li>The wing has sweep, sweep effect is taken into account by simple formula.</li>
+		<li>The taper effect is taken into account by user-set parameter, Oswalt efficiency factor, "effOsDes", not calculated as function of taper ratio.</li>
+		<li>The compressibity effect is taken into account with simplified formula.</li>
+		</ul>
+</html>
