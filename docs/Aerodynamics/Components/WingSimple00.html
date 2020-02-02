@@ -49,19 +49,35 @@
 		<p>calculates aerodynamic force on wing with given airfoil characteristics, flight states, and fluid property surrounding by simplest model.</p>
 		<p> &emsp; </p>
 		
-	<h4>Scope </h4>
-		<p>estimation of lift & drag or foces along wing's local frame.
+	<h4>Scope/Calculation function </h4>
 		<ul>
-		<li>use lift&drag output for flight performance analysis.</li>
-		<li>use forces along local frame for flight dynamic simulation</li>
+		<li>estimation of lift & drag or foces along wing's local frame.</li>
 		</ul>
-		</p>
-	<h4>Assumptions </h4>	
+	<h4>Physics covered/calculation method</h4>
+		<ul>
+		<li>2d airfoil aerodynamic coefficients are calculated.</li>
+		<li>2d aerodynamic coefficients are corrected into 3d wing aerodynamic coefficients.</li>
+		<li>Wing's aerodynamic forces are calculated with 3d aerodynamic coefficients, conditions of ambient air, and flight states.</li>
+		</ul>
+	<h4>Limitations/Assumptions </h4>	
 		<ul>
 		<li>The 2d airfoil characteristics are calculated by simple 2d airfoil model, <a href="../BaseClasses/AirfoilSimple00.html"> "AirfoilSimple00" </a></li>
 		<li>The wing planform is trapezoid (straight, tapered). </li>
 		<li>The wing has sweep, sweep effect is taken into account by simple formula.</li>
 		<li>The taper effect is taken into account by user-set parameter, Oswalt efficiency factor, "effOsDes", not calculated as function of taper ratio.</li>
-		<li>The compressibity effect is taken into account with simplified formula.</li>
+		<li>The compressibity effect (mach number correction) is taken into account with simplified formula.</li>
 		</ul>
+	<h4>Interface </h4>
+		<ul>
+		<li>fluid port: condition of ambient air</li>
+		<li>expandable connector: flight states required for aerodynamic calculation</li>
+		<li>real output connectors: output signals of aerodynamic forces.
+		</ul>
+	<h4>Dependency </h4>
+		<p>This component requires</p>
+		<ul>
+		<li>package of medium must be redecleared.</li>
+		</ul>
+	<h4>Demo models</h4>	
+		
 </html>
