@@ -23,17 +23,17 @@ model WingSimple00_test02
     Placement(visible = true, transformation(origin = {90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   PropulsionSystem.Utilities.SetIndependent setIndependent1(independent(start = 4 * Modelica.Constants.pi / 180)) annotation(
     Placement(visible = true, transformation(origin = {-90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.Aerodynamics.Components.WingSimple00 wingSimple001(redeclare package Medium = atmAir, ARdes = 5, alpha_CdpMinDes(displayUnit = "")) annotation(
-    Placement(visible = true, transformation(origin = {31.4286, 40}, extent = {{-11.4286, -40}, {11.4286, 40}}, rotation = 0)));
+  AircraftDynamics.Aerodynamics.Components.WingSimple00 wing annotation(
+    Placement(visible = true, transformation(origin = {32.463, 40.3796}, extent = {{-11.4316, -40.0104}, {11.4316, 40.0104}}, rotation = 0)));
 equation
-  connect(boundary.ports[1], wingSimple001.port_amb) annotation(
-    Line(points = {{-40, 90}, {23, 90}, {23, 80}}, color = {0, 127, 255}));
-  connect(ramp1.y, wingSimple001.busFltStates1.Mn) annotation(
-    Line(points = {{-68, 10}, {-12.5, 10}, {-12.5, 0}, {23, 0}}, color = {0, 0, 127}));
-  connect(wingSimple001.y_Lf, setDependent1.dependent_in) annotation(
-    Line(points = {{39, 81}, {39, 90}, {79, 90}}, color = {0, 0, 127}));
-  connect(max1.y, wingSimple001.busFltStates1.alpha) annotation(
-    Line(points = {{1, -30}, {1, -30.5}, {23, -30.5}, {23, 0}}, color = {0, 0, 127}));
+  connect(boundary.ports[1], wing.port_amb) annotation(
+    Line(points = {{-40, 90}, {-8, 90}, {-8, 80}, {26, 80}}, color = {0, 127, 255}));
+  connect(ramp1.y, wing.busFltStates1.Mn) annotation(
+    Line(points = {{-68, 10}, {-21, 10}, {-21, 0}, {26, 0}}, color = {0, 0, 127}));
+  connect(wing.y_Lf, setDependent1.dependent_in) annotation(
+    Line(points = {{40, 82}, {40, 90}, {79, 90}}, color = {0, 0, 127}));
+  connect(max1.y, wing.busFltStates1.alpha) annotation(
+    Line(points = {{1, -30}, {1, -30.5}, {26, -30.5}, {26, 0}}, color = {0, 0, 127}));
   connect(const1.y, max1.u2) annotation(
     Line(points = {{-30, -49}, {-30, -36}, {-22, -36}}, color = {0, 0, 127}));
   connect(const.y, min1.u2) annotation(

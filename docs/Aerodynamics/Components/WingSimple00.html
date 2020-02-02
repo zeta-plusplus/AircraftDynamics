@@ -53,13 +53,15 @@
 		<ul>
 		<li>estimation of lift & drag or foces along wing's local frame.</li>
 		</ul>
-	<h4>Physics covered/calculation method</h4>
+	
+	<h4>Physical model/calculation method</h4>
 		<ul>
 		<li>2d airfoil aerodynamic coefficients are calculated.</li>
 		<li>2d aerodynamic coefficients are corrected into 3d wing aerodynamic coefficients.</li>
 		<li>Wing's aerodynamic forces are calculated with 3d aerodynamic coefficients, conditions of ambient air, and flight states.</li>
 		</ul>
-	<h4>Limitations/Assumptions </h4>	
+		
+	<h4>Limitations/Assumptions of model</h4>	
 		<ul>
 		<li>The 2d airfoil characteristics are calculated by simple 2d airfoil model, <a href="../BaseClasses/AirfoilSimple00.html"> "AirfoilSimple00" </a></li>
 		<li>The wing planform is trapezoid (straight, tapered). </li>
@@ -67,14 +69,16 @@
 		<li>The taper effect is taken into account by user-set parameter, Oswalt efficiency factor, "effOsDes", not calculated as function of taper ratio.</li>
 		<li>The compressibity effect (mach number correction) is taken into account with simplified formula.</li>
 		</ul>
+		
 	<h4>Interface </h4>
-		<ul>
-		<li>fluid port: condition of ambient air</li>
-		<li>expandable connector: flight states required for aerodynamic calculation</li>
-		<li>real output connectors: output signals of aerodynamic forces.
-		</ul>
+		<img src="WingSimple00_IF.jpg">
+		<p> &emsp; </p>
+	
+	<h4>Parameters </h4>
+		<p>Read the descriptions on parameter window in model. This section only covers parameters which requires descriptions with figures. </p>
+	
 	<h4>Dependency </h4>
-		<p>This component requires</p>
+		<p>This component requires followings for operation</p>
 		<ul>
 		<li>package of medium must be redecleared.</li>
 		</ul>
