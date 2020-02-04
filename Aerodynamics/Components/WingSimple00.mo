@@ -96,7 +96,14 @@ model WingSimple00
     Placement(visible = true, transformation(origin = {-49.75, 39.8}, extent = {{-50.25, -40.2}, {50.25, 40.2}}, rotation = 0)));
   AircraftDynamics.Types.InfoBus busFltStates1 annotation(
     Placement(visible = true, transformation(origin = {-80, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-20, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.Aerodynamics.BaseClasses.Airfoil2WingSimple00 airfoil2WingSimple001(switchInput_ARdes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_ChRootDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_Sdes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_effOsDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_rambdaDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, switchInput_sweepDes = AircraftDynamics.Types.switches.switch_input.via_expConnector) annotation(
+  AircraftDynamics.Aerodynamics.BaseClasses.Airfoil2WingSimple00 airfoil2WingSimple001(
+    switchInput_ARdes = AircraftDynamics.Types.switches.switch_input.via_expConnector, 
+    switchInput_ChRootDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, 
+    switchInput_Sdes = AircraftDynamics.Types.switches.switch_input.via_expConnector, 
+    switchInput_effOsDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, 
+    switchInput_rambdaDes = AircraftDynamics.Types.switches.switch_input.via_expConnector, 
+    switchInput_sweepDes = AircraftDynamics.Types.switches.switch_input.via_expConnector
+  ) annotation(
     Placement(visible = true, transformation(origin = {40, -30}, extent = {{-50, -50}, {50, 50}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_Fz annotation(
     Placement(visible = true, transformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {6, 145}, extent = {{-5, -5}, {5, 5}}, rotation = 90)));
