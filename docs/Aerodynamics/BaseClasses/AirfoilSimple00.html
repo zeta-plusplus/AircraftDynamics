@@ -60,14 +60,18 @@
 	
 	<h4>Short description of physical model/calculation method</h4>
 		<ul>
-		<li>Coefficient of lift, Cl and coefficient of drag, Cd is calculated as function of angle of attack.</li>
-		<li>Coefficient of drag, Cd is composed of friciton drag and pressure drag. </li>
+		<li>Coefficient of lift, Cl, and coefficient of drag, Cd, are calculated as function of angle of attack.</li>
+		<li>Coefficient of drag, Cd is composed of friciton drag term and pressure drag term. </li>
+		<li>Sudden loss of lift due to stall can be simulateed (by very simple model). </li>
+		<li>Sudden increase of drag due to stall can be simulated (by very simple model).  </li>
 		</ul>
 		<p> &emsp; </p>
 		
 	<h4>Limitations/Assumptions of model</h4>	
 		<ul>
-		<li></li>
+		<li>Cl is linear function of angle of attack.  </li>
+		<li>Cdp, pressure drag coefficient, is calculated as power function of angle of attack. </li>
+		<li>Cdf, friction drag coefficient, is constant value. </li>
 		</ul>
 		<p> &emsp; </p>
 		

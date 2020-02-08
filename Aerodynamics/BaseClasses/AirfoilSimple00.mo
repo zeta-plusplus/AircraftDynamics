@@ -116,7 +116,7 @@ equation
   end if;
 /*********************************************
   calclate Cd
-    linear model
+    simple power function model
   *********************************************/
   CdpStall= kCdp*(alpha4Clmax - alpha_CdpMin)^pwrCdp;
   intcptCdp_1= kCdp_1*(alpha4Clmax-alpha_CdpMin)^(pwrCdp_1) - CdpStall;
