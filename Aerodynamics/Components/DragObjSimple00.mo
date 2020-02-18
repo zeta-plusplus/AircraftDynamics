@@ -35,16 +35,15 @@ model DragObjSimple00
   Modelica.SIunits.Velocity Vflow(start = 100);
   Real Mn(start = 0.5);
   Modelica.SIunits.Angle alpha;
-  
   //--- objects ---
   Medium.BaseProperties fluid_amb(p.start = pAmb_init, T.start = Tamb_init, state.p.start = pAmb_init, state.T.start = Tamb_init, h.start = hAmb_init) "flow station of amb";
   //********** Interfaces **********
   Modelica.Fluid.Interfaces.FluidPort_a port_amb(redeclare package Medium = Medium, m_flow.start = m_flowAmb_init, h_outflow.start = hAmb_init) "" annotation(
-    Placement(visible = true, transformation(origin = {-80, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-90, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_Df annotation(
     Placement(visible = true, transformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.Types.InfoBus busFltStates1 annotation(
-    Placement(visible = true, transformation(origin = {-70, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-90, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_Fz annotation(
     Placement(visible = true, transformation(origin = {0, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {0, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealOutput y_Fx annotation(
@@ -54,9 +53,11 @@ algorithm
   CD := CDdes;
   Sref := SrefDes;
 equation
+  connect(alpha, busFltStates1.alpha) annotation(
+    Line);
+  connect(Mn, busFltStates1.Mn) annotation(
+    Line);
 //********** Connections, interface <-> internal variables **********
-  connect(Mn, busFltStates1.Mn);
-  connect(alpha, busFltStates1.alpha);
 //-- port_amb --
   fluid_amb.p = port_amb.p;
   port_amb.h_outflow = fluid_amb.h;
