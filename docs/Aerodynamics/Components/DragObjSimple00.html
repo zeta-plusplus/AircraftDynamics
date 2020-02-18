@@ -54,20 +54,27 @@
 	
 	<h4>Scope/Calculation function </h4>
 		<ul>
-		<li>estimation of drag.</li>
+		<li>estimation of aerodynamic drag.</li>
 		</ul>
 		<p> &emsp; </p>
 	
 	<h4>Short description of physical model/calculation method</h4>
 		<ul>
-		<li> </li>
+		<li>Drag is calculated from given drag coefficient, representative area, flow states, fluid properties. </li>
+		<li>Drag is output in 2 different way.</li> 
+			<ul>
+			<li>Drag: force along incoming flow velocity vector </li>
+			<li>Local frame forces: forces along body's longitudinal and vertical axis, useful when angle of attack of incoming flow is large. </li>
+			</ul>
 		</ul>
 		<img src= "DragObjSimple00_internal.jpg">
 		<p> &emsp; </p>
 		
 	<h4>Limitations/Assumptions of model</h4>	
 		<ul>
-		<li> </li>
+		<li>Drag coefficient must be given. </li>
+		<li>Drag coefficient does not vary in change of flow states. </li>
+		<li>Representative area can be area of user's choice, ex. frontal area or wetted surface area. Be consistent with definition of drag coefficient used. </li>
 		</ul>
 		<p> &emsp; </p>
 		
@@ -82,11 +89,21 @@
 		
 	<h4>Usage </h4>
 		<ul>
+		<li>redeclear the package of medium.</li>
 		<li>fill following connectors: </li>
 			<ul>
-			<li> </li>
+			<li>port_amb </li>
+			<li>busFltStates1.Mn </li>
+			<li>busFltStates1.alpha </li>
+			<li>y_Fx (can be left unconnected) </li>
+			<li>y_Fz (can be left unconnected) </li>
+			<li>y_Df (can be left unconnected) </li>
 			</ul>
-		<li>set parameters in "". </li>
+		<li>set parameters in followings. </li>
+			<ul>
+			<li>"Characteristics", in "General" tab </li>
+			<li>"Geometry", in "General" tab </li>
+			</ul>
 		</ul>
 		<p> &emsp; </p>
 	
