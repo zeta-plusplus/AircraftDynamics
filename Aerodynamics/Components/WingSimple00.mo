@@ -179,8 +179,13 @@ equation
 <p>&emsp; </p>
 <h4>example/demo models</h4>
   <ul>
-  <li><a href=\"modelica://AircraftDynamics/Aerodynamics/Example/test/WingSimple00_test01\">Aerodynamics/Example/test/WingSimple00_test01 </a> </li>
-  <li><a href=\"modelica://AircraftDynamics/Aerodynamics/Example/test/WingSimple00_test02\">Aerodynamics/Example/test/WingSimple00_test02 </a> </li>
+  <li><a href=\"modelica://AircraftDynamics.Aerodynamics.Example.test.WingSimple00_test01\">AircraftDynamics.Aerodynamics.Example.test.WingSimple00_test01 </a> </li>
+  <li><a href=\"modelica://AircraftDynamics.Aerodynamics.Example.test.WingSimple00_test02\">AircraftDynamics.Aerodynamics.Example.test.WingSimple00_test02 </a> </li>
+  </ul>
+
+<h4>classes which this component call (those of MSL are not listed) </h4>
+  <ul>
+  <li><a href=\"modelica://AircraftDynamics.Aerodynamics.BaseClasses.AirfoilSimple00\">AircraftDynamics.Aerodynamics.BaseClasses.AirfoilSimple00 </a></li>
   </ul>
 
 </html>"

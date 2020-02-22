@@ -85,6 +85,9 @@ equation
   <ul>
   <li><a href=\"modelica://AircraftDynamics/Aerodynamics/Example/test/DragObjSimple00_test01\"> Aerodynamics/Example/test/DragObjSimple00_test01 </a> </li>
   </ul>
+  
+<h4>classes which this component call (those of MSL are not listed) </h4>
+<p> -> none </p>
 </html>"
     ),
     Icon(
