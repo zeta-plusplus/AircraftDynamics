@@ -2,6 +2,7 @@ within AircraftDynamics.Aerodynamics.Example.test;
 
 model DragObjSimple00_test01
   extends Modelica.Icons.Example;
+  //----
   package atmAir = Modelica.Media.Air.DryAirNasa;
   //----
   inner Modelica.Fluid.System system annotation(
