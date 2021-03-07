@@ -236,6 +236,9 @@ equation
   fluid_tot.h = fluid_amb.h + V_tot ^ 2.0 / 2.0;
   fluid_tot.h = Medium.isentropicEnthalpy(fluid_tot.p, fluid_amb.state);
   
+  //---
+  port_fluidAmb.Xi_outflow= fluid_tot.Xi;
+  
   /********************************************************
   Graphics
   ********************************************************/

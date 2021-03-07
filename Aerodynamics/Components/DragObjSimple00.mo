@@ -61,6 +61,7 @@ equation
 //-- port_amb --
   fluid_amb.p = port_amb.p;
   port_amb.h_outflow = fluid_amb.h;
+  port_amb.Xi_outflow= fluid_amb.Xi;
   fluid_amb.h = actualStream(port_amb.h_outflow);
   fluid_amb.Xi = actualStream(port_amb.Xi_outflow);
   port_amb.m_flow = 1.0;
