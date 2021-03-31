@@ -77,13 +77,13 @@ protected
   /* ---------------------------------------------
         calculated parameters
   --------------------------------------------- */
-  parameter Real A[4, 4](fixed=false) annotation(
+  parameter Real A[4, 4](each fixed=false) annotation(
     fixed=false, HideResult=false);
-  parameter Real B[4, 4](fixed=false) annotation(
+  parameter Real B[4, 4](each fixed=false) annotation(
     fixed=false, HideResult=false);
   parameter Modelica.SIunits.Angle theta0(fixed=false) annotation(
     fixed=false, HideResult=false);
-  parameter Real x0[4](fixed=false) "Initial state vector" annotation(
+  parameter Real x0[4](each fixed=false) "Initial state vector" annotation(
     HideResult=false);
   
   //-----
