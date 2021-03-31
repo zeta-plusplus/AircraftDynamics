@@ -133,7 +133,7 @@ model Flight2Fluid
   Modelica.Blocks.Interfaces.RealOutput y_Mn annotation(
     Placement(visible = true, transformation(origin = {100, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_dynP(unit="Pa", displayUnit="Pa") "1/2*rhos*V^2" annotation(
-    Placement(visible = true, transformation(origin = {110, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {100, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 protected
   //********** Protected objects **********
   //##### none #####
@@ -228,7 +228,6 @@ equation
   fluid_tot.h = Medium.isentropicEnthalpy(fluid_tot.p, fluid_amb.state);
 //---
   port_fluidAmb.Xi_outflow = fluid_tot.Xi;
-  
 /********************************************************
   Graphics
   ********************************************************/
