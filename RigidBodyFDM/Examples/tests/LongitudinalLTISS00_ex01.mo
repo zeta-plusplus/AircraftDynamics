@@ -36,7 +36,7 @@ model LongitudinalLTISS00_ex01
   inner AircraftDynamics.SimEnvironment environmentAircraftDynSim annotation(
     Placement(visible = true, transformation(origin = {-90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  connect(Flt2Fluid.y_dynP, LongiSS.par_dynP1) annotation(
+  connect(Flt2Fluid.y_qBar, LongiSS.par_q1bar) annotation(
     Line(points = {{-49, 62}, {-12, 62}, {-12, 22}}, color = {0, 0, 127}));
   connect(Flt2Fluid.y_V_inf, LongiSS.par_U1) annotation(
     Line(points = {{-49, 66}, {-4, 66}, {-4, 22}}, color = {0, 0, 127}));
