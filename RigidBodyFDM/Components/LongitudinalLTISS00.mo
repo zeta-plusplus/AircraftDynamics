@@ -75,7 +75,7 @@ block LongitudinalLTISS00
   /* ---------------------------------------------
       Internal objects
   --------------------------------------------- */
-  discrete AircraftDynamics.Utilities.DerivativesLongitudinalNonDim2Dim00 DerLongiNonDim2Dim annotation(
+  discrete AircraftDynamics.RigidBodyFDM.Components.DerivativesLongitudinalNonDim2Dim00 DerLongiNonDim2Dim annotation(
     Placement(visible = true, transformation(origin = {-20, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   
   
@@ -171,7 +171,7 @@ initial algorithm
 equation
   
   /* ---------------------------------------------
-  Connections, interface <-> internal variables
+    Connections, interface <-> internal variables
   --------------------------------------------- */
   u[1]= u_deltaE;
   u[2]= u_delta_iH;
