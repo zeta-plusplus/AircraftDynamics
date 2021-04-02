@@ -15,49 +15,51 @@ block LongitudinalLTISS00
         parameters
   --------------------------------------------- */
   //********** Initial States **********
-  parameter Modelica.SIunits.Angle alpha0(displayUnit = "deg") = 0 "" annotation(
+  parameter Modelica.SIunits.Angle alpha0(displayUnit="deg") = 5.0*(Constants.pi/180.0) "" annotation(
     Dialog(tab = "Initial states"));
-  parameter Modelica.SIunits.Angle gamma0(displayUnit = "deg") = 0 "" annotation(
+  parameter Modelica.SIunits.Angle gamma0(displayUnit="deg") = 0.0 "" annotation(
     Dialog(tab = "Initial states"));
-  parameter Modelica.SIunits.AngularVelocity q0(displayUnit = "rad/s") = 0 "" annotation(
+  parameter Modelica.SIunits.AngularVelocity q0(displayUnit = "rad/s") = 0.0 "" annotation(
     Dialog(tab = "Initial states"));
   
   //********** Characteristics **********
-  parameter Real CD1 annotation(
+  parameter Real CD1=0.032 annotation(
     Dialog(group = "D-related-Coefficients"));
-  parameter Real CDu annotation(
+  parameter Real CDu=0.0 annotation(
     Dialog(group = "D-related-Coefficients"));
-  parameter Real CTu= (-1.0)*CD1 "= del/del_u(FTx) = CTXu + 2*CTX1" annotation(
+  parameter Real CTXu=-0.096  annotation(
     Dialog(group = "D-related-Coefficients"));
-  parameter Real CDalpha annotation(
+  parameter Real CTX1=0.032 annotation(
     Dialog(group = "D-related-Coefficients"));
-  parameter Real CDdeltaE annotation(
+  parameter Real CDalpha=0.121 annotation(
+    Dialog(group = "D-related-Coefficients"));
+  parameter Real CDdeltaE=0 annotation(
     Dialog(group = "D-related-Coefficients"));
   //-----
-  parameter Real CL1 annotation(
+  parameter Real CL1=0.307 annotation(
     Dialog(group = "L-related-Coefficients"));
-  parameter Real CLu annotation(
+  parameter Real CLu=0.0 annotation(
     Dialog(group = "L-related-Coefficients"));
-  parameter Real CLalpha annotation(
+  parameter Real CLalpha=4.41 annotation(
     Dialog(group = "L-related-Coefficients"));
-  parameter Real CLalpha_dot annotation(
+  parameter Real CLalpha_dot=1.7 annotation(
     Dialog(group = "L-related-Coefficients"));
-  parameter Real CLq annotation(
+  parameter Real CLq=3.9 annotation(
     Dialog(group = "L-related-Coefficients"));
-  parameter Real CLdeltaE annotation(
+  parameter Real CLdeltaE=0.43 annotation(
     Dialog(group = "L-related-Coefficients"));
   //-----
-  parameter Real Cm1 annotation(
+  parameter Real Cm1=0.0 annotation(
     Dialog(group = "M-related-Coefficients"));
-  parameter Real Cmu annotation(
+  parameter Real Cmu=0.0 annotation(
     Dialog(group = "M-related-Coefficients"));
-  parameter Real CmAlpha annotation(
+  parameter Real CmAlpha=-0.613 annotation(
     Dialog(group = "M-related-Coefficients"));
-  parameter Real CmAlpha_dot annotation(
+  parameter Real CmAlpha_dot=-7.27 annotation(
     Dialog(group = "M-related-Coefficients"));
-  parameter Real Cmq annotation(
+  parameter Real Cmq=-12.4 annotation(
     Dialog(group = "M-related-Coefficients"));
-  parameter Real CmDeltaE annotation(
+  parameter Real CmDeltaE=-1.122 annotation(
     Dialog(group = "M-related-Coefficients"));
   
   
@@ -85,13 +87,13 @@ block LongitudinalLTISS00
   AircraftDynamics.Types.InfoBus infoBus1 annotation(
     Placement(visible = true, transformation(origin = {80, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {120, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //---
-  Modelica.Blocks.Interfaces.RealOutput y_u(unit = "m/s", displayUnit = "m/s") annotation(
+  Modelica.Blocks.Interfaces.RealOutput y_u(final quantity="Velocity", unit = "m/s", displayUnit = "m/s") annotation(
     Placement(visible = true, transformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput y_alpha(unit = "rad", displayUnit = "rad") annotation(
+  Modelica.Blocks.Interfaces.RealOutput y_alpha(final quantity="Angle", final unit = "rad", displayUnit = "deg") annotation(
     Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput y_q(unit = "rad/s", displayUnit = "rad/s") annotation(
+  Modelica.Blocks.Interfaces.RealOutput y_q(final quantity="AngularVelocity", unit = "rad/s", displayUnit = "rad/s") annotation(
     Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput y_theta(unit = "rad", displayUnit = "rad") annotation(
+  Modelica.Blocks.Interfaces.RealOutput y_theta(final quantity="Angle", final unit="rad", displayUnit="deg") annotation(
     Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //---
   Modelica.Blocks.Interfaces.RealInput par_q1bar(unit = "Pa", displayUnit = "Pa") "dynamic pressure, input" annotation(
@@ -107,13 +109,13 @@ block LongitudinalLTISS00
   Modelica.Blocks.Interfaces.RealInput par_cBar(unit="m", displayUnit="m") "mean aerodynamic chord" annotation(
     Placement(visible = true, transformation(origin = {60, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {120, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   //---
-  Modelica.Blocks.Interfaces.RealInput u_deltaE(unit="rad", displayUnit="rad") annotation(
+  Modelica.Blocks.Interfaces.RealInput u_deltaE(final quantity="Angle", final unit="rad", displayUnit="deg") annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput u_delta_iH(unit="rad", displayUnit="rad") annotation(
+  Modelica.Blocks.Interfaces.RealInput u_delta_iH(final quantity="Angle", final unit="rad", displayUnit="deg") annotation(
     Placement(visible = true, transformation(origin = {-120, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput u_deltaC(unit="rad", displayUnit="rad") annotation(
+  Modelica.Blocks.Interfaces.RealInput u_deltaC(final quantity="Angle", final unit="rad", displayUnit="deg") annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput u_deltaT(unit="N", displayUnit="N") annotation(
+  Modelica.Blocks.Interfaces.RealInput u_deltaT(final quantity="Force", final unit="N", displayUnit="N") annotation(
     Placement(visible = true, transformation(origin = {-120, -90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //********************************************************************************
 protected
@@ -178,21 +180,28 @@ equation
   u[3]= u_deltaC;
   u[4]= u_deltaT;
   //---
-  y_u = u[1];
-  y_alpha= u[2];
-  y_q= u[3];
-  y_theta= u[4];
+  y_u = x[1];
+  y_alpha= x[2];
+  y_q= x[3];
+  y_theta= x[4];
   //-----
   when initial() then
-    DerLongiNonDim2Dim.infoBusInputs.U1 = par_U1;
-    DerLongiNonDim2Dim.infoBusInputs.q1bar=par_q1bar;
-    DerLongiNonDim2Dim.infoBusInputs.S= par_S;
-    DerLongiNonDim2Dim.infoBusInputs.m= par_m;
-    DerLongiNonDim2Dim.infoBusInputs.Iyy= par_Iyy;
-    DerLongiNonDim2Dim.infoBusInputs.cBar= par_cBar;
+    DerLongiNonDim2Dim.infoBusFlt.U1 = par_U1;
+    DerLongiNonDim2Dim.infoBusFlt.q1bar=par_q1bar;
+    DerLongiNonDim2Dim.infoBusAircraft.S= par_S;
+    DerLongiNonDim2Dim.infoBusAircraft.m= par_m;
+    DerLongiNonDim2Dim.infoBusAircraft.Iyy= par_Iyy;
+    DerLongiNonDim2Dim.infoBusAircraft.cBar= par_cBar;
     //---
-    DerLongiNonDim2Dim.infoBusNonDim.CDu= 0.025;
-    DerLongiNonDim2Dim.infoBusNonDim.CD1= 0.2;
+    DerLongiNonDim2Dim.infoBusNonDim.CDu= CDu;
+    DerLongiNonDim2Dim.infoBusNonDim.CD1= CD1;
+    DerLongiNonDim2Dim.infoBusNonDim.CTXu=CTXu;
+    DerLongiNonDim2Dim.infoBusNonDim.CTX1=CTX1;
+    DerLongiNonDim2Dim.infoBusNonDim.CDalpha=CDalpha;
+    DerLongiNonDim2Dim.infoBusNonDim.CDdeltaE=CDdeltaE;
+    //---
+    DerLongiNonDim2Dim.infoBusNonDim.CL1=CL1;
+    
   end when;
   //-----
   

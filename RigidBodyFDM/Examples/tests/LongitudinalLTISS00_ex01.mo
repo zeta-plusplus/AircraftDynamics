@@ -22,7 +22,7 @@ model LongitudinalLTISS00_ex01
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg3 annotation(
     Placement(visible = true, transformation(origin = {-60, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.LongitudinalLTISS00 LongiSS annotation(
-    Placement(visible = true, transformation(origin = {9.2, -0.857141}, extent = {{-29.2, -20.8572}, {29.2, 20.8572}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {10.2, -1.57143}, extent = {{-30.2, -21.5715}, {30.2, 21.5715}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const_S(k = 1)  annotation(
     Placement(visible = true, transformation(origin = {10, 90}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant const_m(k = 1)  annotation(
@@ -36,26 +36,26 @@ model LongitudinalLTISS00_ex01
   inner AircraftDynamics.SimEnvironment environmentAircraftDynSim annotation(
     Placement(visible = true, transformation(origin = {-90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  connect(Flt2Fluid.y_qBar, LongiSS.par_q1bar) annotation(
-    Line(points = {{-49, 62}, {-12, 62}, {-12, 22}}, color = {0, 0, 127}));
-  connect(Flt2Fluid.y_V_inf, LongiSS.par_U1) annotation(
-    Line(points = {{-49, 66}, {-4, 66}, {-4, 22}}, color = {0, 0, 127}));
-  connect(const_cBar.y, LongiSS.par_cBar) annotation(
-    Line(points = {{100, 80}, {100, 30}, {34, 30}, {34, 22}}, color = {0, 0, 127}));
-  connect(const_Iyy.y, LongiSS.par_Iyy) annotation(
-    Line(points = {{70, 80}, {70, 48}, {26, 48}, {26, 22}}, color = {0, 0, 127}));
-  connect(const_m.y, LongiSS.par_m) annotation(
-    Line(points = {{40, 80}, {40, 56}, {18, 56}, {18, 22}}, color = {0, 0, 127}));
-  connect(const_S.y, LongiSS.par_S) annotation(
-    Line(points = {{10, 78}, {10, 34}, {9, 34}, {9, 22}}, color = {0, 0, 127}));
-  connect(ramp_deltaT.y, LongiSS.u_deltaT) annotation(
-    Line(points = {{-78, -60}, {-30, -60}, {-30, -13}, {-22, -13}}, color = {0, 0, 127}));
-  connect(from_deg3.y, LongiSS.u_deltaC) annotation(
-    Line(points = {{-48, -30}, {-34, -30}, {-34, -5}, {-22, -5}}, color = {0, 0, 127}));
   connect(from_deg2.y, LongiSS.u_delta_iH) annotation(
-    Line(points = {{-48, 0}, {-42, 0}, {-42, 3}, {-22, 3}}, color = {0, 0, 127}));
+    Line(points = {{-48, 0}, {-44, 0}, {-44, 3}, {-22, 3}}, color = {0, 0, 127}));
+  connect(from_deg3.y, LongiSS.u_deltaC) annotation(
+    Line(points = {{-48, -30}, {-38, -30}, {-38, -6}, {-22, -6}}, color = {0, 0, 127}));
   connect(from_deg1.y, LongiSS.u_deltaE) annotation(
-    Line(points = {{-48, 30}, {-28, 30}, {-28, 12}, {-22, 12}}, color = {0, 0, 127}));
+    Line(points = {{-48, 30}, {-28, 30}, {-28, 11}, {-22, 11}}, color = {0, 0, 127}));
+  connect(ramp_deltaT.y, LongiSS.u_deltaT) annotation(
+    Line(points = {{-78, -60}, {-30, -60}, {-30, -15}, {-22, -15}}, color = {0, 0, 127}));
+  connect(const_S.y, LongiSS.par_S) annotation(
+    Line(points = {{10, 78}, {10, 22}}, color = {0, 0, 127}));
+  connect(const_m.y, LongiSS.par_m) annotation(
+    Line(points = {{40, 80}, {40, 56}, {19, 56}, {19, 22}}, color = {0, 0, 127}));
+  connect(const_Iyy.y, LongiSS.par_Iyy) annotation(
+    Line(points = {{70, 80}, {70, 48}, {27, 48}, {27, 22}}, color = {0, 0, 127}));
+  connect(const_cBar.y, LongiSS.par_cBar) annotation(
+    Line(points = {{100, 80}, {100, 30}, {36, 30}, {36, 22}}, color = {0, 0, 127}));
+  connect(Flt2Fluid.y_V_inf, LongiSS.par_U1) annotation(
+    Line(points = {{-49, 66}, {-3, 66}, {-3, 22}}, color = {0, 0, 127}));
+  connect(Flt2Fluid.y_qBar, LongiSS.par_q1bar) annotation(
+    Line(points = {{-49, 62}, {-11, 62}, {-11, 22}}, color = {0, 0, 127}));
   connect(ramp_deltaC.y, from_deg3.u) annotation(
     Line(points = {{-78, -30}, {-72, -30}, {-72, -30}, {-72, -30}}, color = {0, 0, 127}));
   connect(ramp_delta_iH.y, from_deg2.u) annotation(
