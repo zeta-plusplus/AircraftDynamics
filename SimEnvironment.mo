@@ -26,9 +26,6 @@ model SimEnvironment
     ""
     annotation(
     Dialog(group = "constants of standards"));
-  
-  
-  
   //----- gound -----
   parameter Modelica.SIunits.Length alt_ground= PropulsionSystem.Constants.constants_earth.alt_ground
     ""
@@ -44,8 +41,6 @@ model SimEnvironment
     ""
     annotation(
     Dialog(group = "constants for atmosphere model"));
-  
-  
   //----- upper bound of troposhere -----
   parameter Modelica.SIunits.Length alt_UpBdTropos= PropulsionSystem.Constants.constants_earth.alt_UpBdTropos
     ""
@@ -66,9 +61,7 @@ model SimEnvironment
     ""
     annotation(
     Dialog(group = "constants for atmosphere model"));
-    
-  
-  //----- upper bound of stratosphere -----
+    //----- upper bound of stratosphere -----
   parameter Modelica.SIunits.Length alt_UpBdStratos= PropulsionSystem.Constants.constants_earth.alt_UpBdStratos
     ""
     annotation(
@@ -90,12 +83,27 @@ model SimEnvironment
     Dialog(group = "constants for atmosphere model"));
   
   
+  output Modelica.Blocks.Interfaces.RealOutput y_pStd(final quantity="Pressrue") annotation(
+    Placement(visible = true, transformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  output Modelica.Blocks.Interfaces.RealOutput y_Tstd(final quantity="Temperature") annotation(
+    Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  output Modelica.Blocks.Interfaces.RealOutput y_g(final quantity="Acceleration") annotation(
+    Placement(visible = true, transformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));  
 
-/********************************************************
-  Graphics
-********************************************************/
+  //********************************************************************************
+equation
+  /* ---------------------------------------------
+    Connections, interface <-> internal variables
+  --------------------------------------------- */
+  y_pStd= pStd;
+  y_Tstd= Tstd;
+  y_g= gravity;
   
-annotation (
+  
+  /********************************************************
+    Graphics
+  ********************************************************/
+  annotation (
     defaultComponentName="environmentAircraftDynSim",
     defaultComponentPrefixes="inner",
     missingInnerMessage="

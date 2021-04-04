@@ -21,7 +21,6 @@ block LongitudinalLTISS00
     Dialog(tab = "Initial states"));
   parameter Modelica.SIunits.AngularVelocity q0(displayUnit = "rad/s") = 0.0 "" annotation(
     Dialog(tab = "Initial states"));
-  
   //********** Characteristics **********
   parameter Real CD1=0.032 annotation(
     Dialog(group = "D-related-Coefficients"));
@@ -77,7 +76,7 @@ block LongitudinalLTISS00
   /* ---------------------------------------------
       Internal objects
   --------------------------------------------- */
-  discrete AircraftDynamics.RigidBodyFDM.Components.DerivativesLongitudinalNonDim2Dim00 DerLongiNonDim2Dim annotation(
+  discrete AircraftDynamics.RigidBodyFDM.Components.DerivativesLongitudinalNonDim2Dim00 DerLongi annotation(
     Placement(visible = true, transformation(origin = {-20, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   
   
@@ -85,39 +84,42 @@ block LongitudinalLTISS00
             Interface
   --------------------------------------------- */
   AircraftDynamics.Types.InfoBus infoBus1 annotation(
-    Placement(visible = true, transformation(origin = {80, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {120, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {120, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {120, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //---
   Modelica.Blocks.Interfaces.RealOutput y_u(final quantity="Velocity", unit = "m/s", displayUnit = "m/s") annotation(
-    Placement(visible = true, transformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_alpha(final quantity="Angle", final unit = "rad", displayUnit = "deg") annotation(
-    Placement(visible = true, transformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_q(final quantity="AngularVelocity", unit = "rad/s", displayUnit = "rad/s") annotation(
-    Placement(visible = true, transformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_theta(final quantity="Angle", final unit="rad", displayUnit="deg") annotation(
-    Placement(visible = true, transformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //---
   Modelica.Blocks.Interfaces.RealInput par_q1bar(unit = "Pa", displayUnit = "Pa") "dynamic pressure, input" annotation(
-    Placement(visible = true, transformation(origin = {-120, 50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-140, 50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-140, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput par_S(unit="m2", displayUnit="m2") annotation(
-    Placement(visible = true, transformation(origin = {-60, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-80, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput par_U1(unit="m/s", displayUnit="m/s") annotation(
-    Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-140, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput par_g(final quantity="Acceleration", unit="m/s2", displayUnit="m/s2") annotation(
+    Placement(visible = true, transformation(origin = {-140, 110}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  
   Modelica.Blocks.Interfaces.RealInput par_m(unit="kg", displayUnit="kg") "mass" annotation(
-    Placement(visible = true, transformation(origin = {-20, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-40, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput par_Iyy(unit="kg.m2", displayUnit="kg.m2") annotation(
-    Placement(visible = true, transformation(origin = {20, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {20, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {80, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput par_cBar(unit="m", displayUnit="m") "mean aerodynamic chord" annotation(
-    Placement(visible = true, transformation(origin = {60, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {120, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {60, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {120, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   //---
   Modelica.Blocks.Interfaces.RealInput u_deltaE(final quantity="Angle", final unit="rad", displayUnit="deg") annotation(
-    Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-150, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput u_delta_iH(final quantity="Angle", final unit="rad", displayUnit="deg") annotation(
-    Placement(visible = true, transformation(origin = {-120, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-150, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-140, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput u_deltaC(final quantity="Angle", final unit="rad", displayUnit="deg") annotation(
-    Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-150, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-140, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput u_deltaT(final quantity="Force", final unit="N", displayUnit="N") annotation(
-    Placement(visible = true, transformation(origin = {-120, -90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-150, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  //********************************************************************************
+    Placement(visible = true, transformation(origin = {-140, -90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-170, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    //********************************************************************************
 protected
   /* ---------------------------------------------
         calculated parameters
@@ -179,33 +181,50 @@ equation
   u[2]= u_delta_iH;
   u[3]= u_deltaC;
   u[4]= u_deltaT;
-  //---
+//---
   y_u = x[1];
   y_alpha= x[2];
   y_q= x[3];
   y_theta= x[4];
-  //-----
+//-----
   when initial() then
-    DerLongiNonDim2Dim.infoBusFlt.U1 = par_U1;
-    DerLongiNonDim2Dim.infoBusFlt.q1bar=par_q1bar;
-    DerLongiNonDim2Dim.infoBusAircraft.S= par_S;
-    DerLongiNonDim2Dim.infoBusAircraft.m= par_m;
-    DerLongiNonDim2Dim.infoBusAircraft.Iyy= par_Iyy;
-    DerLongiNonDim2Dim.infoBusAircraft.cBar= par_cBar;
+    DerLongi.infoBusFlt.U1 = par_U1;
+    DerLongi.infoBusFlt.q1bar = par_q1bar;
+    DerLongi.infoBusFlt.g= par_g;
+    DerLongi.infoBusFlt.theta1= theta0;
     //---
-    DerLongiNonDim2Dim.infoBusNonDim.CDu= CDu;
-    DerLongiNonDim2Dim.infoBusNonDim.CD1= CD1;
-    DerLongiNonDim2Dim.infoBusNonDim.CTXu=CTXu;
-    DerLongiNonDim2Dim.infoBusNonDim.CTX1=CTX1;
-    DerLongiNonDim2Dim.infoBusNonDim.CDalpha=CDalpha;
-    DerLongiNonDim2Dim.infoBusNonDim.CDdeltaE=CDdeltaE;
+    DerLongi.infoBusAircraft.S = par_S;
+    DerLongi.infoBusAircraft.m = par_m;
+    DerLongi.infoBusAircraft.Iyy = par_Iyy;
+    DerLongi.infoBusAircraft.cBar = par_cBar;
     //---
-    DerLongiNonDim2Dim.infoBusNonDim.CL1=CL1;
-    
+    DerLongi.infoBusNonDim.CDu = CDu;
+    DerLongi.infoBusNonDim.CD1 = CD1;
+    DerLongi.infoBusNonDim.CTXu = CTXu;
+    DerLongi.infoBusNonDim.CTX1 = CTX1;
+    DerLongi.infoBusNonDim.CDalpha = CDalpha;
+    DerLongi.infoBusNonDim.CDdeltaE = CDdeltaE;
+    //---
+    DerLongi.infoBusNonDim.CL1 = CL1;
+    DerLongi.infoBusNonDim.CLu= CLu;
+    DerLongi.infoBusNonDim.CLalpha= CLalpha;
+    DerLongi.infoBusNonDim.CLalpha_dot= CLalpha_dot;
+    DerLongi.infoBusNonDim.CLq= CLq;
+    DerLongi.infoBusNonDim.CLdeltaE=CLdeltaE;
+    //---
+    DerLongi.infoBusNonDim.Cm1= Cm1;
+    DerLongi.infoBusNonDim.Cmu= Cmu;
+    DerLongi.infoBusNonDim.CmAlpha= CmAlpha;
+    DerLongi.infoBusNonDim.CmAlpha_dot= CmAlpha_dot;
+    DerLongi.infoBusNonDim.Cmq= Cmq;
+    DerLongi.infoBusNonDim.CmDeltaE= CmDeltaE;
+    //---
+    DerLongi.infoBusNonDim.CmTu= 0.0; // provide dummy input
+    DerLongi.infoBusNonDim.CmT1= 0.0; // provide dummy input
+    DerLongi.infoBusNonDim.CmTalpha= 0.0; // provide dummy input
   end when;
-  //-----
-  
-  /* ---------------------------------------------
+//-----
+/* ---------------------------------------------
   Eqns describing physics
   --------------------------------------------- */
   der(x) = A * x + B * u;
@@ -214,6 +233,7 @@ equation
   ********************************************************/
   annotation(
     defaultComponentName = "LongiSS",
-    Icon(graphics = {Rectangle(origin = {66, 152}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-206, -52}, {74, -252}}), Text(origin = {-31, -86}, extent = {{-109, 6}, {171, -14}}, textString = "%name")}, coordinateSystem(extent = {{-140, -100}, {140, 100}})),
-    __OpenModelica_commandLineOptions = "");
+    Icon(graphics = {Rectangle(origin = {66, 152}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-226, -52}, {74, -252}}), Text(origin = {-31, -86}, extent = {{-129, 6}, {171, -14}}, textString = "%name")}, coordinateSystem(extent = {{-160, -100}, {140, 100}}, initialScale = 0.1)),
+    __OpenModelica_commandLineOptions = "",
+  Diagram(coordinateSystem(extent = {{-120, -100}, {120, 120}})));
 end LongitudinalLTISS00;
