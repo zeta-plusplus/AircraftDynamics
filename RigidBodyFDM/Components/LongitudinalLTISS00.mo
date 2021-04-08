@@ -133,43 +133,71 @@ protected
   parameter Real x0[4](each fixed=false) "Initial state vector" annotation(
     HideResult=false);
   //-----
-  parameter Real X_u_pri(fixed=false) annotation(
+  parameter Real Xu_pri(fixed=false) annotation(
     HideResult=false);
-  parameter Real X_alpha_pri(fixed=false) annotation(
+  parameter Real Xalpha_pri(fixed=false) annotation(
     HideResult=false);
-  parameter Real X_q_pri(fixed=false) annotation(
+  parameter Real Xq_pri(fixed=false) annotation(
     HideResult=false);
-  parameter Real X_theta_pri(fixed=false) annotation(
-    HideResult=false);
-  //---
-  parameter Real Z_u_pri(fixed=false) annotation(
-    HideResult=false);
-  parameter Real Z_alpha_pri(fixed=false) annotation(
-    HideResult=false);
-  parameter Real Z_q_pri(fixed=false) annotation(
-    HideResult=false);
-  parameter Real Z_theta_pri(fixed=false) annotation(
+  parameter Real Xtheta_pri(fixed=false) annotation(
     HideResult=false);
   //---
-  parameter Real M_u_pri(fixed=false) annotation(
+  parameter Real Zu_pri(fixed=false) annotation(
     HideResult=false);
-  parameter Real M_alpha_pri(fixed=false) annotation(
+  parameter Real Zalpha_pri(fixed=false) annotation(
     HideResult=false);
-  parameter Real M_q_pri(fixed=false) annotation(
+  parameter Real Zq_pri(fixed=false) annotation(
     HideResult=false);
-  parameter Real M_theta_pri(fixed=false) annotation(
+  parameter Real Ztheta_pri(fixed=false) annotation(
     HideResult=false);
+  //---
+  parameter Real Mu_pri(fixed=false) annotation(
+    HideResult=false);
+  parameter Real Malpha_pri(fixed=false) annotation(
+    HideResult=false);
+  parameter Real Mq_pri(fixed=false) annotation(
+    HideResult=false);
+  parameter Real Mtheta_pri(fixed=false) annotation(
+    HideResult=false);
+  //---
+  //---
+  //---
+  //---
   //********************************************************************************
 initial equation
-//-----
+  
+  //***** Dimentional derivatives *****
+  Xu_pri= DerLongi.infoBusDim.Xu_pri;
+  Xalpha_pri= DerLongi.infoBusDim.Xalpha_pri;
+  Xq_pri= DerLongi.infoBusDim.Xq_pri;
+  Xtheta_pri= DerLongi.infoBusDim.Xtheta_pri;
+  //---
+  Zu_pri= DerLongi.infoBusDim.Zu_pri;
+  Zalpha_pri= DerLongi.infoBusDim.Zalpha_pri;
+  Zq_pri= DerLongi.infoBusDim.Zq_pri;
+  Ztheta_pri= DerLongi.infoBusDim.Ztheta_pri;
+  //---
+  //Mu_pri= DerLongi.infoBusDim.Mu_pri;
+  //Malpha_pri= DerLongi.infoBusDim.Malpha_pri;
+  //Mq_pri= DerLongi.infoBusDim.Mq_pri;
+  //Mtheta_pri= DerLongi.infoBusDim.Mtheta_pri;
+  //---
+  
+  
+  //***** initial condition *****
+  //-----
   alpha0 = theta0 - gamma0;
-//---
+  //---
+  
   x0[1] = par_U1 * cos(alpha0);
   x0[2] = alpha0;
   x0[3] = q0;
   x0[4] = theta0;
-//---
+  
+  //---
   x = x0;
+  
+  
 initial algorithm
 //********************************************************************************
 equation
@@ -188,16 +216,20 @@ equation
   y_theta= x[4];
 //-----
   when initial() then
+    //***** flight condition *****
     DerLongi.infoBusFlt.U1 = par_U1;
     DerLongi.infoBusFlt.q1bar = par_q1bar;
     DerLongi.infoBusFlt.g= par_g;
     DerLongi.infoBusFlt.theta1= theta0;
     //---
+    //***** aircraft characteristics *****
     DerLongi.infoBusAircraft.S = par_S;
     DerLongi.infoBusAircraft.m = par_m;
     DerLongi.infoBusAircraft.Iyy = par_Iyy;
     DerLongi.infoBusAircraft.cBar = par_cBar;
     //---
+    
+    //***** Non-dimentional coefficients/derivatives *****
     DerLongi.infoBusNonDim.CDu = CDu;
     DerLongi.infoBusNonDim.CD1 = CD1;
     DerLongi.infoBusNonDim.CTXu = CTXu;
@@ -222,6 +254,7 @@ equation
     DerLongi.infoBusNonDim.CmTu= 0.0; // provide dummy input
     DerLongi.infoBusNonDim.CmT1= 0.0; // provide dummy input
     DerLongi.infoBusNonDim.CmTalpha= 0.0; // provide dummy input
+    
   end when;
 //-----
 /* ---------------------------------------------
