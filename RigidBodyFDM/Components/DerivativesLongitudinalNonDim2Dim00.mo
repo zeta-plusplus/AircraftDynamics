@@ -72,16 +72,18 @@ model DerivativesLongitudinalNonDim2Dim00
   Real Mq;
   Real MdeltaE;
   //---
-  //Real Mu_pri;
-  //Real Malpha_pri;
-  //Real Mq_pri;
-  //Real Mtheta_pri;
+  Real Mu_pri;
+  Real Malpha_pri;
+  Real Mq_pri;
+  Real Mtheta_pri;
   //---
   
   //----------
   Real XdeltaE_pri;
   //---
   Real ZdeltaE_pri;
+  //---
+  Real MdeltaE_pri;
   
   
   /* ---------------------------------------------
@@ -170,11 +172,16 @@ equation
   connect(Mq, infoBusDim.Mq);
   connect(MdeltaE, infoBusDim.MdeltaE);
   //---
-  
+  connect(Mu_pri, infoBusDim.Mu_pri);
+  connect(Malpha_pri, infoBusDim.Malpha_pri);
+  connect(Mq_pri, infoBusDim.Mq_pri);
+  connect(Mtheta_pri, infoBusDim.Mtheta_pri);
   //-----
   connect(XdeltaE_pri, infoBusDim.XdeltaE_pri);
   //---
   connect(ZdeltaE_pri, infoBusDim.ZdeltaE_pri);
+  //---
+  connect(MdeltaE_pri, infoBusDim.MdeltaE_pri);
   
   
   /* ---------------------------------------------
@@ -213,13 +220,18 @@ equation
   Mq= (q1bar*S*cBar*Cmq)/Iyy*(cBar/(2.0*U1));
   MdeltaE= (q1bar*S*cBar*CmDeltaE)/Iyy;
   //---
+  Mu_pri= Malpha_dot*Zu_pri + Mu;
+  Malpha_pri= Malpha_dot*Zalpha_pri + Malpha;
+  Mq_pri= Malpha_dot*Zq_pri + Mq;
+  Mtheta_pri= Malpha_dot*Ztheta_pri;
   
   //-----
   XdeltaE_pri= XdeltaE;
   //---
   ZdeltaE_pri= ZdeltaE/(U1 - Zalpha_dot);
   //---
-  
+  MdeltaE_pri= Malpha_dot*ZdeltaE_pri + MdeltaE;
+  //---
   
   
 /********************************************************

@@ -15,11 +15,11 @@ block LongitudinalLTISS00
         parameters
   --------------------------------------------- */
   //********** Initial States **********
-  parameter Modelica.SIunits.Angle alpha0(displayUnit="deg") = 5.0*(Constants.pi/180.0) "" annotation(
+  parameter Modelica.SIunits.Angle alpha0 = 5.0*(Constants.pi/180.0) "" annotation(
     Dialog(tab = "Initial states"));
-  parameter Modelica.SIunits.Angle gamma0(displayUnit="deg") = 0.0 "" annotation(
+  parameter Modelica.SIunits.Angle gamma0 = 0.0 "" annotation(
     Dialog(tab = "Initial states"));
-  parameter Modelica.SIunits.AngularVelocity q0(displayUnit = "rad/s") = 0.0 "" annotation(
+  parameter Modelica.SIunits.AngularVelocity q0 = 0.0 "" annotation(
     Dialog(tab = "Initial states"));
   //********** Characteristics **********
   parameter Real CD1=0.032 annotation(
@@ -76,6 +76,8 @@ block LongitudinalLTISS00
   /* ---------------------------------------------
       Internal objects
   --------------------------------------------- */
+  inner outer AircraftDynamics.SimEnvironment environmentAircraftDynSim annotation(
+    Placement(visible = true, transformation(origin = {-30, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   discrete AircraftDynamics.RigidBodyFDM.Components.DerivativesLongitudinalNonDim2Dim00 DerLongi annotation(
     Placement(visible = true, transformation(origin = {-20, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   
@@ -101,8 +103,6 @@ block LongitudinalLTISS00
     Placement(visible = true, transformation(origin = {-80, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput par_U1(unit="m/s", displayUnit="m/s") annotation(
     Placement(visible = true, transformation(origin = {-140, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput par_g(final quantity="Acceleration", unit="m/s2", displayUnit="m/s2") annotation(
-    Placement(visible = true, transformation(origin = {-140, 110}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-60, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   
   Modelica.Blocks.Interfaces.RealInput par_m(unit="kg", displayUnit="kg") "mass" annotation(
     Placement(visible = true, transformation(origin = {-40, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -119,7 +119,7 @@ block LongitudinalLTISS00
     Placement(visible = true, transformation(origin = {-140, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput u_deltaT(final quantity="Force", final unit="N", displayUnit="N") annotation(
     Placement(visible = true, transformation(origin = {-140, -90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-170, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    //********************************************************************************
+  //********************************************************************************
 protected
   /* ---------------------------------------------
         calculated parameters
@@ -160,8 +160,14 @@ protected
   parameter Real Mtheta_pri(fixed=false) annotation(
     HideResult=false);
   //---
+  parameter Real XdeltaE_pri(fixed=false) annotation(
+    HideResult=false);
   //---
+  parameter Real ZdeltaE_pri(fixed=false) annotation(
+    HideResult=false);
   //---
+  parameter Real MdeltaE_pri(fixed=false) annotation(
+    HideResult=false);
   //---
   //********************************************************************************
 initial equation
@@ -177,11 +183,44 @@ initial equation
   Zq_pri= DerLongi.infoBusDim.Zq_pri;
   Ztheta_pri= DerLongi.infoBusDim.Ztheta_pri;
   //---
-  //Mu_pri= DerLongi.infoBusDim.Mu_pri;
-  //Malpha_pri= DerLongi.infoBusDim.Malpha_pri;
-  //Mq_pri= DerLongi.infoBusDim.Mq_pri;
-  //Mtheta_pri= DerLongi.infoBusDim.Mtheta_pri;
+  Mu_pri= DerLongi.infoBusDim.Mu_pri;
+  Malpha_pri= DerLongi.infoBusDim.Malpha_pri;
+  Mq_pri= DerLongi.infoBusDim.Mq_pri;
+  Mtheta_pri= DerLongi.infoBusDim.Mtheta_pri;
   //---
+  XdeltaE_pri= DerLongi.infoBusDim.XdeltaE_pri;
+  //---
+  ZdeltaE_pri= DerLongi.infoBusDim.ZdeltaE_pri;
+  //---
+  MdeltaE_pri= DerLongi.infoBusDim.MdeltaE_pri;
+  //---
+  
+  //***** matrices of state space equation *****
+  A[1,1]= Xu_pri;
+  A[1,2]= Xalpha_pri;
+  A[1,3]= Xq_pri;
+  A[1,4]= Xtheta_pri;
+  //---
+  A[2,1]= Zu_pri;
+  A[2,2]= Zalpha_pri;
+  A[2,3]= Zq_pri;
+  A[2,4]= Ztheta_pri;
+  //---
+  A[3,1]= Mu_pri;
+  A[3,2]= Malpha_pri;
+  A[3,3]= Mq_pri;
+  A[3,4]= Mtheta_pri;
+  //---
+  A[4,1]= 0.0;
+  A[4,2]= 0.0;
+  A[4,3]= 1.0;
+  A[4,4]= 0.0;
+  //-----
+  B[1,1]= XdeltaE_pri;
+  //---
+  B[2,1]= ZdeltaE_pri;
+  //---
+  B[3,1]= MdeltaE_pri;
   
   
   //***** initial condition *****
@@ -219,7 +258,7 @@ equation
     //***** flight condition *****
     DerLongi.infoBusFlt.U1 = par_U1;
     DerLongi.infoBusFlt.q1bar = par_q1bar;
-    DerLongi.infoBusFlt.g= par_g;
+    DerLongi.infoBusFlt.g= environmentAircraftDynSim.gravity;
     DerLongi.infoBusFlt.theta1= theta0;
     //---
     //***** aircraft characteristics *****
