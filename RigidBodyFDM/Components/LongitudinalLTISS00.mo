@@ -15,12 +15,23 @@ block LongitudinalLTISS00
         parameters
   --------------------------------------------- */
   //********** Initial States **********
-  parameter Modelica.SIunits.Angle alpha0 = 5.0*(Constants.pi/180.0) "" annotation(
-    Dialog(tab = "Initial states"));
-  parameter Modelica.SIunits.Angle gamma0 = 0.0 "" annotation(
-    Dialog(tab = "Initial states"));
-  parameter Modelica.SIunits.AngularVelocity q0 = 0.0 "" annotation(
-    Dialog(tab = "Initial states"));
+  parameter Modelica.SIunits.Angle alpha1 = 5.0*(Constants.pi/180.0) "AoA, in equilibrium at initial" annotation(
+    Dialog(tab = "Initial states", group="in equilibrium"));
+  parameter Modelica.SIunits.Angle gamma1 = 0.0 "flight path, in equilibrium at initial" annotation(
+    Dialog(tab = "Initial states", group="in equilibrium"));
+  parameter Modelica.SIunits.AngularVelocity q1 = 0.0 "pitch rate, in equilibrium at initial" annotation(
+    Dialog(tab = "Initial states", group="in equilibrium"));
+  //---
+  parameter Modelica.SIunits.Velocity u0=0.0 "velocity along x-axis, deviation from equilibrium at initial" annotation(
+    Dialog(tab = "Initial states", group="deviation from equilibrium"));
+  parameter Modelica.SIunits.Angle alpha0=0.0 "AoA, deviation from equilibrium at initial" annotation(
+    Dialog(tab = "Initial states", group="deviation from equilibrium"));
+  parameter Modelica.SIunits.AngularVelocity q0=0.0 "pitch rate, deviation from equilibrium" annotation(
+    Dialog(tab = "Initial states", group="deviation from equilibrium"));
+  parameter Modelica.SIunits.Angle theta0=0.0 "pitch, deviation from equilibrium at initial" annotation(
+    Dialog(tab = "Initial states", group="deviation from equilibrium"));
+  
+  
   //********** Characteristics **********
   parameter Real CD1=0.032 annotation(
     Dialog(group = "D-related-Coefficients"));
@@ -68,9 +79,10 @@ block LongitudinalLTISS00
   Real x[4](start=x0) "State vector" annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
-  Real u[4](start=zeros(4)) "Input vector" annotation(
+  Real u[2](start=zeros(2)) "Input vector" annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
+  //---
   
   
   /* ---------------------------------------------
@@ -113,10 +125,6 @@ block LongitudinalLTISS00
   //---
   Modelica.Blocks.Interfaces.RealInput u_deltaE(final quantity="Angle", final unit="rad", displayUnit="deg") annotation(
     Placement(visible = true, transformation(origin = {-140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-170, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput u_delta_iH(final quantity="Angle", final unit="rad", displayUnit="deg") annotation(
-    Placement(visible = true, transformation(origin = {-140, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-170, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput u_deltaC(final quantity="Angle", final unit="rad", displayUnit="deg") annotation(
-    Placement(visible = true, transformation(origin = {-140, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-170, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput u_deltaT(final quantity="Force", final unit="N", displayUnit="N") annotation(
     Placement(visible = true, transformation(origin = {-140, -90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-170, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //********************************************************************************
@@ -126,9 +134,11 @@ protected
   --------------------------------------------- */
   parameter Real A[4, 4](each fixed=false) annotation(
     fixed=false, HideResult=false);
-  parameter Real B[4, 4](each fixed=false) annotation(
+  parameter Real B[4, 2](each fixed=false) annotation(
     fixed=false, HideResult=false);
-  parameter Modelica.SIunits.Angle theta0(fixed=false) annotation(
+  parameter Modelica.SIunits.Angle theta1(fixed=false) annotation(
+    fixed=false, HideResult=false);
+  parameter Modelica.SIunits.Velocity u1(fixed=false) annotation(
     fixed=false, HideResult=false);
   parameter Real x0[4](each fixed=false) "Initial state vector" annotation(
     HideResult=false);
@@ -225,10 +235,10 @@ initial equation
   
   //***** initial condition *****
   //-----
-  alpha0 = theta0 - gamma0;
+  alpha1 = theta1 - gamma1;
+  u1= par_U1*cos(alpha1);
   //---
-  
-  x0[1] = par_U1 * cos(alpha0);
+  x0[1] = u0;
   x0[2] = alpha0;
   x0[3] = q0;
   x0[4] = theta0;
@@ -245,14 +255,12 @@ equation
     Connections, interface <-> internal variables
   --------------------------------------------- */
   u[1]= u_deltaE;
-  u[2]= u_delta_iH;
-  u[3]= u_deltaC;
-  u[4]= u_deltaT;
+  u[2]= u_deltaT;
 //---
-  y_u = x[1];
-  y_alpha= x[2];
-  y_q= x[3];
-  y_theta= x[4];
+  y_u = u1 + x[1];
+  y_alpha= alpha1 + x[2];
+  y_q= q1 + x[3];
+  y_theta= theta1 + x[4];
 //-----
   when initial() then
     //***** flight condition *****
@@ -304,7 +312,7 @@ equation
     Graphics
   ********************************************************/
   annotation(
-    defaultComponentName = "LongiSS",
+    defaultComponentName = "FltDynLongiSS",
     Icon(graphics = {Rectangle(origin = {66, 152}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-226, -52}, {74, -252}}), Text(origin = {-31, -86}, extent = {{-129, 6}, {171, -14}}, textString = "%name")}, coordinateSystem(extent = {{-160, -100}, {140, 100}}, initialScale = 0.1)),
     __OpenModelica_commandLineOptions = "",
   Diagram(coordinateSystem(extent = {{-120, -100}, {120, 120}})));
