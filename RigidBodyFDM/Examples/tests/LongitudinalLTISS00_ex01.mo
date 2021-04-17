@@ -4,18 +4,18 @@ model LongitudinalLTISS00_ex01
   extends Modelica.Icons.Example;
   //-----
   //package surrFluid = Modelica.Media.Air.DryAirNasa;
-  package surrFluid= AircraftDynamics.Media.DryAirMethaneMixture00;
+  package surrFluid = AircraftDynamics.Media.DryAirMethaneMixture00;
   //redeclare package Medium = surrFluid
   //-----
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg1 annotation(
-    Placement(visible = true, transformation(origin = {-60, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const_S(k = 16.165129)  annotation(
+    Placement(visible = true, transformation(origin = {-50, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant const_S(k = 16.165129) annotation(
     Placement(visible = true, transformation(origin = {10, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant const_m(k = 1202.01978)  annotation(
+  Modelica.Blocks.Sources.Constant const_m(k = 1202.01978) annotation(
     Placement(visible = true, transformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant const_Iyy(k = 1824.9309607)  annotation(
+  Modelica.Blocks.Sources.Constant const_Iyy(k = 1824.9309607) annotation(
     Placement(visible = true, transformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant const_cBar(k = 1.49352)  annotation(
+  Modelica.Blocks.Sources.Constant const_cBar(k = 1.49352) annotation(
     Placement(visible = true, transformation(origin = {100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   AircraftDynamics.Sources.FlightCondition2Fluid00 Flt2Fluid(redeclare package Medium = surrFluid, MN_paramInput = 0.201, alt_paramInput = 1524) annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -23,21 +23,29 @@ model LongitudinalLTISS00_ex01
     Placement(visible = true, transformation(origin = {-90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.LongitudinalLTISS00 FltDynLongiSS annotation(
     Placement(visible = true, transformation(origin = {33.0548, 19.8733}, extent = {{-32.2028, -20.1267}, {28.1774, 20.1267}}, rotation = 0)));
-  Modelica.Blocks.Sources.TimeTable timeTable_deltaE(table = [0, 0; 10, 0; 10, -5; 11, -5; 11, -0; 50, -0])  annotation(
+  Modelica.Blocks.Math.Gain gain_Tsteady(k = 50) annotation(
+    Placement(visible = true, transformation(origin = {-50, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.UnitConversions.To_deg to_deg1 annotation(
+    Placement(visible = true, transformation(origin = {90, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Continuous.Integrator integrator1 annotation(
+    Placement(visible = true, transformation(origin = {90, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression uSignal_deltaE(y = if 2 <= time and time <= 4 then -3 elseif 30 <= time and time <= 32 then 3 else 0)  annotation(
     Placement(visible = true, transformation(origin = {-90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.TimeTable timeTable_deltaFracT(table = [0, 0; 50, 0])  annotation(
-    Placement(visible = true, transformation(origin = {-90, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain_Tsteady(k = 100)  annotation(
-    Placement(visible = true, transformation(origin = {-50, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression uSignal_deltaFracT(y = if 2 <= time and time <= 4 then 0 elseif 30 <= time and time <= 32 then 0 else 0)  annotation(
+    Placement(visible = true, transformation(origin = {-90, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  connect(gain_Tsteady.y, FltDynLongiSS.u_deltaT) annotation(
-    Line(points = {{-38, -10}, {-22, -10}, {-22, 8}, {-2, 8}, {-2, 8}}, color = {0, 0, 127}));
-  connect(timeTable_deltaFracT.y, gain_Tsteady.u) annotation(
-    Line(points = {{-78, -10}, {-62, -10}, {-62, -10}, {-62, -10}}, color = {0, 0, 127}));
-  connect(timeTable_deltaE.y, from_deg1.u) annotation(
-    Line(points = {{-78, 20}, {-72, 20}, {-72, 20}, {-72, 20}}, color = {0, 0, 127}));
+  connect(uSignal_deltaE.y, from_deg1.u) annotation(
+    Line(points = {{-78, 20}, {-62, 20}}, color = {0, 0, 127}));
   connect(from_deg1.y, FltDynLongiSS.u_deltaE) annotation(
-    Line(points = {{-49, 20}, {-44, 20}, {-44, 32}, {-2, 32}}, color = {0, 0, 127}));
+    Line(points = {{-39, 20}, {-30, 20}, {-30, 32}, {-2, 32}}, color = {0, 0, 127}));
+  connect(uSignal_deltaFracT.y, gain_Tsteady.u) annotation(
+    Line(points = {{-78, -20}, {-62, -20}, {-62, -20}, {-62, -20}}, color = {0, 0, 127}));
+  connect(FltDynLongiSS.y_q, integrator1.u) annotation(
+    Line(points = {{62, 16}, {70, 16}, {70, -20}, {78, -20}}, color = {0, 0, 127}));
+  connect(FltDynLongiSS.y_q, to_deg1.u) annotation(
+    Line(points = {{62, 16}, {78, 16}, {78, 16}, {78, 16}}, color = {0, 0, 127}));
+  connect(gain_Tsteady.y, FltDynLongiSS.u_deltaT) annotation(
+    Line(points = {{-39, -20}, {-22, -20}, {-22, 8}, {-2, 8}}, color = {0, 0, 127}));
   connect(const_cBar.y, FltDynLongiSS.par_cBar) annotation(
     Line(points = {{100, 100}, {100, 68}, {56, 68}, {56, 42}}, color = {0, 0, 127}));
   connect(const_Iyy.y, FltDynLongiSS.par_Iyy) annotation(
@@ -53,7 +61,6 @@ equation
   annotation(
     Diagram(coordinateSystem(extent = {{-100, -100}, {120, 120}})),
     __OpenModelica_commandLineOptions = "",
-  experiment(StartTime = 0, StopTime = 50, Tolerance = 1e-6, Interval = 0.1),
-  __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
-  
+    experiment(StartTime = 0, StopTime = 120, Tolerance = 1e-06, Interval = 0.24),
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
 end LongitudinalLTISS00_ex01;

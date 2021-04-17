@@ -76,7 +76,7 @@ block LongitudinalLTISS00
   /* ---------------------------------------------
         Internal variables
   --------------------------------------------- */
-  Real x[4](start=x0) "State vector" annotation(
+  Real x[4](start=x0, final quantity={"Velocity", "Angle", "AngularVelocity", "Angle"}) "State vector" annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
   Real u[2](start=zeros(2)) "Input vector" annotation(
@@ -183,7 +183,7 @@ protected
 initial equation
   
   //***** Dimentional derivatives *****
-  Xu_pri= DerLongi.infoBusDim.Xu_pri;
+  /*Xu_pri= DerLongi.infoBusDim.Xu_pri;
   Xalpha_pri= DerLongi.infoBusDim.Xalpha_pri;
   Xq_pri= DerLongi.infoBusDim.Xq_pri;
   Xtheta_pri= DerLongi.infoBusDim.Xtheta_pri;
@@ -204,35 +204,72 @@ initial equation
   //---
   MdeltaE_pri= DerLongi.infoBusDim.MdeltaE_pri;
   //---
+  */
+  
+  //***** test *****
+  /**/
+  Xu_pri= -0.023564;
+  Xalpha_pri= 41.0074;
+  Xq_pri= 0.0;
+  Xtheta_pri= -32.2;
+  //---
+  Zu_pri= -0.000241;
+  Zalpha_pri= -1.296;
+  Zq_pri= 0.9846;
+  Ztheta_pri= 0.0;
+  //---
+  Mu_pri= 0.00020571;
+  Malpha_pri= -3.5094;
+  Mq_pri= -2.4142;
+  Mtheta_pri= 0;
+  
+  //---
+  XdeltaE_pri= 0.0;
+  //---
+  ZdeltaE_pri= -0.0821;
+  //---
+  MdeltaE_pri= -15.7002;
+  
   
   //***** matrices of state space equation *****
+  A= [Xu_pri, Xalpha_pri, Xq_pri, Xtheta_pri;
+      Zu_pri, Zalpha_pri, Zq_pri, Ztheta_pri;
+      Mu_pri, Malpha_pri, Mq_pri, Mtheta_pri;
+      0.0, 0.0, 1.0, 0.0];
+  
+  B= [XdeltaE_pri, 0.0;
+      ZdeltaE_pri, 0.0;
+      MdeltaE_pri, 0.0;
+      0.0, 0.0];
+  
+  /*
   A[1,1]= Xu_pri;
   A[1,2]= Xalpha_pri;
   A[1,3]= Xq_pri;
   A[1,4]= Xtheta_pri;
-  //---
+  
   A[2,1]= Zu_pri;
   A[2,2]= Zalpha_pri;
   A[2,3]= Zq_pri;
   A[2,4]= Ztheta_pri;
-  //---
+  
   A[3,1]= Mu_pri;
   A[3,2]= Malpha_pri;
   A[3,3]= Mq_pri;
   A[3,4]= Mtheta_pri;
-  //---
+  
   A[4,1]= 0.0;
   A[4,2]= 0.0;
   A[4,3]= 1.0;
   A[4,4]= 0.0;
-  //-----
-  B[1,1]= XdeltaE_pri;
-  //---
-  B[2,1]= ZdeltaE_pri;
-  //---
-  B[3,1]= MdeltaE_pri;
+  */
   
-  
+  /*
+  B= [0.0, 0.0;
+      0.0, 0.0;
+      MdeltaE_pri, 0.0;
+      0.0, 0.0];
+  */
   //***** initial condition *****
   //-----
   alpha1 = theta1 - gamma1;
@@ -256,6 +293,7 @@ equation
   --------------------------------------------- */
   u[1]= u_deltaE;
   u[2]= u_deltaT;
+  
 //---
   y_u = u1 + x[1];
   y_alpha= alpha1 + x[2];
