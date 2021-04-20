@@ -1,7 +1,6 @@
 within AircraftDynamics.RigidBodyFDM.Components;
 
-block LongitudinalLTISS00
-  extends AircraftDynamics.RigidBodyFDM.BaseClasses.LTISS00;
+block LateralLTISS00
   /********************************************************
               imports
   ********************************************************/
@@ -77,15 +76,13 @@ block LongitudinalLTISS00
   /* ---------------------------------------------
         Internal variables
   --------------------------------------------- */
-  redeclare Real x[nx](start=x0) annotation(
+  Real x[4](start=x0, final quantity={"Velocity", "Angle", "AngularVelocity", "Angle"}) "State vector" annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
-  redeclare Real u[nu] annotation(
+  Real u[2](start=zeros(2)) "Input vector" annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
-  redeclare Real y[ny] annotation(
-    Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
-  );
+  //---
   
   
   /* ---------------------------------------------
@@ -133,32 +130,18 @@ block LongitudinalLTISS00
   //********************************************************************************
 protected
   /* ---------------------------------------------
-        redeclare protected parameters
+        calculated parameters
   --------------------------------------------- */
-  redeclare parameter Integer nx= 4;
-  redeclare parameter Integer nu= 2;
-  redeclare parameter Integer ny= 4;
-  //---
-  redeclare parameter Real A[nx, nx] annotation(
+  parameter Real A[4, 4](each fixed=false) annotation(
     fixed=false, HideResult=false);
-  redeclare parameter Real B[nx, nu] annotation(
+  parameter Real B[4, 2](each fixed=false) annotation(
     fixed=false, HideResult=false);
-  redeclare parameter Real C[ny, nx] annotation(
-    fixed=false, HideResult=false);
-  redeclare parameter Real D[ny, nu] annotation(
-    fixed=false, HideResult=false);
-  //---
-  redeclare parameter Real x0[nx] "Initial state vector" annotation(
-    HideResult=false);
-  
-  
-  /* ---------------------------------------------
-        parameters not fixed yet
-  --------------------------------------------- */
   parameter Modelica.SIunits.Angle theta1(fixed=false) annotation(
     fixed=false, HideResult=false);
   parameter Modelica.SIunits.Velocity u1(fixed=false) annotation(
     fixed=false, HideResult=false);
+  parameter Real x0[4](each fixed=false) "Initial state vector" annotation(
+    HideResult=false);
   //-----
   parameter Real Xu_pri(fixed=false) annotation(
     HideResult=false);
@@ -196,8 +179,6 @@ protected
   parameter Real MdeltaE_pri(fixed=false) annotation(
     HideResult=false);
   //---
-  
-  
   //********************************************************************************
 initial equation
   
@@ -265,20 +246,6 @@ initial equation
       0.0, 0.0
      ];
   
-  C= [
-      1.0, 0.0, 0.0, 0.0;
-      0.0, 1.0, 0.0, 0.0;
-      0.0, 0.0, 1.0, 0.0;
-      0.0, 0.0, 0.0, 1.0
-      ];
-  
-  D= [
-      0.0, 0.0;
-      0.0, 0.0;
-      0.0, 0.0;
-      0.0, 0.0
-     ];
-  
   //***** initial condition *****
   //-----
   alpha1 = theta1 - gamma1;
@@ -289,6 +256,8 @@ initial equation
   x0[3] = q0;
   x0[4] = theta0;
   
+  //---
+  x = x0;
   
   
 initial algorithm
@@ -301,16 +270,12 @@ equation
   u[1]= u_deltaE;
   u[2]= u_deltaT;
   
-  //---
-  y_u = u1 + y[1];
-  y_alpha= alpha1 + y[2];
-  y_q= q1 + y[3];
-  y_theta= theta1 + y[4];
-  //-----
-  
-  /* ---------------------------------------------
-    Eqns describing physics
-  --------------------------------------------- */
+//---
+  y_u = u1 + x[1];
+  y_alpha= alpha1 + x[2];
+  y_q= q1 + x[3];
+  y_theta= theta1 + x[4];
+//-----
   when initial() then
     //***** flight condition *****
     DerLongi.infoBusFlt.U1 = par_U1;
@@ -350,9 +315,14 @@ equation
     DerLongi.infoBusNonDim.CmTu= 0.0; // provide dummy input
     DerLongi.infoBusNonDim.CmT1= 0.0; // provide dummy input
     DerLongi.infoBusNonDim.CmTalpha= 0.0; // provide dummy input
-    //---
+    
   end when;
-  
+//-----
+/* ---------------------------------------------
+  Eqns describing physics
+  --------------------------------------------- */
+  der(x) = A * x + B * u;
+
 /********************************************************
   Graphics
 ********************************************************/
@@ -363,4 +333,4 @@ equation
   Diagram(coordinateSystem(extent = {{-120, -100}, {120, 120}})));
   
   
-end LongitudinalLTISS00;
+end LateralLTISS00;
