@@ -1,24 +1,23 @@
 within AircraftDynamics.RigidBodyFDM.BaseClasses;
 
 partial model LTISS00 "Linear Time Invariant State Space"
+  import Modelica.Math.Matrices;
   /* ---------------------------------------------
         Internal variables
   --------------------------------------------- */
   replaceable Real x "State vector";
   replaceable Real u "Input vector";
   replaceable Real y "Output vector";
-  
-  
+  //---
+  /*
+  replaceable Real eigA "eigenvalues of matrix A";
+  replaceable Real eigVecA "eigen vectors of matrix A";
+  */
   //********************************************************************************
 protected
   /* ---------------------------------------------
         parameters not fixed yet
   --------------------------------------------- */
-  replaceable parameter Integer nx "number of state variables";
-  replaceable parameter Integer nu "number of inputs";
-  replaceable parameter Integer ny "number of outputs";
-  
-  //---
   replaceable parameter Real A(each fixed=false) annotation(
     fixed=false, HideResult=false);
   replaceable parameter Real B(each fixed=false) annotation(
@@ -37,6 +36,10 @@ initial equation
   
   
   //********************************************************************************
+algorithm
+  //(eigA, eigVecA) := Modelica.Math.Matrices.eigenValues(A);
+  
+  //********************************************************************************
 equation
   
   /* ---------------------------------------------
@@ -45,6 +48,7 @@ equation
   //-----
   der(x) = A * x + B * u;
   y = C * x + D * u;
+  //---
   
   
 end LTISS00;

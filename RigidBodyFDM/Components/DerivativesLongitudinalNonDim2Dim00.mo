@@ -1,6 +1,6 @@
 within AircraftDynamics.RigidBodyFDM.Components;
 
-model DerivativesLongitudinalNonDim2Dim00
+model DerivativesLongitudinalNonDim2Dim00 "Convert coefficients/derivatives, non-dimensional -> dimentional"
   import AircraftDynamics;
   
   /* ---------------------------------------------
@@ -84,6 +84,16 @@ model DerivativesLongitudinalNonDim2Dim00
   Real ZdeltaE_pri;
   //---
   Real MdeltaE_pri;
+  //---
+  
+  //----------
+  Real Zu_ppri;
+  Real Zalpha_ppri;
+  Real Zq_ppri;
+  Real Ztheta_ppri;
+  //---
+  Real ZdeltaE_ppri;
+  //---
   
   
   /* ---------------------------------------------
@@ -183,6 +193,15 @@ equation
   //---
   connect(MdeltaE_pri, infoBusDim.MdeltaE_pri);
   
+  //-----
+  connect(Zu_ppri, infoBusDim.Zu_ppri);
+  connect(Zalpha_ppri, infoBusDim.Zalpha_ppri);
+  connect(Zq_ppri, infoBusDim.Zq_ppri);
+  connect(Ztheta_ppri, infoBusDim.Ztheta_ppri);
+  //---
+  connect(ZdeltaE_ppri, infoBusDim.ZdeltaE_ppri);
+  //---
+  
   
   /* ---------------------------------------------
   Eqns describing physics
@@ -231,6 +250,15 @@ equation
   ZdeltaE_pri= ZdeltaE/(U1 - Zalpha_dot);
   //---
   MdeltaE_pri= Malpha_dot*ZdeltaE_pri + MdeltaE;
+  //---
+  
+  //-----
+  Zu_ppri= Zu_pri*U1;
+  Zalpha_ppri= Zalpha_pri*U1 - g*sin(theta1);
+  Zq_ppri= (Zq_pri - 1.0)*U1;
+  Ztheta_ppri= Ztheta_pri*U1 + g*sin(theta1);
+  //---
+  ZdeltaE_ppri= ZdeltaE_pri*U1;
   //---
   
   

@@ -1,6 +1,7 @@
 within AircraftDynamics.RigidBodyFDM.Components;
 
-block LateralLTISS00
+block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady State equations"
+  extends AircraftDynamics.RigidBodyFDM.BaseClasses.LTISS00;
   /********************************************************
               imports
   ********************************************************/
