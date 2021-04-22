@@ -71,8 +71,8 @@ model SimpleLTISS_ex01
     Placement(visible = true, transformation(origin = {10, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg3 annotation(
     Placement(visible = true, transformation(origin = {-30, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression uSignal_deltaE(y = if time <= 2 then 0 elseif 2 <= time and time <= 3 then -3 elseif 30 <= time and time <= 31 then -3
-   elseif 31 <= time then -3 else -3)  annotation(
+  Modelica.Blocks.Sources.RealExpression uSignal_deltaE(y = if time <= 2 then 0 elseif 2 <= time and time <= 3 then -3 elseif 7 <= time and time <= 8 then 3
+   elseif 31 <= time then 0 else 0)  annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression uSignal_deltaFracT(y = if time <= 2 then 0 elseif 2 <= time and time <= 3 then 0
    elseif 30 <= time and time <= 31 then 0

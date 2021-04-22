@@ -29,7 +29,7 @@ model LongitudinalLTISS00_ex01
     Placement(visible = true, transformation(origin = {90, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integrator1 annotation(
     Placement(visible = true, transformation(origin = {90, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression uSignal_deltaE(y = if time <= 2 then 0 elseif 2 <= time and time <= 3 then -1 elseif 30 <= time and time <= 31 then -1    elseif 31 <= time then -1 else -1)  annotation(
+  Modelica.Blocks.Sources.RealExpression uSignal_deltaE(y = if time <= 2 then 0 elseif 2 <= time and time <= 3 then -3 elseif 7 <= time and time <= 8 then 3    elseif 31 <= time then 0 else 0)  annotation(
     Placement(visible = true, transformation(origin = {-90, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression uSignal_deltaFracT(y = if time <= 2 then 0 elseif 2 <= time and time <= 3 then 0    elseif 30 <= time and time <= 31 then 0
    elseif 31 <= time then 0 else 0)  annotation(

@@ -233,15 +233,16 @@ initial equation
 //---
   MdeltaE_pri = DerLongi.infoBusDim.MdeltaE_pri;
 //---
+  /**/
   Zu_ppri = DerLongi.infoBusDim.Zu_ppri;
   Zalpha_ppri = DerLongi.infoBusDim.Zalpha_ppri;
   Zq_ppri = DerLongi.infoBusDim.Zq_ppri;
   Ztheta_ppri = DerLongi.infoBusDim.Ztheta_ppri;
 //---
   ZdeltaE_ppri = DerLongi.infoBusDim.ZdeltaE_ppri;
-/**/
+
 //***** test *****
-/*
+  /*
   Xu_pri= -0.023564;
   Xalpha_pri= 41.0074;
   Xq_pri= 0.0;
@@ -264,6 +265,7 @@ initial equation
   //---
   MdeltaE_pri= -15.7002;
   */
+  
 //***** matrices of state space equation *****
   A = [Xu_pri, Xalpha_pri, Xq_pri, Xtheta_pri; Zu_pri, Zalpha_pri, Zq_pri, Ztheta_pri; Mu_pri, Malpha_pri, Mq_pri, Mtheta_pri; 0.0, 0.0, 1.0, 0.0];
   B = [XdeltaE_pri, 0.0; ZdeltaE_pri, 0.0; MdeltaE_pri, 0.0; 0.0, 0.0];
