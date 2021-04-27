@@ -15,74 +15,85 @@ model DerivativesLateralNonDim2Dim00
   Modelica.SIunits.MomentOfInertia Izz;
   Modelica.SIunits.MomentOfInertia Ixz;
   Modelica.SIunits.Length b;
+  //---
+  Modelica.SIunits.MomentOfInertia I1;
+  Modelica.SIunits.MomentOfInertia I2;
+  
   //----------
-  Real CD1;
-  Real CDu;
-  Real CTXu;
-  Real CTX1;
-  Real CTu;
-  Real CDalpha;
-  Real CDdeltaE;
+  Real CYbeta;
+  Real CYp;
+  Real CYr;
+  Real CYdeltaA;
+  Real CYdeltaR;
+  Real CYdeltaS;
+  Real CYdeltaF;
   //---
-  Real CL1;
-  Real CLu;
-  Real CLalpha;
-  Real CLalpha_dot;
-  Real CLq;
-  Real CLdeltaE;
+  Real Clbeta;
+  Real Clp;
+  Real Clr;
+  Real CldeltaA;
+  Real CldeltaR;
+  Real CldeltaS;
+  Real CldeltaF;
   //---
-  Real Cm1;
-  Real Cmu;
-  Real CmAlpha;
-  Real CmAlpha_dot;
-  Real Cmq;
-  Real CmDeltaE;
-  Real CmTu;
-  Real CmT1;
-  Real CmTalpha;
-  //---
-  //----------
-  Real Xu(unit = "1/s", displayUnit = "1/s");
-  Real XTu(unit = "1/s", displayUnit = "1/s");
-  Real Xalpha(unit = "m/s2", displayUnit = "m/s2");
-  Real XdeltaE(unit = "m/s2", displayUnit = "m/s2");
-  //---
-  Real Xu_pri;
-  Real Xalpha_pri;
-  Real Xq_pri;
-  Real Xtheta_pri;
-  //---
-  Real Zu(unit = "1/s", displayUnit = "1/s");
-  Real Zalpha(unit = "m/s2", displayUnit = "m/s2");
-  Real Zalpha_dot(unit = "m/s", displayUnit = "m/s");
-  Real Zq(unit = "m/s", displayUnit = "m/s");
-  Real ZdeltaE(unit = "m/s2", displayUnit = "m/s2");
-  //---
-  Real Zu_pri;
-  Real Zalpha_pri;
-  Real Zalpha_dot_pri;
-  Real Zq_pri;
-  Real Ztheta_pri;
-  //---
-  Real Mu;
-  Real MTu;
-  Real Malpha;
-  Real MTalpha;
-  Real Malpha_dot;
-  Real Mq;
-  Real MdeltaE;
-  //---
-  Real Mu_pri;
-  Real Malpha_pri;
-  Real Mq_pri;
-  Real Mtheta_pri;
+  Real Cnbeta;
+  Real Cnp;
+  Real Cnr;
+  Real CndeltaA;
+  Real CndeltaR;
+  Real CndeltaS;
+  Real CndeltaF;
   //---
   //----------
-  Real XdeltaE_pri;
+  Real Ybeta(unit = "m/s2", displayUnit = "m/s2");
+  Real Yp(unit = "m/s2", displayUnit = "m/s2");
+  Real Yr(unit = "m/s", displayUnit = "m/s");
+  Real YdeltaA(unit = "m/s2", displayUnit = "m/s2");
+  Real YdeltaR(unit = "m/s2", displayUnit = "m/s2");
+  Real YdeltaS(unit = "m/s2", displayUnit = "m/s2");
+  Real YdeltaF(unit = "m/s2", displayUnit = "m/s2");
   //---
-  Real ZdeltaE_pri;
+  Real Ybeta_pri;
+  Real Yp_pri;
+  Real Yr_pri;
+  Real Yphi_pri;
+  Real YdeltaA_pri;
+  Real YdeltaR_pri;
+  Real YdeltaS_pri;
+  Real YdeltaF_pri;
   //---
-  Real MdeltaE_pri;
+  Real Lbeta(unit = "1/s2", displayUnit = "1/s2");
+  Real Lp(unit = "1/s", displayUnit = "1/s");
+  Real Lr(unit = "1/s", displayUnit = "1/s");
+  Real LdeltaA(unit = "1/s2", displayUnit = "1/s2");
+  Real LdeltaR(unit = "1/s2", displayUnit = "1/s2");
+  Real LdeltaS(unit = "1/s2", displayUnit = "1/s2");
+  Real LdeltaF(unit = "1/s2", displayUnit = "1/s2");
+  //---
+  Real Lbeta_pri;
+  Real Lp_pri;
+  Real Lr_pri;
+  Real LdeltaA_pri;
+  Real LdeltaR_pri;
+  Real LdeltaS_pri;
+  Real LdeltaF_pri;
+  //---
+  Real Nbeta;
+  Real Np;
+  Real Nr;
+  Real NdeltaA;
+  Real NdeltaR;
+  Real NdeltaS;
+  Real NdeltaF;
+  //---
+  Real Nbeta_pri;
+  Real Np_pri;
+  Real Nr_pri;
+  Real NdeltaA_pri;
+  Real NdeltaR_pri;
+  Real NdeltaS_pri;
+  Real NdeltaF_pri;
+  //---
   /* ---------------------------------------------
                 Interface
       --------------------------------------------- */
@@ -113,116 +124,139 @@ equation
   connect(b, infoBusAircraft.b);
 //-----
 //***** Non-dimentional coefficients/derivatives *****
-  connect(CDdeltaE, infoBusNonDim.CDdeltaE);
-  connect(CDalpha, infoBusNonDim.CDalpha);
-  connect(CTX1, infoBusNonDim.CTX1);
-  connect(CTXu, infoBusNonDim.CTXu);
-  connect(CD1, infoBusNonDim.CD1);
-  connect(CDu, infoBusNonDim.CDu);
+  connect(CYbeta, infoBusNonDim.CYbeta);
+  connect(CYp, infoBusNonDim.CYp);
+  connect(CYr, infoBusNonDim.CYr);
+  connect(CYdeltaA, infoBusNonDim.CYdeltaA);
+  connect(CYdeltaR, infoBusNonDim.CYdeltaR);
+  connect(CYdeltaS, infoBusNonDim.CYdeltaS);
+  connect(CYdeltaF, infoBusNonDim.CYdeltaF);
 //---
-  connect(CL1, infoBusNonDim.CL1);
-  connect(CLu, infoBusNonDim.CLu);
-  connect(CLalpha, infoBusNonDim.CLalpha);
-  connect(CLalpha_dot, infoBusNonDim.CLalpha_dot);
-  connect(CLq, infoBusNonDim.CLq);
-  connect(CLdeltaE, infoBusNonDim.CLdeltaE);
+  connect(Clbeta, infoBusNonDim.Clbeta);
+  connect(Clp, infoBusNonDim.Clp);
+  connect(Clr, infoBusNonDim.Clr);
+  connect(CldeltaA, infoBusNonDim.CldeltaA);
+  connect(CldeltaR, infoBusNonDim.CldeltaR);
+  connect(CldeltaS, infoBusNonDim.CldeltaS);
+  connect(CldeltaF, infoBusNonDim.CldeltaF);
 //---
-  connect(Cm1, infoBusNonDim.Cm1);
-  connect(Cmu, infoBusNonDim.Cmu);
-  connect(CmAlpha, infoBusNonDim.CmAlpha);
-  connect(CmAlpha_dot, infoBusNonDim.CmAlpha_dot);
-  connect(Cmq, infoBusNonDim.Cmq);
-  connect(CmDeltaE, infoBusNonDim.CmDeltaE);
-  connect(CmTu, infoBusNonDim.CmTu);
-  connect(CmT1, infoBusNonDim.CmT1);
-  connect(CmTalpha, infoBusNonDim.CmTalpha);
+  connect(Cnbeta, infoBusNonDim.Cnbeta);
+  connect(Cnp, infoBusNonDim.Cnp);
+  connect(Cnr, infoBusNonDim.Cnr);
+  connect(CndeltaA, infoBusNonDim.CndeltaA);
+  connect(CndeltaR, infoBusNonDim.CndeltaR);
+  connect(CndeltaS, infoBusNonDim.CndeltaS);
+  connect(CndeltaF, infoBusNonDim.CndeltaF);
 //-----
 //***** Dimentional derivatives *****
-  connect(Xu, infoBusDim.Xu);
-  connect(XTu, infoBusDim.XTu);
-  connect(Xalpha, infoBusDim.Xalpha);
-  connect(XdeltaE, infoBusDim.XdeltaE);
+  connect(Ybeta, infoBusDim.Ybeta);
+  connect(Yp, infoBusDim.Yp);
+  connect(Yr, infoBusDim.Yr);
+  connect(YdeltaA, infoBusDim.YdeltaA);
+  connect(YdeltaR, infoBusDim.YdeltaR);
+  connect(YdeltaS, infoBusDim.YdeltaS);
+  connect(YdeltaF, infoBusDim.YdeltaF);
 //---
-  connect(Xu_pri, infoBusDim.Xu_pri);
-  connect(Xalpha_pri, infoBusDim.Xalpha_pri);
-  connect(Xq_pri, infoBusDim.Xq_pri);
-  connect(Xtheta_pri, infoBusDim.Xtheta_pri);
+  connect(Ybeta_pri, infoBusDim.Ybeta_pri);
+  connect(Yp_pri, infoBusDim.Yp_pri);
+  connect(Yr_pri, infoBusDim.Yr_pri);
+  connect(Yphi_pri, infoBusDim.Yphi_pri);
+  connect(YdeltaA_pri, infoBusDim.YdeltaA_pri);
+  connect(YdeltaR_pri, infoBusDim.YdeltaR_pri);
+  connect(YdeltaS_pri, infoBusDim.YdeltaS_pri);
+  connect(YdeltaF_pri, infoBusDim.YdeltaF_pri);
 //---
-  connect(Zu, infoBusDim.Zu);
-  connect(Zalpha, infoBusDim.Zalpha);
-  connect(Zalpha_dot, infoBusDim.Zalpha_dot);
-  connect(Zq, infoBusDim.Zq);
-  connect(ZdeltaE, infoBusDim.ZdeltaE);
+  connect(Lbeta, infoBusDim.Lbeta);
+  connect(Lp, infoBusDim.Lp);
+  connect(Lr, infoBusDim.Lr);
+  connect(LdeltaA, infoBusDim.LdeltaA);
+  connect(LdeltaR, infoBusDim.LdeltaR);
+  connect(LdeltaS, infoBusDim.LdeltaS);
+  connect(LdeltaF, infoBusDim.LdeltaF);
 //---
-  connect(Zu_pri, infoBusDim.Zu_pri);
-  connect(Zalpha_pri, infoBusDim.Zalpha_pri);
-  connect(Zq_pri, infoBusDim.Zq_pri);
-  connect(Ztheta_pri, infoBusDim.Ztheta_pri);
+  connect(Lbeta_pri, infoBusDim.Lbeta_pri);
+  connect(Lp_pri, infoBusDim.Lp_pri);
+  connect(Lr, infoBusDim.Lr_pri);
+  connect(LdeltaA_pri, infoBusDim.LdeltaA_pri);
+  connect(LdeltaR_pri, infoBusDim.LdeltaR_pri);
+  connect(LdeltaS_pri, infoBusDim.LdeltaS_pri);
+  connect(LdeltaF_pri, infoBusDim.LdeltaF_pri);
 //---
-  connect(Mu, infoBusDim.Mu);
-  connect(MTu, infoBusDim.MTu);
-  connect(Malpha, infoBusDim.Malpha);
-  connect(MTalpha, infoBusDim.MTalpha);
-  connect(Malpha_dot, infoBusDim.Malpha_dot);
-  connect(Mq, infoBusDim.Mq);
-  connect(MdeltaE, infoBusDim.MdeltaE);
+  connect(Nbeta, infoBusDim.Nbeta);
+  connect(Np, infoBusDim.Np);
+  connect(Nr, infoBusDim.Nr);
+  connect(NdeltaA, infoBusDim.NdeltaA);
+  connect(NdeltaR, infoBusDim.NdeltaR);
+  connect(NdeltaS, infoBusDim.NdeltaS);
+  connect(NdeltaF, infoBusDim.NdeltaF);
 //---
-  connect(Mu_pri, infoBusDim.Mu_pri);
-  connect(Malpha_pri, infoBusDim.Malpha_pri);
-  connect(Mq_pri, infoBusDim.Mq_pri);
-  connect(Mtheta_pri, infoBusDim.Mtheta_pri);
-//-----
-  connect(XdeltaE_pri, infoBusDim.XdeltaE_pri);
-//---
-  connect(ZdeltaE_pri, infoBusDim.ZdeltaE_pri);
-//---
-  connect(MdeltaE_pri, infoBusDim.MdeltaE_pri);
+  connect(Nbeta_pri, infoBusDim.Nbeta_pri);
+  connect(Np_pri, infoBusDim.Np_pri);
+  connect(Nr, infoBusDim.Nr_pri);
+  connect(NdeltaA_pri, infoBusDim.NdeltaA_pri);
+  connect(NdeltaR_pri, infoBusDim.NdeltaR_pri);
+  connect(NdeltaS_pri, infoBusDim.NdeltaS_pri);
+  connect(NdeltaF_pri, infoBusDim.NdeltaF_pri);
+  //---
+  
 /* ---------------------------------------------
   Eqns describing physics
   --------------------------------------------- */
-  CTu = CTXu + CTX1;
+  I1= Ixz/Ixx;
+  I2= Ixz/Izz;
 //-----
-  Xu = (-1.0 * q1bar * S * (CDu + 2.0 * CD1)) / (m * U1);
-  XTu = q1bar * S * (CTXu + 2.0 * CTX1) / (m * U1);
-  Xalpha = (-1.0 * q1bar * S * (CDalpha - CL1)) / m;
-  XdeltaE = (-1.0 * q1bar * S * CDdeltaE) / m;
+  Ybeta= (q1bar*S*CYbeta)/m;
+  Yp= (q1bar*S*CYp*b)/(m*2.0*U1);
+  Yr= (q1bar*S*CYr*b)/(m*2.0*U1);
+  YdeltaA= (q1bar*S*CYdeltaA)/m;
+  YdeltaR= (q1bar*S*CYdeltaR)/m;
+  YdeltaS= (q1bar*S*CYdeltaS)/m;
+  YdeltaF= (q1bar*S*CYdeltaF)/m;
 //---
-  Xu_pri = Xu + XTu;
-  Xalpha_pri = Xalpha;
-  Xtheta_pri = (-1.0) * g * cos(theta1);
-  Xq_pri = 0.0;
-//---
-  Zu = (-1.0 * q1bar * S * (CLu + 2.0 * CL1)) / (m * U1);
-  Zalpha = (-1.0 * q1bar * S * (CLalpha + CD1)) / m;
-  Zalpha_dot = (-1.0 * q1bar * S * cBar * CLalpha_dot) / (2.0 * m * U1);
-  Zq = (-1.0 * q1bar * S * cBar * CLq) / (2.0 * m * U1);
-  ZdeltaE = (-1.0 * q1bar * S * CLdeltaE) / m;
-//---
-  Zalpha_dot_pri = Zalpha_dot;
-  Zu_pri = Zu / (U1 - Zalpha_dot_pri);
-  Zalpha_pri = Zalpha / (U1 - Zalpha_dot_pri);
-  Zq_pri = (Zq + U1) / (U1 - Zalpha_dot_pri);
-  Ztheta_pri = (-1.0 * g * sin(theta1)) / (U1 - Zalpha_dot_pri);
-//---
-  Mu = q1bar * S * cBar * (Cmu + 2.0 * Cm1) / (U1 * Iyy);
-  MTu = q1bar * S * cBar * (CmTu + 2.0 * CmT1) / (U1 * Iyy);
-  Malpha = q1bar * S * cBar * CmAlpha / Iyy;
-  MTalpha = q1bar * S * cBar * CmTalpha / Iyy;
-  Malpha_dot = q1bar * S * cBar * CmAlpha_dot / Iyy * (cBar / (2.0 * U1));
-  Mq = q1bar * S * cBar * Cmq / Iyy * (cBar / (2.0 * U1));
-  MdeltaE = q1bar * S * cBar * CmDeltaE / Iyy;
-//---
-  Mu_pri = Malpha_dot * Zu_pri + Mu;
-  Malpha_pri = Malpha_dot * Zalpha_pri + Malpha;
-  Mq_pri = Malpha_dot * Zq_pri + Mq;
-  Mtheta_pri = Malpha_dot * Ztheta_pri;
-//-----
-  XdeltaE_pri = XdeltaE;
-//---
-  ZdeltaE_pri = ZdeltaE / (U1 - Zalpha_dot);
-//---
-  MdeltaE_pri = Malpha_dot * ZdeltaE_pri + MdeltaE;
-//---
+  Ybeta_pri= Ybeta/U1;
+  Yp_pri= Yp/U1;
+  Yr_pri= (Yr - U1)/U1;
+  Yphi_pri= g*cos(theta1)/U1;
+  YdeltaA_pri= YdeltaA/U1;
+  YdeltaR_pri= YdeltaR/U1;
+  YdeltaS_pri= YdeltaS/U1;
+  YdeltaS_pri= YdeltaF/U1;
+  //---
+  Lbeta= (q1bar*S*Clbeta*b)/Ixx;
+  Lp= (q1bar*S*b*Clp*b)/(Ixx*2.0*U1);
+  Lr= (q1bar*S*b*Clr*b)/(Ixx*2.0*U1);
+  LdeltaA= (q1bar*S*CldeltaA*b)/Ixx;
+  LdeltaR= (q1bar*S*CldeltaR*b)/Ixx;
+  LdeltaS= (q1bar*S*CldeltaS*b)/Ixx;
+  LdeltaF= (q1bar*S*CldeltaS*b)/Ixx;
+  //---
+  Lbeta_pri= (Lbeta + I1*Nbeta)/(1.0 - I1*I2);
+  Lp_pri= (Lp + I1*Np)/(1.0 - I1*I2);
+  Lr_pri= (Lr + I1*Nr)/(1.0 - I1*I2);
+  LdeltaA_pri= (LdeltaA + I1*NdeltaA)/(1.0 - I1*I2);
+  LdeltaR_pri= (LdeltaR + I1*NdeltaR)/(1.0 - I1*I2);
+  LdeltaS_pri= (LdeltaS + I1*NdeltaS)/(1.0 - I1*I2);
+  LdeltaF_pri= (LdeltaF + I1*NdeltaF)/(1.0 - I1*I2);
+  //---
+  Nbeta= (q1bar*S*Cnbeta*b)/Izz;
+  Np= (q1bar*S*b*Cnp*b)/(Izz*2.0*U1);
+  Nr= (q1bar*S*b*Cnr*b)/(Izz*2.0*U1);
+  NdeltaA= (q1bar*S*CndeltaA*b)/Izz;
+  NdeltaR= (q1bar*S*CndeltaR*b)/Izz;
+  NdeltaS= (q1bar*S*CndeltaS*b)/Izz;
+  NdeltaF= (q1bar*S*CndeltaF*b)/Izz;
+  //---
+  Nbeta_pri= (I2*Lbeta + Nbeta)/(1.0 - I1*I2);
+  Np_pri= (I2*Lp + Np)/(1.0 - I1*I2);
+  Nr_pri= (I2*Lr + Nr)/(1.0 - I1*I2);
+  NdeltaA_pri= (I2*LdeltaA + NdeltaA)/(1.0 - I1*I2);
+  NdeltaR_pri= (I2*LdeltaR + NdeltaR)/(1.0 - I1*I2);
+  NdeltaS_pri= (I2*LdeltaS + NdeltaS)/(1.0 - I1*I2);
+  NdeltaF_pri= (I2*LdeltaF + NdeltaF)/(1.0 - I1*I2);
+  //---
+  
+  
+  
 /********************************************************
   Graphics
 ********************************************************/
