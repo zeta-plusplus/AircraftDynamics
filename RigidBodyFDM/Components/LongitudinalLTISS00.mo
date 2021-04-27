@@ -80,14 +80,7 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
   
   //---
-  /*
-    redeclare Real eigA[4, 2] annotation(
-      Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
-    );
-    redeclare Real eigVecA[4, 4] annotation(
-      Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
-    );
-    */
+  
   /* ---------------------------------------------
         Internal objects
     --------------------------------------------- */
@@ -303,7 +296,7 @@ equation
     DerLongi.infoBusFlt.U1 = par_U1;
     DerLongi.infoBusFlt.q1bar = par_q1bar;
     DerLongi.infoBusFlt.g = environmentAircraftDynSim.gravity;
-    DerLongi.infoBusFlt.theta1 = theta0;
+    DerLongi.infoBusFlt.theta1 = theta1;
 //---
 //***** aircraft characteristics *****
     DerLongi.infoBusAircraft.S = par_S;

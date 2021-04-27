@@ -11,8 +11,10 @@ model DerivativesLateralNonDim2Dim00
   Modelica.SIunits.Acceleration g;
   Modelica.SIunits.Area S;
   Modelica.SIunits.Mass m;
-  Modelica.SIunits.MomentOfInertia Iyy;
-  Modelica.SIunits.Length cBar;
+  Modelica.SIunits.MomentOfInertia Ixx;
+  Modelica.SIunits.MomentOfInertia Izz;
+  Modelica.SIunits.MomentOfInertia Ixz;
+  Modelica.SIunits.Length b;
   //----------
   Real CD1;
   Real CDu;
@@ -105,8 +107,10 @@ equation
 //***** aircraft characteristics *****
   connect(S, infoBusAircraft.S);
   connect(m, infoBusAircraft.m);
-  connect(Iyy, infoBusAircraft.Iyy);
-  connect(cBar, infoBusAircraft.cBar);
+  connect(Ixx, infoBusAircraft.Ixx);
+  connect(Izz, infoBusAircraft.Izz);
+  connect(Ixz, infoBusAircraft.Ixz);
+  connect(b, infoBusAircraft.b);
 //-----
 //***** Non-dimentional coefficients/derivatives *****
   connect(CDdeltaE, infoBusNonDim.CDdeltaE);
@@ -223,7 +227,7 @@ equation
   Graphics
 ********************************************************/
   annotation(
-    defaultComponentName = "DerLongi",
+    defaultComponentName = "DerLateral",
     Diagram,
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-87, -69}, extent = {{-11, 3}, {23, -7}}, textString = "NonDim."), Text(origin = {75, -9}, extent = {{1, 3}, {23, -7}}, textString = "Dim."), Text(origin = {0, -90}, extent = {{-100, 10}, {100, -10}}, textString = "%name")}, coordinateSystem(initialScale = 0.1)));
 end DerivativesLateralNonDim2Dim00;
