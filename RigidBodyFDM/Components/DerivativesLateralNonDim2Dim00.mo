@@ -220,7 +220,7 @@ equation
   YdeltaA_pri= YdeltaA/U1;
   YdeltaR_pri= YdeltaR/U1;
   YdeltaS_pri= YdeltaS/U1;
-  YdeltaS_pri= YdeltaF/U1;
+  YdeltaF_pri= YdeltaF/U1;
   //---
   Lbeta= (q1bar*S*Clbeta*b)/Ixx;
   Lp= (q1bar*S*b*Clp*b)/(Ixx*2.0*U1);
