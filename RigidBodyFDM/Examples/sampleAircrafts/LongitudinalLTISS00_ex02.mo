@@ -1,6 +1,6 @@
-within AircraftDynamics.RigidBodyFDM.Examples.tests;
+within AircraftDynamics.RigidBodyFDM.Examples.sampleAircrafts;
 
-model LongitudinalLTISS00_ex01
+model LongitudinalLTISS00_ex02
   extends Modelica.Icons.Example;
   //-----
   //package surrFluid = Modelica.Media.Air.DryAirNasa;
@@ -64,4 +64,4 @@ equation
     __OpenModelica_commandLineOptions = "",
     experiment(StartTime = 0, StopTime = 120, Tolerance = 1e-06, Interval = 0.01),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
-end LongitudinalLTISS00_ex01;
+end LongitudinalLTISS00_ex02;
