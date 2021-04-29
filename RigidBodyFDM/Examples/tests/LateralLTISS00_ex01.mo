@@ -13,9 +13,9 @@ model LateralLTISS00_ex01
     Placement(visible = true, transformation(origin = {-50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Sources.Constant const_m(k = 1202.01978) annotation(
     Placement(visible = true, transformation(origin = {-20, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant const_Ixx(k = 1824.9309607) annotation(
+  Modelica.Blocks.Sources.Constant const_Ixx(k = 1285.3154166) annotation(
     Placement(visible = true, transformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant const_b(k = 1.49352) annotation(
+  Modelica.Blocks.Sources.Constant const_b(k = 10.9728) annotation(
     Placement(visible = true, transformation(origin = {10, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   AircraftDynamics.Sources.FlightCondition2Fluid00 Flt2Fluid(redeclare package Medium = surrFluid, MN_paramInput = 0.201, alt_paramInput = 1524) annotation(
     Placement(visible = true, transformation(origin = {-70, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -37,9 +37,9 @@ model LateralLTISS00_ex01
     Placement(visible = true, transformation(origin = {30, -3.3333}, extent = {{-30, -23.3333}, {30, 23.3333}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.To_deg to_deg_r annotation(
     Placement(visible = true, transformation(origin = {90, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant const_Izz(k = 1824.9309607) annotation(
+  Modelica.Blocks.Sources.Constant const_Izz(k = 2666.89390765) annotation(
     Placement(visible = true, transformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Sources.Constant const_Ixz(k = 1824.9309607) annotation(
+  Modelica.Blocks.Sources.Constant const_Ixz(k = 0) annotation(
     Placement(visible = true, transformation(origin = {100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 equation
   connect(FltDynLateralSS.y_p, to_deg_p.u) annotation(

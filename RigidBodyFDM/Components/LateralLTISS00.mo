@@ -35,38 +35,53 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
   //---
   //********** Characteristics **********
-  parameter Real CYbeta annotation(
+  parameter Real CYbeta=-0.393 annotation(
     Dialog(group = "Y-related-Coefficients"));
-  parameter Real CYp annotation(
+  parameter Real CYp=-0.075 annotation(
     Dialog(group = "Y-related-Coefficients"));
-  parameter Real CYr annotation(
+  parameter Real CYr=0.214 annotation(
     Dialog(group = "Y-related-Coefficients"));
-  parameter Real CYdeltaA annotation(
+  parameter Real CYdeltaA=0.0 annotation(
     Dialog(group = "Y-related-Coefficients"));
-  parameter Real CYdeltaR annotation(
+  parameter Real CYdeltaR=0.187 annotation(
     Dialog(group = "Y-related-Coefficients"));
+  parameter Real CYdeltaF=0.0 annotation(
+    Dialog(group = "Y-related-Coefficients"));
+  parameter Real CYdeltaS=0.0 annotation(
+    Dialog(group = "Y-related-Coefficients"));
+  
   //-----
-  parameter Real Clbeta annotation(
+  parameter Real Clbeta=-0.0923 annotation(
     Dialog(group = "L-related-Coefficients"));
-  parameter Real Clp annotation(
+  parameter Real Clp=-0.484 annotation(
     Dialog(group = "L-related-Coefficients"));
-  parameter Real Clr annotation(
+  parameter Real Clr=0.0798 annotation(
     Dialog(group = "L-related-Coefficients"));
-  parameter Real CldeltaA annotation(
+  parameter Real CldeltaA=0.229 annotation(
     Dialog(group = "L-related-Coefficients"));
-  parameter Real CldeltaR annotation(
+  parameter Real CldeltaR=0.0147 annotation(
     Dialog(group = "L-related-Coefficients"));
+  parameter Real CldeltaF=0.0 annotation(
+    Dialog(group = "L-related-Coefficients"));
+  parameter Real CldeltaS=0.0 annotation(
+    Dialog(group = "L-related-Coefficients"));
+  
   //-----
-  parameter Real Cnbeta annotation(
+  parameter Real Cnbeta=0.0587 annotation(
     Dialog(group = "N-related-Coefficients"));
-  parameter Real Cnp annotation(
+  parameter Real Cnp=-0.0278 annotation(
     Dialog(group = "N-related-Coefficients"));
-  parameter Real Cnr annotation(
+  parameter Real Cnr=-0.0937 annotation(
     Dialog(group = "N-related-Coefficients"));
-  parameter Real CndeltaA annotation(
+  parameter Real CndeltaA=-0.0216 annotation(
     Dialog(group = "N-related-Coefficients"));
-  parameter Real CndeltaR annotation(
+  parameter Real CndeltaR=-0.0645 annotation(
     Dialog(group = "N-related-Coefficients"));
+  parameter Real CndeltaF=-0.0 annotation(
+    Dialog(group = "N-related-Coefficients"));
+  parameter Real CndeltaS=-0.0 annotation(
+    Dialog(group = "N-related-Coefficients"));
+  
   //-----
   /* ---------------------------------------------
               Internal variables
@@ -127,7 +142,7 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
 protected
   /* ---------------------------------------------
               calculated parameters
-        --------------------------------------------- */
+  --------------------------------------------- */
   redeclare parameter Real A[4, 4](each fixed = false) annotation(
     fixed = false,
     HideResult = false);
@@ -298,14 +313,12 @@ equation
     DerLateral.infoBusNonDim.CndeltaR = CndeltaR;
     //---
     
-    //----- dummy input -----
-    
-    DerLateral.infoBusNonDim.CYdeltaS= 0.0;
-    DerLateral.infoBusNonDim.CYdeltaF= 0.0;
-    DerLateral.infoBusNonDim.CldeltaS= 0.0;
-    DerLateral.infoBusNonDim.CldeltaF= 0.0;
-    DerLateral.infoBusNonDim.CndeltaS= 0.0;
-    DerLateral.infoBusNonDim.CndeltaF= 0.0;
+    DerLateral.infoBusNonDim.CYdeltaS= CYdeltaS;
+    DerLateral.infoBusNonDim.CYdeltaF= CYdeltaF;
+    DerLateral.infoBusNonDim.CldeltaS= CldeltaS;
+    DerLateral.infoBusNonDim.CldeltaF= CldeltaF;
+    DerLateral.infoBusNonDim.CndeltaS= CndeltaS;
+    DerLateral.infoBusNonDim.CndeltaF= CndeltaF;
     /**/
   end when;
   //-----
