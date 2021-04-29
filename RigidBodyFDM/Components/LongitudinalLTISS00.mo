@@ -390,46 +390,6 @@ equation
   y_theta = theta1 + y[5];
 //-----
   
-  //***** flight condition *****
-  /*
-  if use_u_U1==true then
-    U1 = u_U1;
-  else
-    U1= U1_par;
-  end if;
-  
-  if use_u_q1bar==true then
-    q1bar = u_q1bar;
-  else
-    q1bar= q1bar_par;
-  end if;
-  
-  //***** aircraft properties *****
-  if use_u_S==true then
-    S = u_S;
-  else
-    S= S_par;
-  end if;
-  
-  if use_u_m==true then
-    m = u_m;
-  else
-    m= m_par;
-  end if;
-  
-  if use_u_Iyy==true then
-    Iyy = u_Iyy;
-  else
-    Iyy= Iyy_par;
-  end if;
-  
-  if use_u_cBar==true then
-    cBar = u_cBar;
-  else
-    cBar= cBar_par;
-  end if;
-  //---
-  */
   
   when initial() then
     //***** flight condition *****

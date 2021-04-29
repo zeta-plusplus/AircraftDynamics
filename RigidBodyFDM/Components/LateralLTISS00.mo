@@ -4,15 +4,53 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
   extends AircraftDynamics.RigidBodyFDM.BaseClasses.LTISS00;
   /********************************************************
                     imports
-        ********************************************************/
+  ********************************************************/
   import Modelica.Constants;
   import Modelica.Utilities.Streams;
+  import Modelica.SIunits;
   /********************************************************
                        Declaration
-        ********************************************************/
+  ********************************************************/
+  /* ---------------------------------------------
+        switches
+  --------------------------------------------- */
+  parameter Boolean use_u_q1bar = true "" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  parameter Boolean use_u_U1 = true "" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  parameter Boolean use_u_S =false "" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  parameter Boolean use_u_b =false "" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  parameter Boolean use_u_m =false "" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  parameter Boolean use_u_Ixx =false "" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  parameter Boolean use_u_Izz =false "" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  parameter Boolean use_u_Ixz =false "" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  
+  
   /* ---------------------------------------------
               parameters
-        --------------------------------------------- */
+  --------------------------------------------- */
   //********** Initial States **********
   parameter Modelica.SIunits.Angle beta1 = 0.0 * (Constants.pi / 180.0) "sideslip, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
@@ -34,6 +72,22 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
   parameter Modelica.SIunits.AngularVelocity r0 = 0.0 * (Constants.pi / 180.0) "yaw rate, deviation from equilibrium" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
   //---
+  
+  //********** Aircraft Properties **********
+  parameter SIunits.Area S_par=16.165129 "" annotation(
+    Dialog(group = "Aircraft Properties"));
+  parameter SIunits.Length b_par=10.9728 "" annotation(
+    Dialog(group = "Aircraft Properties"));
+  parameter SIunits.Mass m_par=1202.01978 "" annotation(
+    Dialog(group = "Aircraft Properties"));
+  parameter SIunits.MomentOfInertia Ixx_par=1285.3154166 "" annotation(
+    Dialog(group = "Aircraft Properties"));
+  parameter SIunits.MomentOfInertia Izz_par=2666.89390765 "" annotation(
+    Dialog(group = "Aircraft Properties"));
+  parameter SIunits.MomentOfInertia Ixz_par=0.0 "" annotation(
+    Dialog(group = "Aircraft Properties"));
+  
+  
   //********** Characteristics **********
   parameter Real CYbeta=-0.393 annotation(
     Dialog(group = "Y-related-Coefficients"));
@@ -83,6 +137,14 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
     Dialog(group = "N-related-Coefficients"));
   
   //-----
+  
+  //********** Steady Flight Condition **********
+  parameter SIunits.Velocity U1_par=67.3295 "" annotation(
+    Dialog(group = "Steady Flight Condition"));
+  parameter SIunits.Pressure q1bar_par=2384.17 "" annotation(
+    Dialog(group = "Steady Flight Condition"));
+  
+  
   /* ---------------------------------------------
               Internal variables
         --------------------------------------------- */
@@ -114,21 +176,21 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
   Modelica.Blocks.Interfaces.RealOutput y_phi(final quantity = "Angle", final unit = "rad", displayUnit = "deg") annotation(
     Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {190, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //---
-  Modelica.Blocks.Interfaces.RealInput par_q1bar(final quantity = "Pressure", unit = "Pa", displayUnit = "Pa") "dynamic pressure, input" annotation(
+  Modelica.Blocks.Interfaces.RealInput u_q1bar(final quantity = "Pressure", unit = "Pa", displayUnit = "Pa") if use_u_q1bar "dynamic pressure, input" annotation(
     Placement(visible = true, transformation(origin = {-140, 70}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-160, 150}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput par_S(final quantity = "Area", unit = "m2", displayUnit = "m2") annotation(
+  Modelica.Blocks.Interfaces.RealInput u_S(final quantity = "Area", unit = "m2", displayUnit = "m2") if use_u_S annotation(
     Placement(visible = true, transformation(origin = {-100, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-40, 150}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput par_U1(final quantity = "Velocity", unit = "m/s", displayUnit = "m/s") annotation(
+  Modelica.Blocks.Interfaces.RealInput u_U1(final quantity = "Velocity", unit = "m/s", displayUnit = "m/s") if use_u_U1 annotation(
     Placement(visible = true, transformation(origin = {-140, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 150}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput par_m(final quantity = "Mass", unit = "kg", displayUnit = "kg") "mass" annotation(
+  Modelica.Blocks.Interfaces.RealInput u_m(final quantity = "Mass", unit = "kg", displayUnit = "kg") if use_u_m "mass" annotation(
     Placement(visible = true, transformation(origin = {-60, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 150}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput par_Ixx(final quantity = "MomentOfInertia", unit = "kg.m2", displayUnit = "kg.m2") annotation(
+  Modelica.Blocks.Interfaces.RealInput u_Ixx(final quantity = "MomentOfInertia", unit = "kg.m2", displayUnit = "kg.m2") if use_u_Ixx annotation(
     Placement(visible = true, transformation(origin = {-20, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {80, 150}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput par_Izz(final quantity = "MomentOfInertia", unit = "kg.m2", displayUnit = "kg.m2") annotation(
+  Modelica.Blocks.Interfaces.RealInput u_Izz(final quantity = "MomentOfInertia", unit = "kg.m2", displayUnit = "kg.m2") if use_u_Izz annotation(
     Placement(visible = true, transformation(origin = {20, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {120, 150}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput par_Ixz(final quantity = "MomentOfInertia", unit = "kg.m2", displayUnit = "kg.m2") annotation(
+  Modelica.Blocks.Interfaces.RealInput u_Ixz(final quantity = "MomentOfInertia", unit = "kg.m2", displayUnit = "kg.m2") if use_u_Ixz annotation(
     Placement(visible = true, transformation(origin = {60, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {160, 150}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput par_b(final quantity = "Length", unit = "m", displayUnit = "m") "wing span" annotation(
+  Modelica.Blocks.Interfaces.RealInput u_b(final quantity = "Length", unit = "m", displayUnit = "m") if use_u_b "wing span" annotation(
     Placement(visible = true, transformation(origin = {100, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {40, 150}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   //---
   Modelica.Blocks.Interfaces.RealInput u_deltaA(final quantity = "Angle", final unit = "rad", displayUnit = "deg") annotation(
@@ -158,6 +220,17 @@ protected
   redeclare parameter Real x0[4](each fixed = false) "Initial state vector" annotation(
     HideResult = false);
   //-----
+  parameter SIunits.Velocity U1(fixed = false) "";
+  parameter SIunits.Pressure q1bar(fixed = false) "";
+  parameter SIunits.Area S(fixed = false) "";
+  parameter SIunits.Length b(fixed = false) "";
+  parameter SIunits.Mass m(fixed = false) "";
+  parameter SIunits.MomentOfInertia Ixx(fixed = false) "";
+  parameter SIunits.MomentOfInertia Izz(fixed = false) "";
+  parameter SIunits.MomentOfInertia Ixz(fixed = false) "";
+  
+  //---
+  
   parameter Real Ybeta_pri(fixed = false) annotation(
     HideResult = false);
   parameter Real Yp_pri(fixed = false) annotation(
@@ -257,6 +330,59 @@ initial equation
   x0[3] = r0;
   x0[4] = phi0;
 //---
+  
+  //***** flight condition *****
+  if use_u_U1==true then
+    U1 = u_U1;
+  else
+    U1= U1_par;
+  end if;
+  
+  if use_u_q1bar==true then
+    q1bar = u_q1bar;
+  else
+    q1bar= q1bar_par;
+  end if;
+  
+  //***** aircraft properties *****
+  if use_u_S==true then
+    S = u_S;
+  else
+    S= S_par;
+  end if;
+  
+  if use_u_b==true then
+    b = u_b;
+  else
+    b= b_par;
+  end if;
+  
+  if use_u_m==true then
+    m = u_m;
+  else
+    m= m_par;
+  end if;
+  
+  if use_u_Ixx==true then
+    Ixx = u_Ixx;
+  else
+    Ixx= Ixx_par;
+  end if;
+  
+  if use_u_Izz==true then
+    Izz = u_Izz;
+  else
+    Izz= Izz_par;
+  end if;
+  
+  if use_u_Ixz==true then
+    Ixz = u_Ixz;
+  else
+    Ixz= Ixz_par;
+  end if;
+  
+  //---
+  
 //********************************************************************************
 initial algorithm
 //********************************************************************************
@@ -272,24 +398,25 @@ equation
   y_r = r1 + x[3];
   y_phi = phi1 + x[4];
 //-----
+  
 /* ---------------------------------------------
   Eqns describing physics
   --------------------------------------------- */
   when initial() then
     //***** flight condition *****
-    DerLateral.infoBusFlt.U1 = par_U1;
-    DerLateral.infoBusFlt.q1bar = par_q1bar;
+    DerLateral.infoBusFlt.U1 = U1;
+    DerLateral.infoBusFlt.q1bar = q1bar;
     DerLateral.infoBusFlt.g = environmentAircraftDynSim.gravity;
     DerLateral.infoBusFlt.theta1 = theta1;
     //---
     
     //***** aircraft characteristics *****
-    DerLateral.infoBusAircraft.S = par_S;
-    DerLateral.infoBusAircraft.m = par_m;
-    DerLateral.infoBusAircraft.b = par_b;
-    DerLateral.infoBusAircraft.Ixx = par_Ixx;
-    DerLateral.infoBusAircraft.Izz = par_Izz;
-    DerLateral.infoBusAircraft.Ixz = par_Ixz;
+    DerLateral.infoBusAircraft.S = S;
+    DerLateral.infoBusAircraft.m = m;
+    DerLateral.infoBusAircraft.b = b;
+    DerLateral.infoBusAircraft.Ixx = Ixx;
+    DerLateral.infoBusAircraft.Izz = Izz;
+    DerLateral.infoBusAircraft.Ixz = Ixz;
     
     //---
     

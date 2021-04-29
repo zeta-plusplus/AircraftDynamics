@@ -1,6 +1,6 @@
-within AircraftDynamics.RigidBodyFDM.Examples.tests;
+within AircraftDynamics.RigidBodyFDM.Examples.sampleAircrafts;
 
-model LateralLTISS00_ex01
+model LateralLTISS00_ex02
   extends Modelica.Icons.Example;
   //-----
   //package surrFluid = Modelica.Media.Air.DryAirNasa;
@@ -33,7 +33,7 @@ model LateralLTISS00_ex01
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg2 annotation(
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.RigidBodyFDM.Components.LateralLTISS00 FltDynLateralSS(use_u_Ixx = true, use_u_Ixz = true, use_u_Izz = true, use_u_S = true, use_u_U1 = true, use_u_b = true, use_u_m = true, use_u_q1bar = true)  annotation(
+  AircraftDynamics.RigidBodyFDM.Components.LateralLTISS00 FltDynLateralSS(use_u_Ixx = true, use_u_Ixz = true, use_u_Izz = true, use_u_S = true, use_u_U1 = true, use_u_b = true, use_u_m = true, use_u_q1bar = true) annotation(
     Placement(visible = true, transformation(origin = {30, -3.3333}, extent = {{-30, -23.3333}, {30, 23.3333}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.To_deg to_deg_r annotation(
     Placement(visible = true, transformation(origin = {90, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -75,4 +75,4 @@ equation
     __OpenModelica_commandLineOptions = "",
     experiment(StartTime = 0, StopTime = 60, Tolerance = 1e-06, Interval = 0.01),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
-end LateralLTISS00_ex01;
+end LateralLTISS00_ex02;
