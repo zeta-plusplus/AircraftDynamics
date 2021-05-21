@@ -1,0 +1,40 @@
+within AircraftDynamics.RigidBodyFDM.Components;
+
+model LTISSairplane00
+  /********************************************************
+                imports
+    ********************************************************/
+  
+  
+  /********************************************************
+                   Declaration
+    ********************************************************/
+  /* ---------------------------------------------
+        switches
+  --------------------------------------------- */
+  AircraftDynamics.RigidBodyFDM.Components.LongitudinalLTISS00 FltDynLongiSS annotation(
+    Placement(visible = true, transformation(origin = {12.9618, 20.147}, extent = {{-31.7648, -19.853}, {27.7942, 19.853}}, rotation = 0)));
+  AircraftDynamics.RigidBodyFDM.Components.LateralLTISS00 FltDynLateralSS annotation(
+    Placement(visible = true, transformation(origin = {9.71428, -76.6667}, extent = {{-29.7143, -23.1111}, {29.7143, 23.1111}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput u_deltaE annotation(
+    Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput u_deltaT annotation(
+    Placement(visible = true, transformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput u_deltaA annotation(
+    Placement(visible = true, transformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput u_deltaR annotation(
+    Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AircraftDynamics.Types.InfoBus infoBus1 annotation(
+    Placement(visible = true, transformation(origin = {100, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Sources.FlightCondition2Fluid00 Flt2Fluid annotation(
+    Placement(visible = true, transformation(origin = {-64, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+equation
+  connect(u_deltaR, FltDynLateralSS.u_deltaR) annotation(
+    Line(points = {{-120, -60}, {-92, -60}, {-92, -73}, {-22, -73}}, color = {0, 0, 127}));
+  connect(u_deltaA, FltDynLateralSS.u_deltaA) annotation(
+    Line(points = {{-120, -20}, {-84, -20}, {-84, -50}, {-22, -50}, {-22, -63}}, color = {0, 0, 127}));
+  connect(u_deltaT, FltDynLongiSS.u_deltaT) annotation(
+    Line(points = {{-120, 40}, {-92, 40}, {-92, 8}, {-22, 8}}, color = {0, 0, 127}));
+  connect(u_deltaE, FltDynLongiSS.u_deltaE) annotation(
+    Line(points = {{-120, 80}, {-84, 80}, {-84, 32}, {-22, 32}}, color = {0, 0, 127}));
+end LTISSairplane00;
