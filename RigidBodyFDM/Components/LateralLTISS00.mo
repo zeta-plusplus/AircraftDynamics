@@ -56,6 +56,8 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
     Dialog(tab = "Initial states", group = "in equilibrium"));
   parameter Modelica.SIunits.Angle phi1 = 0.0 * (Constants.pi / 180.0) "roll, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
+  parameter Modelica.SIunits.Angle psi1 = 0.0 * (Constants.pi / 180.0) "heading, in equilibrium at initial" annotation(
+    Dialog(tab = "Initial states", group = "in equilibrium"));
   parameter Modelica.SIunits.AngularVelocity p1 = 0.0 * (Constants.pi / 180.0) "roll rate, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
   parameter Modelica.SIunits.AngularVelocity r1 = 0.0 * (Constants.pi / 180.0) "yaw rate, in equilibrium at initial" annotation(
@@ -66,6 +68,8 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
   parameter Modelica.SIunits.Angle beta0 = 0.0 * (Constants.pi / 180.0) "sideslip, deviation from equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
   parameter Modelica.SIunits.Angle phi0 = 0.0 * (Constants.pi / 180.0) "roll, deviation from equilibrium at initial" annotation(
+    Dialog(tab = "Initial states", group = "deviation from equilibrium"));
+  parameter Modelica.SIunits.Angle psi0 = 0.0 * (Constants.pi / 180.0) "heading, deviation from equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
   parameter Modelica.SIunits.AngularVelocity p0 = 0.0 * (Constants.pi / 180.0) "roll rate, deviation from equilibrium" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
@@ -141,11 +145,11 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
   /* ---------------------------------------------
               Internal variables
         --------------------------------------------- */
-  redeclare Real x[4](start = x0, final quantity = {"Angle", "AngularVelocity", "AngularVelocity", "Angle"}) "State vector" annotation(
+  redeclare Real x[5](start = x0, final quantity = {"Angle", "AngularVelocity", "AngularVelocity", "Angle", "Angle"}) "State vector" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
   redeclare Real u[2] "Input vector" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  redeclare Real y[4] "output vector" annotation(
+  redeclare Real y[5] "output vector" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
   //---
   /* ---------------------------------------------
@@ -153,6 +157,9 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
         --------------------------------------------- */
   inner outer AircraftDynamics.SimEnvironment environmentAircraftDynSim annotation(
     Placement(visible = true, transformation(origin = {-50, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  discrete AircraftDynamics.RigidBodyFDM.Components.DerivativesLateralNonDim2Dim00 DerLateral annotation(
+    Placement(visible = true, transformation(origin = {-20, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  
   
   /* ---------------------------------------------
                   Interface
@@ -168,6 +175,9 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
     Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_phi(final quantity = "Angle", final unit = "rad", displayUnit = "deg") annotation(
     Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput y_psi(final quantity = "Angle", final unit = "rad", displayUnit = "deg") annotation(
+    Placement(visible = true, transformation(origin = {130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  
   //---
   Modelica.Blocks.Interfaces.RealInput u_q1bar(final quantity = "Pressure", unit = "Pa", displayUnit = "Pa") if use_u_q1bar "dynamic pressure, input" annotation(
     Placement(visible = true, transformation(origin = {-140, 70}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-160, 62}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -192,25 +202,24 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
     Placement(visible = true, transformation(origin = {-140, -90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-160, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //---
   //********************************************************************************
-  discrete AircraftDynamics.RigidBodyFDM.Components.DerivativesLateralNonDim2Dim00 DerLateral annotation(
-    Placement(visible = true, transformation(origin = {-20, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  
 protected
   /* ---------------------------------------------
               calculated parameters
   --------------------------------------------- */
-  redeclare parameter Real A[4, 4](each fixed = false) annotation(
+  redeclare parameter Real A[5, 5](each fixed = false) annotation(
     fixed = false,
     HideResult = false);
-  redeclare parameter Real B[4, 2](each fixed = false) annotation(
+  redeclare parameter Real B[5, 2](each fixed = false) annotation(
     fixed = false,
     HideResult = false);
-  redeclare parameter Real C[4, 4](each fixed = false) annotation(
+  redeclare parameter Real C[5, 5](each fixed = false) annotation(
     fixed = false,
     HideResult = false);
-  redeclare parameter Real D[4, 2](each fixed = false) annotation(
+  redeclare parameter Real D[5, 2](each fixed = false) annotation(
     fixed = false,
     HideResult = false);
-  redeclare parameter Real x0[4](each fixed = false) "Initial state vector" annotation(
+  redeclare parameter Real x0[5](each fixed = false) "Initial state vector" annotation(
     HideResult = false);
   //-----
   parameter SIunits.Velocity U1(fixed = false) "";
@@ -310,16 +319,33 @@ initial equation
   NdeltaR_pri = -9.6945;
 */
 //***** matrices of state space equation *****
-  A = [Ybeta_pri, Yp_pri, Yr_pri, Yphi_pri; Lbeta_pri, Lp_pri, Lr_pri, 0; Nbeta_pri, Np_pri, Nr_pri, 0; 0.0, 1.0, tan(theta1), 0.0];
-  B = [YdeltaA_pri, YdeltaR_pri; LdeltaA_pri, LdeltaR_pri; NdeltaA_pri, NdeltaR_pri; 0.0, 0.0];
-  C = [1.0, 0.0, 0.0, 0.0; 0.0, 1.0, 0.0, 0.0; 0.0, 0.0, 1.0, 0.0; 0.0, 0.0, 0.0, 1.0];
-  D = [0.0, 0.0; 0.0, 0.0; 0.0, 0.0; 0.0, 0.0];
+  A = [Ybeta_pri, Yp_pri, Yr_pri, Yphi_pri, 0.0; 
+      Lbeta_pri, Lp_pri, Lr_pri, 0.0, 0.0; 
+      Nbeta_pri, Np_pri, Nr_pri, 0.0, 0.0; 
+      0.0, 1.0, tan(theta1), 0.0, 0.0;
+      0.0, 0.0, 1.0/cos(theta1), 0.0, 0.0];
+  B = [YdeltaA_pri, YdeltaR_pri; 
+      LdeltaA_pri, LdeltaR_pri; 
+      NdeltaA_pri, NdeltaR_pri; 
+      0.0, 0.0;
+      0.0, 0.0];
+  C = [1.0, 0.0, 0.0, 0.0, 0.0; 
+      0.0, 1.0, 0.0, 0.0, 0.0; 
+      0.0, 0.0, 1.0, 0.0, 0.0; 
+      0.0, 0.0, 0.0, 1.0, 0.0;
+      0.0, 0.0, 0.0, 0.0, 1.0];
+  D = [0.0, 0.0; 
+      0.0, 0.0; 
+      0.0, 0.0; 
+      0.0, 0.0;
+      0.0, 0.0];
 //***** initial condition *****
 //---
   x0[1] = beta0;
   x0[2] = p0;
   x0[3] = r0;
   x0[4] = phi0;
+  x0[5] = psi0;
 //---
 //***** flight condition *****
   if use_u_U1 == true then
@@ -384,6 +410,7 @@ equation
   y_p = p1 + x[2];
   y_r = r1 + x[3];
   y_phi = phi1 + x[4];
+  y_psi= psi1 + x[5];
 //-----
 /* ---------------------------------------------
   Eqns describing physics

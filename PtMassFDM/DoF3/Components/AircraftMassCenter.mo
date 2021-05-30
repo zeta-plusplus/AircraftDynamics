@@ -133,6 +133,13 @@ equation
   der(yWorld)= fltStates.V * cos(fltStates.gamma) *cos(fltStates.psi); // added, 2DoF -> 3DoF
   (der(fltDist))^(2) = (der(xWorld))^(2) + (der(yWorld))^(2); // added, 2DoF -> 3DoF
   
+  fltStates.XG= xWorld;
+  fltStates.YG= yWorld;
+  fltStates.ZG= -1.0*alt;
+  
+  fltStates.XGdot= der(fltStates.XG);
+  fltStates.YGdot= der(fltStates.YG);
+  fltStates.ZGdot= der(fltStates.ZG);
   
   /*------------------------------
   eqns of dynamics

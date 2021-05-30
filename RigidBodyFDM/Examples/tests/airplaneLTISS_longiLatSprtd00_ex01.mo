@@ -8,9 +8,9 @@ model airplaneLTISS_longiLatSprtd00_ex01
   //redeclare package Medium = surrFluid
   //-----
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg1 annotation(
-    Placement(visible = true, transformation(origin = {-50, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   inner AircraftDynamics.SimEnvironment environmentAircraftDynSim annotation(
-    Placement(visible = true, transformation(origin = {-90, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression uSignal_deltaA(y = if time <= 2 then 0 elseif 2 <= time and time <= 3 then 0
    elseif 22 <= time and time <= 23 then 0
    elseif 31 <= time then 0 else 0) annotation(
@@ -20,14 +20,38 @@ model airplaneLTISS_longiLatSprtd00_ex01
    elseif 31 <= time then 0 else 0) annotation(
     Placement(visible = true, transformation(origin = {-90, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg2 annotation(
+    Placement(visible = true, transformation(origin = {-50, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AircraftDynamics.RigidBodyFDM.Components.airplaneLTISS_longiLatSprtd00 AirplaneDyn(redeclare package Medium = surrFluid) annotation(
+    Placement(visible = true, transformation(origin = {30,-10}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
+  Modelica.Blocks.Math.UnitConversions.From_deg from_deg3 annotation(
     Placement(visible = true, transformation(origin = {-50, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.RigidBodyFDM.Components.airplaneLTISS_longiLatSprtd00 AirplaneDyn annotation(
-    Placement(visible = true, transformation(origin = {20,-10}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression uSignal_deltaE(y = if time <= 2 then 0 elseif 2 <= time and time <= 3 then -3
+   elseif 7 <= time and time <= 8 then 3
+   elseif 31 <= time then 0 else 0) annotation(
+    Placement(visible = true, transformation(origin = {-90, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.RealExpression uSignal_deltaFracT(y = if time <= 2 then 0 elseif 2 <= time and time <= 3 then 0
+   elseif 30 <= time and time <= 31 then 0
+   elseif 31 <= time then 0 else 0) annotation(
+    Placement(visible = true, transformation(origin = {-90, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain gain_Tnominal(k = 50)  annotation(
+    Placement(visible = true, transformation(origin = {-50, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  connect(uSignal_deltaA.y, from_deg1.u) annotation(
-    Line(points = {{-79, -30}, {-63, -30}}, color = {0, 0, 127}));
-  connect(uSignal_deltaR.y, from_deg2.u) annotation(
-    Line(points = {{-79, -70}, {-63, -70}, {-63, -70}, {-63, -70}}, color = {0, 0, 127}));
+  connect(uSignal_deltaR.y, from_deg3.u) annotation(
+    Line(points = {{-78, -70}, {-64, -70}, {-64, -70}, {-62, -70}}, color = {0, 0, 127}));
+  connect(from_deg3.y, AirplaneDyn.u_deltaR) annotation(
+    Line(points = {{-38, -70}, {-30, -70}, {-30, -28}, {-3, -28}}, color = {0, 0, 127}));
+  connect(from_deg2.y, AirplaneDyn.u_deltaA) annotation(
+    Line(points = {{-38, -30}, {-36, -30}, {-36, -16}, {-3, -16}}, color = {0, 0, 127}));
+  connect(gain_Tnominal.y, AirplaneDyn.u_deltaT) annotation(
+    Line(points = {{-38, 10}, {-36, 10}, {-36, 2}, {-3, 2}}, color = {0, 0, 127}));
+  connect(from_deg1.y, AirplaneDyn.u_deltaE) annotation(
+    Line(points = {{-38, 50}, {-28, 50}, {-28, 14}, {-3, 14}}, color = {0, 0, 127}));
+  connect(uSignal_deltaFracT.y, gain_Tnominal.u) annotation(
+    Line(points = {{-78, 10}, {-62, 10}, {-62, 10}, {-62, 10}}, color = {0, 0, 127}));
+  connect(uSignal_deltaE.y, from_deg1.u) annotation(
+    Line(points = {{-78, 50}, {-64, 50}, {-64, 50}, {-62, 50}}, color = {0, 0, 127}));
+  connect(uSignal_deltaA.y, from_deg2.u) annotation(
+    Line(points = {{-78, -30}, {-62, -30}, {-62, -30}, {-62, -30}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-100, -100}, {120, 120}})),
     __OpenModelica_commandLineOptions = "",

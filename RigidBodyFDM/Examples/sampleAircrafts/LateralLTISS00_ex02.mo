@@ -34,7 +34,7 @@ model LateralLTISS00_ex02
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg2 annotation(
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.LateralLTISS00 FltDynLateralSS(use_u_Ixx = true, use_u_Ixz = true, use_u_Izz = true, use_u_S = true, use_u_U1 = true, use_u_b = true, use_u_m = true, use_u_q1bar = true) annotation(
-    Placement(visible = true, transformation(origin = {30, -3.3333}, extent = {{-30, -23.3333}, {30, 23.3333}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {29.5714, -2.99996}, extent = {{-29.5714, -23}, {29.5714, 23}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.To_deg to_deg_r annotation(
     Placement(visible = true, transformation(origin = {90, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const_Izz(k = 2666.89390765) annotation(
@@ -42,34 +42,34 @@ model LateralLTISS00_ex02
   Modelica.Blocks.Sources.Constant const_Ixz(k = 0) annotation(
     Placement(visible = true, transformation(origin = {100, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 equation
+  connect(Flt2Fluid.y_qBar, FltDynLateralSS.u_q1bar) annotation(
+    Line(points = {{-58, 52}, {-30, 52}, {-30, 7}, {-2, 7}}, color = {0, 0, 127}));
+  connect(Flt2Fluid.y_V_inf, FltDynLateralSS.u_U1) annotation(
+    Line(points = {{-58, 56}, {-14, 56}, {-14, 15}, {-2, 15}}, color = {0, 0, 127}));
+  connect(from_deg2.y, FltDynLateralSS.u_deltaR) annotation(
+    Line(points = {{-39, -40}, {-15, -40}, {-15, -15}, {-2, -15}}, color = {0, 0, 127}));
+  connect(const_S.y, FltDynLateralSS.u_S) annotation(
+    Line(points = {{-50, 99}, {-50, 68}, {6, 68}, {6, 22}}, color = {0, 0, 127}));
+  connect(const_m.y, FltDynLateralSS.u_m) annotation(
+    Line(points = {{-20, 99}, {-20, 72}, {14, 72}, {14, 22}}, color = {0, 0, 127}));
+  connect(const_b.y, FltDynLateralSS.u_b) annotation(
+    Line(points = {{10, 99}, {10, 76}, {22, 76}, {22, 22}}, color = {0, 0, 127}));
+  connect(const_Ixx.y, FltDynLateralSS.u_Ixx) annotation(
+    Line(points = {{40, 100}, {40, 76}, {30, 76}, {30, 22}}, color = {0, 0, 127}));
+  connect(const_Izz.y, FltDynLateralSS.u_Izz) annotation(
+    Line(points = {{70, 100}, {70, 70}, {37, 70}, {37, 22}}, color = {0, 0, 127}));
+  connect(const_Ixz.y, FltDynLateralSS.u_Ixz) annotation(
+    Line(points = {{100, 100}, {100, 50}, {45, 50}, {45, 22}}, color = {0, 0, 127}));
+  connect(FltDynLateralSS.y_r, to_deg_r.u) annotation(
+    Line(points = {{61, 3}, {69.6667, 3}, {69.6667, -19.9996}, {77.6667, -19.9996}}, color = {0, 0, 127}));
+  connect(from_deg1.y, FltDynLateralSS.u_deltaA) annotation(
+    Line(points = {{-39, 0}, {-20.5, 0}, {-20.5, -6}, {-2, -6}}, color = {0, 0, 127}));
   connect(FltDynLateralSS.y_p, to_deg_p.u) annotation(
-    Line(points = {{61.6667, 6.66669}, {69.6667, 6.66669}, {69.6667, 10.6667}, {77.6667, 10.6667}, {77.6667, 10.6667}}, color = {0, 0, 127}));
+    Line(points = {{61, 9}, {69.6667, 9}, {69.6667, 10.6667}, {77.6667, 10.6667}}, color = {0, 0, 127}));
   connect(uSignal_deltaA.y, from_deg1.u) annotation(
     Line(points = {{-79, 0}, {-63, 0}}, color = {0, 0, 127}));
-  connect(from_deg1.y, FltDynLateralSS.u_deltaA) annotation(
-    Line(points = {{-39, 0}, {-25, 0}, {-25, 10}, {-3, 10}}, color = {0, 0, 127}));
   connect(uSignal_deltaR.y, from_deg2.u) annotation(
     Line(points = {{-79, -40}, {-63, -40}, {-63, -40}, {-63, -40}}, color = {0, 0, 127}));
-  connect(FltDynLateralSS.y_r, to_deg_r.u) annotation(
-    Line(points = {{61.6667, 2.88827e-05}, {69.6667, 2.88827e-05}, {69.6667, -19.9996}, {77.6667, -19.9996}, {77.6667, -19.9996}}, color = {0, 0, 127}));
-  connect(const_Ixz.y, FltDynLateralSS.u_Ixz) annotation(
-    Line(points = {{100, 100}, {100, 50}, {57, 50}, {57, 22}}, color = {0, 0, 127}));
-  connect(const_Izz.y, FltDynLateralSS.u_Izz) annotation(
-    Line(points = {{70, 100}, {70, 70}, {50, 70}, {50, 22}}, color = {0, 0, 127}));
-  connect(const_Ixx.y, FltDynLateralSS.u_Ixx) annotation(
-    Line(points = {{40, 100}, {40, 76}, {43, 76}, {43, 22}}, color = {0, 0, 127}));
-  connect(const_b.y, FltDynLateralSS.u_b) annotation(
-    Line(points = {{10, 99}, {10, 76}, {37, 76}, {37, 22}}, color = {0, 0, 127}));
-  connect(const_m.y, FltDynLateralSS.u_m) annotation(
-    Line(points = {{-20, 99}, {-20, 72}, {30, 72}, {30, 22}}, color = {0, 0, 127}));
-  connect(const_S.y, FltDynLateralSS.u_S) annotation(
-    Line(points = {{-50, 99}, {-50, 68}, {23, 68}, {23, 22}}, color = {0, 0, 127}));
-  connect(Flt2Fluid.y_qBar, FltDynLateralSS.u_q1bar) annotation(
-    Line(points = {{-58, 52}, {3, 52}, {3, 22}}, color = {0, 0, 127}));
-  connect(Flt2Fluid.y_V_inf, FltDynLateralSS.u_U1) annotation(
-    Line(points = {{-58, 56}, {10, 56}, {10, 22}}, color = {0, 0, 127}));
-  connect(from_deg2.y, FltDynLateralSS.u_deltaR) annotation(
-    Line(points = {{-39, -40}, {-15, -40}, {-15, 0}, {-3, 0}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-100, -100}, {120, 120}})),
     __OpenModelica_commandLineOptions = "",

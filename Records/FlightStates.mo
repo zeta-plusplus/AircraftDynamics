@@ -12,6 +12,14 @@ record FlightStates
   Modelica.SIunits.Velocity V "flight velocity, or 'TAS'";
   Real Mn "flight mach number";
   
+  Modelica.SIunits.Velocity XGdot "velocity along X-Global";
+  Modelica.SIunits.Velocity YGdot "velocity along Y-Global";
+  Modelica.SIunits.Velocity ZGdot "velocity along Z-Global";
+  
+  Modelica.SIunits.Position XG "position based on X-Global";
+  Modelica.SIunits.Position YG "position based on Y-Global";
+  Modelica.SIunits.Position ZG "position based on Z-Global";
+  
   /*-------------------------
   -------------------------*/
   Modelica.SIunits.Force X "Force along airframe x-axis";

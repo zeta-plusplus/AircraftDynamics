@@ -114,6 +114,14 @@ equation
   fltStates.u= fltStates.V*cos(fltStates.alpha);
   fltStates.w= fltStates.V*sin(fltStates.alpha);
   
+  fltStates.XG= xWorld;
+  fltStates.ZG= -1.0*alt;
+  
+  fltStates.XGdot= der(fltStates.XG);
+  fltStates.ZGdot= der(fltStates.ZG);
+  
+  
+  
   /*------------------------------
   eqns of dynamics
   ------------------------------*/
@@ -147,8 +155,12 @@ equation
   /*------------------------------
   Unused flight states
   ------------------------------*/
+  fltStates.YG= 0.0;
+  
   //--- velocity ---
   fltStates.v = 0.0;
+  fltStates.YGdot= 0.0;
+  
   //--- force ---
   fltStates.Y = 0.0;
   //--
