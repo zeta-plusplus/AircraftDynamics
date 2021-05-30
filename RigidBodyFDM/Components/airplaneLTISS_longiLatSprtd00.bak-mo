@@ -1,25 +1,25 @@
 within AircraftDynamics.RigidBodyFDM.Components;
 
-model airplaneLTISS_longiLatSprtd00
+model AirplaneLTISS_longiLatSprtd00
   /********************************************************
-                  imports
-      ********************************************************/
+                    imports
+        ********************************************************/
   import Modelica.Constants;
   import Modelica.SIunits;
   /********************************************************
-                     Declaration
-      ********************************************************/
+                       Declaration
+        ********************************************************/
   /* ---------------------------------------------
-                  Package
-        --------------------------------------------- */
+                    Package
+          --------------------------------------------- */
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium annotation(
     choicesAllMatching = true);
   /* ---------------------------------------------
-          switches
-    --------------------------------------------- */
-  /* ---------------------------------------------
-            parameters
+            switches
       --------------------------------------------- */
+  /* ---------------------------------------------
+              parameters
+        --------------------------------------------- */
   //********** Initial States **********
   //--- longitidinal ---
   parameter Modelica.SIunits.Angle alpha1 = 5.0 * (Constants.pi / 180.0) "AoA, in equilibrium at initial" annotation(
@@ -173,32 +173,28 @@ model airplaneLTISS_longiLatSprtd00
     Dialog(group = "N-related-Coefficients"));
   //-----
   /* ---------------------------------------------
-            Internal variables
-      --------------------------------------------- */
+              Internal variables
+        --------------------------------------------- */
   /*
-  AircraftDynamics.Records.FlightStates fltStates;
-  AircraftDynamics.Records.angles4display fltAng4disp;
-  */
-  
+    AircraftDynamics.Records.FlightStates fltStates;
+    AircraftDynamics.Records.angles4display fltAng4disp;
+    */
   /* ---------------------------------------------
-          Internal objects
-      --------------------------------------------- */
+            Internal objects
+        --------------------------------------------- */
   inner outer AircraftDynamics.SimEnvironment environmentAircraftDynSim annotation(
     Placement(visible = true, transformation(origin = {10, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  
   AircraftDynamics.Sources.FlightCondition2Fluid00 Flt2Fluid(redeclare package Medium = Medium, C_fluid_paramInput = C_fluidSurr_par, MN_paramInput = MNfltSteady_par, X_fluid_paramInput = X_fluidSurr_par, alt_paramInput = altFltSteady_par, dTamb_paramInput = dTambFltSteady_par) annotation(
     Placement(visible = true, transformation(origin = {-60, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  
-  AircraftDynamics.RigidBodyFDM.Components.LongitudinalLTISS00 FltDynLongiSS(CD1 = CD1, CDalpha = CDalpha, CDdeltaE = CDdeltaE, CDu = CDu, CL1 = CL1, CLalpha = CLalpha, CLalpha_dot = CLalpha_dot, CLdeltaE = CLdeltaE, CLq = CLq, CLu = CLu, CTX1 = CTX1, CTXu = CTXu, Cm1 = Cm1, CmAlpha = CmAlpha, CmAlpha_dot = CmAlpha_dot, CmDeltaE = CmDeltaE, Cmq = Cmq, Cmu = Cmu,Iyy_par = Iyy_par, S_par = S_par, cBar_par = cBar_par, m_par = m_par,use_u_U1 = true, use_u_q1bar = true) annotation(
+  AircraftDynamics.RigidBodyFDM.Components.LongitudinalLTISS00 FltDynLongiSS(CD1 = CD1, CDalpha = CDalpha, CDdeltaE = CDdeltaE, CDu = CDu, CL1 = CL1, CLalpha = CLalpha, CLalpha_dot = CLalpha_dot, CLdeltaE = CLdeltaE, CLq = CLq, CLu = CLu, CTX1 = CTX1, CTXu = CTXu, Cm1 = Cm1, CmAlpha = CmAlpha, CmAlpha_dot = CmAlpha_dot, CmDeltaE = CmDeltaE, Cmq = Cmq, Cmu = Cmu, Iyy_par = Iyy_par, S_par = S_par, cBar_par = cBar_par, m_par = m_par, use_u_U1 = true, use_u_q1bar = true) annotation(
     Placement(visible = true, transformation(origin = {10.5, 19.6667}, extent = {{-30.5, -20.3333}, {30.5, 20.3333}}, rotation = 0)));
-  
-  AircraftDynamics.RigidBodyFDM.Components.LateralLTISS00 FltDynLateralSS(CYbeta = CYbeta, CYdeltaA = CYdeltaA, CYdeltaF = CYdeltaF, CYdeltaR = CYdeltaR, CYdeltaS = CYdeltaS, CYp = CYp, CYr = CYr, Clbeta = Clbeta, CldeltaA = CldeltaA, CldeltaF = CldeltaF, CldeltaR = CldeltaR, CldeltaS = CldeltaS, Clp = Clp, Clr = Clr, Cnbeta = Cnbeta, CndeltaA = CndeltaA, CndeltaF = CndeltaF, CndeltaR = CndeltaR, CndeltaS = CndeltaS, Cnp = Cnp, Cnr = Cnr, Ixx_par = Ixx_par, Ixz_par = Ixz_par, Izz_par = Izz_par, S_par = S_par, b_par = b_par, m_par = m_par,use_u_U1 = true, use_u_q1bar = true) annotation(
+  AircraftDynamics.RigidBodyFDM.Components.LateralLTISS00 FltDynLateralSS(CYbeta = CYbeta, CYdeltaA = CYdeltaA, CYdeltaF = CYdeltaF, CYdeltaR = CYdeltaR, CYdeltaS = CYdeltaS, CYp = CYp, CYr = CYr, Clbeta = Clbeta, CldeltaA = CldeltaA, CldeltaF = CldeltaF, CldeltaR = CldeltaR, CldeltaS = CldeltaS, Clp = Clp, Clr = Clr, Cnbeta = Cnbeta, CndeltaA = CndeltaA, CndeltaF = CndeltaF, CndeltaR = CndeltaR, CndeltaS = CndeltaS, Cnp = Cnp, Cnr = Cnr, Ixx_par = Ixx_par, Ixz_par = Ixz_par, Izz_par = Izz_par, S_par = S_par, b_par = b_par, m_par = m_par, use_u_U1 = true, use_u_q1bar = true) annotation(
     Placement(visible = true, transformation(origin = {10, -50}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   /**/
   //-----
   /* ---------------------------------------------
-                Interface
-      --------------------------------------------- */
+                  Interface
+        --------------------------------------------- */
   Modelica.Blocks.Interfaces.RealInput u_deltaE annotation(
     Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput u_deltaT annotation(
@@ -207,10 +203,12 @@ model airplaneLTISS_longiLatSprtd00
     Placement(visible = true, transformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput u_deltaR annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.Types.InfoBus busVelocities annotation(
-    Placement(visible = true, transformation(origin = {100, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AircraftDynamics.Types.InfoBus busVelocity annotation(
+    Placement(visible = true, transformation(origin = {100, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AircraftDynamics.Types.InfoBus busAttitude annotation(
+    Placement(visible = true, transformation(origin = {100, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  /*------------------------------
+/*------------------------------
   interface; internal -- connector
   ------------------------------*/
   connect(Flt2Fluid.y_qBar, FltDynLateralSS.u_q1bar) annotation(
@@ -229,8 +227,7 @@ equation
     Line(points = {{-120, 80}, {-90, 80}, {-90, 32}, {-22, 32}, {-22, 32}}, color = {0, 0, 127}));
   connect(u_deltaT, FltDynLongiSS.u_deltaT) annotation(
     Line(points = {{-120, 40}, {-96, 40}, {-96, 8}, {-22, 8}, {-22, 8}}, color = {0, 0, 127}));
-  
-  /*
+/*
   busVelocities.u= fltStates.u;
   busVelocities.v= fltStates.v;
   busVelocities.w= fltStates.w;
@@ -241,11 +238,10 @@ equation
   busVelocities.YGdot= fltStates.YGdot;
   busVelocities.ZGdot= fltStates.ZGdot;
   */
-  
-  /*------------------------------
+/*------------------------------
   
   ------------------------------*/
-  /*
+/*
   fltStates.V= sqrt(fltStates.u^2.0+fltStates.v^2.0+fltStates.w^2.0);
   fltStates.u= FltDynLongiSS.y_u;
   fltStates.v= fltStates.V*sin(fltStates.beta);
@@ -254,23 +250,17 @@ equation
   fltStates.alpha= FltDynLongiSS.y_alpha;
   fltStates.beta= FltDynLateralSS.y_beta;
   */
-  
-  
-  /*------------------------------
+/*------------------------------
   convert angles for display
   ------------------------------*/
-  /*
+/*
   [fltAng4disp.alpha, fltAng4disp.theta, fltAng4disp.gamma, 
   fltAng4disp.phi, fltAng4disp.psi]
     = AircraftDynamics.Functions.calcAngles4display([fltStates.alpha, fltStates.y_theta, fltStates.gamma,
                                                      fltStates.phi, fltStates.psi]);
   */
-  
-  
-  
-  //----------
-  
+//----------
   annotation(
     defaultComponentName = "AirplaneDyn",
     Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {1, -89}, extent = {{-101, 9}, {99, -9}}, textString = "%name")}));
-end airplaneLTISS_longiLatSprtd00;
+end AirplaneLTISS_longiLatSprtd00;

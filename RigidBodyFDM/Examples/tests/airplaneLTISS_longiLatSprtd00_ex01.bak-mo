@@ -1,6 +1,6 @@
 within AircraftDynamics.RigidBodyFDM.Examples.tests;
 
-model airplaneLTISS_longiLatSprtd00_ex01
+model AirplaneLTISS_longiLatSprtd00_ex01
   extends Modelica.Icons.Example;
   //-----
   //package surrFluid = Modelica.Media.Air.DryAirNasa;
@@ -21,7 +21,7 @@ model airplaneLTISS_longiLatSprtd00_ex01
     Placement(visible = true, transformation(origin = {-90, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg2 annotation(
     Placement(visible = true, transformation(origin = {-50, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.RigidBodyFDM.Components.airplaneLTISS_longiLatSprtd00 AirplaneDyn(redeclare package Medium = surrFluid) annotation(
+  AircraftDynamics.RigidBodyFDM.Components.AirplaneLTISS_longiLatSprtd00 AirplaneDyn(redeclare package Medium = surrFluid) annotation(
     Placement(visible = true, transformation(origin = {30,-10}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg3 annotation(
     Placement(visible = true, transformation(origin = {-50, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -57,4 +57,4 @@ equation
     __OpenModelica_commandLineOptions = "",
     experiment(StartTime = 0, StopTime = 60, Tolerance = 1e-06, Interval = 0.01),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
-end airplaneLTISS_longiLatSprtd00_ex01;
+end AirplaneLTISS_longiLatSprtd00_ex01;

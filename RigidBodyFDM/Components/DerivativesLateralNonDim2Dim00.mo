@@ -94,6 +94,17 @@ model DerivativesLateralNonDim2Dim00
   Real NdeltaS_pri;
   Real NdeltaF_pri;
   //---
+  //----------
+  Real Ybeta_ppri;
+  Real Yp_ppri;
+  Real Yr_ppri;
+  Real Yphi_ppri;
+  Real YdeltaA_ppri;
+  Real YdeltaR_ppri;
+  Real YdeltaS_ppri;
+  Real YdeltaF_ppri;
+  //-----
+  
   /* ---------------------------------------------
                 Interface
       --------------------------------------------- */
@@ -198,6 +209,16 @@ equation
   connect(NdeltaS_pri, infoBusDim.NdeltaS_pri);
   connect(NdeltaF_pri, infoBusDim.NdeltaF_pri);
   //---
+  //----------
+  connect(Ybeta_ppri, infoBusDim.Ybeta_ppri);
+  connect(Yp_ppri, infoBusDim.Yp_ppri);
+  connect(Yr_ppri, infoBusDim.Yr_ppri);
+  connect(Yphi_ppri, infoBusDim.Yphi_ppri);
+  connect(YdeltaA_ppri, infoBusDim.YdeltaA_ppri);
+  connect(YdeltaR_ppri, infoBusDim.YdeltaR_ppri);
+  connect(YdeltaS_ppri, infoBusDim.YdeltaS_ppri);
+  connect(YdeltaF_ppri, infoBusDim.YdeltaF_ppri);
+  //---
   
 /* ---------------------------------------------
   Eqns describing physics
@@ -254,8 +275,16 @@ equation
   NdeltaS_pri= (I2*LdeltaS + NdeltaS)/(1.0 - I1*I2);
   NdeltaF_pri= (I2*LdeltaF + NdeltaF)/(1.0 - I1*I2);
   //---
-  
-  
+  //----------
+  Ybeta_ppri= Ybeta_pri*U1;
+  Yp_ppri= Yp_pri*U1;
+  Yr_ppri= U1*(Yr_pri+1.0);
+  Yphi_ppri= Yphi_pri*U1;
+  YdeltaA_ppri= YdeltaA_pri*U1;
+  YdeltaR_ppri= YdeltaR_pri*U1;
+  YdeltaS_ppri= YdeltaS_pri*U1;
+  YdeltaF_ppri= YdeltaF_pri*U1;
+  //---
   
 /********************************************************
   Graphics

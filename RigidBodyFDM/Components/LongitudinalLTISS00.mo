@@ -140,9 +140,9 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
   AircraftDynamics.Types.InfoBus infoBus1 annotation(
     Placement(visible = true, transformation(origin = {120, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //---
-  Modelica.Blocks.Interfaces.RealOutput y_az(final quantity="Acceleration", unit="m/s2", displayUnit="m/s2") annotation(
+  Modelica.Blocks.Interfaces.RealOutput y_aZ(final quantity="Acceleration", unit="m/s2", displayUnit="m/s2") annotation(
     Placement(visible = true, transformation(origin = {130, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput y_ax(final quantity="Acceleration", unit="m/s2", displayUnit="m/s2") annotation(
+  Modelica.Blocks.Interfaces.RealOutput y_aX(final quantity="Acceleration", unit="m/s2", displayUnit="m/s2") annotation(
     Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   
   Modelica.Blocks.Interfaces.RealOutput y_u(final quantity = "Velocity", unit = "m/s", displayUnit = "m/s") annotation(
@@ -417,8 +417,8 @@ equation
   y_alpha = alpha1 + x[2];
   y_q = q1 + x[3];
   y_theta = theta1 + x[4];
-  y_az = y[1];
-  y_ax= y[2];
+  y_aZ = y[1];
+  y_aX = y[2];
   
 //-----
   when initial() then

@@ -4,7 +4,8 @@ model LateralLTISS00_ex02
   extends Modelica.Icons.Example;
   //-----
   //package surrFluid = Modelica.Media.Air.DryAirNasa;
-  package surrFluid = AircraftDynamics.Media.DryAirMethaneMixture00;
+
+package surrFluid = AircraftDynamics.Media.DryAirMethaneMixture00;
   //redeclare package Medium = surrFluid
   //-----
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg1 annotation(
