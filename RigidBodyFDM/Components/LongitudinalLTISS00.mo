@@ -124,7 +124,7 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
   redeclare Real u[2] annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  redeclare Real y[5] annotation(
+  redeclare Real y[6] annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
   //---
   /* ---------------------------------------------
@@ -140,17 +140,19 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
   AircraftDynamics.Types.InfoBus infoBus1 annotation(
     Placement(visible = true, transformation(origin = {120, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {130, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //---
-  Modelica.Blocks.Interfaces.RealOutput y_az annotation(
-    Placement(visible = true, transformation(origin = {130, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
+  Modelica.Blocks.Interfaces.RealOutput y_az(final quantity="Acceleration", unit="m/s2", displayUnit="m/s2") annotation(
+    Placement(visible = true, transformation(origin = {130, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput y_ax(final quantity="Acceleration", unit="m/s2", displayUnit="m/s2") annotation(
+    Placement(visible = true, transformation(origin = {130, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  
   Modelica.Blocks.Interfaces.RealOutput y_u(final quantity = "Velocity", unit = "m/s", displayUnit = "m/s") annotation(
-    Placement(visible = true, transformation(origin = {130, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_alpha(final quantity = "Angle", final unit = "rad", displayUnit = "deg") annotation(
-    Placement(visible = true, transformation(origin = {130, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_q(final quantity = "AngularVelocity", unit = "rad/s", displayUnit = "rad/s") annotation(
-    Placement(visible = true, transformation(origin = {130, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput y_theta(final quantity = "Angle", final unit = "rad", displayUnit = "deg") annotation(
-    Placement(visible = true, transformation(origin = {130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //---
   Modelica.Blocks.Interfaces.RealInput u_q1bar(unit = "Pa", displayUnit = "Pa") if use_u_q1bar  "dynamic pressure, input" annotation(
     Placement(visible = true, transformation(origin = {-140, 50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-130, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -170,6 +172,7 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
   Modelica.Blocks.Interfaces.RealInput u_deltaT(final quantity = "Force", final unit = "N", displayUnit = "N") annotation(
     Placement(visible = true, transformation(origin = {-140, -90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-160, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //********************************************************************************
+  
 protected
   /* ---------------------------------------------
           redeclare protected parameters
@@ -181,10 +184,10 @@ protected
   redeclare parameter Real B[4, 2] annotation(
     fixed = false,
     HideResult = false);
-  redeclare parameter Real C[5, 4] annotation(
+  redeclare parameter Real C[6, 4] annotation(
     fixed = false,
     HideResult = false);
-  redeclare parameter Real D[5, 2] annotation(
+  redeclare parameter Real D[6, 2] annotation(
     fixed = false,
     HideResult = false);
   //---
@@ -244,7 +247,7 @@ protected
   //---
   parameter Real MdeltaE_pri(fixed = false) annotation(
     HideResult = false);
-  //---
+  //----------
   parameter Real Zu_ppri(fixed = false) annotation(
     HideResult = false);
   parameter Real Zalpha_ppri(fixed = false) annotation(
@@ -256,7 +259,20 @@ protected
   //---
   parameter Real ZdeltaE_ppri(fixed = false) annotation(
     HideResult = false);
+  //-----
+  parameter Real Xu_ppri(fixed = false) annotation(
+    HideResult = false);
+  parameter Real Xalpha_ppri(fixed = false) annotation(
+    HideResult = false);
+  parameter Real Xq_ppri(fixed = false) annotation(
+    HideResult = false);
+  parameter Real Xtheta_ppri(fixed = false) annotation(
+    HideResult = false);
   //---
+  parameter Real XdeltaE_ppri(fixed = false) annotation(
+    HideResult = false);
+  //---
+  
   //********************************************************************************
 initial equation
 //***** Dimentional derivatives *****
@@ -288,6 +304,14 @@ initial equation
   Ztheta_ppri = DerLongi.infoBusDim.Ztheta_ppri;
 //---
   ZdeltaE_ppri = DerLongi.infoBusDim.ZdeltaE_ppri;
+  //-----
+  Xu_ppri = DerLongi.infoBusDim.Xu_ppri;
+  Xalpha_ppri = DerLongi.infoBusDim.Xalpha_ppri;
+  Xq_ppri = DerLongi.infoBusDim.Xq_ppri;
+  Xtheta_ppri = DerLongi.infoBusDim.Xtheta_ppri;
+//---
+  XdeltaE_ppri = DerLongi.infoBusDim.XdeltaE_ppri;
+  //-----
 //***** test *****
 /*
   Xu_pri= -0.023564;
@@ -313,10 +337,26 @@ initial equation
   MdeltaE_pri= -15.7002;
   */
 //***** matrices of state space equation *****
-  A = [Xu_pri, Xalpha_pri, Xq_pri, Xtheta_pri; Zu_pri, Zalpha_pri, Zq_pri, Ztheta_pri; Mu_pri, Malpha_pri, Mq_pri, Mtheta_pri; 0.0, 0.0, 1.0, 0.0];
-  B = [XdeltaE_pri, 0.0; ZdeltaE_pri, 0.0; MdeltaE_pri, 0.0; 0.0, 0.0];
-  C = [Zu_ppri, Zalpha_ppri, Zq_ppri, Ztheta_ppri; 1.0, 0.0, 0.0, 0.0; 0.0, 1.0, 0.0, 0.0; 0.0, 0.0, 1.0, 0.0; 0.0, 0.0, 0.0, 1.0];
-  D = [ZdeltaE_ppri, 0.0; 0.0, 0.0; 0.0, 0.0; 0.0, 0.0; 0.0, 0.0];
+  A = [Xu_pri, Xalpha_pri, Xq_pri, Xtheta_pri; 
+      Zu_pri, Zalpha_pri, Zq_pri, Ztheta_pri; 
+      Mu_pri, Malpha_pri, Mq_pri, Mtheta_pri; 
+      0.0, 0.0, 1.0, 0.0];
+  B = [XdeltaE_pri, 0.0; 
+      ZdeltaE_pri, 0.0; 
+      MdeltaE_pri, 0.0; 
+      0.0, 0.0];
+  C = [Zu_ppri, Zalpha_ppri, Zq_ppri, Ztheta_ppri;
+      Xu_ppri, Xalpha_ppri, Xq_ppri, Xtheta_ppri; 
+      1.0, 0.0, 0.0, 0.0; 
+      0.0, 1.0, 0.0, 0.0; 
+      0.0, 0.0, 1.0, 0.0; 
+      0.0, 0.0, 0.0, 1.0];
+  D = [ZdeltaE_ppri, 0.0;
+      XdeltaE_ppri, 0.0; 
+      0.0, 0.0; 
+      0.0, 0.0; 
+      0.0, 0.0; 
+      0.0, 0.0];
 //***** initial condition *****
 //-----
   alpha1 = theta1 - gamma1;
@@ -373,11 +413,13 @@ equation
   u[1] = u_deltaE;
   u[2] = u_deltaT;
 //---
+  y_u = u1 + x[1];
+  y_alpha = alpha1 + x[2];
+  y_q = q1 + x[3];
+  y_theta = theta1 + x[4];
   y_az = y[1];
-  y_u = u1 + y[2];
-  y_alpha = alpha1 + y[3];
-  y_q = q1 + y[4];
-  y_theta = theta1 + y[5];
+  y_ax= y[2];
+  
 //-----
   when initial() then
 //***** flight condition *****
@@ -385,6 +427,7 @@ equation
     DerLongi.infoBusFlt.q1bar = q1bar;
     DerLongi.infoBusFlt.g = environmentAircraftDynSim.gravity;
     DerLongi.infoBusFlt.theta1 = theta1;
+    DerLongi.infoBusFlt.alpha1= alpha1;
 //***** aircraft properties *****
     DerLongi.infoBusAircraft.S = S;
     DerLongi.infoBusAircraft.m = m;

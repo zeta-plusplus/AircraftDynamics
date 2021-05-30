@@ -9,6 +9,7 @@ model DerivativesLongitudinalNonDim2Dim00 "Convert coefficients/derivatives, non
   Modelica.SIunits.Velocity U1;
   Modelica.SIunits.Pressure q1bar;
   Modelica.SIunits.Angle theta1;
+  Modelica.SIunits.Angle alpha1;
   Modelica.SIunits.Acceleration g;
   Modelica.SIunits.Area S;
   Modelica.SIunits.Mass m;
@@ -95,6 +96,14 @@ model DerivativesLongitudinalNonDim2Dim00 "Convert coefficients/derivatives, non
   Real ZdeltaE_ppri;
   //---
   
+  //----------
+  Real Xu_ppri;
+  Real Xalpha_ppri;
+  Real Xq_ppri;
+  Real Xtheta_ppri;
+  //---
+  Real XdeltaE_ppri;
+  //---
   
   /* ---------------------------------------------
               Interface
@@ -118,6 +127,7 @@ equation
   connect(U1, infoBusFlt.U1);
   connect(q1bar, infoBusFlt.q1bar);
   connect(theta1, infoBusFlt.theta1);
+  connect(alpha1, infoBusFlt.alpha1);
   connect(g, infoBusFlt.g);
   //***** aircraft characteristics *****
   connect(S, infoBusAircraft.S);
@@ -202,6 +212,15 @@ equation
   connect(ZdeltaE_ppri, infoBusDim.ZdeltaE_ppri);
   //---
   
+  //-----
+  connect(Xu_ppri, infoBusDim.Xu_ppri);
+  connect(Xalpha_ppri, infoBusDim.Xalpha_ppri);
+  connect(Xq_ppri, infoBusDim.Xq_ppri);
+  connect(Xtheta_ppri, infoBusDim.Xtheta_ppri);
+  //---
+  connect(XdeltaE_ppri, infoBusDim.XdeltaE_ppri);
+  //---
+  
   
   /* ---------------------------------------------
   Eqns describing physics
@@ -254,11 +273,22 @@ equation
   
   //-----
   Zu_ppri= Zu_pri*U1;
-  Zalpha_ppri= Zalpha_pri*U1 - g*sin(theta1);
+  //Zalpha_ppri= Zalpha_pri*U1 - g*sin(theta1);
+  Zalpha_ppri= Zalpha_pri*U1;
   Zq_ppri= (Zq_pri - 1.0)*U1;
-  Ztheta_ppri= Ztheta_pri*U1 + g*sin(theta1);
+  //Ztheta_ppri= Ztheta_pri*U1 + g*sin(theta1);
+  Ztheta_ppri= Ztheta_pri*U1;
   //---
   ZdeltaE_ppri= ZdeltaE_pri*U1;
+  //---
+  
+  //-----
+  Xu_ppri= Xu_pri;
+  Xalpha_ppri= Xalpha_pri;
+  Xq_ppri= Xq_pri + U1*sin(alpha1);
+  Xtheta_ppri= Xtheta_pri;
+  //---
+  XdeltaE_ppri= XdeltaE_pri;
   //---
   
   
