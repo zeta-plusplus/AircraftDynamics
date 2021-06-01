@@ -11,13 +11,13 @@ model AirplaneLTISS_longiLatSprtd00_ex01
     Placement(visible = true, transformation(origin = {-50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   inner AircraftDynamics.SimEnvironment environmentAircraftDynSim annotation(
     Placement(visible = true, transformation(origin = {-70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression uSignal_deltaA(y = if time <= 2 then 0 elseif 2 <= time and time <= 3 then 0
-   elseif 22 <= time and time <= 23 then 0
-   elseif 31 <= time then 0 else 0) annotation(
+  Modelica.Blocks.Sources.RealExpression uSignal_deltaA(y = if time <= 72 then 0 elseif 72 <= time and time <= 73 then -6
+   elseif 82 <= time and time <= 83 then 6
+   elseif 91 <= time then 0 else 0) annotation(
     Placement(visible = true, transformation(origin = {-90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.RealExpression uSignal_deltaR(y = if time <= 2 then 0 elseif 2 <= time and time <= 3 then -6
-   elseif 22 <= time and time <= 23 then 6
-   elseif 31 <= time then 0 else 0) annotation(
+  Modelica.Blocks.Sources.RealExpression uSignal_deltaR(y = if time <= 22 then 0 elseif 22 <= time and time <= 23 then -6
+   elseif 42 <= time and time <= 43 then 6
+   elseif 51 <= time then 0 else 0) annotation(
     Placement(visible = true, transformation(origin = {-90, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg2 annotation(
     Placement(visible = true, transformation(origin = {-50, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

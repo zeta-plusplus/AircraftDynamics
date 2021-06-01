@@ -68,6 +68,8 @@ block AltMN2pTh00
   Modelica.SIunits.Velocity V_inf(start=V_inf_init) "free stream velocity" annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
+  Modelica.SIunits.Velocity Vsound(start=V_inf_init/MN_init) "speed of sound" annotation(
+    Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true));
   //----------
   Modelica.SIunits.AbsolutePressure pAmb(start=pAmb_init) annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
@@ -136,6 +138,8 @@ block AltMN2pTh00
     Placement(visible = true, transformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.Types.InfoBus infoBus1 annotation(
     Placement(visible = true, transformation(origin = {0, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+//**************************************************
 equation
 /* ---------------------------------------------
   Connections, interface <-> internal variables
@@ -150,6 +154,7 @@ equation
   y_Ttot = fluidTot.T;
   y_hTot = fluidTot.h;
   y_V_inf = V_inf;
+  connect(infoBus1.Vsound, Vsound);
 /* ---------------------------------------------
   Eqns describing physics
   --------------------------------------------- */
@@ -162,6 +167,7 @@ equation
   fluidAmb.state.p = pAmb;
   fluidAmb.state.T = Tamb;
 //-- figure out velocity --
+  Vsound= Medium.velocityOfSound(fluidAmb.state);
   V_inf = MN * Medium.velocityOfSound(fluidAmb.state);
 //-- velocity to total pressure --
   fluidTot.h = fluidAmb.h + V_inf ^ 2.0 / 2.0;

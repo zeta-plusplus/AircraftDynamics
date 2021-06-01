@@ -32,36 +32,49 @@ model AttitudeVelocity2Position00
                   Interface
   --------------------------------------------- */
   AircraftDynamics.Types.InfoBus busAttitude annotation(
-    Placement(visible = true, transformation(origin = {-100, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-100, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.Types.InfoBus busPosition annotation(
-    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {100, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.Types.InfoBus busVelocityAlongBody annotation(
-    Placement(visible = true, transformation(origin = {-100, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-100, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AircraftDynamics.Types.InfoBus busVelocityInGlobal annotation(
+    Placement(visible = true, transformation(origin = {100, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   
   //**********************************************************************
 equation
   /*------------------------------
   interface; internal -- connector
   ------------------------------*/
-  connect(theta, busAttitude.theta);
-  connect(phi, busAttitude.phi);
-  connect(psi, busAttitude.psi);
-//---
-  connect(velocityAlongBody[1], busVelocityAlongBody.u);
-  connect(velocityAlongBody[2], busVelocityAlongBody.v);
-  connect(velocityAlongBody[3], busVelocityAlongBody.w);
+  connect(velocityAlongBody[3], busVelocityAlongBody.w) annotation(
+    Line);
+  connect(velocityAlongBody[2], busVelocityAlongBody.v) annotation(
+    Line);
+  connect(velocityAlongBody[1], busVelocityAlongBody.u) annotation(
+    Line);
   //---
-  connect(position[1], busPosition.XG);
-  connect(position[2], busPosition.YG);
-  connect(position[3], busPosition.ZG);
-  
+  connect(psi, busAttitude.psi) annotation(
+    Line);
+  connect(phi, busAttitude.phi) annotation(
+    Line);
+  connect(theta, busAttitude.theta) annotation(
+    Line);
+  //---
+  connect(position[3], busPosition.ZG) annotation(
+    Line);
+  connect(position[2], busPosition.YG) annotation(
+    Line);
+  connect(position[1], busPosition.XG) annotation(
+    Line);
+  //---
+  connect(velocityInGlobal[1], busVelocityInGlobal.XGdot);
+  connect(velocityInGlobal[2], busVelocityInGlobal.YGdot);
+  connect(velocityInGlobal[3], busVelocityInGlobal.ZGdot);
+  //---
   
   /* ---------------------------------------------
   Eqns describing physics
   --------------------------------------------- */
-  rotPsi=[cos(psi), -sin(psi), 0.0;
-          sin(psi), cos(psi), 0.0;
-          0.0, 0.0, 1.0];
+  rotPsi = [cos(psi), -sin(psi), 0.0; sin(psi), cos(psi), 0.0; 0.0, 0.0, 1.0];
   rotTheta=[cos(theta), 0.0, sin(theta);
           0.0, 1.0, 0.0;
           -sin(theta), 0.0, cos(theta)];
@@ -76,7 +89,7 @@ equation
   
   
 annotation(
-    defaultComponentName = "Body2Global",
+    defaultComponentName = "ResolveFrame",
     Icon(graphics = {Rectangle(origin = {2, -2}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-102, 102}, {98, -98}}), Text(origin = {-1, -90}, extent = {{-95, 10}, {97, -10}}, textString = "%name")}));
   
   

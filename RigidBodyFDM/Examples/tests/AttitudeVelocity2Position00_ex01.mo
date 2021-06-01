@@ -11,18 +11,18 @@ model AttitudeVelocity2Position00_ex01
   Modelica.Blocks.Sources.Constant const1[3](k = {100.0, 5.0, 2.0}) annotation(
     Placement(visible = true, transformation(origin = {-80, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  connect(const1[3].y, Body2Global.busVelocityAlongBody.w) annotation(
-    Line(points = {{-69, -20}, {-38, -20}, {-38, -8}, {-20, -8}}, color = {0, 0, 127}));
-  connect(const1[2].y, Body2Global.busVelocityAlongBody.v) annotation(
-    Line(points = {{-69, -20}, {-38, -20}, {-38, -8}, {-20, -8}}, color = {0, 0, 127}));
-  connect(const1[1].y, Body2Global.busVelocityAlongBody.u) annotation(
-    Line(points = {{-69, -20}, {-38, -20}, {-38, -8}, {-20, -8}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(from_deg1[3].y, Body2Global.busAttitude.psi) annotation(
-    Line(points = {{-38, 30}, {-30, 30}, {-30, 8}, {-20, 8}, {-20, 8}}, color = {0, 0, 127}, thickness = 0.5));
-  connect(from_deg1[2].y, Body2Global.busAttitude.theta) annotation(
-    Line(points = {{-38, 30}, {-30, 30}, {-30, 8}, {-20, 8}, {-20, 8}}, color = {0, 0, 127}, thickness = 0.5));
   connect(from_deg1[1].y, Body2Global.busAttitude.phi) annotation(
-    Line(points = {{-38, 30}, {-30, 30}, {-30, 8}, {-20, 8}, {-20, 8}}, color = {0, 0, 127}, thickness = 0.5));
+    Line(points = {{-38, 30}, {-30, 30}, {-30, 12}, {-20, 12}}, color = {0, 0, 127}, thickness = 0.5));
+  connect(from_deg1[2].y, Body2Global.busAttitude.theta) annotation(
+    Line(points = {{-38, 30}, {-30, 30}, {-30, 12}, {-20, 12}}, color = {0, 0, 127}, thickness = 0.5));
+  connect(from_deg1[3].y, Body2Global.busAttitude.psi) annotation(
+    Line(points = {{-38, 30}, {-30, 30}, {-30, 12}, {-20, 12}}, color = {0, 0, 127}, thickness = 0.5));
+  connect(const1[1].y, Body2Global.busVelocityAlongBody.u) annotation(
+    Line(points = {{-69, -20}, {-38, -20}, {-38, -12}, {-20, -12}}, color = {0, 0, 127}, thickness = 0.5));
+  connect(const1[2].y, Body2Global.busVelocityAlongBody.v) annotation(
+    Line(points = {{-69, -20}, {-38, -20}, {-38, -12}, {-20, -12}}, color = {0, 0, 127}));
+  connect(const1[3].y, Body2Global.busVelocityAlongBody.w) annotation(
+    Line(points = {{-69, -20}, {-38, -20}, {-38, -12}, {-20, -12}}, color = {0, 0, 127}));
   connect(const.y, from_deg1.u) annotation(
     Line(points = {{-68, 30}, {-64, 30}, {-64, 30}, {-62, 30}}, color = {0, 0, 127}, thickness = 0.5));
 annotation(
