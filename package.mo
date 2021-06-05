@@ -15,7 +15,7 @@ package AircraftDynamics
 
 
   annotation(
-    uses(Modelica(version = "3.2.2")),
+    //uses(Modelica(version = "3.2.2")),
     Documentation(info = "<html>
       <a
       href=modelica://AircraftDynamics/docs/main_AircraftDynamics.html>Document page</a>
