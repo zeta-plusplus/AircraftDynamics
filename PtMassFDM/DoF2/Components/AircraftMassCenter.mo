@@ -116,6 +116,7 @@ equation
   
   fltStates.XG= xWorld;
   fltStates.ZG= -1.0*alt;
+  fltStates.alt= alt;
   
   fltStates.XGdot= der(fltStates.XG);
   fltStates.ZGdot= der(fltStates.ZG);
