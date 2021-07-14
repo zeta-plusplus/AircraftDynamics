@@ -70,6 +70,16 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
     Dialog(group = "Aircraft Properties"));
   parameter SIunits.MomentOfInertia Iyy_par=1824.9309607 "" annotation(
     Dialog(group = "Aircraft Properties"));
+  //---
+  parameter SIunits.Angle thetaTi_par= 0.0* (Constants.pi / 180.0) "inclination of thrust instllation, in pich" annotation(
+    Dialog(group = "Aircraft Properties"));
+  parameter SIunits.Angle psiTi_par= 0.0* (Constants.pi / 180.0) "inclination of thrust installation, in yaw" annotation(
+    Dialog(group = "Aircraft Properties"));
+  parameter Real xBarTi_par=0.1 "non-dim distance, + == foward of CG, thrust acting point - C.G., x-axis" annotation(
+    Dialog(group = "Aircraft Properties"));
+  parameter Real zBarTi_par=0.1 "non-dim distance, + == below CG, thrust acting point - C.G., z-axis" annotation(
+    Dialog(group = "Aircraft Properties"));
+  
   //********** Characteristics **********
   parameter Real CD1 = 0.032 annotation(
     Dialog(group = "D-related-Coefficients"));
@@ -204,6 +214,12 @@ protected
   parameter SIunits.Mass m(fixed = false) "";
   parameter SIunits.MomentOfInertia Iyy(fixed = false) "";
   //---
+  parameter SIunits.Angle thetaTi(fixed = false) "";
+  parameter SIunits.Angle psiTi(fixed = false) "";
+  parameter Real xBarTi(fixed = false) "";
+  parameter Real zBarTi(fixed = false) "";
+  
+  //---
   parameter Modelica.SIunits.Angle theta1(fixed = false) annotation(
     fixed = false,
     HideResult = false);
@@ -240,11 +256,17 @@ protected
   //---
   parameter Real XdeltaE_pri(fixed = false) annotation(
     HideResult = false);
+  parameter Real XdeltaT_pri(fixed = false) annotation(
+    HideResult = false);
   //---
   parameter Real ZdeltaE_pri(fixed = false) annotation(
     HideResult = false);
+  parameter Real ZdeltaT_pri(fixed = false) annotation(
+    HideResult = false);
   //---
   parameter Real MdeltaE_pri(fixed = false) annotation(
+    HideResult = false);
+  parameter Real MdeltaT_pri(fixed = false) annotation(
     HideResult = false);
   //----------
   parameter Real Zu_ppri(fixed = false) annotation(
@@ -258,6 +280,8 @@ protected
   //---
   parameter Real ZdeltaE_ppri(fixed = false) annotation(
     HideResult = false);
+  parameter Real ZdeltaT_ppri(fixed = false) annotation(
+    HideResult = false);
   //-----
   parameter Real Xu_ppri(fixed = false) annotation(
     HideResult = false);
@@ -269,6 +293,8 @@ protected
     HideResult = false);
   //---
   parameter Real XdeltaE_ppri(fixed = false) annotation(
+    HideResult = false);
+  parameter Real XdeltaT_ppri(fixed = false) annotation(
     HideResult = false);
   //---
   //********************************************************************************
@@ -290,10 +316,13 @@ initial equation
   Mtheta_pri = DerLongi.infoBusDim.Mtheta_pri;
 //---
   XdeltaE_pri = DerLongi.infoBusDim.XdeltaE_pri;
+  XdeltaT_pri = DerLongi.infoBusDim.XdeltaT_pri;
 //---
   ZdeltaE_pri = DerLongi.infoBusDim.ZdeltaE_pri;
+  ZdeltaT_pri = DerLongi.infoBusDim.ZdeltaT_pri;
 //---
   MdeltaE_pri = DerLongi.infoBusDim.MdeltaE_pri;
+  MdeltaT_pri = DerLongi.infoBusDim.MdeltaT_pri;
 //---
 /**/
   Zu_ppri = DerLongi.infoBusDim.Zu_ppri;
@@ -302,6 +331,7 @@ initial equation
   Ztheta_ppri = DerLongi.infoBusDim.Ztheta_ppri;
 //---
   ZdeltaE_ppri = DerLongi.infoBusDim.ZdeltaE_ppri;
+  ZdeltaT_ppri = DerLongi.infoBusDim.ZdeltaT_ppri;
 //-----
   Xu_ppri = DerLongi.infoBusDim.Xu_ppri;
   Xalpha_ppri = DerLongi.infoBusDim.Xalpha_ppri;
@@ -309,6 +339,7 @@ initial equation
   Xtheta_ppri = DerLongi.infoBusDim.Xtheta_ppri;
 //---
   XdeltaE_ppri = DerLongi.infoBusDim.XdeltaE_ppri;
+  XdeltaT_ppri = DerLongi.infoBusDim.XdeltaT_ppri;
 //-----
 //***** test *****
 /*
@@ -336,9 +367,9 @@ initial equation
   */
 //***** matrices of state space equation *****
   A = [Xu_pri, Xalpha_pri, Xq_pri, Xtheta_pri; Zu_pri, Zalpha_pri, Zq_pri, Ztheta_pri; Mu_pri, Malpha_pri, Mq_pri, Mtheta_pri; 0.0, 0.0, 1.0, 0.0];
-  B = [XdeltaE_pri, 0.0; 
-      ZdeltaE_pri, 0.0; 
-      MdeltaE_pri, 0.0; 
+  B = [XdeltaE_pri, XdeltaT_pri; 
+      ZdeltaE_pri, ZdeltaT_pri; 
+      MdeltaE_pri, MdeltaT_pri; 
       0.0, 0.0];
   C = [Zu_ppri, Zalpha_ppri, Zq_ppri, Ztheta_ppri;
       Xu_ppri, Xalpha_ppri, Xq_ppri, Xtheta_ppri; 
@@ -346,8 +377,8 @@ initial equation
       0.0, 1.0, 0.0, 0.0; 
       0.0, 0.0, 1.0, 0.0; 
       0.0, 0.0, 0.0, 1.0];
-  D = [ZdeltaE_ppri, 0.0;
-      XdeltaE_ppri, 0.0; 
+  D = [ZdeltaE_ppri, ZdeltaT_ppri;
+      XdeltaE_ppri, XdeltaT_ppri; 
       0.0, 0.0; 
       0.0, 0.0; 
       0.0, 0.0; 
@@ -398,6 +429,11 @@ initial equation
     cBar= cBar_par;
   end if;
 //---
+  zBarTi= zBarTi_par;
+  xBarTi= xBarTi_par;
+  thetaTi= thetaTi_par;
+  psiTi= psiTi_par;
+  
 //********************************************************************************
 initial algorithm
 //********************************************************************************
@@ -427,6 +463,11 @@ equation
     DerLongi.infoBusAircraft.m = m;
     DerLongi.infoBusAircraft.Iyy = Iyy;
     DerLongi.infoBusAircraft.cBar = cBar;
+    //---
+    DerLongi.infoBusAircraft.thetaTi = thetaTi;
+    DerLongi.infoBusAircraft.psiTi = psiTi;
+    DerLongi.infoBusAircraft.xBarTi = xBarTi;
+    DerLongi.infoBusAircraft.zBarTi = zBarTi;
 //---
   end when;
 /* ---------------------------------------------

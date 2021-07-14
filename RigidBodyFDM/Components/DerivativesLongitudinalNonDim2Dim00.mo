@@ -15,6 +15,13 @@ model DerivativesLongitudinalNonDim2Dim00 "Convert coefficients/derivatives, non
   Modelica.SIunits.Mass m;
   Modelica.SIunits.MomentOfInertia Iyy;
   Modelica.SIunits.Length cBar;
+  Modelica.SIunits.Angle thetaTi;
+  Modelica.SIunits.Angle psiTi;
+  Real xBarTi;
+  Real zBarTi;
+  Modelica.SIunits.Length xTi;
+  Modelica.SIunits.Length zTi;
+  
   //----------
   Real CD1;
   Real CDu;
@@ -47,6 +54,7 @@ model DerivativesLongitudinalNonDim2Dim00 "Convert coefficients/derivatives, non
   Real XTu(unit="1/s", displayUnit="1/s");
   Real Xalpha(unit="m/s2", displayUnit="m/s2");
   Real XdeltaE(unit="m/s2", displayUnit="m/s2");
+  Real XdeltaT(unit="m/s2", displayUnit="m/s2");
   //---
   Real Xu_pri;
   Real Xalpha_pri;
@@ -58,6 +66,7 @@ model DerivativesLongitudinalNonDim2Dim00 "Convert coefficients/derivatives, non
   Real Zalpha_dot(unit="m/s", displayUnit="m/s");
   Real Zq(unit="m/s", displayUnit="m/s");
   Real ZdeltaE(unit="m/s2", displayUnit="m/s2");
+  Real ZdeltaT(unit="m/s2", displayUnit="m/s2");
   //---
   Real Zu_pri;
   Real Zalpha_pri;
@@ -72,6 +81,7 @@ model DerivativesLongitudinalNonDim2Dim00 "Convert coefficients/derivatives, non
   Real Malpha_dot;
   Real Mq;
   Real MdeltaE;
+  Real MdeltaT;
   //---
   Real Mu_pri;
   Real Malpha_pri;
@@ -81,10 +91,13 @@ model DerivativesLongitudinalNonDim2Dim00 "Convert coefficients/derivatives, non
   
   //----------
   Real XdeltaE_pri;
+  Real XdeltaT_pri;
   //---
   Real ZdeltaE_pri;
+  Real ZdeltaT_pri;
   //---
   Real MdeltaE_pri;
+  Real MdeltaT_pri;
   //---
   
   //----------
@@ -94,6 +107,7 @@ model DerivativesLongitudinalNonDim2Dim00 "Convert coefficients/derivatives, non
   Real Ztheta_ppri;
   //---
   Real ZdeltaE_ppri;
+  Real ZdeltaT_ppri;
   //---
   
   //----------
@@ -103,6 +117,7 @@ model DerivativesLongitudinalNonDim2Dim00 "Convert coefficients/derivatives, non
   Real Xtheta_ppri;
   //---
   Real XdeltaE_ppri;
+  Real XdeltaT_ppri;
   //---
   
   /* ---------------------------------------------
@@ -134,6 +149,11 @@ equation
   connect(m, infoBusAircraft.m);
   connect(Iyy, infoBusAircraft.Iyy);
   connect(cBar, infoBusAircraft.cBar);
+  //---
+  connect(thetaTi, infoBusAircraft.thetaTi);
+  connect(psiTi, infoBusAircraft.psiTi);
+  connect(xBarTi, infoBusAircraft.xBarTi);
+  connect(zBarTi, infoBusAircraft.zBarTi);
   
   //-----
   //***** Non-dimentional coefficients/derivatives *****
@@ -198,10 +218,13 @@ equation
   connect(Mtheta_pri, infoBusDim.Mtheta_pri);
   //-----
   connect(XdeltaE_pri, infoBusDim.XdeltaE_pri);
+  connect(XdeltaT_pri, infoBusDim.XdeltaT_pri);
   //---
   connect(ZdeltaE_pri, infoBusDim.ZdeltaE_pri);
+  connect(ZdeltaT_pri, infoBusDim.ZdeltaT_pri);
   //---
   connect(MdeltaE_pri, infoBusDim.MdeltaE_pri);
+  connect(MdeltaT_pri, infoBusDim.MdeltaT_pri);
   
   //-----
   connect(Zu_ppri, infoBusDim.Zu_ppri);
@@ -210,6 +233,7 @@ equation
   connect(Ztheta_ppri, infoBusDim.Ztheta_ppri);
   //---
   connect(ZdeltaE_ppri, infoBusDim.ZdeltaE_ppri);
+  connect(ZdeltaT_ppri, infoBusDim.ZdeltaT_ppri);
   //---
   
   //-----
@@ -219,12 +243,17 @@ equation
   connect(Xtheta_ppri, infoBusDim.Xtheta_ppri);
   //---
   connect(XdeltaE_ppri, infoBusDim.XdeltaE_ppri);
+  connect(XdeltaT_ppri, infoBusDim.XdeltaT_ppri);
   //---
   
   
   /* ---------------------------------------------
   Eqns describing physics
   --------------------------------------------- */
+  zTi= cBar*zBarTi;
+  xTi= cBar*xBarTi;
+  
+  //-----
   CTu= CTXu + CTX1;
   
   //-----
@@ -232,17 +261,20 @@ equation
   XTu= (q1bar*S*(CTXu + 2.0*CTX1))/(m*U1);
   Xalpha= (-1.0*q1bar*S*(CDalpha-CL1))/(m);
   XdeltaE= (-1.0*q1bar*S*CDdeltaE)/(m);
+  XdeltaT= (cos(thetaTi)*cos(psiTi))/m;
   //---
   Xu_pri= (Xu+XTu);
   Xalpha_pri= Xalpha;
   Xtheta_pri= (-1.0)*g*cos(theta1);
   Xq_pri= 0.0;
+  
   //---
   Zu= (-1.0*q1bar*S*(CLu + 2.0*CL1))/(m*U1);
   Zalpha= (-1.0*q1bar*S*(CLalpha+CD1))/(m);
   Zalpha_dot= (-1.0*q1bar*S*cBar*CLalpha_dot)/(2.0*m*U1);
   Zq= (-1.0*q1bar*S*cBar*CLq)/(2.0*m*U1);
   ZdeltaE= (-1.0*q1bar*S*CLdeltaE)/m;
+  ZdeltaT= sin(thetaTi)/m;
   //---
   Zalpha_dot_pri= Zalpha_dot;
   Zu_pri= Zu/(U1 - Zalpha_dot_pri);
@@ -257,6 +289,7 @@ equation
   Malpha_dot= (q1bar*S*cBar*CmAlpha_dot)/Iyy*(cBar/(2.0*U1));
   Mq= (q1bar*S*cBar*Cmq)/Iyy*(cBar/(2.0*U1));
   MdeltaE= (q1bar*S*cBar*CmDeltaE)/Iyy;
+  MdeltaT= (zTi*cos(thetaTi)*cos(psiTi)+xTi*sin(thetaTi))/Iyy;
   //---
   Mu_pri= Malpha_dot*Zu_pri + Mu;
   Malpha_pri= Malpha_dot*Zalpha_pri + Malpha;
@@ -265,21 +298,23 @@ equation
   
   //-----
   XdeltaE_pri= XdeltaE;
+  XdeltaT_pri= XdeltaT;
   //---
   ZdeltaE_pri= ZdeltaE/(U1 - Zalpha_dot);
+  ZdeltaT_pri= ZdeltaT/(U1 - Zalpha_dot);
   //---
   MdeltaE_pri= Malpha_dot*ZdeltaE_pri + MdeltaE;
+  MdeltaT_pri= Malpha_dot*ZdeltaT_pri + MdeltaT;
   //---
   
   //-----
   Zu_ppri= Zu_pri*U1;
-  //Zalpha_ppri= Zalpha_pri*U1 - g*sin(theta1);
   Zalpha_ppri= Zalpha_pri*U1;
   Zq_ppri= (Zq_pri - 1.0)*U1;
-  //Ztheta_ppri= Ztheta_pri*U1 + g*sin(theta1);
   Ztheta_ppri= Ztheta_pri*U1;
   //---
   ZdeltaE_ppri= ZdeltaE_pri*U1;
+  ZdeltaT_ppri= ZdeltaT_pri*U1;
   //---
   
   //-----
@@ -289,6 +324,7 @@ equation
   Xtheta_ppri= Xtheta_pri;
   //---
   XdeltaE_ppri= XdeltaE_pri;
+  XdeltaT_ppri= XdeltaT_pri;
   //---
   
   
