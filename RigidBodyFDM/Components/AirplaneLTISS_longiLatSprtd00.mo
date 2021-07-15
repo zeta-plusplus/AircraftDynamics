@@ -91,6 +91,16 @@ model AirplaneLTISS_longiLatSprtd00
     Dialog(group = "Aircraft Properties"));
   parameter SIunits.MomentOfInertia Ixz_par = 0.0 "" annotation(
     Dialog(group = "Aircraft Properties"));
+  //---
+  parameter SIunits.Angle thetaTi_par= 2.0* (Constants.pi / 180.0) "inclination of thrust instllation, in pich" annotation(
+    Dialog(group = "Aircraft Properties"));
+  parameter SIunits.Angle psiTi_par= 0.0* (Constants.pi / 180.0) "inclination of thrust installation, in yaw" annotation(
+    Dialog(group = "Aircraft Properties"));
+  parameter Real xBarTi_par=0.1 "non-dim distance, + == foward of CG, thrust acting point - C.G., x-axis" annotation(
+    Dialog(group = "Aircraft Properties"));
+  parameter Real zBarTi_par=0.1 "non-dim distance, + == below CG, thrust acting point - C.G., z-axis" annotation(
+    Dialog(group = "Aircraft Properties"));
+  
   //********** Characteristics **********
   //--- longitudinal ---
   parameter Real CD1 = 0.032 annotation(
@@ -192,7 +202,7 @@ model AirplaneLTISS_longiLatSprtd00
     Placement(visible = true, transformation(origin = {10, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.Sources.FlightCondition2Fluid00 Flt2Fluid(redeclare package Medium = Medium, C_fluid_paramInput = C_fluidSurr_par, MN_paramInput = MNfltSteady_par, X_fluid_paramInput = X_fluidSurr_par, alt_paramInput = altFltSteady_par, dTamb_paramInput = dTambFltSteady_par) annotation(
     Placement(visible = true, transformation(origin = {-90, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.RigidBodyFDM.Components.LongitudinalLTISS00 FltDynLongiSS(CD1 = CD1, CDalpha = CDalpha, CDdeltaE = CDdeltaE, CDu = CDu, CL1 = CL1, CLalpha = CLalpha, CLalpha_dot = CLalpha_dot, CLdeltaE = CLdeltaE, CLq = CLq, CLu = CLu, CTX1 = CTX1, CTXu = CTXu, Cm1 = Cm1, CmAlpha = CmAlpha, CmAlpha_dot = CmAlpha_dot, CmDeltaE = CmDeltaE, Cmq = Cmq, Cmu = Cmu, Iyy_par = Iyy_par, S_par = S_par, cBar_par = cBar_par, m_par = m_par, use_u_U1 = true, use_u_q1bar = true) annotation(
+  AircraftDynamics.RigidBodyFDM.Components.LongitudinalLTISS00 FltDynLongiSS(CD1 = CD1, CDalpha = CDalpha, CDdeltaE = CDdeltaE, CDu = CDu, CL1 = CL1, CLalpha = CLalpha, CLalpha_dot = CLalpha_dot, CLdeltaE = CLdeltaE, CLq = CLq, CLu = CLu, CTX1 = CTX1, CTXu = CTXu, Cm1 = Cm1, CmAlpha = CmAlpha, CmAlpha_dot = CmAlpha_dot, CmDeltaE = CmDeltaE, Cmq = Cmq, Cmu = Cmu, Iyy_par = Iyy_par, S_par = S_par, cBar_par = cBar_par, m_par = m_par, psiTi_par = psiTi_par, thetaTi_par = thetaTi_par, use_u_U1 = true, use_u_q1bar = true, xBarTi_par = xBarTi_par, zBarTi_par = zBarTi_par) annotation(
     Placement(visible = true, transformation(origin = {-10.5, 20.3334}, extent = {{-29.5, -19.6666}, {29.5, 19.6666}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.LateralLTISS00 FltDynLateralSS(CYbeta = CYbeta, CYdeltaA = CYdeltaA, CYdeltaF = CYdeltaF, CYdeltaR = CYdeltaR, CYdeltaS = CYdeltaS, CYp = CYp, CYr = CYr, Clbeta = Clbeta, CldeltaA = CldeltaA, CldeltaF = CldeltaF, CldeltaR = CldeltaR, CldeltaS = CldeltaS, Clp = Clp, Clr = Clr, Cnbeta = Cnbeta, CndeltaA = CndeltaA, CndeltaF = CndeltaF, CndeltaR = CndeltaR, CndeltaS = CndeltaS, Cnp = Cnp, Cnr = Cnr, Ixx_par = Ixx_par, Ixz_par = Ixz_par, Izz_par = Izz_par, S_par = S_par, b_par = b_par, m_par = m_par, use_u_U1 = true, use_u_q1bar = true) annotation(
     Placement(visible = true, transformation(origin = {-10, -50}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));

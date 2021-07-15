@@ -47,6 +47,6 @@ equation
   annotation(
     Diagram(coordinateSystem(extent = {{-100, -100}, {120, 120}})),
     __OpenModelica_commandLineOptions = "",
-    experiment(StartTime = 0, StopTime = 400, Tolerance = 1e-06, Interval = 0.04),
+    experiment(StartTime = 0, StopTime = 500, Tolerance = 1e-06, Interval = 0.04),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
 end AirplaneLTISS_longiLatSprtd00_ex02;

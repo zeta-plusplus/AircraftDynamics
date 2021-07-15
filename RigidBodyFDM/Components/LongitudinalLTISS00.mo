@@ -71,7 +71,7 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
   parameter SIunits.MomentOfInertia Iyy_par=1824.9309607 "" annotation(
     Dialog(group = "Aircraft Properties"));
   //---
-  parameter SIunits.Angle thetaTi_par= 0.0* (Constants.pi / 180.0) "inclination of thrust instllation, in pich" annotation(
+  parameter SIunits.Angle thetaTi_par= 2.0* (Constants.pi / 180.0) "inclination of thrust instllation, in pich" annotation(
     Dialog(group = "Aircraft Properties"));
   parameter SIunits.Angle psiTi_par= 0.0* (Constants.pi / 180.0) "inclination of thrust installation, in yaw" annotation(
     Dialog(group = "Aircraft Properties"));
