@@ -10,6 +10,12 @@ model AttitudeVelocity2Position00_ex01
     Placement(visible = true, transformation(origin = {-50, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const1[3](k = {100.0, 5.0, 2.0}) annotation(
     Placement(visible = true, transformation(origin = {-80, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  model BodyAngularRate2AttitudeAngularRate00_ex01
+    extends Modelica.Icons.Example;
+  equation
+
+  end BodyAngularRate2AttitudeAngularRate00_ex01;
 equation
   connect(from_deg1[1].y, Body2Global.busAttitude.phi) annotation(
     Line(points = {{-38, 30}, {-30, 30}, {-30, 12}, {-20, 12}}, color = {0, 0, 127}, thickness = 0.5));
@@ -27,4 +33,6 @@ equation
     Line(points = {{-68, 30}, {-64, 30}, {-64, 30}, {-62, 30}}, color = {0, 0, 127}, thickness = 0.5));
 annotation(
     experiment(StartTime = 0, StopTime = 50, Tolerance = 1e-6, Interval = 0.1),
-    __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));end AttitudeVelocity2Position00_ex01;
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
+
+end AttitudeVelocity2Position00_ex01;
