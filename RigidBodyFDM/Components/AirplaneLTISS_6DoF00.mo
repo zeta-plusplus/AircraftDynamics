@@ -1,6 +1,6 @@
 within AircraftDynamics.RigidBodyFDM.Components;
 
-model AirplaneLTISS_longiLatSprtd00
+model AirplaneLTISS_6DoF00
   /********************************************************
                       imports
           ********************************************************/
@@ -222,6 +222,8 @@ model AirplaneLTISS_longiLatSprtd00
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   AircraftDynamics.Types.InfoBus busFltStates annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AircraftDynamics.RigidBodyFDM.Components.BodyAngularRate2AttitudeAngularRate00 ResolveFrameRotational annotation(
+    Placement(visible = true, transformation(origin = {80, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   //**********************************************************************
 initial equation
   fltStates.alt = altFltSteady_par;
@@ -257,7 +259,13 @@ equation
   connect(fltStates.XG, ResolveFrameTranslational.busPosition.XG) annotation(
     Line);
 //-----
-  
+  connect(ResolveFrameRotational.busBodyAngularRate.p, fltStates.p);
+  connect(ResolveFrameRotational.busBodyAngularRate.q, fltStates.q);
+  connect(ResolveFrameRotational.busBodyAngularRate.r, fltStates.r);
+//--
+  fltStates.phi = ResolveFrameRotational.busAttitude.phi;
+  fltStates.theta = ResolveFrameRotational.busAttitude.theta;
+  fltStates.psi = ResolveFrameRotational.busAttitude.psi;
 /*------------------------------
   interface; internal -- connector
   ------------------------------*/
@@ -291,9 +299,9 @@ equation
   fltStates.V = sqrt(fltStates.u ^ 2.0 + fltStates.v ^ 2.0 + fltStates.w ^ 2.0);
   fltStates.Mn = fltStates.V / Flt2Fluid.infoBus1.Vsound;
 //---
-  fltStates.phi = FltDynLateralSS.y_phi;
-  fltStates.theta= FltDynLongiSS.y_theta;
-  fltStates.psi= FltDynLateralSS.y_psi;
+//fltStates.phi = FltDynLateralSS.y_phi;
+//fltStates.theta= FltDynLongiSS.y_theta;
+//fltStates.psi= FltDynLateralSS.y_psi;
   fltStates.alpha = FltDynLongiSS.y_alpha;
   fltStates.beta = FltDynLateralSS.y_beta;
   fltStates.gamma = fltStates.theta - fltStates.alpha;
@@ -331,4 +339,4 @@ equation
     __OpenModelica_commandLineOptions = "",
     experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-06, Interval = 0.002),
   __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
-end AirplaneLTISS_longiLatSprtd00;
+end AirplaneLTISS_6DoF00;

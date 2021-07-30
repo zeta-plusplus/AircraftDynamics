@@ -19,13 +19,13 @@ model AirplaneLTISS_longiLatSprtd00_ex02
     Placement(visible = true, transformation(origin = {-50, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain_Tnominal(k = AirplaneDyn.m_par * 9.81 * 0.2)  annotation(
     Placement(visible = true, transformation(origin = {-50, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.TimeTable uSignal_deltaE(table = [0, 0; 2, 0; 2, -3; 3, -3; 3, 0; 7, 0; 7, 3; 8, 3; 8, 0; 10, 0; 270, 0; 270, -1.0; 280, -1.5; 300, -1.5; 350, -1.5])  annotation(
+  Modelica.Blocks.Sources.TimeTable uSignal_deltaE(table = [0, 0; 2, 0; 2, -3; 3, -3; 3, 0; 7, 0; 7, 3; 8, 3; 8, 0; 10, 0; 270, 0; 270, -0.0; 280, -0.0; 300, -0.0; 350, -0.0])  annotation(
     Placement(visible = true, transformation(origin = {-90, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.TimeTable uSignal_deltaFracT(table = [0, 0; 270, 0; 270, 0.0; 300, 0.0; 300, 0; 350, 0; 500, 0; 500, 0.4; 550, 0.4; 550, 0.0; 600, 0.0])  annotation(
+  Modelica.Blocks.Sources.TimeTable uSignal_deltaFracT(table = [0, 0; 270, 0; 270, 0.0; 300, 0.0; 300, 0; 350, 0; 500, 0; 500, 0.2; 600, 0.2; 600, 0.0; 650, 0.0])  annotation(
     Placement(visible = true, transformation(origin = {-90, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.TimeTable uSignal_deltaA(table = [0, 0; 250, 0; 250, -3.2; 251, -3.2; 251, -0.05; 260, -0.05; 260, 3.25; 261, 3.25; 261, 0.0; 300, 0.0; 350, 0.0])  annotation(
+  Modelica.Blocks.Sources.TimeTable uSignal_deltaA(table = [0, 0; 250, 0; 250, -3.2; 251, -3.2; 251, -0.02; 270, -0.02; 270, 3.2; 271, 3.2; 271, 0.0; 300, 0.0; 350, 0.0])  annotation(
     Placement(visible = true, transformation(origin = {-90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.TimeTable uSignal_deltaR(table = [0, 0; 50, 0; 50, -0; 51, -0; 51, 0; 60, 0; 60, 0.0; 61, 0.0; 61, 0; 70, 0])  annotation(
+  Modelica.Blocks.Sources.TimeTable uSignal_deltaR(table = [0, 0; 100, 0; 100, -3.0; 101, -3.0; 101, 0; 110, 0; 110, 2.8; 111, 2.8; 111, 0; 150, 0])  annotation(
     Placement(visible = true, transformation(origin = {-90, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(uSignal_deltaR.y, from_deg3.u) annotation(
