@@ -220,9 +220,9 @@ model AirplaneLTISS_longiLatSprtd00
     Placement(visible = true, transformation(origin = {-140, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.AttitudeVelocity2Position00 ResolveFrameTranslational annotation(
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  AircraftDynamics.Types.InfoBus busFltStates annotation(
-    Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  //**********************************************************************
+  AircraftDynamics.Interfaces.FlightStatesBus FltStatesBus1 annotation(
+    Placement(visible = true, transformation(origin = {120, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+//**********************************************************************
 initial equation
   fltStates.alt = altFltSteady_par;
   fltStates.XG = XGfltSteady_par;
@@ -231,6 +231,9 @@ initial equation
   fltStates.gamma = gamma1;
 //**********************************************************************
 equation
+  connect(FltStatesBus1.fltStates, fltStates);
+  connect(FltStatesBus1.fltAng4disp, fltAng4disp);
+  //--
   connect(ResolveFrameTranslational.busAttitude.psi, fltStates.psi) annotation(
     Line);
   connect(ResolveFrameTranslational.busAttitude.theta, fltStates.theta) annotation(
@@ -243,7 +246,7 @@ equation
     Line);
   connect(ResolveFrameTranslational.busVelocityAlongBody.u, fltStates.u) annotation(
     Line);
-//--
+  //--
   connect(fltStates.ZGdot, ResolveFrameTranslational.busVelocityInGlobal.ZGdot) annotation(
     Line);
   connect(fltStates.YGdot, ResolveFrameTranslational.busVelocityInGlobal.YGdot) annotation(
