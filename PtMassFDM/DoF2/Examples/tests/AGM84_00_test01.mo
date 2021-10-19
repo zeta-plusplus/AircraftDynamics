@@ -24,21 +24,21 @@ model AGM84_00_test01
   Modelica.Blocks.Sources.Ramp ramp_gammaCmd(duration = 5, height = 0, offset = 1, startTime = 10) annotation(
     Placement(visible = true, transformation(origin = {-80, -128}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  connect(from_deg1.y, aircraftMassCenter1.busFltStates1.thetaCmd) annotation(
-    Line(points = {{-39, -128}, {52, -128}, {52, -40}}, color = {0, 0, 127}));
+  connect(from_deg1.y, aircraftMassCenter1.InfoBus1.thetaCmd) annotation(
+    Line(points = {{-39, -128}, {52, -128}, {52, -40}}, color = {255, 170, 0}));
   connect(ramp_gammaCmd.y, from_deg1.u) annotation(
     Line(points = {{-69, -128}, {-63, -128}}, color = {0, 0, 127}));
   connect(ramp_thrust.y, aircraftMassCenter1.u_FxForward[1]) annotation(
     Line(points = {{-59, -88}, {36, -88}, {36, -10}, {46, -10}}, color = {0, 0, 127}));
   connect(wing.y_Fx, aircraftMassCenter1.u_FxBackward[1]) annotation(
     Line(points = {{-20, -10}, {-13.6425, -10}, {-13.6425, 32}, {106, 32}, {106, -10}}, color = {0, 0, 127}));
-  connect(wing.busFltStates1, aircraftMassCenter1.busFltStates1) annotation(
+  connect(wing.busFltStates1, aircraftMassCenter1.InfoBus1) annotation(
     Line(points = {{-43, -60}, {-43, -64}, {52.0003, -64}, {52.0003, -40}}, color = {255, 204, 51}, thickness = 0.5));
   connect(wing.y_Fz, aircraftMassCenter1.u_Fz[1]) annotation(
     Line(points = {{-34, 42}, {-34, 49.7857}, {76, 49.7857}, {76, 20}}, color = {0, 0, 127}));
   connect(boundary.ports[1], wing.port_amb) annotation(
     Line(points = {{-80, 50}, {-68, 50}, {-68, 40}, {-43, 40}}, color = {0, 127, 255}));
-  connect(dragObjSimple001.busFltStates1, aircraftMassCenter1.busFltStates1) annotation(
+  connect(dragObjSimple001.busFltStates1, aircraftMassCenter1.InfoBus1) annotation(
     Line(points = {{127.7, -20.4}, {127.7, -58.4}, {51.7, -58.4}, {51.7, -40.4}}, color = {255, 204, 51}, thickness = 0.5));
   connect(boundary.ports[2], dragObjSimple001.port_amb) annotation(
     Line(points = {{-80, 50}, {-72, 50}, {-72, 66}, {128, 66}, {128, 0}}, color = {0, 127, 255}));

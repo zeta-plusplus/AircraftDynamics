@@ -63,16 +63,18 @@ model testAircraft003
     Modelica.Blocks.Interfaces.RealOutput y_Fn annotation(
         Placement(visible = true, transformation(origin = {270, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     equation
-      connect(perf001.Fn_out, y_Fn) annotation(
-        Line(points = {{222, -86}, {234, -86}, {234, 10}, {270, 10}, {270, 10}}, color = {0, 0, 127}));
-      connect(u_dm_fuel, combustFuel1.dm_fuel_in) annotation(
-        Line(points = {{-120, 40}, {8, 40}, {8, 6}, {40, 6}, {40, 6}}, color = {0, 0, 127}));
+      connect(perf001.y_Fn, y_Fn) annotation(
+        Line(points = {{222, -84}, {232, -84}, {232, 10}, {270, 10}, {270, 10}}, color = {0, 0, 127}));
+      connect(combustFuel1.dm_fuel_out, perf001.u_m_flow_fuel) annotation(
+        Line(points = {{62, -4}, {86, -4}, {86, -98}, {200, -98}, {200, -98}}, color = {0, 0, 127}));
+      connect(Nzl070.Fg_out, perf001.u_Fg) annotation(
+        Line(points = {{176, -30}, {188, -30}, {188, -82}, {200, -82}, {200, -82}}, color = {0, 0, 127}));
+      connect(Inlt010.Fram_out, perf001.u_Fram) annotation(
+        Line(points = {{-52, -34}, {-46, -34}, {-46, -86}, {200, -86}, {200, -86}}, color = {0, 0, 127}));
       connect(flightToEngine1.V_tot_out, Inlt010.V_tot_in) annotation(
         Line(points = {{-79, -34}, {-67, -34}}, color = {0, 0, 127}));
       connect(flightToEngine1.port_fluid2Eng, Inlt010.port_1) annotation(
         Line(points = {{-80, -22}, {-70, -22}}, color = {0, 127, 255}));
-      connect(Inlt010.Fram_out, perf001.Fram_in) annotation(
-        Line(points = {{-53, -34}, {-48, -34}, {-48, -88}, {201, -88}}, color = {0, 0, 127}));
       connect(Inlt010.port_2, Cmp020.port_1) annotation(
         Line(points = {{-50, -22}, {-42, -22}}, color = {0, 127, 255}));
       connect(flightToEngine1.port_fluidAmb, Nzl070.port_2) annotation(
@@ -81,8 +83,6 @@ model testAircraft003
         Line(points = {{-22, -30}, {-16, -30}, {-16, -60}, {50, -60}}));
       connect(Cmp020.port_2, Duct030.port_1) annotation(
         Line(points = {{-22, -22}, {30, -22}, {30, -22}, {30, -22}}, color = {0, 127, 255}));
-      connect(Nzl070.Fg_out, perf001.Fg_in) annotation(
-        Line(points = {{175, -30}, {193.3, -30}, {193.3, -84}, {199, -84}}, color = {0, 0, 127}));
       connect(combustFuel1.dm_fuel_out, perf001.dm_fuel_in) annotation(
         Line(points = {{61, -4}, {185, -4}, {185, -96}, {199, -96}}, color = {0, 0, 127}));
       connect(Duct045.port_2, Nzl070.port_1) annotation(
@@ -113,6 +113,8 @@ model testAircraft003
   AircraftDynamics.PtMassFDM.DoF2.Examples.tests.testAircraft003.subcomponents.eng eng annotation(
     Placement(visible = true, transformation(origin = {-40, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 equation
+  connect(gain1.y, aircraftMassCenter1.InfoBus1.alphaCmd) annotation(
+    Line(points = {{-49, -170}, {52, -170}, {52, -40}}, color = {255, 170, 0}));
   connect(gain2.y, aircraftMassCenter1.u_FxForward[1]) annotation(
     Line(points = {{22, -100}, {36, -100}, {36, -10}, {46, -10}, {46, -10}}, color = {0, 0, 127}));
   connect(boundary.ports[1], wingSimple001.port_amb) annotation(
@@ -121,9 +123,9 @@ equation
     Line(points = {{0.285702, 41.7857}, {0.285702, 49.7857}, {76, 49.7857}, {76, 20}}, color = {0, 0, 127}));
   connect(wingSimple001.y_Fx, aircraftMassCenter1.u_FxBackward[1]) annotation(
     Line(points = {{16.3571, -10}, {24.3575, -10}, {24.3575, 32}, {106, 32}, {106, -10}}, color = {0, 0, 127}));
-  connect(wingSimple001.busFltStates1, aircraftMassCenter1.busFltStates1) annotation(
+  connect(wingSimple001.busFltStates1, aircraftMassCenter1.InfoBus1) annotation(
     Line(points = {{-10.4286, -60}, {-10.4286, -64}, {52.0003, -64}, {52.0003, -40}}, color = {255, 204, 51}, thickness = 0.5));
-  connect(dragObjSimple001.busFltStates1, aircraftMassCenter1.busFltStates1) annotation(
+  connect(dragObjSimple001.busFltStates1, aircraftMassCenter1.InfoBus1) annotation(
     Line(points = {{127.7, -20.4}, {127.7, -58.4}, {51.7, -58.4}, {51.7, -40.4}}, color = {255, 204, 51}, thickness = 0.5));
   connect(boundary.ports[2], dragObjSimple001.port_amb) annotation(
     Line(points = {{-80, 50}, {-72, 50}, {-72, 66}, {128, 66}, {128, 0}}, color = {0, 127, 255}));
@@ -131,8 +133,6 @@ equation
     Line(points = {{161.7, -10.2}, {167.7, -10.2}, {167.7, 17.8}, {105.7, 17.8}, {105.7, -10.2}, {105.7, -10.2}}, color = {0, 0, 127}));
   connect(dragObjSimple001.y_Fz, aircraftMassCenter1.u_Fz[2]) annotation(
     Line(points = {{143, 1.7}, {141, 1.7}, {141, 43.7}, {75, 43.7}, {75, 19.7}, {75, 19.7}}, color = {0, 0, 127}));
-  connect(gain1.y, aircraftMassCenter1.busFltStates1.alphaCmd) annotation(
-    Line(points = {{-49, -170}, {52, -170}, {52, -40}}, color = {0, 0, 127}));
   connect(const1.y, gain1.u) annotation(
     Line(points = {{-79, -170}, {-73, -170}}, color = {0, 0, 127}));
   connect(eng.y_Fn, gain2.u) annotation(

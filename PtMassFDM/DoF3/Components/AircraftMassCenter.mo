@@ -57,15 +57,6 @@ model AircraftMassCenter
   
   
   //********** Internal variables **********
-  AircraftDynamics.Records.FlightStates fltStates
-    (
-      V.start= Vinit,
-      alpha.start= alphaInit,
-      gamma.start= gammaInit,
-      q.start= qInit
-    );
-  AircraftDynamics.Records.angles4display fltAng4disp;
-  
   Modelica.SIunits.Mass massTotal(start = massBase);
   
   Modelica.SIunits.Force lift;
@@ -94,21 +85,21 @@ initial equation
   fltStates.q= qInit;
   
 equation
-  connect(busFltStates1.alpha, fltStates.alpha);
-  connect(busFltStates1.Vflow, fltStates.V);
-  connect(busFltStates1.Mn, fltStates.Mn);
+  connect(InfoBus1.alpha, fltStates.alpha);
+  connect(InfoBus1.Vflow, fltStates.V);
+  connect(InfoBus1.Mn, fltStates.Mn);
   //---
-  connect(busFltStates1.phi, fltStates.phi);  // added, 2DoF -> 3DoF
+  connect(InfoBus1.phi, fltStates.phi);  // added, 2DoF -> 3DoF
   
   /*------------------------------
   specify witch angle is fixed by command signal from outside of component
   ------------------------------*/
   if(switchDef_modeStabilityLongi==switches.switch_modeStabilityLongi.maintainAoA)then
-    connect(fltStates.alpha, busFltStates1.alphaCmd);
+    connect(fltStates.alpha, InfoBus1.alphaCmd);
   elseif(switchDef_modeStabilityLongi==switches.switch_modeStabilityLongi.maintainFltPath)then
-    connect(fltStates.gamma, busFltStates1.gammaCmd);
+    connect(fltStates.gamma, InfoBus1.gammaCmd);
   elseif(switchDef_modeStabilityLongi==switches.switch_modeStabilityLongi.maintainPitch)then
-    connect(fltStates.theta, busFltStates1.thetaCmd);
+    connect(fltStates.theta, InfoBus1.thetaCmd);
   end if;
   
   if (0 < nIn_mass) then

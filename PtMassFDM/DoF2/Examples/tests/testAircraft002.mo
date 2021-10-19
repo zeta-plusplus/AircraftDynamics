@@ -24,6 +24,8 @@ model testAircraft002
   Modelica.Blocks.Sources.Ramp ramp_thrust(duration = 1, height = 500, offset = 1500, startTime = 50)  annotation(
     Placement(visible = true, transformation(origin = { -70,-90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
+  connect(gain1.y, aircraftMassCenter1.InfoBus1.alphaCmd) annotation(
+    Line(points = {{-49, -170}, {52, -170}, {52, -40}}, color = {255, 170, 0}));
   connect(ramp_thrust.y, aircraftMassCenter1.u_FxForward[1]) annotation(
     Line(points = {{-58, -90}, {36, -90}, {36, -10}, {46, -10}, {46, -10}}, color = {0, 0, 127}));
   connect(boundary.ports[1], wingSimple001.port_amb) annotation(
@@ -32,9 +34,9 @@ equation
     Line(points = {{0.285702, 41.7857}, {0.285702, 49.7857}, {76, 49.7857}, {76, 20}}, color = {0, 0, 127}));
   connect(wingSimple001.y_Fx, aircraftMassCenter1.u_FxBackward[1]) annotation(
     Line(points = {{16.3571, -10}, {24.3575, -10}, {24.3575, 32}, {106, 32}, {106, -10}}, color = {0, 0, 127}));
-  connect(wingSimple001.busFltStates1, aircraftMassCenter1.busFltStates1) annotation(
+  connect(wingSimple001.busFltStates1, aircraftMassCenter1.InfoBus1) annotation(
     Line(points = {{-10.4286, -60}, {-10.4286, -64}, {52.0003, -64}, {52.0003, -40}}, color = {255, 204, 51}, thickness = 0.5));
-  connect(dragObjSimple001.busFltStates1, aircraftMassCenter1.busFltStates1) annotation(
+  connect(dragObjSimple001.busFltStates1, aircraftMassCenter1.InfoBus1) annotation(
     Line(points = {{127.7, -20.4}, {127.7, -58.4}, {51.7, -58.4}, {51.7, -40.4}}, color = {255, 204, 51}, thickness = 0.5));
   connect(boundary.ports[2], dragObjSimple001.port_amb) annotation(
     Line(points = {{-80, 50}, {-72, 50}, {-72, 66}, {128, 66}, {128, 0}}, color = {0, 127, 255}));
@@ -42,8 +44,6 @@ equation
     Line(points = {{161.7, -10.2}, {167.7, -10.2}, {167.7, 17.8}, {105.7, 17.8}, {105.7, -10.2}, {105.7, -10.2}}, color = {0, 0, 127}));
   connect(dragObjSimple001.y_Fz, aircraftMassCenter1.u_Fz[2]) annotation(
     Line(points = {{143, 1.7}, {141, 1.7}, {141, 43.7}, {75, 43.7}, {75, 19.7}, {75, 19.7}}, color = {0, 0, 127}));
-  connect(gain1.y, aircraftMassCenter1.busFltStates1.alphaCmd) annotation(
-    Line(points = {{-49, -170}, {52, -170}, {52, -40}}, color = {0, 0, 127}));
   connect(const1.y, gain1.u) annotation(
     Line(points = {{-79, -170}, {-73, -170}}, color = {0, 0, 127}));
   annotation(

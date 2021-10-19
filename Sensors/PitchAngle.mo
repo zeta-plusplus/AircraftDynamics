@@ -9,7 +9,7 @@ model PitchAngle
   /* ---------------------------------------------
             Interface
   --------------------------------------------- */
-  output Modelica.Blocks.Interfaces.RealOutput y_theta(final quantity = "Angle", final unit="rad", displayUnit="deg") "Pitch Angle" annotation(
+  output Modelica.Blocks.Interfaces.RealOutput y_theta(final quantity = "Angle", final unit="rad", displayUnit="rad") "Pitch Angle" annotation(
     Placement(transformation(extent = {{100, -10}, {120, 10}})));
   AircraftDynamics.Interfaces.FlightStatesBus FltStatesBus1 annotation(
     Placement(visible = true, transformation(origin = {0, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.77636e-15, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
