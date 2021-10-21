@@ -31,11 +31,11 @@ model AGM84_ex02
     Placement(visible = true, transformation(origin = {0, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg1 annotation(
     Placement(visible = true, transformation(origin = {-110, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain propGain_thrust(k = 1) annotation(
+  Modelica.Blocks.Math.Gain propGain_thrust(k = 4) annotation(
     Placement(visible = true, transformation(origin = {-90, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum_ctrl_thrust(nin = 2)  annotation(
     Placement(visible = true, transformation(origin = {-50, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integGain_thrust(initType = Modelica.Blocks.Types.Init.NoInit, k = 0.001, y_start = 0.0) annotation(
+  Modelica.Blocks.Continuous.Integrator integGain_thrust(initType = Modelica.Blocks.Types.Init.NoInit, k = 0.02, y_start = 0.0) annotation(
     Placement(visible = true, transformation(origin = {-90, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback_ctrl_thrust annotation(
     Placement(visible = true, transformation(origin = {-130, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -140,7 +140,7 @@ equation
     Line(points = {{100, -40}, {100, -40}, {100, -104}, {80, -104}, {80, -140}, {80, -140}}, color = {170, 0, 127}, thickness = 0.5));
   connect(aircraftMassCenter1.InfoBus1.gamma, aircraftMassCenter1.fltStates.gamma);
   annotation(
-    experiment(StartTime = 0, StopTime = 300, Tolerance = 1e-06, Interval = 0.03),
+    experiment(StartTime = 0, StopTime = 600, Tolerance = 1e-06, Interval = 0.05),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
     Diagram(coordinateSystem(extent = {{-280, -300}, {180, 140}})),
     Icon(coordinateSystem(extent = {{-100, -120}, {140, 100}})),
