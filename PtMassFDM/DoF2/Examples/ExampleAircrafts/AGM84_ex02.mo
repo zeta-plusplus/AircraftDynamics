@@ -19,7 +19,7 @@ model AGM84_ex02
     Placement(visible = true, transformation(origin = {143, -10.2}, extent = {{-17, -10.2}, {17, 10.2}}, rotation = 0)));
   Modelica.Blocks.Sources.Ramp r_Mn(duration = 10, height = 0.05, offset = 0.8, startTime = 300)  annotation(
     Placement(visible = true, transformation(origin = { -164, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Ramp r_alt(duration = 1, height = 0, offset = 60, startTime = 40) annotation(
+  Modelica.Blocks.Sources.Ramp r_alt(duration = 1, height = -10, offset = 60, startTime = 100) annotation(
     Placement(visible = true, transformation(origin = {-270, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback_ctrl_pitch annotation(
     Placement(visible = true, transformation(origin = {-80, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -57,9 +57,9 @@ model AGM84_ex02
     Placement(visible = true, transformation(origin = {120, -250}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Math.Feedback feedback1 annotation(
     Placement(visible = true, transformation(origin = {-240, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain propGain_fltPath(k = 0.01) annotation(
+  Modelica.Blocks.Math.Gain propGain_fltPath(k = 0.04) annotation(
     Placement(visible = true, transformation(origin = {-210, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integGain_fltPath(initType = Modelica.Blocks.Types.Init.NoInit, k = 0.001) annotation(
+  Modelica.Blocks.Continuous.Integrator integGain_fltPath(initType = Modelica.Blocks.Types.Init.NoInit, k = 0.015) annotation(
     Placement(visible = true, transformation(origin = {-210, -210}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum1(nin = 2)  annotation(
     Placement(visible = true, transformation(origin = {-170, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
