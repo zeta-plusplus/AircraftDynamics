@@ -17,9 +17,9 @@ model AGM84_ex02
     Placement(visible = true, transformation(origin = {-45.7143, 0}, extent = {{-14.2857, -50}, {14.2857, 50}}, rotation = 0)));
   AircraftDynamics.Aerodynamics.Components.DragObjSimple00 dragObjSimple001(redeclare package Medium = atmAir, CDdes = 0.3, SrefDes = Modelica.Constants.pi / 4.0 * 0.343 ^ 2) annotation(
     Placement(visible = true, transformation(origin = {143, -10.2}, extent = {{-17, -10.2}, {17, 10.2}}, rotation = 0)));
-  Modelica.Blocks.Sources.Ramp r_Mn(duration = 10, height = 0.05, offset = 0.8, startTime = 300)  annotation(
+  Modelica.Blocks.Sources.Ramp r_Mn(duration = 5, height = 0.05, offset = 0.8, startTime = 300)  annotation(
     Placement(visible = true, transformation(origin = { -290, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Ramp r_alt(duration = 10, height = -10, offset = 60, startTime = 100) annotation(
+  Modelica.Blocks.Sources.Ramp r_alt(duration = 10, height = -10, offset = 55, startTime = 100) annotation(
     Placement(visible = true, transformation(origin = {-290, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback_ctrl_pitch annotation(
     Placement(visible = true, transformation(origin = {-100, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -31,11 +31,11 @@ model AGM84_ex02
     Placement(visible = true, transformation(origin = {-20, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg1 annotation(
     Placement(visible = true, transformation(origin = {-130, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain propGain_thrust(k = 1) annotation(
+  Modelica.Blocks.Math.Gain propGain_thrust(k = 6) annotation(
     Placement(visible = true, transformation(origin = {-220, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Sum sum_ctrl_thrust(nin = 2)  annotation(
     Placement(visible = true, transformation(origin = {-180, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integGain_thrust(initType = Modelica.Blocks.Types.Init.NoInit, k = 0.1, y_start = 0.0) annotation(
+  Modelica.Blocks.Continuous.Integrator integGain_thrust(initType = Modelica.Blocks.Types.Init.NoInit, k = 0.3, y_start = 0.0) annotation(
     Placement(visible = true, transformation(origin = {-220, -120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback_ctrl_thrust annotation(
     Placement(visible = true, transformation(origin = {-260, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -43,13 +43,13 @@ model AGM84_ex02
     Placement(visible = true, transformation(origin = {80, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   AircraftDynamics.Sensors.FlightPathAngle sensorGamma annotation(
     Placement(visible = true, transformation(origin = {100, -230}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  Modelica.Blocks.Math.Gain thrust_nominal(k = 2.9 * 10e3) annotation(
+  Modelica.Blocks.Math.Gain thrust_nominal(k = 2900) annotation(
     Placement(visible = true, transformation(origin = {-30, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain3(k = cos(45 * Modelica.Constants.pi / 180))  annotation(
     Placement(visible = true, transformation(origin = {5, 66}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter_pitch(limitsAtInit = true, uMax = 60.0 * Modelica.Constants.pi / 180.0, uMin = -30.0 * Modelica.Constants.pi / 180.0)  annotation(
     Placement(visible = true, transformation(origin = {10, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter_thrustLevel(limitsAtInit = true, uMax = 1.5, uMin = -0.1) annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter_thrustLevel(limitsAtInit = true, uMax = 1.25, uMin = -0.25) annotation(
     Placement(visible = true, transformation(origin = {-60, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter_fltPath(limitsAtInit = true, uMax = 10, uMin = -10) annotation(
     Placement(visible = true, transformation(origin = {-160, -180}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
