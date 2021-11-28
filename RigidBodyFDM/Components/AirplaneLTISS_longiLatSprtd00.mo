@@ -1,6 +1,7 @@
 within AircraftDynamics.RigidBodyFDM.Components;
 
 model AirplaneLTISS_longiLatSprtd00
+  "Default values of flight dynamic coefficients/derivatives are those of Cessna 182 displayed on textbook 'Aircraft Dynamics: From Modeling to Simulation (Author: Marcello R. Napolitano, Publisher: John Wiley & Sons, Inc.)'"
   /********************************************************
                       imports
           ********************************************************/
