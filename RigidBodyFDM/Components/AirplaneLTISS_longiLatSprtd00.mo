@@ -310,7 +310,8 @@ equation
   fltStates.Y = FltDynLateralSS.y_aY * m_par;
   fltStates.Z = FltDynLongiSS.y_aZ * m_par;
 //---
-  fltStates.alt = -1.0 * fltStates.ZG;
+  (fltStates.xEast, fltStates.xNorth, fltStates.alt)= AircraftDynamics.Functions.GlobalFrame2earthConvention(XG= fltStates.XG, YG= fltStates.YG, ZG= fltStates.ZG);
+  
 //---
 /*------------------------------
     Unused flight states

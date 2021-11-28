@@ -127,7 +127,7 @@ equation
   fltStates.XG= xWorld;
   fltStates.YG= yWorld;
   fltStates.ZG= -1.0*alt;
-  fltStates.alt=alt;
+  (fltStates.xEast, fltStates.xNorth, fltStates.alt)= AircraftDynamics.Functions.GlobalFrame2earthConvention(XG= fltStates.XG, YG= fltStates.YG, ZG= fltStates.ZG);
   
   fltStates.XGdot= der(fltStates.XG);
   fltStates.YGdot= der(fltStates.YG);

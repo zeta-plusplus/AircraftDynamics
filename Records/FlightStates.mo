@@ -19,6 +19,8 @@ record FlightStates
   Modelica.SIunits.Position XG "position based on X-Global";
   Modelica.SIunits.Position YG "position based on Y-Global";
   Modelica.SIunits.Position ZG "position based on Z-Global, -1*alt";
+  Modelica.SIunits.Position xNorth "position in direction of north";
+  Modelica.SIunits.Position xEast "position in direction of east";
   Modelica.SIunits.Position alt "flight altitude";
   
   /*-------------------------
