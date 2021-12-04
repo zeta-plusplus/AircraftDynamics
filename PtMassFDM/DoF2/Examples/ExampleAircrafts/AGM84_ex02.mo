@@ -162,7 +162,7 @@ equation
     experiment(StartTime = 0, StopTime = 600, Tolerance = 1e-06, Interval = 0.05),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
     Diagram(coordinateSystem(extent = {{-300, -300}, {180, 140}})),
-    Icon(coordinateSystem(extent = {{-100, -120}, {140, 100}})),
+    Icon,
     __OpenModelica_commandLineOptions = "");
 
 end AGM84_ex02;
