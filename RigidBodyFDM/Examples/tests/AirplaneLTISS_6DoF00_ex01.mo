@@ -19,7 +19,7 @@ model AirplaneLTISS_6DoF00_ex01
     Placement(visible = true, transformation(origin = {10, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.TimeTable uSignal_deltaE(table = [0, 0; 2, 0; 2, -3; 3, -3; 3, 0; 7, 0; 7, 3; 8, 3; 8, 0; 10, 0; 270, 0; 270, -0.0; 280, -0.0; 300, -0.0; 350, -0.0]) annotation(
     Placement(visible = true, transformation(origin = {-30, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.TimeTable uSignal_deltaFracT(table = [0, 0; 270, 0; 270, 0.0; 280, 0.0; 280, 0.2; 380, 0.2; 380, 0.0; 400, 0.0]) annotation(
+  Modelica.Blocks.Sources.TimeTable uSignal_deltaFracT(table = [0, 0; 270, 0; 270, 0.0; 350, 0.0; 350, 0.2; 600, 0.2; 600, 0.0; 650, 0.0]) annotation(
     Placement(visible = true, transformation(origin = {-30, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.TimeTable cmd_phi(table = [0, 0; 250, 0; 250, -10.0; 270, -10.0; 270, 0.0; 300, 0.0; 350, 0.0])  annotation(
     Placement(visible = true, transformation(origin = {-190, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -75,6 +75,6 @@ equation
   annotation(
     Diagram(coordinateSystem(extent = {{-200, -120}, {140, 120}})),
     __OpenModelica_commandLineOptions = "",
-    experiment(StartTime = 0, StopTime = 700, Tolerance = 1e-06, Interval = 0.056),
+    experiment(StartTime = 0, StopTime = 1000, Tolerance = 1e-06, Interval = 0.05),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
 end AirplaneLTISS_6DoF00_ex01;
