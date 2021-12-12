@@ -223,7 +223,9 @@ model AirplaneLTISS_longiLatSprtd00
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   AircraftDynamics.Interfaces.FlightStatesBus FltStatesBus1 annotation(
     Placement(visible = true, transformation(origin = {120, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-//**********************************************************************
+  //**********************************************************************
+  AircraftDynamics.Types.InfoBus infoBus1 annotation(
+    Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 initial equation
   fltStates.alt = altFltSteady_par;
   fltStates.XG = XGfltSteady_par;
@@ -234,7 +236,7 @@ initial equation
 equation
   connect(FltStatesBus1.fltStates, fltStates);
   connect(FltStatesBus1.fltAng4disp, fltAng4disp);
-  //--
+//--
   connect(ResolveFrameTranslational.busAttitude.psi, fltStates.psi) annotation(
     Line);
   connect(ResolveFrameTranslational.busAttitude.theta, fltStates.theta) annotation(
@@ -247,7 +249,7 @@ equation
     Line);
   connect(ResolveFrameTranslational.busVelocityAlongBody.u, fltStates.u) annotation(
     Line);
-  //--
+//--
   connect(fltStates.ZGdot, ResolveFrameTranslational.busVelocityInGlobal.ZGdot) annotation(
     Line);
   connect(fltStates.YGdot, ResolveFrameTranslational.busVelocityInGlobal.YGdot) annotation(
@@ -261,7 +263,6 @@ equation
   connect(fltStates.XG, ResolveFrameTranslational.busPosition.XG) annotation(
     Line);
 //-----
-  
 /*------------------------------
   interface; internal -- connector
   ------------------------------*/
@@ -310,8 +311,7 @@ equation
   fltStates.Y = FltDynLateralSS.y_aY * m_par;
   fltStates.Z = FltDynLongiSS.y_aZ * m_par;
 //---
-  (fltStates.xEast, fltStates.xNorth, fltStates.alt)= AircraftDynamics.Functions.GlobalFrame2earthConvention(XG= fltStates.XG, YG= fltStates.YG, ZG= fltStates.ZG);
-  
+  (fltStates.xEast, fltStates.xNorth, fltStates.alt) = AircraftDynamics.Functions.GlobalFrame2earthConvention(XG = fltStates.XG, YG = fltStates.YG, ZG = fltStates.ZG);
 //---
 /*------------------------------
     Unused flight states

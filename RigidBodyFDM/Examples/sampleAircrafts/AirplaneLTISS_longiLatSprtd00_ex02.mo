@@ -47,11 +47,11 @@ model AirplaneLTISS_longiLatSprtd00_ex02
     Placement(visible = true, transformation(origin = {30, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 equation
   connect(AirplaneDyn.FltStatesBus1, sensorMach.FltStatesBus1) annotation(
-    Line(points = {{60, -34}, {60, -34}, {60, -94}, {30, -94}, {30, -100}, {30, -100}}, color = {255, 204, 51}, thickness = 0.5));
+    Line(points = {{60, -34}, {60, -94}, {30, -94}, {30, -100}}, color = {255, 204, 51}, thickness = 0.5));
   connect(AirplaneDyn.FltStatesBus1, sensorBeta.FltStatesBus1) annotation(
     Line(points = {{60, -34}, {60, -100}}, color = {255, 204, 51}, thickness = 0.5));
   connect(AirplaneDyn.FltStatesBus1, sensorPsi.FltStatesBus1) annotation(
-    Line(points = {{60, -34}, {72, -34}, {72, -80}, {80, -80}, {80, -80}}, color = {255, 204, 51}, thickness = 0.5));
+    Line(points = {{60, -34}, {72, -34}, {72, -80}, {80, -80}}, color = {255, 204, 51}, thickness = 0.5));
   connect(AirplaneDyn.FltStatesBus1, sensorAirspeed.FltStatesBus1) annotation(
     Line(points = {{60, -34}, {64, -34}, {64, 100}, {80, 100}}, color = {255, 204, 51}, thickness = 0.5));
   connect(AirplaneDyn.FltStatesBus1, sensorAlpha.FltStatesBus1) annotation(

@@ -220,10 +220,12 @@ model AirplaneLTISS_6DoF00
     Placement(visible = true, transformation(origin = {-140, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.AttitudeVelocity2Position00 ResolveFrameTranslational annotation(
     Placement(visible = true, transformation(origin = {80, 40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  AircraftDynamics.Types.InfoBus busFltStates annotation(
+  AircraftDynamics.Types.InfoBus InfoBus1 annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.BodyAngularRate2AttitudeAngularRate00 ResolveFrameRotational annotation(
     Placement(visible = true, transformation(origin = {80, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    AircraftDynamics.Interfaces.FlightStatesBus FltStatesBus1 annotation(
+    Placement(visible = true, transformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //**********************************************************************
 initial equation
   fltStates.alt = altFltSteady_par;
@@ -245,7 +247,7 @@ equation
     Line);
   connect(ResolveFrameTranslational.busVelocityAlongBody.u, fltStates.u) annotation(
     Line);
-//--
+  //--
   connect(fltStates.ZGdot, ResolveFrameTranslational.busVelocityInGlobal.ZGdot) annotation(
     Line);
   connect(fltStates.YGdot, ResolveFrameTranslational.busVelocityInGlobal.YGdot) annotation(
@@ -258,17 +260,20 @@ equation
     Line);
   connect(fltStates.XG, ResolveFrameTranslational.busPosition.XG) annotation(
     Line);
-//-----
+  //-----
   connect(ResolveFrameRotational.busBodyAngularRate.p, fltStates.p);
   connect(ResolveFrameRotational.busBodyAngularRate.q, fltStates.q);
   connect(ResolveFrameRotational.busBodyAngularRate.r, fltStates.r);
-//--
+  //--
   fltStates.phi = ResolveFrameRotational.busAttitude.phi;
   fltStates.theta = ResolveFrameRotational.busAttitude.theta;
   fltStates.psi = ResolveFrameRotational.busAttitude.psi;
-/*------------------------------
+  /*------------------------------
   interface; internal -- connector
   ------------------------------*/
+  connect(FltStatesBus1.fltStates, fltStates);
+  connect(FltStatesBus1.fltAng4disp, fltAng4disp);
+  //--
   connect(u_deltaT, FltDynLongiSS.u_deltaT) annotation(
     Line(points = {{-140, 40}, {-116, 40}, {-116, 9}, {-42, 9}}, color = {0, 0, 127}));
   connect(u_deltaE, FltDynLongiSS.u_deltaE) annotation(
@@ -285,12 +290,12 @@ equation
     Line(points = {{-78, 66}, {-64, 66}, {-64, -26}, {-42, -26}, {-42, -26}}, color = {0, 0, 127}));
   connect(Flt2Fluid.y_qBar, FltDynLateralSS.u_q1bar) annotation(
     Line(points = {{-78, 62}, {-72, 62}, {-72, -38}, {-42, -38}, {-42, -38}}, color = {0, 0, 127}));
-//-----
-/*------------------------------
+  //-----
+  /*------------------------------
   connection; internal -- internal
   ------------------------------*/
-//-----
-/*------------------------------
+  //-----
+  /*------------------------------
     equation describing physics
   ------------------------------*/
   fltStates.u = FltDynLongiSS.y_u;
@@ -298,24 +303,24 @@ equation
   fltStates.w = fltStates.u * tan(FltDynLongiSS.y_alpha);
   fltStates.V = sqrt(fltStates.u ^ 2.0 + fltStates.v ^ 2.0 + fltStates.w ^ 2.0);
   fltStates.Mn = fltStates.V / Flt2Fluid.infoBus1.Vsound;
-//---
-//fltStates.phi = FltDynLateralSS.y_phi;
-//fltStates.theta= FltDynLongiSS.y_theta;
-//fltStates.psi= FltDynLateralSS.y_psi;
+  //---
+  //fltStates.phi = FltDynLateralSS.y_phi;
+  //fltStates.theta= FltDynLongiSS.y_theta;
+  //fltStates.psi= FltDynLateralSS.y_psi;
   fltStates.alpha = FltDynLongiSS.y_alpha;
   fltStates.beta = FltDynLateralSS.y_beta;
   fltStates.gamma = fltStates.theta - fltStates.alpha;
-//---
+  //---
   fltStates.p = FltDynLateralSS.y_p;
   fltStates.q = FltDynLongiSS.y_q;
   fltStates.r = FltDynLateralSS.y_r;
-//---
+  //---
   fltStates.X = FltDynLongiSS.y_aX * m_par;
   fltStates.Y = FltDynLateralSS.y_aY * m_par;
   fltStates.Z = FltDynLongiSS.y_aZ * m_par;
-//---
-  (fltStates.xEast, fltStates.xNorth, fltStates.alt)= AircraftDynamics.Functions.GlobalFrame2earthConvention(XG= fltStates.XG, YG= fltStates.YG, ZG= fltStates.ZG);
-  //fltStates.alt = -1.0 * fltStates.ZG;
+  //---
+  (fltStates.xEast, fltStates.xNorth, fltStates.alt) = AircraftDynamics.Functions.GlobalFrame2earthConvention(XG = fltStates.XG, YG = fltStates.YG, ZG = fltStates.ZG);
+//fltStates.alt = -1.0 * fltStates.ZG;
 //---
 /*------------------------------
     Unused flight states
