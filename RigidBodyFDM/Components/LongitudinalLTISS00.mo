@@ -311,6 +311,7 @@ initial equation
   DerLongi.alpha1 = alpha1;
   */
 //***** aircraft properties *****
+  /*
   DerLongi.S = S;
   DerLongi.m = m;
   DerLongi.Iyy = Iyy;
@@ -320,9 +321,11 @@ initial equation
   DerLongi.psiTi = psiTi;
   DerLongi.xBarTi = xBarTi;
   DerLongi.zBarTi = zBarTi;
+  */
 //---
   
 //***** Non-dimentional coefficients/derivatives *****
+  /*
   DerLongi.CDu = CDu;
   DerLongi.CD1 = CD1;
   DerLongi.CTXu = CTXu;
@@ -351,7 +354,7 @@ initial equation
   DerLongi.CmTalpha = 0.0;
 // provide dummy input
 //---
-  
+  */
   
   //***** Dimentional derivatives *****
   Xu_pri = DerLongi.Xu_pri;

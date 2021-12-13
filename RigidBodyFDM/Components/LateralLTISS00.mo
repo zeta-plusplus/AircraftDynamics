@@ -291,56 +291,56 @@ protected
 initial equation
   
   //***** flight condition *****
-  
+  /*
   DerLateral.U1 = U1;
   DerLateral.q1bar = q1bar;
   DerLateral.g = environmentAircraftDynSim.gravity;
   DerLateral.theta1 = theta1;
-  /**/
+  */
 //---
 //***** aircraft characteristics *****
-  
+  /*
   DerLateral.S = S;
   DerLateral.m = m;
   DerLateral.b = b;
   DerLateral.Ixx = Ixx;
   DerLateral.Izz = Izz;
   DerLateral.Ixz = Ixz;
-  /**/
+  */
 //---
 //***** Non-dimentional coefficients/derivatives *****
-  
+  /*
   DerLateral.CYbeta = CYbeta;
   DerLateral.CYp = CYp;
   DerLateral.CYr = CYr;
   DerLateral.CYdeltaA = CYdeltaA;
   DerLateral.CYdeltaR = CYdeltaR;
-  /**/
+  */
 //---
-  
+  /*
   DerLateral.Clbeta = Clbeta;
   DerLateral.Clp = Clp;
   DerLateral.Clr = Clr;
   DerLateral.CldeltaA = CldeltaA;
   DerLateral.CldeltaR = CldeltaR;
-  /**/
+  */
 //---
-  
+  /*
   DerLateral.Cnbeta = Cnbeta;
   DerLateral.Cnp = Cnp;
   DerLateral.Cnr = Cnr;
   DerLateral.CndeltaA = CndeltaA;
   DerLateral.CndeltaR = CndeltaR;
-  /**/
+  */
 //---
-  
+  /*
   DerLateral.CYdeltaS = CYdeltaS;
   DerLateral.CYdeltaF = CYdeltaF;
   DerLateral.CldeltaS = CldeltaS;
   DerLateral.CldeltaF = CldeltaF;
   DerLateral.CndeltaS = CndeltaS;
   DerLateral.CndeltaF = CndeltaF;
-  /**/
+  */
   
   //***** Dimentional derivatives *****
   
@@ -693,6 +693,50 @@ equation
   y_psi = psi1 + x[5];
   y_aY = y[1];
 //-----
+  
+  //----- flight condition -----
+  connect(DerLateral.infoBusFlt.U1 , U1);
+  connect(DerLateral.infoBusFlt.q1bar , q1bar);
+  connect(DerLateral.infoBusFlt.g , environmentAircraftDynSim.gravity);
+  connect(DerLateral.infoBusFlt.theta1 , theta1);
+  
+//---
+//----- aircraft characteristics -----
+  connect(DerLateral.infoBusAircraft.S , S);
+  connect(DerLateral.infoBusAircraft.m , m);
+  connect(DerLateral.infoBusAircraft.b , b);
+  connect(DerLateral.infoBusAircraft.Ixx , Ixx);
+  connect(DerLateral.infoBusAircraft.Izz , Izz);
+  connect(DerLateral.infoBusAircraft.Ixz , Ixz);
+//---
+  
+  //----- Non-dimentional coefficients/derivatives -----
+  connect(DerLateral.infoBusNonDim.CYbeta , CYbeta);
+  connect(DerLateral.infoBusNonDim.CYp , CYp);
+  connect(DerLateral.infoBusNonDim.CYr , CYr);
+  connect(DerLateral.infoBusNonDim.CYdeltaA , CYdeltaA);
+  connect(DerLateral.infoBusNonDim.CYdeltaR , CYdeltaR);
+  //---
+  connect(DerLateral.infoBusNonDim.Clbeta , Clbeta);
+  connect(DerLateral.infoBusNonDim.Clp , Clp);
+  connect(DerLateral.infoBusNonDim.Clr , Clr);
+  connect(DerLateral.infoBusNonDim.CldeltaA , CldeltaA);
+  connect(DerLateral.infoBusNonDim.CldeltaR , CldeltaR);
+  //---
+  connect(DerLateral.infoBusNonDim.Cnbeta , Cnbeta);
+  connect(DerLateral.infoBusNonDim.Cnp , Cnp);
+  connect(DerLateral.infoBusNonDim.Cnr , Cnr);
+  connect(DerLateral.infoBusNonDim.CndeltaA , CndeltaA);
+  connect(DerLateral.infoBusNonDim.CndeltaR , CndeltaR);
+  //---
+  connect(DerLateral.infoBusNonDim.CYdeltaS , CYdeltaS);
+  connect(DerLateral.infoBusNonDim.CYdeltaF , CYdeltaF);
+  connect(DerLateral.infoBusNonDim.CldeltaS , CldeltaS);
+  connect(DerLateral.infoBusNonDim.CldeltaF , CldeltaF);
+  connect(DerLateral.infoBusNonDim.CndeltaS , CndeltaS);
+  connect(DerLateral.infoBusNonDim.CndeltaF , CndeltaF);
+  
+  
 /* ---------------------------------------------
     Eqns describing physics
   --------------------------------------------- */
