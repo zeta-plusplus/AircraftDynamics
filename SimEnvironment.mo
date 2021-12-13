@@ -12,17 +12,17 @@ model SimEnvironment
     Dialog(group = "Simulation setting"));
   
   
-  parameter Modelica.SIunits.Temperature Tstd(start=288.15)= PropulsionSystem.Constants.constants_earth.Tstd
+  parameter Modelica.SIunits.Temperature Tstd= PropulsionSystem.Constants.constants_earth.Tstd
     ""
     annotation(
     Dialog(group = "constants of standards"));
   
-  parameter Modelica.SIunits.Pressure pStd(start=101315)= PropulsionSystem.Constants.constants_earth.pStd
+  parameter Modelica.SIunits.Pressure pStd= PropulsionSystem.Constants.constants_earth.pStd
     ""
     annotation(
     Dialog(group = "constants of standards"));
   
-  parameter Modelica.SIunits.Acceleration gravity(start=9.81)= PropulsionSystem.Constants.constants_earth.gravity
+  parameter Modelica.SIunits.Acceleration gravity= PropulsionSystem.Constants.constants_earth.gravity
     ""
     annotation(
     Dialog(group = "constants of standards"));

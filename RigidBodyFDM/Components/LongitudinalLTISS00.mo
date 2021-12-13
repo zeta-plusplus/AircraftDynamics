@@ -457,11 +457,12 @@ equation
   y_aZ = y[1];
   y_aX = y[2];
 //-----
+  DerLongi.infoBusFlt.g = environmentAircraftDynSim.gravity;
   
   //----- flight condition -----
   connect(DerLongi.infoBusFlt.U1,U1);
   connect(DerLongi.infoBusFlt.q1bar, q1bar);
-  connect(DerLongi.infoBusFlt.g, environmentAircraftDynSim.gravity);
+  //connect(DerLongi.infoBusFlt.g, gravity);
   connect(DerLongi.infoBusFlt.theta1, theta1);
   connect(DerLongi.infoBusFlt.alpha1, alpha1);
   
