@@ -294,7 +294,7 @@ equation
   fltStates.v = tan(FltDynLateralSS.y_beta) * sqrt(fltStates.u ^ 2.0 + fltStates.w ^ 2.0);
   fltStates.w = fltStates.u * tan(FltDynLongiSS.y_alpha);
   fltStates.V = sqrt(fltStates.u ^ 2.0 + fltStates.v ^ 2.0 + fltStates.w ^ 2.0);
-  fltStates.Mn = fltStates.V / Flt2Fluid.infoBus1.Vsound;
+  fltStates.Mn = fltStates.V / Flt2Fluid.y_Vsound;
 //---
   fltStates.phi = FltDynLateralSS.y_phi;
   fltStates.theta= FltDynLongiSS.y_theta;
