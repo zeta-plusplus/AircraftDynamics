@@ -224,6 +224,7 @@ protected
   redeclare parameter Real x0[5](each fixed = false) "Initial state vector" annotation(
     HideResult = false);
   //-----
+  parameter SIunits.Acceleration g(fixed=false) "";
   parameter SIunits.Velocity U1(fixed = false) "";
   parameter SIunits.Pressure q1bar(fixed = false) "";
   parameter SIunits.Area S(fixed = false) "";
@@ -361,7 +362,8 @@ initial equation
   C = [Ybeta_ppri, Yp_ppri, Yr_ppri, Yphi_ppri, 0.0; 1.0, 0.0, 0.0, 0.0, 0.0; 0.0, 1.0, 0.0, 0.0, 0.0; 0.0, 0.0, 1.0, 0.0, 0.0; 0.0, 0.0, 0.0, 1.0, 0.0; 0.0, 0.0, 0.0, 0.0, 1.0];
   D = [YdeltaA_ppri, YdeltaR_ppri; 0.0, 0.0; 0.0, 0.0; 0.0, 0.0; 0.0, 0.0; 0.0, 0.0];
 //***** initial condition *****
-//---
+  g=environmentAircraftDynSim.gravity;
+  //---
   x0[1] = beta0;
   x0[2] = p0;
   x0[3] = r0;
@@ -434,7 +436,7 @@ equation
   //----- flight condition -----
   connect(DerLateral.infoBusFlt.U1 , U1);
   connect(DerLateral.infoBusFlt.q1bar , q1bar);
-  connect(DerLateral.infoBusFlt.g , environmentAircraftDynSim.gravity);
+  connect(DerLateral.infoBusFlt.g , g);
   connect(DerLateral.infoBusFlt.theta1 , theta1);
   
 //---
