@@ -289,37 +289,211 @@ protected
   //---
   //********************************************************************************
 initial equation
-//***** Dimentional derivatives *****
+  
+  //***** flight condition *****
+  
+  DerLateral.U1 = U1;
+  DerLateral.q1bar = q1bar;
+  DerLateral.g = environmentAircraftDynSim.gravity;
+  DerLateral.theta1 = theta1;
+  /**/
+//---
+//***** aircraft characteristics *****
+  
+  DerLateral.S = S;
+  DerLateral.m = m;
+  DerLateral.b = b;
+  DerLateral.Ixx = Ixx;
+  DerLateral.Izz = Izz;
+  DerLateral.Ixz = Ixz;
+  /**/
+//---
+//***** Non-dimentional coefficients/derivatives *****
+  
+  DerLateral.CYbeta = CYbeta;
+  DerLateral.CYp = CYp;
+  DerLateral.CYr = CYr;
+  DerLateral.CYdeltaA = CYdeltaA;
+  DerLateral.CYdeltaR = CYdeltaR;
+  /**/
+//---
+  
+  DerLateral.Clbeta = Clbeta;
+  DerLateral.Clp = Clp;
+  DerLateral.Clr = Clr;
+  DerLateral.CldeltaA = CldeltaA;
+  DerLateral.CldeltaR = CldeltaR;
+  /**/
+//---
+  
+  DerLateral.Cnbeta = Cnbeta;
+  DerLateral.Cnp = Cnp;
+  DerLateral.Cnr = Cnr;
+  DerLateral.CndeltaA = CndeltaA;
+  DerLateral.CndeltaR = CndeltaR;
+  /**/
+//---
+  
+  DerLateral.CYdeltaS = CYdeltaS;
+  DerLateral.CYdeltaF = CYdeltaF;
+  DerLateral.CldeltaS = CldeltaS;
+  DerLateral.CldeltaF = CldeltaF;
+  DerLateral.CndeltaS = CndeltaS;
+  DerLateral.CndeltaF = CndeltaF;
+  /**/
+  
+  //***** Dimentional derivatives *****
+  
+  Ybeta_pri = DerLateral.Ybeta_pri;
+  Yp_pri = DerLateral.Yp_pri;
+  Yr_pri = DerLateral.Yr_pri;
+  Yphi_pri = DerLateral.Yphi_pri;
+  /**/
+//---
+  
+  Lbeta_pri = DerLateral.Lbeta_pri;
+  Lp_pri = DerLateral.Lp_pri;
+  Lr_pri = DerLateral.Lr_pri;
+  /**/
+//---
+  
+  Nbeta_pri = DerLateral.Nbeta_pri;
+  Np_pri = DerLateral.Np_pri;
+  Nr_pri = DerLateral.Nr_pri;
+  /**/
+//-----
+  
+  YdeltaA_pri = DerLateral.YdeltaA_pri;
+  YdeltaR_pri = DerLateral.YdeltaR_pri;
+  /**/
+//---
+  
+  LdeltaA_pri = DerLateral.LdeltaA_pri;
+  LdeltaR_pri = DerLateral.LdeltaR_pri;
+  /**/
+//---
+  
+  NdeltaA_pri = DerLateral.NdeltaA_pri;
+  NdeltaR_pri = DerLateral.NdeltaR_pri;
+  /**/
+//---
+//----------
+  
+  Ybeta_ppri = DerLateral.Ybeta_ppri;
+  Yp_ppri = DerLateral.Yp_ppri;
+  Yr_ppri = DerLateral.Yr_ppri;
+  Yphi_ppri = DerLateral.Yphi_ppri;
+  /**/
+//---
+  
+  YdeltaA_ppri = DerLateral.YdeltaA_ppri;
+  YdeltaR_ppri = DerLateral.YdeltaR_ppri;
+  /**/
+  
+  
+  
+  
+  
+  
+  //***** flight condition *****
+  /*
+  DerLateral.infoBusFlt.U1 = U1;
+  DerLateral.infoBusFlt.q1bar = q1bar;
+  DerLateral.infoBusFlt.g = environmentAircraftDynSim.gravity;
+  DerLateral.infoBusFlt.theta1 = theta1;
+  */
+//---
+//***** aircraft characteristics *****
+  /*
+  DerLateral.infoBusAircraft.S = S;
+  DerLateral.infoBusAircraft.m = m;
+  DerLateral.infoBusAircraft.b = b;
+  DerLateral.infoBusAircraft.Ixx = Ixx;
+  DerLateral.infoBusAircraft.Izz = Izz;
+  DerLateral.infoBusAircraft.Ixz = Ixz;
+  */
+//---
+//***** Non-dimentional coefficients/derivatives *****
+  /*
+  DerLateral.infoBusNonDim.CYbeta = CYbeta;
+  DerLateral.infoBusNonDim.CYp = CYp;
+  DerLateral.infoBusNonDim.CYr = CYr;
+  DerLateral.infoBusNonDim.CYdeltaA = CYdeltaA;
+  DerLateral.infoBusNonDim.CYdeltaR = CYdeltaR;
+  */
+//---
+  /*
+  DerLateral.infoBusNonDim.Clbeta = Clbeta;
+  DerLateral.infoBusNonDim.Clp = Clp;
+  DerLateral.infoBusNonDim.Clr = Clr;
+  DerLateral.infoBusNonDim.CldeltaA = CldeltaA;
+  DerLateral.infoBusNonDim.CldeltaR = CldeltaR;
+  */
+//---
+  /*
+  DerLateral.infoBusNonDim.Cnbeta = Cnbeta;
+  DerLateral.infoBusNonDim.Cnp = Cnp;
+  DerLateral.infoBusNonDim.Cnr = Cnr;
+  DerLateral.infoBusNonDim.CndeltaA = CndeltaA;
+  DerLateral.infoBusNonDim.CndeltaR = CndeltaR;
+  */
+//---
+  /*
+  DerLateral.infoBusNonDim.CYdeltaS = CYdeltaS;
+  DerLateral.infoBusNonDim.CYdeltaF = CYdeltaF;
+  DerLateral.infoBusNonDim.CldeltaS = CldeltaS;
+  DerLateral.infoBusNonDim.CldeltaF = CldeltaF;
+  DerLateral.infoBusNonDim.CndeltaS = CndeltaS;
+  DerLateral.infoBusNonDim.CndeltaF = CndeltaF;
+  */
+  
+  //***** Dimentional derivatives *****
+  /*
   Ybeta_pri = DerLateral.infoBusDim.Ybeta_pri;
   Yp_pri = DerLateral.infoBusDim.Yp_pri;
   Yr_pri = DerLateral.infoBusDim.Yr_pri;
   Yphi_pri = DerLateral.infoBusDim.Yphi_pri;
+  */
 //---
+  /*
   Lbeta_pri = DerLateral.infoBusDim.Lbeta_pri;
   Lp_pri = DerLateral.infoBusDim.Lp_pri;
   Lr_pri = DerLateral.infoBusDim.Lr_pri;
+  */
 //---
+  /*
   Nbeta_pri = DerLateral.infoBusDim.Nbeta_pri;
   Np_pri = DerLateral.infoBusDim.Np_pri;
   Nr_pri = DerLateral.infoBusDim.Nr_pri;
+  */
 //-----
+  /*
   YdeltaA_pri = DerLateral.infoBusDim.YdeltaA_pri;
   YdeltaR_pri = DerLateral.infoBusDim.YdeltaR_pri;
+  */
 //---
+  /*
   LdeltaA_pri = DerLateral.infoBusDim.LdeltaA_pri;
   LdeltaR_pri = DerLateral.infoBusDim.LdeltaR_pri;
+  */
 //---
+  /*
   NdeltaA_pri = DerLateral.infoBusDim.NdeltaA_pri;
   NdeltaR_pri = DerLateral.infoBusDim.NdeltaR_pri;
+  */
 //---
 //----------
+  /*
   Ybeta_ppri = DerLateral.infoBusDim.Ybeta_ppri;
   Yp_ppri = DerLateral.infoBusDim.Yp_ppri;
   Yr_ppri = DerLateral.infoBusDim.Yr_ppri;
   Yphi_ppri = DerLateral.infoBusDim.Yphi_ppri;
+  */
 //---
+  /*
   YdeltaA_ppri = DerLateral.infoBusDim.YdeltaA_ppri;
   YdeltaR_ppri = DerLateral.infoBusDim.YdeltaR_ppri;
+  */
 //---
 /**/
 //***** test *****
@@ -403,6 +577,106 @@ initial equation
 //---
 //********************************************************************************
 initial algorithm
+  //***** flight condition *****
+  /*
+  //DerLateral.infoBusFlt.U1 := U1;
+  DerLateral.infoBusFlt.q1bar := q1bar;
+  DerLateral.infoBusFlt.g := environmentAircraftDynSim.gravity;
+  DerLateral.infoBusFlt.theta1 := theta1;
+  */
+  //---
+//***** aircraft characteristics *****
+  /*
+  DerLateral.infoBusAircraft.S := S;
+  DerLateral.infoBusAircraft.m := m;
+  DerLateral.infoBusAircraft.b := b;
+  DerLateral.infoBusAircraft.Ixx := Ixx;
+  DerLateral.infoBusAircraft.Izz := Izz;
+  DerLateral.infoBusAircraft.Ixz := Ixz;
+  */
+//---
+//***** Non-dimentional coefficients/derivatives *****
+  /*
+  DerLateral.infoBusNonDim.CYbeta := CYbeta;
+  DerLateral.infoBusNonDim.CYp := CYp;
+  DerLateral.infoBusNonDim.CYr := CYr;
+  DerLateral.infoBusNonDim.CYdeltaA := CYdeltaA;
+  DerLateral.infoBusNonDim.CYdeltaR := CYdeltaR;
+  */
+//---
+  /*
+  DerLateral.infoBusNonDim.Clbeta := Clbeta;
+  DerLateral.infoBusNonDim.Clp := Clp;
+  DerLateral.infoBusNonDim.Clr := Clr;
+  DerLateral.infoBusNonDim.CldeltaA := CldeltaA;
+  DerLateral.infoBusNonDim.CldeltaR := CldeltaR;
+  */
+//---
+  /*
+  DerLateral.infoBusNonDim.Cnbeta := Cnbeta;
+  DerLateral.infoBusNonDim.Cnp := Cnp;
+  DerLateral.infoBusNonDim.Cnr := Cnr;
+  DerLateral.infoBusNonDim.CndeltaA := CndeltaA;
+  DerLateral.infoBusNonDim.CndeltaR := CndeltaR;
+  */
+//---
+  /*
+  DerLateral.infoBusNonDim.CYdeltaS := CYdeltaS;
+  DerLateral.infoBusNonDim.CYdeltaF := CYdeltaF;
+  DerLateral.infoBusNonDim.CldeltaS := CldeltaS;
+  DerLateral.infoBusNonDim.CldeltaF := CldeltaF;
+  DerLateral.infoBusNonDim.CndeltaS := CndeltaS;
+  DerLateral.infoBusNonDim.CndeltaF := CndeltaF;
+  */
+  //------------------------------------------------------------
+  //***** Dimentional derivatives *****
+  /*
+  Ybeta_pri := DerLateral.infoBusDim.Ybeta_pri;
+  Yp_pri := DerLateral.infoBusDim.Yp_pri;
+  Yr_pri := DerLateral.infoBusDim.Yr_pri;
+  Yphi_pri := DerLateral.infoBusDim.Yphi_pri;
+  */
+//---
+  /*
+  Lbeta_pri := DerLateral.infoBusDim.Lbeta_pri;
+  Lp_pri := DerLateral.infoBusDim.Lp_pri;
+  Lr_pri := DerLateral.infoBusDim.Lr_pri;
+  */
+//---
+  /*
+  Nbeta_pri := DerLateral.infoBusDim.Nbeta_pri;
+  Np_pri := DerLateral.infoBusDim.Np_pri;
+  Nr_pri := DerLateral.infoBusDim.Nr_pri;
+  */
+//-----
+  /*
+  YdeltaA_pri := DerLateral.infoBusDim.YdeltaA_pri;
+  YdeltaR_pri := DerLateral.infoBusDim.YdeltaR_pri;
+  */
+//---
+  /*
+  LdeltaA_pri := DerLateral.infoBusDim.LdeltaA_pri;
+  LdeltaR_pri := DerLateral.infoBusDim.LdeltaR_pri;
+  */
+//---
+  /*
+  NdeltaA_pri := DerLateral.infoBusDim.NdeltaA_pri;
+  NdeltaR_pri := DerLateral.infoBusDim.NdeltaR_pri;
+  */
+//---
+//----------
+  /*
+  Ybeta_ppri := DerLateral.infoBusDim.Ybeta_ppri;
+  Yp_ppri := DerLateral.infoBusDim.Yp_ppri;
+  Yr_ppri := DerLateral.infoBusDim.Yr_ppri;
+  Yphi_ppri := DerLateral.infoBusDim.Yphi_ppri;
+  */
+//---
+  /*
+  YdeltaA_ppri := DerLateral.infoBusDim.YdeltaA_ppri;
+  YdeltaR_ppri := DerLateral.infoBusDim.YdeltaR_ppri;
+  */
+  
 //********************************************************************************
 equation
 /* ---------------------------------------------
@@ -422,48 +696,63 @@ equation
 /* ---------------------------------------------
     Eqns describing physics
   --------------------------------------------- */
-  when initial() then
+  //connect(DerLateral.infoBusFlt.U1, U1);
+  
+  
+  //when initial() then
 //***** flight condition *****
-    DerLateral.infoBusFlt.U1 = U1;
+    /*
+    //DerLateral.infoBusFlt.U1 = U1;
     DerLateral.infoBusFlt.q1bar = q1bar;
     DerLateral.infoBusFlt.g = environmentAircraftDynSim.gravity;
     DerLateral.infoBusFlt.theta1 = theta1;
+    */
 //---
 //***** aircraft characteristics *****
+    /*
     DerLateral.infoBusAircraft.S = S;
     DerLateral.infoBusAircraft.m = m;
     DerLateral.infoBusAircraft.b = b;
     DerLateral.infoBusAircraft.Ixx = Ixx;
     DerLateral.infoBusAircraft.Izz = Izz;
     DerLateral.infoBusAircraft.Ixz = Ixz;
+    */
 //---
 //***** Non-dimentional coefficients/derivatives *****
+    /*
     DerLateral.infoBusNonDim.CYbeta = CYbeta;
     DerLateral.infoBusNonDim.CYp = CYp;
     DerLateral.infoBusNonDim.CYr = CYr;
     DerLateral.infoBusNonDim.CYdeltaA = CYdeltaA;
     DerLateral.infoBusNonDim.CYdeltaR = CYdeltaR;
+    */
 //---
+    /*
     DerLateral.infoBusNonDim.Clbeta = Clbeta;
     DerLateral.infoBusNonDim.Clp = Clp;
     DerLateral.infoBusNonDim.Clr = Clr;
     DerLateral.infoBusNonDim.CldeltaA = CldeltaA;
     DerLateral.infoBusNonDim.CldeltaR = CldeltaR;
+    */
 //---
+    /*
     DerLateral.infoBusNonDim.Cnbeta = Cnbeta;
     DerLateral.infoBusNonDim.Cnp = Cnp;
     DerLateral.infoBusNonDim.Cnr = Cnr;
     DerLateral.infoBusNonDim.CndeltaA = CndeltaA;
     DerLateral.infoBusNonDim.CndeltaR = CndeltaR;
+    */
 //---
+    /*
     DerLateral.infoBusNonDim.CYdeltaS = CYdeltaS;
     DerLateral.infoBusNonDim.CYdeltaF = CYdeltaF;
     DerLateral.infoBusNonDim.CldeltaS = CldeltaS;
     DerLateral.infoBusNonDim.CldeltaF = CldeltaF;
     DerLateral.infoBusNonDim.CndeltaS = CndeltaS;
     DerLateral.infoBusNonDim.CndeltaF = CndeltaF;
+    */
 /**/
-  end when;
+  //end when;
 //-----
 /**/
 /********************************************************
