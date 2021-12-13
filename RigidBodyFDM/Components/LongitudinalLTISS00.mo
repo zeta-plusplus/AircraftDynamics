@@ -302,61 +302,8 @@ protected
   
   //********************************************************************************
 initial equation
-  /*
-  //----- flight condition -----
-  //DerLongi.U1 = U1;
-  DerLongi.q1bar = q1bar;
-  DerLongi.g = environmentAircraftDynSim.gravity;
-  DerLongi.theta1 = theta1;
-  DerLongi.alpha1 = alpha1;
-  */
-//***** aircraft properties *****
-  /*
-  DerLongi.S = S;
-  DerLongi.m = m;
-  DerLongi.Iyy = Iyy;
-  DerLongi.cBar = cBar;
-  //---
-  DerLongi.thetaTi = thetaTi;
-  DerLongi.psiTi = psiTi;
-  DerLongi.xBarTi = xBarTi;
-  DerLongi.zBarTi = zBarTi;
-  */
-//---
   
-//***** Non-dimentional coefficients/derivatives *****
-  /*
-  DerLongi.CDu = CDu;
-  DerLongi.CD1 = CD1;
-  DerLongi.CTXu = CTXu;
-  DerLongi.CTX1 = CTX1;
-  DerLongi.CDalpha = CDalpha;
-  DerLongi.CDdeltaE = CDdeltaE;
-//---
-  DerLongi.CL1 = CL1;
-  DerLongi.CLu = CLu;
-  DerLongi.CLalpha = CLalpha;
-  DerLongi.CLalpha_dot = CLalpha_dot;
-  DerLongi.CLq = CLq;
-  DerLongi.CLdeltaE = CLdeltaE;
-//---
-  DerLongi.Cm1 = Cm1;
-  DerLongi.Cmu = Cmu;
-  DerLongi.CmAlpha = CmAlpha;
-  DerLongi.CmAlpha_dot = CmAlpha_dot;
-  DerLongi.Cmq = Cmq;
-  DerLongi.CmDeltaE = CmDeltaE;
-//---
-  DerLongi.CmTu = 0.0;
-// provide dummy input
-  DerLongi.CmT1 = 0.0;
-// provide dummy input
-  DerLongi.CmTalpha = 0.0;
-// provide dummy input
-//---
-  */
-  
-  //***** Dimentional derivatives *****
+  //----- Dimentional derivatives -----
   Xu_pri = DerLongi.Xu_pri;
   Xalpha_pri = DerLongi.Xalpha_pri;
   Xq_pri = DerLongi.Xq_pri;
@@ -397,73 +344,6 @@ initial equation
 //---
   XdeltaE_ppri = DerLongi.XdeltaE_ppri;
   XdeltaT_ppri = DerLongi.XdeltaT_ppri;
-//-----
-  
-  
-  
-  
-  
-  
-//***** Dimentional derivatives *****
-  /*
-  Xu_pri = DerLongi.infoBusDim.Xu_pri;
-  Xalpha_pri = DerLongi.infoBusDim.Xalpha_pri;
-  Xq_pri = DerLongi.infoBusDim.Xq_pri;
-  Xtheta_pri = DerLongi.infoBusDim.Xtheta_pri;
-  */
-//---
-  /*
-  Zu_pri = DerLongi.infoBusDim.Zu_pri;
-  Zalpha_pri = DerLongi.infoBusDim.Zalpha_pri;
-  Zq_pri = DerLongi.infoBusDim.Zq_pri;
-  Ztheta_pri = DerLongi.infoBusDim.Ztheta_pri;
-  */
-//---
-  /*
-  Mu_pri = DerLongi.infoBusDim.Mu_pri;
-  Malpha_pri = DerLongi.infoBusDim.Malpha_pri;
-  Mq_pri = DerLongi.infoBusDim.Mq_pri;
-  Mtheta_pri = DerLongi.infoBusDim.Mtheta_pri;
-  */
-//---
-  /*
-  XdeltaE_pri = DerLongi.infoBusDim.XdeltaE_pri;
-  XdeltaT_pri = DerLongi.infoBusDim.XdeltaT_pri;
-  */
-//---
-  /*
-  ZdeltaE_pri = DerLongi.infoBusDim.ZdeltaE_pri;
-  ZdeltaT_pri = DerLongi.infoBusDim.ZdeltaT_pri;
-  */
-//---
-  /*
-  MdeltaE_pri = DerLongi.infoBusDim.MdeltaE_pri;
-  MdeltaT_pri = DerLongi.infoBusDim.MdeltaT_pri;
-  */
-//---
-/*
-  Zu_ppri = DerLongi.infoBusDim.Zu_ppri;
-  Zalpha_ppri = DerLongi.infoBusDim.Zalpha_ppri;
-  Zq_ppri = DerLongi.infoBusDim.Zq_ppri;
-  Ztheta_ppri = DerLongi.infoBusDim.Ztheta_ppri;
-  */
-//---
-  /*
-  ZdeltaE_ppri = DerLongi.infoBusDim.ZdeltaE_ppri;
-  ZdeltaT_ppri = DerLongi.infoBusDim.ZdeltaT_ppri;
-  */
-//-----
-  /*
-  Xu_ppri = DerLongi.infoBusDim.Xu_ppri;
-  Xalpha_ppri = DerLongi.infoBusDim.Xalpha_ppri;
-  Xq_ppri = DerLongi.infoBusDim.Xq_ppri;
-  Xtheta_ppri = DerLongi.infoBusDim.Xtheta_ppri;
-  */
-//---
-  /*
-  XdeltaE_ppri = DerLongi.infoBusDim.XdeltaE_ppri;
-  XdeltaT_ppri = DerLongi.infoBusDim.XdeltaT_ppri;
-  */
 //-----
   
   
@@ -624,73 +504,7 @@ equation
   connect(DerLongi.infoBusNonDim.CmTalpha , dmy);
   //---
   
-  
-  //when initial() then
-//***** flight condition *****
-  /*
-  DerLongi.infoBusFlt.U1 = U1;
-  DerLongi.infoBusFlt.q1bar = q1bar;
-  DerLongi.infoBusFlt.g = environmentAircraftDynSim.gravity;
-  DerLongi.infoBusFlt.theta1 = theta1;
-  DerLongi.infoBusFlt.alpha1 = alpha1;
-  */
-//***** aircraft properties *****
-  /*
-  DerLongi.infoBusAircraft.S = S;
-  DerLongi.infoBusAircraft.m = m;
-  DerLongi.infoBusAircraft.Iyy = Iyy;
-  DerLongi.infoBusAircraft.cBar = cBar;
-  //---
-  DerLongi.infoBusAircraft.thetaTi = thetaTi;
-  DerLongi.infoBusAircraft.psiTi = psiTi;
-  DerLongi.infoBusAircraft.xBarTi = xBarTi;
-  DerLongi.infoBusAircraft.zBarTi = zBarTi;
-  */
-//---
-  //end when;
-  
-  
-  /* ---------------------------------------------
-    Eqns describing physics
-  --------------------------------------------- */
-  //when initial() then
-//***** Non-dimentional coefficients/derivatives *****
-  /*
-  DerLongi.infoBusNonDim.CDu = CDu;
-  DerLongi.infoBusNonDim.CD1 = CD1;
-  DerLongi.infoBusNonDim.CTXu = CTXu;
-  DerLongi.infoBusNonDim.CTX1 = CTX1;
-  DerLongi.infoBusNonDim.CDalpha = CDalpha;
-  DerLongi.infoBusNonDim.CDdeltaE = CDdeltaE;
-  */
-//---
-  /*
-  DerLongi.infoBusNonDim.CL1 = CL1;
-  DerLongi.infoBusNonDim.CLu = CLu;
-  DerLongi.infoBusNonDim.CLalpha = CLalpha;
-  DerLongi.infoBusNonDim.CLalpha_dot = CLalpha_dot;
-  DerLongi.infoBusNonDim.CLq = CLq;
-  DerLongi.infoBusNonDim.CLdeltaE = CLdeltaE;
-  */
-//---
-  /*
-  DerLongi.infoBusNonDim.Cm1 = Cm1;
-  DerLongi.infoBusNonDim.Cmu = Cmu;
-  DerLongi.infoBusNonDim.CmAlpha = CmAlpha;
-  DerLongi.infoBusNonDim.CmAlpha_dot = CmAlpha_dot;
-  DerLongi.infoBusNonDim.Cmq = Cmq;
-  DerLongi.infoBusNonDim.CmDeltaE = CmDeltaE;
-  */
-//---
-  //DerLongi.infoBusNonDim.CmTu = 0.0;
-// provide dummy input
-  //DerLongi.infoBusNonDim.CmT1 = 0.0;
-// provide dummy input
-  //DerLongi.infoBusNonDim.CmTalpha = 0.0;
-// provide dummy input
-//---
-  //end when;
-
+  /**/
 
 /********************************************************
   Graphics
