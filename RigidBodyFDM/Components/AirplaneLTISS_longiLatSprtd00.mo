@@ -271,17 +271,17 @@ equation
   connect(u_deltaE, FltDynLongiSS.u_deltaE) annotation(
     Line(points = {{-140, 80}, {-108, 80}, {-108, 32}, {-42, 32}}, color = {0, 0, 127}));
   connect(Flt2Fluid.y_V_inf, FltDynLongiSS.u_U1) annotation(
-    Line(points = {{-79, 66}, {-28, 66}, {-28, 42}}, color = {0, 0, 127}));
+    Line(points = {{-79, 67}, {-28, 67}, {-28, 42}}, color = {0, 0, 127}));
   connect(Flt2Fluid.y_qBar, FltDynLongiSS.u_q1bar) annotation(
-    Line(points = {{-79, 62}, {-36, 62}, {-36, 42}}, color = {0, 0, 127}));
+    Line(points = {{-79, 64}, {-36, 64}, {-36, 42}}, color = {0, 0, 127}));
   connect(u_deltaA, FltDynLateralSS.u_deltaA) annotation(
     Line(points = {{-140, -20}, {-108, -20}, {-108, -54}, {-42, -54}}, color = {0, 0, 127}));
   connect(u_deltaR, FltDynLateralSS.u_deltaR) annotation(
     Line(points = {{-140, -60}, {-114, -60}, {-114, -66}, {-42, -66}}, color = {0, 0, 127}));
   connect(Flt2Fluid.y_V_inf, FltDynLateralSS.u_U1) annotation(
-    Line(points = {{-78, 66}, {-64, 66}, {-64, -26}, {-42, -26}, {-42, -26}}, color = {0, 0, 127}));
+    Line(points = {{-79, 67}, {-64, 67}, {-64, -26}, {-42, -26}}, color = {0, 0, 127}));
   connect(Flt2Fluid.y_qBar, FltDynLateralSS.u_q1bar) annotation(
-    Line(points = {{-78, 62}, {-72, 62}, {-72, -38}, {-42, -38}, {-42, -38}}, color = {0, 0, 127}));
+    Line(points = {{-79, 64}, {-72, 64}, {-72, -38}, {-42, -38}}, color = {0, 0, 127}));
 //-----
 /*------------------------------
   connection; internal -- internal
