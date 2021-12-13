@@ -207,6 +207,7 @@ protected
   /* ---------------------------------------------
           parameters not fixed yet
   --------------------------------------------- */
+  parameter SIunits.Acceleration g(fixed=false) "";
   parameter SIunits.Velocity U1(fixed = false) "";
   parameter SIunits.Pressure q1bar(fixed = false) "";
   parameter SIunits.Area S(fixed = false) "";
@@ -390,6 +391,7 @@ initial equation
       0.0, 0.0; 
       0.0, 0.0];
 //***** initial condition *****
+  g=environmentAircraftDynSim.gravity;
 //-----
   alpha1 = theta1 - gamma1;
   u1 = U1 * cos(alpha1);
@@ -457,12 +459,11 @@ equation
   y_aZ = y[1];
   y_aX = y[2];
 //-----
-  DerLongi.infoBusFlt.g = environmentAircraftDynSim.gravity;
   
   //----- flight condition -----
   connect(DerLongi.infoBusFlt.U1,U1);
   connect(DerLongi.infoBusFlt.q1bar, q1bar);
-  //connect(DerLongi.infoBusFlt.g, gravity);
+  connect(DerLongi.infoBusFlt.g, g);
   connect(DerLongi.infoBusFlt.theta1, theta1);
   connect(DerLongi.infoBusFlt.alpha1, alpha1);
   
