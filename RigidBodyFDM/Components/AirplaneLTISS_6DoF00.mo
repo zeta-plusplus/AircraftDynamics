@@ -193,9 +193,7 @@ model AirplaneLTISS_6DoF00
   AircraftDynamics.Records.FlightStates fltStates;
   AircraftDynamics.Records.angles4display fltAng4disp;
   
-  Modelica.SIunits.Velocity Vsound;
-  /*
-    */
+  /**/
   /* ---------------------------------------------
               Internal objects
     --------------------------------------------- */
@@ -298,7 +296,6 @@ equation
     Line(points = {{-78, 66}, {-64, 66}, {-64, -26}, {-42, -26}, {-42, -26}}, color = {0, 0, 127}));
   connect(Flt2Fluid.y_qBar, FltDynLateralSS.u_q1bar) annotation(
     Line(points = {{-78, 62}, {-72, 62}, {-72, -38}, {-42, -38}, {-42, -38}}, color = {0, 0, 127}));
-  connect(Vsound, Flt2Fluid.infoBus1.Vsound);
   
   //-----
   /*------------------------------
@@ -312,7 +309,7 @@ equation
   fltStates.v = tan(FltDynLateralSS.y_beta) * sqrt(fltStates.u ^ 2.0 + fltStates.w ^ 2.0);
   fltStates.w = fltStates.u * tan(FltDynLongiSS.y_alpha);
   fltStates.V = sqrt(fltStates.u ^ 2.0 + fltStates.v ^ 2.0 + fltStates.w ^ 2.0);
-  fltStates.Mn = fltStates.V / Vsound;
+  fltStates.Mn = fltStates.V / Flt2Fluid.infoBus1.Vsound;
   //---
   //fltStates.phi = FltDynLateralSS.y_phi;
   //fltStates.theta= FltDynLongiSS.y_theta;
