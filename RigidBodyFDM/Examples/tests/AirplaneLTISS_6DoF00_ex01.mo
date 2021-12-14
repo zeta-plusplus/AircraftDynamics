@@ -38,18 +38,18 @@ model AirplaneLTISS_6DoF00_ex01
   Modelica.Blocks.Continuous.LimIntegrator limIntegrator1(initType = Modelica.Blocks.Types.Init.NoInit, k = 0.1, outMax = 25 * Modelica.Constants.pi / 180.0)  annotation(
     Placement(visible = true, transformation(origin = {-90, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.AirplaneLTISS_6DoF00 AirplaneDyn(redeclare package Medium = AircraftDynamics.Media.DryAirMethaneMixture00) annotation(
-    Placement(visible = true, transformation(origin = {100, -3.55271e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {90, 10}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
 equation
   connect(from_deg3.y, AirplaneDyn.u_deltaR) annotation(
-    Line(points = {{22, -50}, {50, -50}, {50, -12}, {78, -12}}, color = {0, 0, 127}));
+    Line(points = {{22, -50}, {50, -50}, {50, 0}, {58, 0}}, color = {0, 0, 127}));
   connect(limiter_deltaA.y, AirplaneDyn.u_deltaA) annotation(
-    Line(points = {{12, -10}, {30, -10}, {30, -4}, {78, -4}}, color = {0, 0, 127}));
+    Line(points = {{12, -10}, {30, -10}, {30, 7}, {58, 7}}, color = {0, 0, 127}));
   connect(gain_Tnominal.y, AirplaneDyn.u_deltaT) annotation(
-    Line(points = {{22, 30}, {38, 30}, {38, 8}, {78, 8}}, color = {0, 0, 127}));
+    Line(points = {{22, 30}, {38, 30}, {38, 17}, {58, 17}}, color = {0, 0, 127}));
   connect(from_deg1.y, AirplaneDyn.u_deltaE) annotation(
-    Line(points = {{22, 70}, {48, 70}, {48, 16}, {78, 16}}, color = {0, 0, 127}));
+    Line(points = {{22, 70}, {48, 70}, {48, 23}, {58, 23}}, color = {0, 0, 127}));
   connect(AirplaneDyn.FltStatesBus1, sensorPhi.FltStatesBus1) annotation(
-    Line(points = {{120, -16}, {120, -80}}, color = {255, 204, 51}, thickness = 0.5));
+    Line(points = {{120, -13}, {120, -80}}, color = {255, 204, 51}, thickness = 0.5));
   connect(sensorPhi.y_phi, feedback.u2) annotation(
     Line(points = {{109, -90}, {-130, -90}, {-130, -18}}, color = {0, 0, 127}));
   connect(feedback.y, limIntegrator1.u) annotation(

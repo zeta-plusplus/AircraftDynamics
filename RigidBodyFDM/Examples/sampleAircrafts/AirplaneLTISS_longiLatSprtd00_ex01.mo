@@ -22,7 +22,7 @@ model AirplaneLTISS_longiLatSprtd00_ex01
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg2 annotation(
     Placement(visible = true, transformation(origin = {-50, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.AirplaneLTISS_longiLatSprtd00 AirplaneDyn(redeclare package Medium = surrFluid) annotation(
-    Placement(visible = true, transformation(origin = {30, 20}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {30, 10}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg3 annotation(
     Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.RealExpression uSignal_deltaE(y = if time <= 2 then 0 elseif 2 <= time and time <= 3 then -3
@@ -39,17 +39,17 @@ equation
   connect(uSignal_deltaFracT.y, gain_Tnominal.u) annotation(
     Line(points = {{-79, 40}, {-70, 40}, {-70, 40}, {-61, 40}, {-61, 40}, {-63, 40}, {-63, 40}, {-63, 40}}, color = {0, 0, 127}));
   connect(gain_Tnominal.y, AirplaneDyn.u_deltaT) annotation(
-    Line(points = {{-39, 40}, {-35, 40}, {-35, 32}, {-4, 32}}, color = {0, 0, 127}));
+    Line(points = {{-39, 40}, {-35, 40}, {-35, 17}, {-2, 17}}, color = {0, 0, 127}));
   connect(uSignal_deltaE.y, from_deg1.u) annotation(
     Line(points = {{-79, 80}, {-63, 80}, {-63, 80}, {-63, 80}}, color = {0, 0, 127}));
   connect(from_deg3.y, AirplaneDyn.u_deltaR) annotation(
-    Line(points = {{-39, -40}, {-34, -40}, {-34, -40}, {-29, -40}, {-29, 2}, {-17.5, 2}, {-17.5, 2}, {-11.75, 2}, {-11.75, 2}, {-4, 2}}, color = {0, 0, 127}));
+    Line(points = {{-39, -40}, {-29, -40}, {-29, -3}, {-2, -3}}, color = {0, 0, 127}));
   connect(uSignal_deltaR.y, from_deg3.u) annotation(
     Line(points = {{-79, -40}, {-76.5, -40}, {-76.5, -40}, {-72, -40}, {-72, -40}, {-63, -40}, {-63, -40}, {-64, -40}, {-64, -40}, {-63, -40}}, color = {0, 0, 127}));
   connect(from_deg1.y, AirplaneDyn.u_deltaE) annotation(
-    Line(points = {{-39, 80}, {-27, 80}, {-27, 44}, {-4, 44}}, color = {0, 0, 127}));
+    Line(points = {{-39, 80}, {-27, 80}, {-27, 23}, {-2, 23}}, color = {0, 0, 127}));
   connect(from_deg2.y, AirplaneDyn.u_deltaA) annotation(
-    Line(points = {{-39, 0}, {-38.5, 0}, {-38.5, 0}, {-38, 0}, {-38, 0}, {-35, 0}, {-35, 14}, {-20.5, 14}, {-20.5, 14}, {-4, 14}}, color = {0, 0, 127}));
+    Line(points = {{-39, 0}, {-35, 0}, {-35, 3}, {-2, 3}}, color = {0, 0, 127}));
   connect(uSignal_deltaA.y, from_deg2.u) annotation(
     Line(points = {{-79, 0}, {-61, 0}, {-61, 0}, {-63, 0}, {-63, 0}, {-63, 0}, {-63, 0}, {-63, 0}}, color = {0, 0, 127}));
   annotation(

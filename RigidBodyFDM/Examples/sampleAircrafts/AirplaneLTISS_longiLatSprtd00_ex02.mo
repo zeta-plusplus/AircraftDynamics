@@ -47,23 +47,23 @@ model AirplaneLTISS_longiLatSprtd00_ex02
     Placement(visible = true, transformation(origin = {30, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 equation
   connect(AirplaneDyn.FltStatesBus1, sensorMach.FltStatesBus1) annotation(
-    Line(points = {{60, -34}, {60, -94}, {30, -94}, {30, -100}}, color = {255, 204, 51}, thickness = 0.5));
+    Line(points = {{60, -33}, {60, -94}, {30, -94}, {30, -100}}, color = {255, 204, 51}, thickness = 0.5));
   connect(AirplaneDyn.FltStatesBus1, sensorBeta.FltStatesBus1) annotation(
-    Line(points = {{60, -34}, {60, -100}}, color = {255, 204, 51}, thickness = 0.5));
+    Line(points = {{60, -33}, {60, -100}}, color = {255, 204, 51}, thickness = 0.5));
   connect(AirplaneDyn.FltStatesBus1, sensorPsi.FltStatesBus1) annotation(
-    Line(points = {{60, -34}, {72, -34}, {72, -80}, {80, -80}}, color = {255, 204, 51}, thickness = 0.5));
+    Line(points = {{60, -33}, {72, -33}, {72, -80}, {80, -80}}, color = {255, 204, 51}, thickness = 0.5));
   connect(AirplaneDyn.FltStatesBus1, sensorAirspeed.FltStatesBus1) annotation(
-    Line(points = {{60, -34}, {64, -34}, {64, 100}, {80, 100}}, color = {255, 204, 51}, thickness = 0.5));
+    Line(points = {{60, -33}, {64, -33}, {64, 100}, {80, 100}}, color = {255, 204, 51}, thickness = 0.5));
   connect(AirplaneDyn.FltStatesBus1, sensorAlpha.FltStatesBus1) annotation(
-    Line(points = {{60, -34}, {66, -34}, {66, 70}, {80, 70}}, color = {255, 204, 51}, thickness = 0.5));
+    Line(points = {{60, -33}, {66, -33}, {66, 70}, {80, 70}}, color = {255, 204, 51}, thickness = 0.5));
   connect(AirplaneDyn.FltStatesBus1, sensorAltitude.FltStatesBus1) annotation(
-    Line(points = {{60, -34}, {68, -34}, {68, 40}, {80, 40}}, color = {255, 204, 51}, thickness = 0.5));
+    Line(points = {{60, -33}, {68, -33}, {68, 40}, {80, 40}}, color = {255, 204, 51}, thickness = 0.5));
   connect(AirplaneDyn.FltStatesBus1, sensorGamma.FltStatesBus1) annotation(
-    Line(points = {{60, -34}, {70, -34}, {70, 10}, {80, 10}}, color = {255, 204, 51}, thickness = 0.5));
+    Line(points = {{60, -33}, {70, -33}, {70, 10}, {80, 10}}, color = {255, 204, 51}, thickness = 0.5));
   connect(AirplaneDyn.FltStatesBus1, sensorTheta.FltStatesBus1) annotation(
-    Line(points = {{60, -34}, {70, -34}, {70, -20}, {80, -20}}, color = {255, 204, 51}, thickness = 0.5));
+    Line(points = {{60, -33}, {70, -33}, {70, -20}, {80, -20}}, color = {255, 204, 51}, thickness = 0.5));
   connect(AirplaneDyn.FltStatesBus1, sensorPhi.FltStatesBus1) annotation(
-    Line(points = {{60, -34}, {74, -34}, {74, -50}, {80, -50}}, color = {255, 204, 51}, thickness = 0.5));
+    Line(points = {{60, -33}, {74, -33}, {74, -50}, {80, -50}}, color = {255, 204, 51}, thickness = 0.5));
   connect(uSignal_deltaR.y, from_deg3.u) annotation(
     Line(points = {{-78, -70}, {-64, -70}, {-64, -70}, {-62, -70}}, color = {0, 0, 127}));
   connect(uSignal_deltaA.y, from_deg2.u) annotation(
@@ -73,13 +73,13 @@ equation
   connect(uSignal_deltaE.y, from_deg1.u) annotation(
     Line(points = {{-78, 50}, {-62, 50}, {-62, 50}, {-62, 50}}, color = {0, 0, 127}));
   connect(from_deg3.y, AirplaneDyn.u_deltaR) annotation(
-    Line(points = {{-38, -70}, {-30, -70}, {-30, -28}, {-3, -28}}, color = {0, 0, 127}));
+    Line(points = {{-38, -70}, {-30, -70}, {-30, -23}, {-2, -23}}, color = {0, 0, 127}));
   connect(from_deg2.y, AirplaneDyn.u_deltaA) annotation(
-    Line(points = {{-38, -30}, {-36, -30}, {-36, -16}, {-3, -16}}, color = {0, 0, 127}));
+    Line(points = {{-38, -30}, {-36, -30}, {-36, -17}, {-2, -17}}, color = {0, 0, 127}));
   connect(gain_Tnominal.y, AirplaneDyn.u_deltaT) annotation(
-    Line(points = {{-38, 10}, {-36, 10}, {-36, 2}, {-3, 2}}, color = {0, 0, 127}));
+    Line(points = {{-38, 10}, {-36, 10}, {-36, -3}, {-2, -3}}, color = {0, 0, 127}));
   connect(from_deg1.y, AirplaneDyn.u_deltaE) annotation(
-    Line(points = {{-38, 50}, {-28, 50}, {-28, 14}, {-3, 14}}, color = {0, 0, 127}));
+    Line(points = {{-38, 50}, {-28, 50}, {-28, 3}, {-2, 3}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-100, -120}, {120, 120}})),
     __OpenModelica_commandLineOptions = "",
