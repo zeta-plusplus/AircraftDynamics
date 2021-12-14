@@ -203,7 +203,7 @@ model AirplaneLTISS_longiLatSprtd00
   AircraftDynamics.Sources.FlightCondition2Fluid00 Flt2Fluid(redeclare package Medium = Medium, C_fluid_paramInput = C_fluidSurr_par, MN_paramInput = MNfltSteady_par, X_fluid_paramInput = X_fluidSurr_par, alt_paramInput = altFltSteady_par, dTamb_paramInput = dTambFltSteady_par) annotation(
     Placement(visible = true, transformation(origin = {-90, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.LongitudinalLTISS00 FltDynLongiSS(CD1 = CD1, CDalpha = CDalpha, CDdeltaE = CDdeltaE, CDu = CDu, CL1 = CL1, CLalpha = CLalpha, CLalpha_dot = CLalpha_dot, CLdeltaE = CLdeltaE, CLq = CLq, CLu = CLu, CTX1 = CTX1, CTXu = CTXu, Cm1 = Cm1, CmAlpha = CmAlpha, CmAlpha_dot = CmAlpha_dot, CmDeltaE = CmDeltaE, Cmq = Cmq, Cmu = Cmu, Iyy_par = Iyy_par, S_par = S_par, alpha1 = alpha1, cBar_par = cBar_par, gamma1 = gamma1, m_par = m_par, psiTi_par = psiTi_par, q1 = q1, thetaTi_par = thetaTi_par, use_u_U1 = true, use_u_q1bar = true, xBarTi_par = xBarTi_par, zBarTi_par = zBarTi_par) annotation(
-    Placement(visible = true, transformation(origin = {-10.5, 20.3334}, extent = {{-29.5, -19.6666}, {29.5, 19.6666}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-9.99999, 20.0001}, extent = {{-30, -19.9999}, {30, 19.9999}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.LateralLTISS00 FltDynLateralSS(CYbeta = CYbeta, CYdeltaA = CYdeltaA, CYdeltaF = CYdeltaF, CYdeltaR = CYdeltaR, CYdeltaS = CYdeltaS, CYp = CYp, CYr = CYr, Clbeta = Clbeta, CldeltaA = CldeltaA, CldeltaF = CldeltaF, CldeltaR = CldeltaR, CldeltaS = CldeltaS, Clp = Clp, Clr = Clr, Cnbeta = Cnbeta, CndeltaA = CndeltaA, CndeltaF = CndeltaF, CndeltaR = CndeltaR, CndeltaS = CndeltaS, Cnp = Cnp, Cnr = Cnr, Ixx_par = Ixx_par, Ixz_par = Ixz_par, Izz_par = Izz_par, S_par = S_par, b_par = b_par, beta0 = beta0, beta1 = beta1, m_par = m_par, p0 = p0, p1 = p1, phi0 = phi0, phi1 = phi1, psi0 = psi0, psi1 = psi1, r0 = r0, r1 = r1, theta1 = alpha1 + gamma1, use_u_U1 = true, use_u_q1bar = true) annotation(
     Placement(visible = true, transformation(origin = {-10, -50}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   /**/
@@ -267,7 +267,7 @@ equation
   interface; internal -- connector
   ------------------------------*/
   connect(u_deltaT, FltDynLongiSS.u_deltaT) annotation(
-    Line(points = {{-140, 40}, {-116, 40}, {-116, 9}, {-42, 9}}, color = {0, 0, 127}));
+    Line(points = {{-140, 40}, {-116, 40}, {-116, 8}, {-42, 8}}, color = {0, 0, 127}));
   connect(u_deltaE, FltDynLongiSS.u_deltaE) annotation(
     Line(points = {{-140, 80}, {-108, 80}, {-108, 32}, {-42, 32}}, color = {0, 0, 127}));
   connect(Flt2Fluid.y_V_inf, FltDynLongiSS.u_U1) annotation(
