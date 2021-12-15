@@ -4,7 +4,6 @@ model WingSimple00_test01
   extends Modelica.Icons.Example;
   //package engineAir = Modelica.Media.Air.DryAirNasa;
   package engineAir= AircraftDynamics.Media.DryAirMethaneMixture00;
-  
   //----
   AircraftDynamics.Aerodynamics.Components.Flight2Fluid flight2Fluid1(redeclare package Medium = engineAir, MNdes = 0.3, switchInput_AoA = AircraftDynamics.Types.switches.switch_input.use_inputSignal, switchInput_MN = AircraftDynamics.Types.switches.switch_input.use_inputSignal, switchInput_alt = AircraftDynamics.Types.switches.switch_input.use_inputSignal, switchInput_dTamb = AircraftDynamics.Types.switches.switch_input.use_inputSignal, switchInput_relHum = AircraftDynamics.Types.switches.switch_input.use_inputSignal, switchInput_sideSlip = AircraftDynamics.Types.switches.switch_input.use_inputSignal) annotation(
     Placement(visible = true, transformation(origin = {-30, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -26,7 +25,7 @@ model WingSimple00_test01
     Placement(visible = true, transformation(origin = {19.4286, -20}, extent = {{-11.4286, -40}, {11.4286, 40}}, rotation = 0)));
 equation
   connect(flight2Fluid1.y_Mn, wing.busFltStates1.Mn) annotation(
-    Line(points = {{-18, 8}, {-8, 8}, {-8, -60}, {14, -60}, {14, -60}}, color = {0, 0, 127}));
+    Line(points = {{-19, 10}, {-8, 10}, {-8, -60}, {14, -60}}, color = {0, 0, 127}));
   connect(ramp2.y, wing.busFltStates1.alpha) annotation(
     Line(points = {{-29, -30}, {-24, -30}, {-24, -60}, {14, -60}}, color = {0, 0, 127}));
   connect(flight2Fluid1.u_Mn, ramp1.y) annotation(

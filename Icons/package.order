@@ -5,8 +5,10 @@ Icon_AircraftMass3DoF
 Icon_AircraftMass2DoF
 Icon_LongitudinalDynamics
 Icon_LateralDynamics
+Icon_Airfoil2D
+Icon_Airfoil2Wing
+Icon_WingSimple
+Icon_DragObject
 Icon_FlightCondition2InletFluid00
 Icon_header_AircraftDynamicsLib
 Icon_AircraftMass6DoF
-Icon_Airfoil2D
-Icon_Airfoil2Wing
