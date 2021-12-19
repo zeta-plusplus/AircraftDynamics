@@ -72,12 +72,13 @@ model AircraftMassCenter
   
   Real LqD;
   //---
-  Modelica.SIunits.Length radiTurn(start=0) "radius of centripital motion, horizontal turning circle";    // added, 2DoF -> 3DoF
-  Modelica.SIunits.Position yWorld(start=yWorldInit) "";    // added, 2DoF -> 3DoF
-  Modelica.SIunits.Position fltDist(start=yWorldInit) "";    // added, 2DoF -> 3DoF
-
-//********** Internal objects **********
-initial equation
+  Modelica.SIunits.Length radiTurn(start=0) "radius of centripital motion, horizontal turning circle";      // added, 2DoF -> 3DoF
+  Modelica.SIunits.Position yWorld(start=yWorldInit) "";      // added, 2DoF -> 3DoF
+  Modelica.SIunits.Position fltDist(start=yWorldInit) "";
+  // added, 2DoF -> 3DoF
+  //********** Internal objects **********
+  AircraftDynamics.Interfaces.VisualizerInfoOut00 VisInfoOut annotation(
+    Placement(visible = true, transformation(origin = {80, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {80, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));    initial equation
   fltStates.q= qInit;
   
 equation
@@ -85,9 +86,19 @@ equation
   connect(InfoBus1.Vflow, fltStates.V);
   connect(InfoBus1.Mn, fltStates.Mn);
 //---
-  connect(InfoBus1.phi, fltStates.phi);
-// added, 2DoF -> 3DoF
-/*------------------------------
+  connect(InfoBus1.phi, fltStates.phi);// added, 2DoF -> 3DoF
+  //-----
+  VisInfoOut.r[1] = fltStates.xEast;
+  VisInfoOut.r[2] = fltStates.xNorth;
+  VisInfoOut.r[3] = fltStates.alt;
+  VisInfoOut.theta[1] = fltStates.phi;
+  VisInfoOut.theta[2] = fltStates.theta;
+  VisInfoOut.theta[3] = fltStates.psi;
+//-----
+  
+  
+  
+  /*------------------------------
   specify witch angle is fixed by command signal from outside of component
   ------------------------------*/
   if switchDef_modeStabilityLongi == switches.switch_modeStabilityLongi.maintainAoA then
@@ -129,6 +140,7 @@ equation
   fltStates.XGdot= der(fltStates.XG);
   fltStates.YGdot= der(fltStates.YG);
   fltStates.ZGdot= der(fltStates.ZG);
+  
   
   /*------------------------------
   eqns of dynamics

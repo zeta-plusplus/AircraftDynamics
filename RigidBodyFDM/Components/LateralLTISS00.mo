@@ -4,17 +4,17 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
   extends AircraftDynamics.Icons.Icon_LateralDynamics;
   extends AircraftDynamics.RigidBodyFDM.BaseClasses.LTISS00;
   /********************************************************
-                          imports
-        ********************************************************/
+                            imports
+          ********************************************************/
   import Modelica.Constants;
   import Modelica.Utilities.Streams;
   import Modelica.SIunits;
   /********************************************************
-                             Declaration
-        ********************************************************/
+                               Declaration
+          ********************************************************/
   /* ---------------------------------------------
-              switches
-        --------------------------------------------- */
+                switches
+          --------------------------------------------- */
   parameter Boolean use_u_q1bar = true "" annotation(
     Evaluate = true,
     HideResult = true,
@@ -56,8 +56,8 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
     choices(checkBox = true),
     Dialog(group = "switch"));
   /* ---------------------------------------------
-                    parameters
-        --------------------------------------------- */
+                      parameters
+          --------------------------------------------- */
   //********** Initial States **********
   parameter Modelica.SIunits.Angle beta1 = 0.0 * (Constants.pi / 180.0) "sideslip, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
@@ -148,8 +148,8 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
   parameter SIunits.Pressure q1bar_par = 2384.17 "" annotation(
     Dialog(group = "Steady Flight Condition"));
   /* ---------------------------------------------
-                    Internal variables
-              --------------------------------------------- */
+                      Internal variables
+                --------------------------------------------- */
   redeclare Real x[5](start = x0, final quantity = {"Angle", "AngularVelocity", "AngularVelocity", "Angle", "Angle"}) "State vector" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
   redeclare Real u[2] "Input vector" annotation(
@@ -158,17 +158,17 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
   //---
   /* ---------------------------------------------
-                  Internal objects
-              --------------------------------------------- */
+                    Internal objects
+                --------------------------------------------- */
   inner outer AircraftDynamics.SimEnvironment environmentAircraftDynSim annotation(
     Placement(visible = true, transformation(origin = {-50, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   discrete AircraftDynamics.RigidBodyFDM.Components.DerivativesLateralNonDim2Dim00 DerLateral annotation(
     Placement(visible = true, transformation(origin = {-20, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   /* ---------------------------------------------
-                        Interface
-      --------------------------------------------- */
+                          Interface
+        --------------------------------------------- */
   AircraftDynamics.Types.InfoBus infoBus1 annotation(
-    Placement(visible = true, transformation(origin = {120, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {80, -150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {120, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {140, -150}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //---
   Modelica.Blocks.Interfaces.RealOutput y_beta(final quantity = "Angle", final unit = "rad", displayUnit = "deg") annotation(
     Placement(visible = true, transformation(origin = {130, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {160, 120}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -206,10 +206,12 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
     Placement(visible = true, transformation(origin = {-140, -90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-160, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //---
   //********************************************************************************
+  AircraftDynamics.Interfaces.VisualizerInfoOut00 VisInfoOut annotation(
+    Placement(visible = true, transformation(origin = {60, -100}, extent = {{-16, -16}, {16, 16}}, rotation = -90), iconTransformation(origin = {100, -150}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 protected
   /* ---------------------------------------------
-                    calculated parameters
-        --------------------------------------------- */
+                      calculated parameters
+          --------------------------------------------- */
   redeclare parameter Real A[5, 5](each fixed = false) annotation(
     fixed = false,
     HideResult = false);
@@ -225,7 +227,7 @@ protected
   redeclare parameter Real x0[5](each fixed = false) "Initial state vector" annotation(
     HideResult = false);
   //-----
-  parameter SIunits.Acceleration g(fixed=false) "";
+  parameter SIunits.Acceleration g(fixed = false) "";
   parameter SIunits.Velocity U1(fixed = false) "";
   parameter SIunits.Pressure q1bar(fixed = false) "";
   parameter SIunits.Area S(fixed = false) "";
@@ -421,53 +423,63 @@ equation
   y_psi = psi1 + x[5];
   y_aY = y[1];
 //-----
+  VisInfoOut.r[1] = 0.0;
+// dummy connection
+  VisInfoOut.r[2] = 0.0;
+// dummy connection
+  VisInfoOut.r[3] = 0.0;
+// dummy connection
+  VisInfoOut.theta[1] = y_phi;
+  VisInfoOut.theta[2] = 0.0;
+// dummy connection
+  VisInfoOut.theta[3] = y_psi;
+//-----
 //----- flight condition -----
   connect(DerLateral.infoBusFlt.U1, U1);
-  connect(DerLateral.infoBusFlt.q1bar , q1bar);
-  connect(DerLateral.infoBusFlt.g , g);
-  connect(DerLateral.infoBusFlt.theta1 , theta1);
+  connect(DerLateral.infoBusFlt.q1bar, q1bar);
+  connect(DerLateral.infoBusFlt.g, g);
+  connect(DerLateral.infoBusFlt.theta1, theta1);
 //---
 //----- aircraft characteristics -----
   connect(DerLateral.infoBusAircraft.S, S);
-  connect(DerLateral.infoBusAircraft.m , m);
-  connect(DerLateral.infoBusAircraft.b , b);
-  connect(DerLateral.infoBusAircraft.Ixx , Ixx);
-  connect(DerLateral.infoBusAircraft.Izz , Izz);
-  connect(DerLateral.infoBusAircraft.Ixz , Ixz);
+  connect(DerLateral.infoBusAircraft.m, m);
+  connect(DerLateral.infoBusAircraft.b, b);
+  connect(DerLateral.infoBusAircraft.Ixx, Ixx);
+  connect(DerLateral.infoBusAircraft.Izz, Izz);
+  connect(DerLateral.infoBusAircraft.Ixz, Ixz);
 //---
 //----- Non-dimentional coefficients/derivatives -----
   connect(DerLateral.infoBusNonDim.CYbeta, CYbeta);
-  connect(DerLateral.infoBusNonDim.CYp , CYp);
-  connect(DerLateral.infoBusNonDim.CYr , CYr);
-  connect(DerLateral.infoBusNonDim.CYdeltaA , CYdeltaA);
-  connect(DerLateral.infoBusNonDim.CYdeltaR , CYdeltaR);
+  connect(DerLateral.infoBusNonDim.CYp, CYp);
+  connect(DerLateral.infoBusNonDim.CYr, CYr);
+  connect(DerLateral.infoBusNonDim.CYdeltaA, CYdeltaA);
+  connect(DerLateral.infoBusNonDim.CYdeltaR, CYdeltaR);
 //---
   connect(DerLateral.infoBusNonDim.Clbeta, Clbeta);
-  connect(DerLateral.infoBusNonDim.Clp , Clp);
-  connect(DerLateral.infoBusNonDim.Clr , Clr);
-  connect(DerLateral.infoBusNonDim.CldeltaA , CldeltaA);
-  connect(DerLateral.infoBusNonDim.CldeltaR , CldeltaR);
+  connect(DerLateral.infoBusNonDim.Clp, Clp);
+  connect(DerLateral.infoBusNonDim.Clr, Clr);
+  connect(DerLateral.infoBusNonDim.CldeltaA, CldeltaA);
+  connect(DerLateral.infoBusNonDim.CldeltaR, CldeltaR);
 //---
   connect(DerLateral.infoBusNonDim.Cnbeta, Cnbeta);
-  connect(DerLateral.infoBusNonDim.Cnp , Cnp);
-  connect(DerLateral.infoBusNonDim.Cnr , Cnr);
-  connect(DerLateral.infoBusNonDim.CndeltaA , CndeltaA);
-  connect(DerLateral.infoBusNonDim.CndeltaR , CndeltaR);
+  connect(DerLateral.infoBusNonDim.Cnp, Cnp);
+  connect(DerLateral.infoBusNonDim.Cnr, Cnr);
+  connect(DerLateral.infoBusNonDim.CndeltaA, CndeltaA);
+  connect(DerLateral.infoBusNonDim.CndeltaR, CndeltaR);
 //---
   connect(DerLateral.infoBusNonDim.CYdeltaS, CYdeltaS);
-  connect(DerLateral.infoBusNonDim.CYdeltaF , CYdeltaF);
-  connect(DerLateral.infoBusNonDim.CldeltaS , CldeltaS);
-  connect(DerLateral.infoBusNonDim.CldeltaF , CldeltaF);
-  connect(DerLateral.infoBusNonDim.CndeltaS , CndeltaS);
-  connect(DerLateral.infoBusNonDim.CndeltaF , CndeltaF);
-  
-  /**/
+  connect(DerLateral.infoBusNonDim.CYdeltaF, CYdeltaF);
+  connect(DerLateral.infoBusNonDim.CldeltaS, CldeltaS);
+  connect(DerLateral.infoBusNonDim.CldeltaF, CldeltaF);
+  connect(DerLateral.infoBusNonDim.CndeltaS, CndeltaS);
+  connect(DerLateral.infoBusNonDim.CndeltaF, CndeltaF);
+/**/
 /********************************************************
   Graphics
 ********************************************************/
   annotation(
     defaultComponentName = "FltDynLateralSS",
-    Icon(graphics = {Text(origin = {-35, -162}, extent = {{-109, 8}, {171, -14}}, textString = "%name")}, coordinateSystem(extent = {{-150, -150}, {150, 150}}, initialScale = 0.1)),
+    Icon(graphics = {Text(origin = {-35, -166}, extent = {{-109, 8}, {171, -14}}, textString = "%name")}, coordinateSystem(extent = {{-150, -150}, {150, 150}}, initialScale = 0.1)),
     __OpenModelica_commandLineOptions = "",
     Diagram(coordinateSystem(extent = {{-120, -100}, {120, 120}})));
 end LateralLTISS00;

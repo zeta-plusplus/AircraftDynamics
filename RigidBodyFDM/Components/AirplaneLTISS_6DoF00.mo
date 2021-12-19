@@ -230,7 +230,7 @@ model AirplaneLTISS_6DoF00
     Placement(visible = true, transformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {180, -140}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   //**********************************************************************
   AircraftDynamics.Interfaces.VisualizerInfoOut00 VisInfoOut annotation(
-    Placement(visible = true, transformation(origin = {90, 100}, extent = {{-16, -16}, {16, 16}}, rotation = 90), iconTransformation(origin = {160, 180}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {100, 100}, extent = {{-16, -16}, {16, 16}}, rotation = 90), iconTransformation(origin = {160, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 initial equation
   fltStates.alt = altFltSteady_par;
   fltStates.XG = XGfltSteady_par;
@@ -272,7 +272,7 @@ equation
   connect(fltStates.phi, ResolveFrameRotational.busAttitude.phi);
   connect(fltStates.theta, ResolveFrameRotational.busAttitude.theta);
   connect(fltStates.psi, ResolveFrameRotational.busAttitude.psi);
-  //-----
+//-----
   VisInfoOut.r[1] = fltStates.xEast;
   VisInfoOut.r[2] = fltStates.xNorth;
   VisInfoOut.r[3] = fltStates.alt;

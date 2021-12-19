@@ -25,7 +25,7 @@ model AnimRigidBodyAircraft00
               Internal objects
   --------------------------------------------- */
   inner Modelica.Mechanics.MultiBody.World world(animateGravity = false,animateWorld = true, enableAnimation = true)  annotation(
-    Placement(visible = true, transformation(origin = {-74, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-50, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Frames.Orientation R;
   
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape aircraft(

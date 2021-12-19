@@ -228,7 +228,7 @@ model AirplaneLTISS_longiLatSprtd00
   AircraftDynamics.Types.InfoBus infoBus1 annotation(
     Placement(visible = true, transformation(origin = {120, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {180, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.Interfaces.VisualizerInfoOut00 VisInfoOut annotation(
-    Placement(visible = true, transformation(origin = {100, 100}, extent = {{-16, -16}, {16, 16}}, rotation = 90), iconTransformation(origin = {160, 180}, extent = {{-16, -16}, {16, 16}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {100, 100}, extent = {{-16, -16}, {16, 16}}, rotation = 90), iconTransformation(origin = {160, 180}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 initial equation
   fltStates.alt = altFltSteady_par;
   fltStates.XG = XGfltSteady_par;
@@ -285,7 +285,7 @@ equation
     Line(points = {{-79, 67}, {-64, 67}, {-64, -26}, {-42, -26}}, color = {0, 0, 127}));
   connect(Flt2Fluid.y_qBar, FltDynLateralSS.u_q1bar) annotation(
     Line(points = {{-79, 64}, {-72, 64}, {-72, -38}, {-42, -38}}, color = {0, 0, 127}));
-  //-----
+//-----
   VisInfoOut.r[1] = fltStates.xEast;
   VisInfoOut.r[2] = fltStates.xNorth;
   VisInfoOut.r[3] = fltStates.alt;

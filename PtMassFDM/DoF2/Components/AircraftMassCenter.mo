@@ -46,13 +46,25 @@ model AircraftMassCenter
   Modelica.SIunits.Energy EMechanical "";
   Real LqD;
   //********** Internal objects **********
+  AircraftDynamics.Interfaces.VisualizerInfoOut00 VisInfoOut annotation(
+    Placement(visible = true, transformation(origin = {70, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 90), iconTransformation(origin = {70, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 initial equation
   fltStates.q = qInit;
 equation
   connect(InfoBus1.alpha, fltStates.alpha);
   connect(InfoBus1.Vflow, fltStates.V);
   connect(InfoBus1.Mn, fltStates.Mn);
-/*------------------------------
+//-----
+  VisInfoOut.r[1] = xWorld;
+  VisInfoOut.r[2] = 0.0;  // dummy connection
+  VisInfoOut.r[3] = alt;
+  VisInfoOut.theta[1] = 0.0;  // dummy connection
+  VisInfoOut.theta[2] = fltStates.theta;
+  VisInfoOut.theta[3] = 0.0;  // dummy connection
+//-----
+  
+  
+  /*------------------------------
   specify witch angle is fixed by command signal from outside of component
   ------------------------------*/
   if switchDef_modeStabilityLongi == switches.switch_modeStabilityLongi.maintainAoA then
@@ -82,6 +94,9 @@ equation
   fltStates.alt = alt;
   fltStates.XGdot = der(fltStates.XG);
   fltStates.ZGdot = der(fltStates.ZG);
+  fltStates.xEast= 0.0;
+  fltStates.xNorth= xWorld;
+  
 /*------------------------------
   eqns of dynamics
   ------------------------------*/
