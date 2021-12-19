@@ -1,0 +1,42 @@
+#1
+double deltaE(10,2)   # elevator deflection
+  0   0
+  2   0
+  2   -3
+  4   -3
+  4	  0
+  10   0
+  10   3
+  11   3
+  11   0
+  500   0
+double deltaFracT(6,2)   # chenge in thrust fraction
+  0   0
+  65   0
+  65   0.4
+  85   0.4
+  85   0
+  500   0
+double deltaA(10,2)   # aileron deflection
+  0   0
+  40   0
+  40   -3.2
+  42   -3.2
+  42	-0.02
+  60   -0.02
+  60   3.2
+  62   3.2
+  62   0
+  500   0
+double deltaR(10,2)   # rudder deflection
+  0   0
+  20   0
+  20   -3
+  21   -3
+  21	0
+  25   0
+  25   2.8
+  26   2.8
+  26   0
+  500   0
+  

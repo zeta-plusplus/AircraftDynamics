@@ -4,17 +4,27 @@ model AnimRigidBodyAircraft00
   import Units= Modelica.SIunits;
   import Modelica.Mechanics.MultiBody.Frames;
   
+  /* ---------------------------------------------
+              parameters
+  --------------------------------------------- */
+  parameter Units.Length length=2;
+  parameter Units.Length width=1;
+  parameter Units.Length height= 0.3;
+  parameter Units.Position CGbody[3]={15, 0, 1};
+  parameter Units.Length lengthOfAxes=20;
+  parameter Units.Length diameterOfAxes=1/20*lengthOfAxes;
+  
   
   /* ---------------------------------------------
               Internal variables
   --------------------------------------------- */
   Units.Position r[3];
-  Units.Angle att[3];
+  Units.Angle theta[3];
   
   /* ---------------------------------------------
               Internal objects
   --------------------------------------------- */
-  inner Modelica.Mechanics.MultiBody.World world(animateWorld = true, enableAnimation = true)  annotation(
+  inner Modelica.Mechanics.MultiBody.World world(animateGravity = false,animateWorld = true, enableAnimation = true)  annotation(
     Placement(visible = true, transformation(origin = {-74, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Frames.Orientation R;
   
@@ -25,7 +35,7 @@ model AnimRigidBodyAircraft00
     height = 0.3, 
     lengthDirection = {1, 0, 0}, 
     widthDirection = {0, 1, 0}, 
-    r_shape = {0, 0, 0},
+    r_shape = {-1.0*CGbody[1], -1.0*CGbody[2], -1.0*CGbody[3]},
     r= r,
     R = R);
   /**/
@@ -45,14 +55,14 @@ equation
     r[i]= VisInfoIn.r[i];
   end for;
   
-  att[1]= VisInfoIn.att[1];
-  att[2]= VisInfoIn.att[2];
-  att[3]= VisInfoIn.att[3] - 90*Modelica.Constants.pi/180.0;
+  theta[1]= VisInfoIn.theta[1];
+  theta[2]= VisInfoIn.theta[2];
+  theta[3]= VisInfoIn.theta[3] - 90.0*Modelica.Constants.pi/180.0;
   
   /*------------------------------
   describing physics
   ------------------------------*/
-  R = Frames.axesRotations({3, 2, 1}, {att[3], att[2], att[1]}, {der(att[3]), der(att[2]), der(att[1])});
+  R = Frames.axesRotations({3, 2, 1}, {theta[3], theta[2], theta[1]}, {der(theta[3]), der(theta[2]), der(theta[1])});
   
   
   
