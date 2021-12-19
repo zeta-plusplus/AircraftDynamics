@@ -9,7 +9,7 @@ connector VisualizerInfoIn00
   
 annotation (defaultComponentName="VisInfoIn",
    Icon(coordinateSystem(
-        initialScale = 0.16), graphics={Rectangle(lineColor = {95, 95, 95}, lineThickness = 0.5, extent = {{-10, 10}, {10, -10}}), Rectangle(fillColor = {237, 237, 237}, fillPattern = FillPattern.Solid, extent = {{-30, 100}, {30, -100}}), Polygon(origin = {-4, 0}, fillPattern = FillPattern.Solid, points = {{-21, 40}, {-21, -40}, {31, 0}, {-21, 40}}), Text(origin = {0, -112}, extent = {{-100, 8}, {100, -8}}, textString = "%name")}),
+        initialScale = 0.16), graphics={Rectangle(lineColor = {95, 95, 95}, lineThickness = 0.5, extent = {{-10, 10}, {10, -10}}), Rectangle(fillColor = {237, 237, 237}, fillPattern = FillPattern.Solid, extent = {{-30, 100}, {30, -100}}), Polygon(origin = {-4, 0}, fillPattern = FillPattern.Solid, points = {{-21, 40}, {-21, -40}, {31, 0}, {-21, 40}})}),
    Diagram(coordinateSystem(initialScale = 0.16)));
 
 end VisualizerInfoIn00;
