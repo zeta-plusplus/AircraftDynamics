@@ -56,11 +56,13 @@ equation
   connect(InfoBus1.Mn, fltStates.Mn);
 //-----
   VisInfoOut.r[1] = xWorld;
-  VisInfoOut.r[2] = 0.0;  // dummy connection
+  VisInfoOut.r[2] = 0.0;
   VisInfoOut.r[3] = alt;
-  VisInfoOut.theta[1] = 0.0;  // dummy connection
+  VisInfoOut.theta[1] = 0.0;
   VisInfoOut.theta[2] = fltStates.theta;
-  VisInfoOut.theta[3] = 0.0;  // dummy connection
+  VisInfoOut.theta[3] = 0.0;
+  VisInfoOut.alpha= fltStates.alpha;
+  VisInfoOut.beta= 0.0;
 //-----
   
   

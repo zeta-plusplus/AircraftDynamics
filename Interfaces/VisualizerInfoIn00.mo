@@ -5,7 +5,8 @@ connector VisualizerInfoIn00
   //-----
   input Units.Position r[3] "position (global frame); xEast, xNorth, alt";
   input Units.Angle theta[3] "attitude angles; roll, pitch, yaw";
-  
+  input Units.Angle alpha "angle of attack";
+  input Units.Angle beta "sideslip angle";
   
 annotation (defaultComponentName="VisInfoIn",
    Icon(coordinateSystem(

@@ -10,15 +10,16 @@ model AnimRigidBodyAircraftAttitude00
   parameter Units.Length length=2;
   parameter Units.Length width=1;
   parameter Units.Length height= 0.3;
-  parameter Units.Position CGbody[3]={15, 0, 1};
+  parameter Units.Position CGbody[3]={15, 0, -1};
   parameter Units.Length lengthOfAxes=30;
-  parameter Units.Length diameterOfAxes=1/30*lengthOfAxes;
+  parameter Units.Length diameterOfAxes=1/40*lengthOfAxes;
   
   
   /* ---------------------------------------------
               Internal variables
   --------------------------------------------- */
-  Units.Angle theta[3];
+  Units.Angle theta[3] "euler angles of aircraft body, roll, pitch, heading";
+  Units.Angle thetaV[3] "euler angles of velcity vector, roll, pitch heading";
   
   
   
@@ -33,7 +34,8 @@ model AnimRigidBodyAircraftAttitude00
     )  annotation(
     Placement(visible = true, transformation(origin = {-50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   
-  Frames.Orientation R;
+  Frames.Orientation R "orientation of aircraft body";
+  Frames.Orientation RV "orientation of velocity vector";
   
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape aircraft(
     shapeType = "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR-mod001.stl", 
@@ -45,6 +47,15 @@ model AnimRigidBodyAircraftAttitude00
     r_shape = {-1.0*CGbody[1], -1.0*CGbody[2], -1.0*CGbody[3]},
     r= {0,0,0},
     R = R);
+  /**/
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Arrow VVector(
+    r_tail = {0,0,0},
+    r_head = {-1.3*CGbody[1], 0.0, 0.0},
+    r= {0,0,0},
+    diameter= diameterOfAxes*1.05,
+    color={0, 256, 0},
+    R = RV);
   /**/
   
   
@@ -60,13 +71,16 @@ equation
   theta[1]= -1.0*VisInfoIn.theta[1];
   theta[2]= VisInfoIn.theta[2];
   theta[3]= -1.0*VisInfoIn.theta[3] - 90.0*Modelica.Constants.pi/180.0;
+  thetaV[1]= theta[1];
+  thetaV[2]= theta[2]-VisInfoIn.alpha;
+  thetaV[3]= theta[3]+VisInfoIn.beta;
   
   
   /*------------------------------
   describing physics
   ------------------------------*/
   R = Frames.axesRotations({3, 2, 1}, {theta[3], theta[2], theta[1]}, {der(theta[3]), der(theta[2]), der(theta[1])});
-  
+  RV = Frames.axesRotations({3, 2, 1}, {thetaV[3], thetaV[2], thetaV[1]}, {der(thetaV[3]), der(thetaV[2]), der(thetaV[1])});
   
   
   annotation(defaultComponentName="AnimAircraft",

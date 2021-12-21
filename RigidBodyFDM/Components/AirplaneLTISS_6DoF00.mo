@@ -279,11 +279,9 @@ equation
   VisInfoOut.theta[1] = fltStates.phi;
   VisInfoOut.theta[2] = fltStates.theta;
   VisInfoOut.theta[3] = fltStates.psi;
-  /*
-  fltStates.phi = ResolveFrameRotational.busAttitude.phi;
-  fltStates.theta = ResolveFrameRotational.busAttitude.theta;
-  fltStates.psi = ResolveFrameRotational.busAttitude.psi;
-  */
+  VisInfoOut.alpha= fltStates.alpha;
+  VisInfoOut.beta= fltStates.beta;
+  //-----
   
   /*------------------------------
   interface; internal -- connector

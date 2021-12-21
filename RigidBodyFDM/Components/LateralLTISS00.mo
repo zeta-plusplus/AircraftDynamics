@@ -424,16 +424,15 @@ equation
   y_aY = y[1];
 //-----
   VisInfoOut.r[1] = 0.0;
-// dummy connection
   VisInfoOut.r[2] = 0.0;
-// dummy connection
   VisInfoOut.r[3] = 0.0;
-// dummy connection
   VisInfoOut.theta[1] = y_phi;
   VisInfoOut.theta[2] = 0.0;
-// dummy connection
   VisInfoOut.theta[3] = y_psi;
+  VisInfoOut.alpha= 0.0;
+  VisInfoOut.beta=y_beta;
 //-----
+
 //----- flight condition -----
   connect(DerLateral.infoBusFlt.U1, U1);
   connect(DerLateral.infoBusFlt.q1bar, q1bar);

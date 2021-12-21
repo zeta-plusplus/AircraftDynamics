@@ -435,16 +435,13 @@ equation
   y_aX = y[2];
 //-----
   VisInfoOut.r[1] = 0.0;
-// dummy connection
   VisInfoOut.r[2] = 0.0;
-// dummy connection
   VisInfoOut.r[3] = 0.0;
-// dummy connection
   VisInfoOut.theta[1] = 0.0;
-// dummy connection
   VisInfoOut.theta[2] = y_theta;
   VisInfoOut.theta[3] = 0.0;
-// dummy connection
+  VisInfoOut.alpha= y_alpha;
+  VisInfoOut.beta= 0.0;
 //-----
 //----- flight condition -----
   connect(DerLongi.infoBusFlt.U1, U1);
