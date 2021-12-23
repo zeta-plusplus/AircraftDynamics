@@ -1,17 +1,20 @@
 within AircraftDynamics.Visualizers;
 
-model AnimRigidBodyAircraftAttitude00
+model AnimATI00
   import Units= Modelica.SIunits;
   import Modelica.Mechanics.MultiBody.Frames;
   
   /* ---------------------------------------------
               parameters
   --------------------------------------------- */
-  parameter Units.Length length=2;
-  parameter Units.Length width=1;
-  parameter Units.Length height= 0.3;
-  parameter Units.Position CGbody[3]={15, 0, -1};
-  parameter Units.Length lengthOfAxes=30;
+  parameter Units.Length widthOf10degLine=10;
+  parameter Units.Length thickOf10degLine=0.1;
+  parameter Units.Length widthOfHorizon=50;
+  parameter Units.Length thickOfHorizon=0.25;
+  //-----
+  parameter Units.Length len1degPitch=0.5;
+  //-----
+  parameter Units.Length lengthOfAxes=5;
   parameter Units.Length diameterOfAxes=1/40*lengthOfAxes;
   
   
@@ -30,33 +33,51 @@ model AnimRigidBodyAircraftAttitude00
     animateGravity = false,animateWorld = true, 
     axisDiameter = diameterOfAxes, 
     axisLength = lengthOfAxes, 
-    enableAnimation = true, label1 = "East", label2 = "North"
+    enableAnimation = true
     )  annotation(
     Placement(visible = true, transformation(origin = {-50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   
   Frames.Orientation R "orientation of aircraft body";
-  Frames.Orientation RV "orientation of velocity vector";
+  Real rGrd[3];
   
-  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape aircraft(
-    shapeType = "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR-mod001.stl", 
-    length = length, 
-    width = 1, 
-    height = 0.3, 
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape horizon(
+    shapeType = "box", 
+    length = widthOfHorizon, 
+    width = 2, 
+    height = thickOfHorizon, 
     lengthDirection = {1, 0, 0}, 
-    widthDirection = {0, 1, 0}, 
-    r_shape = {-1.0*CGbody[1], -1.0*CGbody[2], -1.0*CGbody[3]},
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOfHorizon, rGrd[2], rGrd[3]},
     r= {0,0,0},
-    R = R);
-  /* "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR-mod001.stl" */
+    R = R,
+    color={0, 0, 0}
+    );
   
-  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Arrow VVector(
-    r_tail = {0,0,0},
-    r_head = {-1.3*CGbody[1], 0.0, 0.0},
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineP10deg(
+    shapeType = "box", 
+    length = widthOf10degLine, 
+    width = 2, 
+    height = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]+10*len1degPitch, rGrd[3]},
     r= {0,0,0},
-    diameter= diameterOfAxes*1.05,
-    color={0, 256, 0},
-    R = RV);
-  /**/
+    R = R,
+    color={0, 0, 256}
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineN10deg(
+    shapeType = "box", 
+    length = widthOf10degLine, 
+    width = 2, 
+    height = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]-10*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color={256, 0, 0}
+    );
   
   
   /* ---------------------------------------------
@@ -64,6 +85,9 @@ model AnimRigidBodyAircraftAttitude00
   --------------------------------------------- */
   AircraftDynamics.Interfaces.VisualizerInfoIn00 VisInfoIn annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  
+  
+//**************************************************
 equation
   /*------------------------------
   interface; internal -- connector
@@ -79,8 +103,10 @@ equation
   /*------------------------------
   describing physics
   ------------------------------*/
-  R = Frames.axesRotations({3, 2, 1}, {theta[3], theta[2], theta[1]}, {der(theta[3]), der(theta[2]), der(theta[1])});
-  RV = Frames.axesRotations({3, 2, 1}, {thetaV[3], thetaV[2], thetaV[1]}, {der(thetaV[3]), der(thetaV[2]), der(thetaV[1])});
+  R = Frames.axisRotation(3, theta[1], der(theta[1]));
+  rGrd[1]=0;
+  rGrd[2]= -len1degPitch*theta[2]*180/Modelica.Constants.pi;
+  rGrd[3]=0;
   
   
   annotation(defaultComponentName="AnimAircraft",
@@ -89,4 +115,4 @@ equation
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl", maxIntegrationOrder = "3"),
   Icon(graphics = {Text(origin = {-1, -111}, extent = {{-99, 9}, {101, -9}}, textString = "%name"), Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}})}));
   
-end AnimRigidBodyAircraftAttitude00;
+end AnimATI00;
