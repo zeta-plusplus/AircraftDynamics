@@ -4,18 +4,6 @@ model AnimATI00
   import Units= Modelica.SIunits;
   import Modelica.Mechanics.MultiBody.Frames;
   
-  /* ---------------------------------------------
-              parameters
-  --------------------------------------------- */
-  parameter Units.Length widthOf10degLine=10;
-  parameter Units.Length thickOf10degLine=0.1;
-  parameter Units.Length widthOfHorizon=50;
-  parameter Units.Length thickOfHorizon=0.25;
-  //-----
-  parameter Units.Length len1degPitch=0.5;
-  //-----
-  parameter Units.Length lengthOfAxes=5;
-  parameter Units.Length diameterOfAxes=1/40*lengthOfAxes;
   
   
   /* ---------------------------------------------
@@ -23,6 +11,7 @@ model AnimATI00
   --------------------------------------------- */
   Units.Angle theta[3] "euler angles of aircraft body, roll, pitch, heading";
   Units.Angle thetaV[3] "euler angles of velcity vector, roll, pitch heading";
+  Real rGrd[3];
   
   
   
@@ -38,13 +27,38 @@ model AnimATI00
     Placement(visible = true, transformation(origin = {-50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   
   Frames.Orientation R "orientation of aircraft body";
-  Real rGrd[3];
+  
+  
+  //----------
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape nose(
+    shapeType = "cone", 
+    extra=0,
+    length = lenCone, 
+    width = diamCone, 
+    lengthDirection = {0, 1, 0}, 
+    widthDirection = {1, 0, 0}, 
+    r_shape = {0, 0, 0},
+    r= {0,-3/4*lenCone,0},
+    color={255, 255, 0}
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape VVector(
+    shapeType = "sphere", 
+    length = diamVVector, 
+    r_shape = {-1/2*diamVVector+VisInfoIn.beta*180/Modelica.Constants.pi*len1degPitch,
+               -1*VisInfoIn.alpha*180/Modelica.Constants.pi*len1degPitch,
+               0},
+    r= {0,
+      0,
+      3},
+    color={0, 255, 0}
+    );
+  
   
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape horizon(
-    shapeType = "box", 
+    shapeType = "cylinder", 
     length = widthOfHorizon, 
-    width = 2, 
-    height = thickOfHorizon, 
+    width = thickOfHorizon, 
     lengthDirection = {1, 0, 0}, 
     widthDirection = {0, 0, 1}, 
     r_shape = {rGrd[1]-1/2*widthOfHorizon, rGrd[2], rGrd[3]},
@@ -52,32 +66,257 @@ model AnimATI00
     R = R,
     color={0, 0, 0}
     );
+  /**/
   
-  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineP10deg(
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape ground(
     shapeType = "box", 
+    length = widthOfHorizon, 
+    width = 0.5, 
+    height = 90*len1degPitch, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOfHorizon, rGrd[2]-1/2*90*len1degPitch, rGrd[3]},
+    r= {0,0,-0.5},
+    R = R,
+    color={171, 127, 92}
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape sky(
+    shapeType = "box", 
+    length = widthOfHorizon, 
+    width = 0.5, 
+    height = 90*len1degPitch, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOfHorizon, rGrd[2]+1/2*90*len1degPitch, rGrd[3]},
+    r= {0,0,-0.5},
+    R = R,
+    color={135, 206, 250}
+    );
+  /**/
+  
+  //----------
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineP10deg(
+    shapeType = "cylinder", 
     length = widthOf10degLine, 
-    width = 2, 
-    height = thickOf10degLine, 
+    width = thickOf10degLine, 
     lengthDirection = {1, 0, 0}, 
     widthDirection = {0, 0, 1}, 
     r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]+10*len1degPitch, rGrd[3]},
     r= {0,0,0},
     R = R,
-    color={0, 0, 256}
+    color=colorPline
     );
   
-  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineN10deg(
-    shapeType = "box", 
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineP20deg(
+    shapeType = "cylinder", 
     length = widthOf10degLine, 
-    width = 2, 
-    height = thickOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]+20*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorPline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineP30deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]+30*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorPline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineP40deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]+40*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorPline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineP50deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]+50*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorPline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineP60deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]+60*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorPline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineP70deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]+70*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorPline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineP80deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]+80*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorPline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineP90deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]+90*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorPline
+    );
+  
+  
+  //----------
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineN10deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
     lengthDirection = {1, 0, 0}, 
     widthDirection = {0, 0, 1}, 
     r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]-10*len1degPitch, rGrd[3]},
     r= {0,0,0},
     R = R,
-    color={256, 0, 0}
+    color=colorNline
     );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineN20deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]-20*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorNline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineN30deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]-30*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorNline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineN40deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]-40*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorNline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineN50deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]-50*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorNline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineN60deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]-60*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorNline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineN70deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]-70*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorNline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineN80deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]-80*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorNline
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape lineN90deg(
+    shapeType = "cylinder", 
+    length = widthOf10degLine, 
+    width = thickOf10degLine, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {rGrd[1]-1/2*widthOf10degLine, rGrd[2]-90*len1degPitch, rGrd[3]},
+    r= {0,0,0},
+    R = R,
+    color=colorNline
+    );
+  
+  //----------
+  
   
   
   /* ---------------------------------------------
@@ -85,6 +324,31 @@ model AnimATI00
   --------------------------------------------- */
   AircraftDynamics.Interfaces.VisualizerInfoIn00 VisInfoIn annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
+  
+  
+//**************************************************
+protected
+  /* ---------------------------------------------
+              parameters
+  --------------------------------------------- */
+  parameter Units.Length widthOf10degLine=20;
+  parameter Units.Length thickOf10degLine=0.1;
+  //-----
+  parameter Units.Length widthOfHorizon=120;
+  parameter Units.Length thickOfHorizon=0.2;
+  //-----
+  parameter Units.Length len1degPitch=0.5;
+  //-----
+  parameter Units.Length lengthOfAxes=20;
+  parameter Units.Length diameterOfAxes=0.125;
+  //-----
+  parameter Units.Length diamCone=6;
+  parameter Units.Length lenCone=1/3*diamCone;
+  //-----
+  parameter Units.Length diamVVector=2;
+  //-----
+  parameter Real colorPline[3]={0,0,255};
+  parameter Real colorNline[3]={255,0,0};
   
   
 //**************************************************
@@ -103,13 +367,13 @@ equation
   /*------------------------------
   describing physics
   ------------------------------*/
-  R = Frames.axisRotation(3, theta[1], der(theta[1]));
+  R = Frames.axisRotation(3, -1*theta[1], der(theta[1]));
   rGrd[1]=0;
   rGrd[2]= -len1degPitch*theta[2]*180/Modelica.Constants.pi;
   rGrd[3]=0;
   
   
-  annotation(defaultComponentName="AnimAircraft",
+  annotation(defaultComponentName="AnimATI",
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.02),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian -d=initialization, --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 -d= --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 -d= --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 -d=nonewInst -d= --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 -d=nonewInst -d= --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 -d=nonewInst -d= --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 -d=nonewInst -d= --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 -d= --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 -d= --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 -d= --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 -d= --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 -d= --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 -d= --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 ",
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl", maxIntegrationOrder = "3"),

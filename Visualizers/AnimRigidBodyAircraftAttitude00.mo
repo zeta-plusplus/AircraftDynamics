@@ -30,7 +30,10 @@ model AnimRigidBodyAircraftAttitude00
     animateGravity = false,animateWorld = true, 
     axisDiameter = diameterOfAxes, 
     axisLength = lengthOfAxes, 
-    enableAnimation = true, label1 = "East", label2 = "North"
+    enableAnimation = true, label1 = "East", label2 = "North",
+    axisColor_x={0, 0, 255},
+    axisColor_y={0, 0, 255},
+    axisColor_z={0, 0, 255}
     )  annotation(
     Placement(visible = true, transformation(origin = {-50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   
@@ -38,7 +41,8 @@ model AnimRigidBodyAircraftAttitude00
   Frames.Orientation RV "orientation of velocity vector";
   
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape aircraft(
-    shapeType = "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR-mod001.stl", 
+    shapeType = "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR_mod001.dxf", 
+    color={255, 0, 0},
     length = length, 
     width = 1, 
     height = 0.3, 
@@ -46,15 +50,20 @@ model AnimRigidBodyAircraftAttitude00
     widthDirection = {0, 1, 0}, 
     r_shape = {-1.0*CGbody[1], -1.0*CGbody[2], -1.0*CGbody[3]},
     r= {0,0,0},
-    R = R);
-  /* "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR-mod001.stl" */
+    R = R
+    );
+  /* 
+  "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR-mod001.stl" 
+  "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR_mod001.dxf"
+  Modelica.Utilities.Files.loadResource("modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR_mod001.dxf")
+  */
   
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Arrow VVector(
     r_tail = {0,0,0},
     r_head = {-1.3*CGbody[1], 0.0, 0.0},
     r= {0,0,0},
     diameter= diameterOfAxes*1.05,
-    color={0, 256, 0},
+    color={0, 255, 0},
     R = RV);
   /**/
   

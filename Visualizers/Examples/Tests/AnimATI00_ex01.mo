@@ -3,7 +3,7 @@ within AircraftDynamics.Visualizers.Examples.Tests;
 model AnimATI00_ex01
   extends Modelica.Icons.Example;
   //-----
-  AircraftDynamics.Visualizers.AnimATI00 animAircraft annotation(
+  AircraftDynamics.Visualizers.AnimATI00 animATI annotation(
     Placement(visible = true, transformation(origin = {50, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.UnitConversions.From_deg from_deg1 annotation(
     Placement(visible = true, transformation(origin = {-40, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -32,8 +32,8 @@ equation
     Line(points = {{-68, -30}, {-54, -30}, {-54, -30}, {-52, -30}}, color = {0, 0, 127}));
   connect(from_deg2.y, Real2VisInfo.u_theta) annotation(
     Line(points = {{-28, 0}, {-16, 0}, {-16, 17}, {-5, 17}}, color = {0, 0, 127}));
-  connect(Real2VisInfo.VisInfoOut, animAircraft.VisInfoIn) annotation(
+  connect(Real2VisInfo.VisInfoOut, animATI.VisInfoIn) annotation(
     Line(points = {{4, 20}, {18, 20}, {18, 30}, {40, 30}}, color = {95, 95, 95}));
-annotation(
-    experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-6, Interval = 0.18));
+  annotation(
+    experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-06, Interval = 0.180723));
 end AnimATI00_ex01;
