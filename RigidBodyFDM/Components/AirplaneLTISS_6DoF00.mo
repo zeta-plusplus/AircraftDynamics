@@ -276,11 +276,11 @@ equation
   VisInfoOut.r[1] = fltStates.xEast;
   VisInfoOut.r[2] = fltStates.xNorth;
   VisInfoOut.r[3] = fltStates.alt;
-  VisInfoOut.theta[1] = fltStates.phi;
-  VisInfoOut.theta[2] = fltStates.theta;
-  VisInfoOut.theta[3] = fltStates.psi;
-  VisInfoOut.alpha= fltStates.alpha;
-  VisInfoOut.beta= fltStates.beta;
+  VisInfoOut.theta[1] = fltAng4disp.phi;
+  VisInfoOut.theta[2] = fltAng4disp.theta;
+  VisInfoOut.theta[3] = fltAng4disp.psi;
+  VisInfoOut.alpha= fltAng4disp.alpha;
+  VisInfoOut.beta= fltAng4disp.beta;
   //-----
   
   /*------------------------------

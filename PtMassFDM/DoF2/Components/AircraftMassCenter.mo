@@ -59,9 +59,9 @@ equation
   VisInfoOut.r[2] = 0.0;
   VisInfoOut.r[3] = alt;
   VisInfoOut.theta[1] = 0.0;
-  VisInfoOut.theta[2] = fltStates.theta;
+  VisInfoOut.theta[2] = fltAng4disp.theta;
   VisInfoOut.theta[3] = 0.0;
-  VisInfoOut.alpha= fltStates.alpha;
+  VisInfoOut.alpha= fltAng4disp.alpha;
   VisInfoOut.beta= 0.0;
 //-----
   
