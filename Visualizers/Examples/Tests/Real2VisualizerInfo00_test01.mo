@@ -2,11 +2,11 @@ within AircraftDynamics.Visualizers.Examples.Tests;
 
 model Real2VisualizerInfo00_test01
   extends Modelica.Icons.Example;
-  AircraftDynamics.Interfaces.Real2VisualizerInfo00 Real2VisInfo(use_u_alpha = false,use_u_alt = false, use_u_beta = false, use_u_phi = true, use_u_psi = true, use_u_theta = true, use_u_xEast = false, use_u_xNorth = false)  annotation(
+  AircraftDynamics.Interfaces.Real2VisualizerInfo00 Real2VisInfo(use_u_alpha = false, use_u_alt = false, use_u_beta = false, use_u_phi = true, use_u_psi = true, use_u_theta = true, use_u_xEast = false, use_u_xNorth = false) annotation(
     Placement(visible = true, transformation(origin = {0.0724018, 20.2172}, extent = {{-6.4724, -19.4172}, {4.8543, 19.4172}}, rotation = 0)));
   AircraftDynamics.Visualizers.AnimRigidBodyAircraftAttitude00 AnimAircraft annotation(
     Placement(visible = true, transformation(origin = {20, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Ramp ramp_phi(duration = 10, height = 30, offset = 0, startTime = 10)  annotation(
+  Modelica.Blocks.Sources.Ramp ramp_phi(duration = 10, height = 30, offset = 0, startTime = 10) annotation(
     Placement(visible = true, transformation(origin = {-80, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Ramp ramp_theta(duration = 10, height = 20, offset = 0, startTime = 30) annotation(
     Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -33,5 +33,6 @@ equation
     Line(points = {{-68, 0}, {-52, 0}, {-52, 0}, {-52, 0}}, color = {0, 0, 127}));
   connect(ramp_phi.y, from_deg1.u) annotation(
     Line(points = {{-68, 30}, {-54, 30}, {-54, 30}, {-52, 30}}, color = {0, 0, 127}));
-annotation(
-    experiment(StartTime = 0, StopTime = 70, Tolerance = 1e-6, Interval = 0.002));end Real2VisualizerInfo00_test01;
+  annotation(
+    experiment(StartTime = 0, StopTime = 70, Tolerance = 1e-06, Interval = 0.002));
+end Real2VisualizerInfo00_test01;
