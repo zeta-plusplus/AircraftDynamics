@@ -35,5 +35,5 @@ equation
   connect(Real2VisInfo.VisInfoOut, animATI.VisInfoIn) annotation(
     Line(points = {{4, 20}, {18, 20}, {18, 30}, {40, 30}}, color = {95, 95, 95}));
   annotation(
-    experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-06, Interval = 0.180723));
+    experiment(StartTime = 0, StopTime = 30, Tolerance = 1e-06, Interval = 0.005));
 end AnimATI00_ex01;

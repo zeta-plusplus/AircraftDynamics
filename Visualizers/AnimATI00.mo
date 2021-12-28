@@ -19,7 +19,8 @@ model AnimATI00
               Internal objects
   --------------------------------------------- */
   inner Modelica.Mechanics.MultiBody.World world(
-    animateGravity = false,animateWorld = true, 
+    animateGravity = false,
+    animateWorld = false, 
     axisDiameter = diameterOfAxes, 
     axisLength = lengthOfAxes, 
     enableAnimation = true
@@ -27,7 +28,7 @@ model AnimATI00
     Placement(visible = true, transformation(origin = {-50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   
   Frames.Orientation R "orientation of aircraft body";
-  
+  Frames.Orientation RHI "orientation of heading indicator";
   
   //----------
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape nose(
@@ -42,6 +43,29 @@ model AnimATI00
     color={255, 255, 0}
     );
   
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape wingL(
+    shapeType = "cylinder", 
+    length = 6, 
+    width = 0.5, 
+    lengthDirection = {-1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {-1.5, 0, 0},
+    r= {0,0,0},
+    color={255, 255, 0}
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape wingR(
+    shapeType = "cylinder", 
+    length = 6, 
+    width = 0.5, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {1.5, 0, 0},
+    r= {0,0,0},
+    color={255, 255, 0}
+    );
+  
+  //-----
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape VVector(
     shapeType = "sphere", 
     length = diamVVector, 
@@ -54,7 +78,37 @@ model AnimATI00
     color={0, 255, 0}
     );
   
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape VVector_wing(
+    shapeType = "cylinder", 
+    length = 2*diamVVector, 
+    width = 0.3, 
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {-1/2*diamVVector+VisInfoIn.beta*180/Modelica.Constants.pi*len1degPitch-1/2*diamVVector,
+               -1*VisInfoIn.alpha*180/Modelica.Constants.pi*len1degPitch,
+               0},
+    r= {0,
+        0,
+        3},
+    color={0, 255, 0}
+    );
   
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape VVector_Vstab(
+    shapeType = "cylinder", 
+    length = 0.8*diamVVector, 
+    width = 0.3, 
+    lengthDirection = {0, 1, 0}, 
+    widthDirection = {0, 0, 1}, 
+    r_shape = {-1/2*diamVVector+VisInfoIn.beta*180/Modelica.Constants.pi*len1degPitch+1/2*diamVVector,
+               -1*VisInfoIn.alpha*180/Modelica.Constants.pi*len1degPitch,
+               0},
+    r= {0,
+        0,
+        3},
+    color={0, 255, 0}
+    );
+  
+  //-----
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape horizon(
     shapeType = "cylinder", 
     length = widthOfHorizon, 
@@ -316,7 +370,46 @@ model AnimATI00
     );
   
   //----------
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape HI(
+    shapeType= "pipe",
+    extra=0.6,
+    length=0.5,
+    width= diamHI,
+    lengthDirection={0,0,1},
+    widthDirection= {1,0,0},
+    r_shape={0,0,0},
+    r=r_HI,
+    R=RHI,
+    color=colorHI
+    );
   
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Arrow HIheading(
+    r_tail = {0, 0, 0},
+    r_head = {0, 1.4*1/2*diamHI, 0},
+    r= r_HI+{0,0,1},
+    diameter= diameterOfAxes*1.2,
+    color={0,0,0}
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Arrow HInorth(
+    r_tail = {0, -1.3*1/2*diamHI, 0},
+    r_head = {0, 1.3*diamHI, 0},
+    r= r_HI,
+    diameter= 0.4,
+    color={150,0,255},
+    R = RHI
+    );
+  
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape HIeast(
+    shapeType= "cylinder",
+    length= diamHI*1.3,
+    width= 0.3,
+    r_shape={-1/2*1.3*diamHI, 0, 0},
+    r= r_HI,
+    color=colorHI,
+    R = RHI
+    );
+  /**/
   
   
   /* ---------------------------------------------
@@ -347,8 +440,12 @@ protected
   //-----
   parameter Units.Length diamVVector=2;
   //-----
-  parameter Real colorPline[3]={0,0,255};
-  parameter Real colorNline[3]={255,0,0};
+  parameter Integer colorPline[3]={0,0,255};
+  parameter Integer colorNline[3]={255,0,0};
+  //-----
+  parameter Units.Length diamHI= 10;
+  parameter Real r_HI[3]={0,-20*len1degPitch,1};
+  parameter Integer colorHI[3]={0,0,255};
   
   
 //**************************************************
@@ -368,6 +465,7 @@ equation
   describing physics
   ------------------------------*/
   R = Frames.axisRotation(3, -1*theta[1], der(theta[1]));
+  RHI = Frames.axisRotation(3, VisInfoIn.theta[3], der(VisInfoIn.theta[3]));
   rGrd[1]=0;
   rGrd[2]= -len1degPitch*theta[2]*180/Modelica.Constants.pi;
   rGrd[3]=0;
