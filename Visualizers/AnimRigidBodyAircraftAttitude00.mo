@@ -40,6 +40,7 @@ model AnimRigidBodyAircraftAttitude00
   Frames.Orientation R "orientation of aircraft body";
   Frames.Orientation RV "orientation of velocity vector";
   
+  
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape aircraft(
     shapeType = "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR_mod001.dxf", 
     color={255, 0, 0},
@@ -56,6 +57,17 @@ model AnimRigidBodyAircraftAttitude00
   "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR-mod001.stl" 
   "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR_mod001.dxf"
   Modelica.Utilities.Files.loadResource("modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR_mod001.dxf")
+  */
+  
+  /*
+  Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape shape00(
+    shapeType = "modelica://AircraftDynamics/Visualizers/3dmodels/part1.dxf", 
+    color={255, 0, 0},
+    lengthDirection = {1, 0, 0}, 
+    widthDirection = {0, 1, 0}, 
+    r_shape = {0, 0, 0},
+    r= {0,0,-5}
+    );
   */
   
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Arrow VVector(
