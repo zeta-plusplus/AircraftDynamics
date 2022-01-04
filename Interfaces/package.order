@@ -3,3 +3,6 @@ FlightStatesBus
 VisualizerInfoOut00
 VisualizerInfoIn00
 Real2VisualizerInfo00
+RigidAircraftFrame00
+OutCntrSrcForceMoment6DoF00
+InCntrSrcForceMoment6DoF00

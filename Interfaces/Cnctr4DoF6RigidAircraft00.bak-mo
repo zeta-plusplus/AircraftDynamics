@@ -1,0 +1,4 @@
+within AircraftDynamics.Interfaces;
+
+connector Cnctr4DoF6RigidAircraft00
+end Cnctr4DoF6RigidAircraft00;

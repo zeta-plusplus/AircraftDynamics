@@ -1,0 +1,4 @@
+within AircraftDynamics.Interfaces;
+
+partial model RigidAircraftFrame
+end RigidAircraftFrame;
