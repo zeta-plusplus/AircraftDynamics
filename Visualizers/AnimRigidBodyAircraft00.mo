@@ -7,12 +7,14 @@ model AnimRigidBodyAircraft00
   /* ---------------------------------------------
               parameters
   --------------------------------------------- */
-  parameter Units.Length length=2;
-  parameter Units.Length width=1;
-  parameter Units.Length height= 0.3;
+  parameter String fileAircraftMdl="modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR-mod001.dxf";
   parameter Units.Position CGbody[3]={15, 0, 1};
-  parameter Units.Length lengthOfAxes=20;
-  parameter Units.Length diameterOfAxes=1/20*lengthOfAxes;
+  parameter Units.Length lengthOfAxes=100.0*1000;
+  parameter Units.Length diameterOfAxes=0.2;
+  
+  parameter Units.Length length=2 "not used";
+  parameter Units.Length width=1 "not used";
+  parameter Units.Length height= 0.3 "not used";
   
   
   /* ---------------------------------------------
@@ -24,12 +26,19 @@ model AnimRigidBodyAircraft00
   /* ---------------------------------------------
               Internal objects
   --------------------------------------------- */
-  inner Modelica.Mechanics.MultiBody.World world(animateGravity = false,animateWorld = true, enableAnimation = true)  annotation(
+  inner Modelica.Mechanics.MultiBody.World world(
+    animateGravity = false,
+    animateWorld = true, 
+    enableAnimation = true,
+    axisColor_x={0, 0, 255},
+    axisColor_y={0, 0, 255},
+    axisColor_z={0, 0, 255}
+    )  annotation(
     Placement(visible = true, transformation(origin = {-50, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Frames.Orientation R;
   
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape aircraft(
-    shapeType = "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR-mod001.stl", 
+    shapeType = fileAircraftMdl, 
     length = 2, 
     width = 1, 
     height = 0.3, 

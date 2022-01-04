@@ -7,12 +7,14 @@ model AnimRigidBodyAircraftAttitude00
   /* ---------------------------------------------
               parameters
   --------------------------------------------- */
-  parameter Units.Length length=2;
-  parameter Units.Length width=1;
-  parameter Units.Length height= 0.3;
+  parameter String fileAircraftMdl="modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR-mod001.dxf";
   parameter Units.Position CGbody[3]={15, 0, -1};
   parameter Units.Length lengthOfAxes=30;
-  parameter Units.Length diameterOfAxes=1/40*lengthOfAxes;
+  parameter Units.Length diameterOfAxes=0.75;
+  
+  parameter Units.Length length=2 "not used";
+  parameter Units.Length width=1 "not used";
+  parameter Units.Length height= 0.3 "not used";
   
   
   /* ---------------------------------------------
@@ -42,7 +44,7 @@ model AnimRigidBodyAircraftAttitude00
   
   
   Modelica.Mechanics.MultiBody.Visualizers.Advanced.Shape aircraft(
-    shapeType = "modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR_mod001.dxf", 
+    shapeType = fileAircraftMdl, 
     color={255, 0, 0},
     length = length, 
     width = 1, 
