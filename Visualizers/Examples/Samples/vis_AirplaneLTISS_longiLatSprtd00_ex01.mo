@@ -19,7 +19,7 @@ model vis_AirplaneLTISS_longiLatSprtd00_ex01
     Placement(visible = true, transformation(origin = {-50, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain_Tnominal(k = AirplaneDyn.m_par * 9.81 * 0.2) annotation(
     Placement(visible = true, transformation(origin = {-50, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.Visualizers.AnimRigidBodyAircraft00 AnimAircraft annotation(
+  AircraftDynamics.Visualizers.AnimRigidBodyAircraft00 AnimAircraft(offset_r0 = {0, 0, -AirplaneDyn.altFltSteady_par})  annotation(
     Placement(visible = true, transformation(origin = {70, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(fileName = Modelica.Utilities.Files.loadResource("modelica://AircraftDynamics/Visualizers/Examples/Samples/uSignals001_AirplaneLTISS_longiLatSprtd00_ex02.txt"), tableName = "deltaFracT", tableOnFile = true) annotation(
     Placement(visible = true, transformation(origin = {-80, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
