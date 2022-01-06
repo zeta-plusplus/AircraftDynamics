@@ -11,7 +11,10 @@ model AnimATI00
   --------------------------------------------- */
   Units.Angle theta[3] "euler angles of aircraft body, roll, pitch, heading";
   Units.Angle thetaV[3] "euler angles of velcity vector, roll, pitch heading";
-  Real rGrd[3];
+  Real rGrd[3] "position of artificial horizon symbol";
+  
+  Units.Angle theta4disp[3];
+  /**/
   
   
   
@@ -396,7 +399,7 @@ model AnimATI00
     r_head = {0, 1.3*diamHI, 0},
     r= r_HI,
     diameter= 0.4,
-    color={150,0,255},
+    color={180,0,255},
     R = RHI
     );
   
@@ -444,7 +447,7 @@ protected
   parameter Integer colorNline[3]={255,0,0};
   //-----
   parameter Units.Length diamHI= 10;
-  parameter Real r_HI[3]={0,-20*len1degPitch,1};
+  parameter Real r_HI[3]={0,-25*len1degPitch,1};
   parameter Integer colorHI[3]={0,0,255};
   
   
@@ -462,14 +465,24 @@ equation
   
   
   /*------------------------------
+    convert angles for display (0-360 deg)
+  ------------------------------*/
+  for i in 1:3 loop
+    theta4disp[i]
+      = AircraftDynamics.Functions.calcAngles4display(theta[i]);
+  end for;  
+  /**/
+  
+  
+  /*------------------------------
   describing physics
   ------------------------------*/
-  R = Frames.axisRotation(3, -1*theta[1], der(theta[1]));
-  RHI = Frames.axisRotation(3, VisInfoIn.theta[3], der(VisInfoIn.theta[3]));
+  R = Frames.axisRotation(3, -1*theta4disp[1], der(theta[1]));
+  RHI = Frames.axisRotation(3, -1*theta4disp[3]- 90.0*Modelica.Constants.pi/180.0, der(VisInfoIn.theta[3]));
   rGrd[1]=0;
-  rGrd[2]= -len1degPitch*theta[2]*180/Modelica.Constants.pi;
+  rGrd[2]= -len1degPitch*theta4disp[2]*180/Modelica.Constants.pi;
   rGrd[3]=0;
-  
+    
   
   annotation(defaultComponentName="AnimATI",
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.02),
