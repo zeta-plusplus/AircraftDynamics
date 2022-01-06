@@ -7,7 +7,7 @@ model AnimRigidBodyAircraftAttitude00
   /* ---------------------------------------------
               parameters
   --------------------------------------------- */
-  parameter String fileAircraftMdl="modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR-mod001.dxf";
+  parameter String fileAircraftMdl="modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR_mod001.dxf";
   parameter Units.Position CGbody[3]={15, 0, -1};
   parameter Units.Length lengthOfAxes=30;
   parameter Units.Length diameterOfAxes=0.75;
@@ -23,7 +23,9 @@ model AnimRigidBodyAircraftAttitude00
   Units.Angle theta[3] "euler angles of aircraft body, roll, pitch, heading";
   Units.Angle thetaV[3] "euler angles of velcity vector, roll, pitch heading";
   
-  
+  Units.Angle theta4disp[3] "euler angles of aircraft body 0-360 deg, roll, pitch, heading";
+  Units.Angle thetaV4disp[3] "euler angles of velcity vector 0-360 deg, roll, pitch heading";
+  /**/
   
   /* ---------------------------------------------
               Internal objects
@@ -98,12 +100,22 @@ equation
   thetaV[2]= theta[2]-VisInfoIn.alpha;
   thetaV[3]= theta[3]+VisInfoIn.beta;
   
+  /*------------------------------
+    convert angles for display (0-360 deg)
+  ------------------------------*/
+  for i in 1:3 loop
+    [theta4disp[i], thetaV4disp[i]]
+      = AircraftDynamics.Functions.calcAngles4display([theta[i], thetaV[i]]);
+  end for;
+  /**/
   
   /*------------------------------
   describing physics
   ------------------------------*/
-  R = Frames.axesRotations({3, 2, 1}, {theta[3], theta[2], theta[1]}, {der(theta[3]), der(theta[2]), der(theta[1])});
-  RV = Frames.axesRotations({3, 2, 1}, {thetaV[3], thetaV[2], thetaV[1]}, {der(thetaV[3]), der(thetaV[2]), der(thetaV[1])});
+  R = Frames.axesRotations({3, 2, 1}, {theta4disp[3], theta4disp[2], theta4disp[1]}, 
+                          {der(theta[3]), der(theta[2]), der(theta[1])});
+  RV = Frames.axesRotations({3, 2, 1}, {thetaV4disp[3], thetaV4disp[2], thetaV4disp[1]},
+                          {der(thetaV[3]), der(thetaV[2]), der(thetaV[1])});
   
   
   annotation(defaultComponentName="AnimAircraft",

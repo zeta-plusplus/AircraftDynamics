@@ -11,7 +11,8 @@ connector InCntrSrcForceMoment6DoF00
   output Units.Angle theta[3] "attitude angles; phi(roll), theta(pitch), psi(yaw)";
   output Units.Angle alpha "angle of attack";
   output Units.Angle beta "sideslip angle";
-  
+  output Units.AngularVelocity omega[3] "angular velocity along body axes; p, q, r";
+  output Units.Velocity v[3] "velocity along body axes; u, v, w";
   
   
 annotation (defaultComponentName="InCntrSrcForceMoment",
