@@ -8,3 +8,4 @@ DerivativesLongitudinalNonDim2Dim00
 DerivativesLateralNonDim2Dim00
 AttitudeVelocity2Position00
 BodyAngularRate2AttitudeAngularRate00
+Aircraft_RigidBody6DoF00
