@@ -1,4 +1,4 @@
-within AircraftDynamics.RigidBodyFDM.Examples.tests;
+within AircraftDynamics.RigidBodyFDM.Examples.sampleAircrafts;
 
 model Aircraft_RigidBody6DoF_ex01
   extends Modelica.Icons.Example;
