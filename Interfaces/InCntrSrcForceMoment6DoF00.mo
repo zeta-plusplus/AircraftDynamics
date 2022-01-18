@@ -5,8 +5,9 @@ connector InCntrSrcForceMoment6DoF00
   //----------
   
   input Units.Force F[3] "force along body axes, X, Y, Z";
-  input Units.Moment M[3] "moment about body axes, L, M, N";
+  input Units.MomentOfForce M[3] "moment about body axes, L, M, N";
   //-----
+  output Units.Mass m "mass";
   output Units.Position r[3] "position (global frame); xEast, xNorth, alt";
   output Units.Angle theta[3] "attitude angles; phi(roll), theta(pitch), psi(yaw)";
   output Units.Angle alpha "angle of attack";

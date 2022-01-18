@@ -12,7 +12,7 @@ model AnimRigidBodyAircraft00
   parameter Units.Length lengthOfAxes=200;
   parameter Units.Length diameterOfAxes=0.25;
   
-  parameter Units.Length offset_r0[3]={0,0,0} "initial position offset for animation display";
+  parameter Units.Length offset_r0[3]={0,0,1000} "initial position offset for animation display";
   
   parameter Units.Length length=2 "not used";
   parameter Units.Length width=1 "not used";

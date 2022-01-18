@@ -5,14 +5,16 @@ connector OutCntrSrcForceMoment6DoF00
   //----------
   
   output Units.Force F[3] "force along body axes, X, Y, Z";
-  output Units.Moment M[3] "moment about body axes, L, M, N";
+  output Units.MomentOfForce M[3] "moment about body axes, L, M, N";
   //-----
+  input Units.Mass m "mass";
   input Units.Position r[3] "position (global frame); xEast, xNorth, alt";
   input Units.Angle theta[3] "attitude angles; phi(roll), theta(pitch), psi(yaw)";
   input Units.Angle alpha "angle of attack";
   input Units.Angle beta "sideslip angle";
   input Units.AngularVelocity omega[3] "angular velocity along body axes; p, q, r";
   input Units.Velocity v[3] "velocity along body axes; u, v, w";
+  
   
   
   
