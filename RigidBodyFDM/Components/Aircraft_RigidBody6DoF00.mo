@@ -41,9 +41,9 @@ equation
   mTot*(der(w)+p*v-q*u) = Zf;
   
   //----- angular momentum -----
-  (der(p)*Ixx-der(q)*Ixy-der(r)*Ixz)+(p*r*Ixy+(r^2-q^2)*Iyz-p*q*Ixz+(Izz-Iyy)*r*q) = L;
-  (der(q)*Iyy-der(p)*Ixy-der(r)*Iyz)+(p*r*(Ixx-Izz)+(p^2-r^2)*Ixz-q*r*Ixy+p*q*Iyz) = M;
-  (der(r)*Izz-der(p)*Izx-der(q)*Izy)+(p*q*(Iyy-Ixx)+(q^2-p^2)*Ixy+q*r*Izx-p*r*Izy) = N;
+  (der(p)*Ixx-der(q)*Ixy-der(r)*Izx)+(p*r*Ixy+(r^2-q^2)*Iyz-p*q*Izx+(Izz-Iyy)*r*q) = L;
+  (der(q)*Iyy-der(p)*Ixy-der(r)*Iyz)+(p*r*(Ixx-Izz)+(p^2-r^2)*Izx-q*r*Ixy+p*q*Iyz) = M;
+  (der(r)*Izz-der(p)*Izx-der(q)*Iyz)+(p*q*(Iyy-Ixx)+(q^2-p^2)*Ixy+q*r*Izx-p*r*Iyz) = N;
   
   //----- flight path -----
   (dXG, dYG, dZG)

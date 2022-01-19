@@ -19,11 +19,9 @@ partial model RigidAircraftFrame00
   parameter Units.MomentOfInertia Izz_par = 2666.89390765;
   
   parameter Units.MomentOfInertia Ixy_par = 0.0;
-  parameter Units.MomentOfInertia Ixz_par = 0.0;
-  parameter Units.MomentOfInertia Iyx_par = Ixy_par;
   parameter Units.MomentOfInertia Iyz_par = 0.0;
-  parameter Units.MomentOfInertia Izx_par = Ixz_par;
-  parameter Units.MomentOfInertia Izy_par = Iyz_par;
+  parameter Units.MomentOfInertia Izx_par = 0.0;
+  
   //-----
   
   //---------- Initial Conditions ----------
@@ -162,6 +160,9 @@ protected
                 Parameters
     --------------------------------------------- */
   parameter Real k_u_FM[nSrcForceMoment] = ones(nSrcForceMoment) "sum coefficients, all 1";
+  parameter Units.MomentOfInertia Ixz_par = Izx_par;
+  parameter Units.MomentOfInertia Iyx_par = Ixy_par;
+  parameter Units.MomentOfInertia Izy_par = Iyz_par;
   //**********************************************************************
 equation
   /*------------------------------
