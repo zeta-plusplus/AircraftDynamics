@@ -64,8 +64,8 @@ equation
   FgG[2]= 0;
   FgG[3]= mass*g;
   
-  FgG_rot=AircraftDynamics.Functions.rotateVector3D00(u=FgG, theta={psi, theta, phi});
-  Fg[1]=-1*FgG_rot[1];
+  FgG_rot=AircraftDynamics.Functions.rotateVector3D00(u=FgG, theta={-psi, -theta, -phi});
+  Fg[1]=FgG_rot[1];
   Fg[2]=FgG_rot[2];
   Fg[3]=FgG_rot[3];
   

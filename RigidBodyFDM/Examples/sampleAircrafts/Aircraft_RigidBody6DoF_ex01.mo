@@ -4,11 +4,11 @@ model Aircraft_RigidBody6DoF_ex01
   extends Modelica.Icons.Example;
   inner AircraftDynamics.SimEnvironment environmentAircraftDynSim annotation(
     Placement(visible = true, transformation(origin = {-70, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.RigidBodyFDM.Components.Aircraft_RigidBody6DoF00 airplaneDyn( p_init_par = 0, q(fixed = true), q_init_par = 500 * Modelica.Constants.pi / 180) annotation(
+  AircraftDynamics.RigidBodyFDM.Components.Aircraft_RigidBody6DoF00 airplaneDyn(Ixx_par = 0, Iyy_par = 0, Izz_par = 0,p_init_par = 0 * Modelica.Constants.pi / 180, phi_init_par(displayUnit = "rad"), q(fixed = true), q_init_par = 500 * Modelica.Constants.pi / 180, r_init_par = 0 * Modelica.Constants.pi / 180) annotation(
     Placement(visible = true, transformation(origin = {20, 20}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.ForceMomentSources.SourceConstantGravity srcGravity annotation(
     Placement(visible = true, transformation(origin = {-50, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.Visualizers.AnimRigidBodyAircraft00 animAircraft(offset_r0 = {0, 0, -1000})  annotation(
+  AircraftDynamics.Visualizers.AnimRigidBodyAircraft00 animAircraft(offset_r0 = {0, 0, -1000}) annotation(
     Placement(visible = true, transformation(origin = {80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(srcGravity.outCntrSrcForceMoment, airplaneDyn.inCntrSrcForceMoment[1]) annotation(
@@ -16,5 +16,5 @@ equation
   connect(airplaneDyn.VisInfoOut, animAircraft.VisInfoIn) annotation(
     Line(points = {{52, 60}, {52, 80}, {70, 80}}, color = {95, 95, 95}));
   annotation(
-    experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-07, Interval = 0.01));
+    experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-08, Interval = 0.01));
 end Aircraft_RigidBody6DoF_ex01;
