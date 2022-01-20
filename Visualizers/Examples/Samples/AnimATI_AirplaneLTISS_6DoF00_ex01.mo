@@ -51,6 +51,6 @@ equation
   annotation(
     Diagram(coordinateSystem(extent = {{-100, -120}, {120, 120}})),
     __OpenModelica_commandLineOptions = "",
-    experiment(StartTime = 0, StopTime = 200, Tolerance = 1e-06, Interval = 0.005),
+    experiment(StartTime = 0, StopTime = 150, Tolerance = 1e-06, Interval = 0.01),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
 end AnimATI_AirplaneLTISS_6DoF00_ex01;
