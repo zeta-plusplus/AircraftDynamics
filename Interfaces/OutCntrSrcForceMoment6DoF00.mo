@@ -14,10 +14,7 @@ connector OutCntrSrcForceMoment6DoF00
   input Units.Angle beta "sideslip angle";
   input Units.AngularVelocity omega[3] "angular velocity along body axes; p, q, r";
   input Units.Velocity v[3] "velocity along body axes; u, v, w";
-  
-  
-  
-  
+  input Units.Position rCG[3] "";
   
 annotation (defaultComponentName="OutCntrSrcForceMoment",
    Icon(coordinateSystem(

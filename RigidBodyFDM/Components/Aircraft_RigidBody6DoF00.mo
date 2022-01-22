@@ -30,7 +30,9 @@ equation
   Izy= Izy_par;
   Izz= Izz_par;
   
-  
+  for i in 1:3 loop
+    rCG[i]= rCG_par[i];
+  end for;
   
   /*------------------------------
       component physics

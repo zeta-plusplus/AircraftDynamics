@@ -22,6 +22,8 @@ partial model RigidAircraftFrame00
   parameter Units.MomentOfInertia Iyz_par = 0.0;
   parameter Units.MomentOfInertia Izx_par = 0.0;
   
+  parameter Units.Position rCG_par[3]= {1, 0, 0.5} "position vector of CG, origin is nose of aircraft";
+  
   //-----
   
   //---------- Initial Conditions ----------
@@ -63,6 +65,7 @@ partial model RigidAircraftFrame00
   
   //---------- Aircraft Properties ----------
   Units.Mass mTot "total mass of aircraft body";
+  Units.Position rCG[3] "position vector of CG, origin is nose of aircraft";
   Units.MomentOfInertia Ixx;
   Units.MomentOfInertia Iyy;
   Units.MomentOfInertia Izz;
@@ -197,6 +200,9 @@ equation
     inCntrSrcForceMoment[i].v[1] = u;
     inCntrSrcForceMoment[i].v[2] = v;
     inCntrSrcForceMoment[i].v[3] = w;
+    for j in 1:3 loop
+      inCntrSrcForceMoment[i].rCG[j]= rCG[j];
+    end for;
   end for;
 //-----
   VisInfoOut.alpha = alpha;
