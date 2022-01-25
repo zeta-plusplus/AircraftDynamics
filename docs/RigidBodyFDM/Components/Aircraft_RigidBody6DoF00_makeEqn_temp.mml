@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+ <semantics>
+  <mrow>
+   <mrow>
+    <mrow>
+     <mo fence="true" form="prefix" stretchy="true">{</mo>
+     <mrow>
+      <mtable>
+       <mtr>
+        <mtd>
+         <mover accent="true">
+          <mi>ϕ</mi>
+          <mo stretchy="false">˙</mo>
+         </mover>
+        </mtd>
+       </mtr>
+       <mtr>
+        <mtd>
+         <mover accent="true">
+          <mi>θ</mi>
+          <mo stretchy="false">˙</mo>
+         </mover>
+        </mtd>
+       </mtr>
+       <mtr>
+        <mtd>
+         <mover accent="true">
+          <mi>ψ</mi>
+          <mo stretchy="false">˙</mo>
+         </mover>
+        </mtd>
+       </mtr>
+      </mtable>
+     </mrow>
+     <mo fence="true" form="postfix" stretchy="true">}</mo>
+    </mrow>
+    <mo stretchy="false">=</mo>
+    <mrow>
+     <mo fence="true" form="prefix" stretchy="true">[</mo>
+     <mrow>
+      <mtable>
+       <mtr>
+        <mtd>
+         <mn>1</mn>
+        </mtd>
+        <mtd>
+         <mrow>
+          <mi>sin</mi>
+          <mi>ϕ</mi>
+          <mi>tan</mi>
+          <mi>θ</mi>
+         </mrow>
+        </mtd>
+        <mtd>
+         <mrow>
+          <mi>cos</mi>
+          <mi>ϕ</mi>
+          <mi>tan</mi>
+          <mi>θ</mi>
+         </mrow>
+        </mtd>
+       </mtr>
+       <mtr>
+        <mtd>
+         <mn>0</mn>
+        </mtd>
+        <mtd>
+         <mrow>
+          <mi>cos</mi>
+          <mi>ϕ</mi>
+         </mrow>
+        </mtd>
+        <mtd>
+         <mrow>
+          <mrow>
+           <mo stretchy="false">−</mo>
+           <mi>sin</mi>
+          </mrow>
+          <mi>ϕ</mi>
+         </mrow>
+        </mtd>
+       </mtr>
+       <mtr>
+        <mtd>
+         <mn>0</mn>
+        </mtd>
+        <mtd>
+         <mrow>
+          <mi>sin</mi>
+          <mi>ϕ</mi>
+          <mi mathvariant="italic">sec</mi>
+          <mi>θ</mi>
+         </mrow>
+        </mtd>
+        <mtd>
+         <mrow>
+          <mi>cos</mi>
+          <mi>ϕ</mi>
+          <mi mathvariant="italic">sec</mi>
+          <mi>θ</mi>
+         </mrow>
+        </mtd>
+       </mtr>
+      </mtable>
+     </mrow>
+     <mo fence="true" form="postfix" stretchy="true">]</mo>
+    </mrow>
+   </mrow>
+   <mrow>
+    <mo fence="true" form="prefix" stretchy="true">{</mo>
+    <mrow>
+     <mtable>
+      <mtr>
+       <mtd>
+        <mi>p</mi>
+       </mtd>
+      </mtr>
+      <mtr>
+       <mtd>
+        <mi>q</mi>
+       </mtd>
+      </mtr>
+      <mtr>
+       <mtd>
+        <mi>r</mi>
+       </mtd>
+      </mtr>
+     </mtable>
+    </mrow>
+    <mo fence="true" form="postfix" stretchy="true">}</mo>
+   </mrow>
+  </mrow>
+  <annotation encoding="StarMath 5.0">left lbrace stack{dot %iphi # dot %itheta # dot %ipsi}  right rbrace=   left [ matrix{1 # sin  %iphi tan %itheta # cos %iphi tan%itheta ## 0 # cos %iphi  # -sin%iphi ## 0 # sin %iphi sec %itheta # cos %iphi sec %itheta} right] left lbrace stack{p # q # r}  right rbrace </annotation>
+ </semantics>
+</math>

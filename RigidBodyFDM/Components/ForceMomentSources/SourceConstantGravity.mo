@@ -65,15 +65,16 @@ equation
   FgG[3]= mass*g;
   
   FgG_rot=AircraftDynamics.Functions.rotateVector3D00(u=FgG, theta={-psi, -theta, -phi});
+  /*
   Fg[1]=FgG_rot[1];
   Fg[2]=FgG_rot[2];
   Fg[3]=FgG_rot[3];
+  */
   
-  /*
   Fg[1]= -1*mass*g*sin(theta);
   Fg[2]= mass*g*cos(theta)*sin(phi);
   Fg[3]= mass*g*cos(theta)*cos(phi);
-  */
+  /**/
   
 annotation(
     defaultComponentName = "SrcGravity",
