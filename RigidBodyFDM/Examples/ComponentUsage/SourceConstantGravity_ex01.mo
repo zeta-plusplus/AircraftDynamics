@@ -4,7 +4,7 @@ model SourceConstantGravity_ex01
   extends Modelica.Icons.Example;
   inner AircraftDynamics.SimEnvironment environmentAircraftDynSim annotation(
     Placement(visible = true, transformation(origin = {-70, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.RigidBodyFDM.Components.Aircraft_RigidBody6DoF00 airplaneDyn(p_init_par = 0 * Modelica.Constants.pi / 180, phi_init_par(displayUnit = "rad") = 20 * Modelica.Constants.pi / 180., q(fixed = true), q_init_par = 0 * Modelica.Constants.pi / 180, r_init_par = 0 * Modelica.Constants.pi / 180) annotation(
+  AircraftDynamics.RigidBodyFDM.Components.Aircraft_RigidBody6DoF00 airplaneDyn(p_init_par = 0 * Modelica.Constants.pi / 180, phi_init_par(displayUnit = "rad") = 0 * Modelica.Constants.pi / 180., q(fixed = true), q_init_par = 200 * Modelica.Constants.pi / 180, r_init_par = 0 * Modelica.Constants.pi / 180) annotation(
     Placement(visible = true, transformation(origin = {20, 20}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.ForceMomentSources.SourceConstantGravity srcGravity annotation(
     Placement(visible = true, transformation(origin = {-50, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
