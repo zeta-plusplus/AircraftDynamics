@@ -75,7 +75,7 @@ equation
     =AircraftDynamics.Functions.alphaBetaGamma00(u=u, v=v, w=w, dXG=dXG, dYG=dYG, dZG=dZG);
   
   annotation(
-    defaultComponentName = "AirplaneDyn");  
+    defaultComponentName = "AircraftDyn");  
   
   
 end Aircraft_RigidBody6DoF00;

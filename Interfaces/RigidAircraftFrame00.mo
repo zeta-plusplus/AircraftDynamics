@@ -81,11 +81,11 @@ partial model RigidAircraftFrame00
   Units.Position xNorth;
   Units.Position alt;
   
-  Units.Position XG(fixed=true, start=XG_init_par) annotation(
+  Units.Position XG(fixed=true, start=XG_init_par) "=xNorth" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.Position YG(fixed=true, start=YG_init_par) annotation(
+  Units.Position YG(fixed=true, start=YG_init_par) "=xEast" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.Position ZG(fixed=true, start=ZG_init_par) annotation(
+  Units.Position ZG(fixed=true, start=ZG_init_par) "=-alt" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
   
   Units.Velocity dXG;

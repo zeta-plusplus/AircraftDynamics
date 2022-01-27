@@ -16,5 +16,5 @@ equation
   connect(airplaneDyn.VisInfoOut, animAircraft.VisInfoIn) annotation(
     Line(points = {{52, 60}, {52, 80}, {70, 80}}, color = {95, 95, 95}));
   annotation(
-    experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-08, Interval = 0.01));
+    experiment(StartTime = 0, StopTime = 100, Tolerance = 1e-08, Interval = 0.01));
 end SourceConstantGravity_ex01;
