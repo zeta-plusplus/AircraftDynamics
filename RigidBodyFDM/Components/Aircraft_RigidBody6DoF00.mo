@@ -42,6 +42,12 @@ equation
   mTot*(der(v)+u*r-p*w) = Yf;
   mTot*(der(w)+p*v-q*u) = Zf;
   
+  /*
+  mTot*(der(u)) = Xf;
+  mTot*(der(v)) = Yf;
+  mTot*(der(w)) = Zf;
+  */
+  
   //----- angular momentum -----
   (der(p)*Ixx-der(q)*Ixy-der(r)*Izx)+(p*r*Ixy+(r^2-q^2)*Iyz-p*q*Izx+(Izz-Iyy)*r*q) = L;
   (der(q)*Iyy-der(p)*Ixy-der(r)*Iyz)+(p*r*(Ixx-Izz)+(p^2-r^2)*Izx-q*r*Ixy+p*q*Iyz) = M;
