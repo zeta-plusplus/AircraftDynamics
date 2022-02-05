@@ -6,14 +6,51 @@ model SourceArbitraryForceMoment00
   import Units = Modelica.SIunits;
   
   /* ---------------------------------------------
-              Internal variables
+        switches
   --------------------------------------------- */
-  parameter Units.Force Xf_par=0;
-  parameter Units.Force Yf_par=0;
-  parameter Units.Force Zf_par=0;
-  parameter Units.MomentOfForce L_par=0;
-  parameter Units.MomentOfForce M_par=0;
-  parameter Units.MomentOfForce N_par=0;
+  parameter Boolean use_u_Xf = false "get Xf from the real input connector" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  parameter Boolean use_u_Yf = false "get Yf from the real input connector" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  parameter Boolean use_u_Zf = false "get Zf from the real input connector" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  
+  parameter Boolean use_L = false "get L from the real input connector" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  parameter Boolean use_M = false "get M from the real input connector" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  parameter Boolean use_N = false "get N from the real input connector" annotation(
+    Evaluate = true,
+    HideResult = true,
+    choices(checkBox = true), Dialog(group = "switch"));
+  
+  
+  
+  /* ---------------------------------------------
+              Parameters
+  --------------------------------------------- */
+  parameter Units.Force Xf_par=0 annotation(
+    Dialog(group = "Forces"));
+  parameter Units.Force Yf_par=0 annotation(
+    Dialog(group = "Forces"));
+  parameter Units.Force Zf_par=0 annotation(
+    Dialog(group = "Forces"));
+  parameter Units.MomentOfForce L_par=0 annotation(
+    Dialog(group = "Moments"));
+  parameter Units.MomentOfForce M_par=0 annotation(
+    Dialog(group = "Moments"));
+  parameter Units.MomentOfForce N_par=0 annotation(
+    Dialog(group = "Moments"));
   
   
   /* ---------------------------------------------
