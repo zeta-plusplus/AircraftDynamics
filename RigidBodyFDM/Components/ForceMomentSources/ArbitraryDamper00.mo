@@ -16,11 +16,11 @@ model ArbitraryDamper00
   parameter Units.TranslationalDampingConstant dampZ_par=100
     "Damping constant, along body z-axis";
   
-  parameter Units.RotationalDampingConstant dampL_par=200
+  parameter Units.RotationalDampingConstant dampL_par=100
     "Damping constant, in roll rotation";
-  parameter Units.RotationalDampingConstant dampM_par=200
+  parameter Units.RotationalDampingConstant dampM_par=100
     "Damping constant, in pitch rotation";
-  parameter Units.RotationalDampingConstant dampN_par=200
+  parameter Units.RotationalDampingConstant dampN_par=100
     "Damping constant, in yaw rotation";
   
   
