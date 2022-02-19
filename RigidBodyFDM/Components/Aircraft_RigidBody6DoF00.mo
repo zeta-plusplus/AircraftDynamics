@@ -12,9 +12,7 @@ model Aircraft_RigidBody6DoF00
               Internal variables
   --------------------------------------------- */
   /**/
-  
-  
-//**********************************************************************
+  //**********************************************************************
 equation
   /*------------------------------
       interfacing
@@ -33,29 +31,24 @@ equation
   for i in 1:3 loop
     rCG[i]= rCG_par[i];
   end for;
-  
-  /*------------------------------
+/*------------------------------
       component physics
   ------------------------------*/
-  //----- linear momentum -----
-  mTot*(der(u)+q*w-r*v) = Xf;
+//----- linear momentum -----
+  mTot * (der(u) + q * w - r * v) = Xf;
   mTot*(der(v)+u*r-p*w) = Yf;
   mTot*(der(w)+p*v-q*u) = Zf;
-  
-  /*
+/*
   mTot*(der(u)) = Xf;
   mTot*(der(v)) = Yf;
   mTot*(der(w)) = Zf;
   */
-  
-  //----- angular momentum -----
-  (der(p)*Ixx-der(q)*Ixy-der(r)*Izx)+(p*r*Ixy+(r^2-q^2)*Iyz-p*q*Izx+(Izz-Iyy)*r*q) = L;
+//----- angular momentum -----
+  der(p) * Ixx - der(q) * Ixy - der(r) * Izx + p * r * Ixy + (r ^ 2 - q ^ 2) * Iyz - p * q * Izx + (Izz - Iyy) * r * q = L;
   (der(q)*Iyy-der(p)*Ixy-der(r)*Iyz)+(p*r*(Ixx-Izz)+(p^2-r^2)*Izx-q*r*Ixy+p*q*Iyz) = M;
   (der(r)*Izz-der(p)*Izx-der(q)*Iyz)+(p*q*(Iyy-Ixx)+(q^2-p^2)*Ixy+q*r*Izx-p*r*Iyz) = N;
-  
-  //----- flight path -----
-  (dXG, dYG, dZG)
-    =AircraftDynamics.Functions.flightPathFormula00(u=u, v=v, w=w, phi=phi, theta=theta, psi=psi);
+//----- flight path -----
+  (dXG, dYG, dZG) = AircraftDynamics.Functions.flightPathFormula00(u = u, v = v, w = w, phi = phi, theta = theta, psi = psi);
   
   der(XG)=dXG;
   der(YG)=dYG;
@@ -64,10 +57,8 @@ equation
   der(dXG)=d2XG;
   der(dYG)=d2YG;
   der(dZG)=d2ZG;
-  
-  //----- angular kinematics -----
-  (dPhi, dTheta, dPsi)
-    =AircraftDynamics.Functions.angularKinematics00(p=p, q=q, r=r, phi=phi, theta=theta, psi=psi);
+//----- angular kinematics -----
+  (dPhi, dTheta, dPsi) = AircraftDynamics.Functions.angularKinematics00(p = p, q = q, r = r, phi = phi, theta = theta, psi = psi);
   der(phi)= dPhi;
   der(theta)= dTheta;
   der(psi)= dPsi;
@@ -75,13 +66,11 @@ equation
   der(dPhi)=d2phi;
   der(dTheta)=d2theta;
   der(dPsi)= d2psi;
-  
-  //-----
-  (alpha, beta, gamma)
-    =AircraftDynamics.Functions.alphaBetaGamma00(u=u, v=v, w=w, dXG=dXG, dYG=dYG, dZG=dZG);
-  
+//-----
+  (alpha, beta, gamma) = AircraftDynamics.Functions.alphaBetaGamma00(u = u, v = v, w = w, dXG = dXG, dYG = dYG, dZG = dZG);
   annotation(
-    defaultComponentName = "AircraftDyn");  
+    defaultComponentName = "AircraftDyn",
+  Icon(graphics = {Text(origin = {0, 80}, extent = {{-100, 10}, {100, -10}}, textString = "%name")}));  
   
   
 end Aircraft_RigidBody6DoF00;

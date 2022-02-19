@@ -73,10 +73,9 @@ equation
     r[i]= VisInfoIn.r[i]+offset_r0[i];
   end for;
   
-  theta[1]= VisInfoIn.theta[1];
+  theta[1]= -1.0*VisInfoIn.theta[1];
   theta[2]= VisInfoIn.theta[2];
-  theta[3]= VisInfoIn.theta[3] - 90.0*Modelica.Constants.pi/180.0;
-  
+  theta[3]= -1.0*VisInfoIn.theta[3] - 90.0*Modelica.Constants.pi/180.0;
   
   /*------------------------------
     convert angles for display (0-360 deg)
