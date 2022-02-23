@@ -70,5 +70,6 @@ equation
   annotation(
     experiment(StartTime = 0, StopTime = 200, Tolerance = 1e-08, Interval = 0.02),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl"),
-    Diagram(coordinateSystem(extent = {{-140, -140}, {140, 140}})));
+    Diagram(coordinateSystem(extent = {{-140, -140}, {140, 140}})),
+  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,nonewInst -d=initialization, --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600 ");
 end Drone4rotor00_ex02;
