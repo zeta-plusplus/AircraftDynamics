@@ -1,0 +1,35 @@
+within AircraftDynamics.Sensors;
+
+model PitchAngleSensor00
+  extends Modelica.Icons.RotationalSensor;
+  import Units = Modelica.SIunits;
+  
+  /********************************************************
+         Declaration
+    ********************************************************/
+  Units.Angle theta "";
+  
+    
+  /* ---------------------------------------------
+              Interface
+    --------------------------------------------- */
+  output Modelica.Blocks.Interfaces.RealOutput y_theta(final quantity = "Angle", final unit = "rad", displayUnit = "deg") "Pitch Angle" annotation(
+    Placement(transformation(extent = {{100, -10}, {120, 10}})));
+    AircraftDynamics.Types.InfoBus infoBus annotation(
+    Placement(visible = true, transformation(origin = {0, -100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, -102}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  //******************************************************************************************
+equation
+/* ---------------------------------------------
+              Interface
+  --------------------------------------------- */
+  connect(infoBus.theta, theta);
+  y_theta=theta;
+  annotation(
+    defaultComponentName = "sensorTheta",
+    Icon(coordinateSystem(preserveAspectRatio = false, initialScale = 0.1), graphics = {Line(points = {{0, -70}, {0, -100}}, thickness = 1.5), Text(origin = {50, 0}, lineColor = {0, 0, 255}, extent = {{-150, 80}, {50, 100}}, textString = "%name"), Text(origin = {-74, 34}, extent = {{186, -44}, {144, -62}}, textString = "gamma"), Line(points = {{70, 0}, {100, 0}}, thickness = 1.5)}),
+    Documentation(info = "<html>
+<p>
+
+</p>
+</html>"));
+end PitchAngleSensor00;

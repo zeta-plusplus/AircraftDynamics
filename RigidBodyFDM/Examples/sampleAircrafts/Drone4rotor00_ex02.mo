@@ -36,6 +36,8 @@ model Drone4rotor00_ex02
     Placement(visible = true, transformation(origin = {-130, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable uSignal_thrustLevel4(fileName = Modelica.Utilities.Files.loadResource("modelica://AircraftDynamics/RigidBodyFDM/Examples/sampleAircrafts/uSignals001_Drone4rotor00_ex02.txt"), tableName = "thrustLevel_rotor4", tableOnFile = true)  annotation(
     Placement(visible = true, transformation(origin = {-10, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AircraftDynamics.Sensors.PitchAngle sensorTheta annotation(
+    Placement(visible = true, transformation(origin = {70, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(uSignal_thrustLevel4.y[1], thrustNominal4.u) annotation(
     Line(points = {{2, -110}, {40, -110}, {40, -90}, {40, -90}}, color = {0, 0, 127}, pattern = LinePattern.Dash));
@@ -67,6 +69,9 @@ equation
     Line(points = {{-120, -30}, {-74, -30}, {-74, -11}, {-40, -11}}, color = {95, 95, 95}));
   connect(airplaneDyn.inCntrSrcForceMoment[5], srcGravity.outCntrSrcForceMoment) annotation(
     Line(points = {{-40, -11}, {-40, -120}}, color = {95, 95, 95}));
+  connect(airplaneDyn.fltStatesBus, sensorTheta.FltStatesBus1) annotation(
+    Line(points = {{20, -10}, {40, -10}, {40, 10}, {60, 10}}, color = {255, 204, 51}, thickness = 0.5));
+protected
   annotation(
     experiment(StartTime = 0, StopTime = 200, Tolerance = 1e-08, Interval = 0.02),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl"),

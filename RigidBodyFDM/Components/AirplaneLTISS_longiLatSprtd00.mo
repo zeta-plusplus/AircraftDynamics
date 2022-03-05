@@ -237,8 +237,9 @@ initial equation
   fltStates.gamma = gamma1;
 //**********************************************************************
 equation
-  connect(FltStatesBus1.fltStates, fltStates);
-  connect(FltStatesBus1.fltAng4disp, fltAng4disp);
+  connect(FltStatesBus1.theta, fltStates.theta);
+  //connect(FltStatesBus1.fltStates, fltStates);
+  //connect(FltStatesBus1.fltAng4disp, fltAng4disp);
 //--
   connect(ResolveFrameTranslational.busAttitude.psi, fltStates.psi) annotation(
     Line);
@@ -295,7 +296,8 @@ equation
   VisInfoOut.alpha = fltStates.alpha;
   VisInfoOut.beta= fltStates.beta;
 //-----
-
+  
+  
 /*------------------------------
   connection; internal -- internal
   ------------------------------*/

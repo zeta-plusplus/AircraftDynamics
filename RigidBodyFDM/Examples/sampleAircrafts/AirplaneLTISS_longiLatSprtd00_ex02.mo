@@ -27,43 +27,9 @@ model AirplaneLTISS_longiLatSprtd00_ex02
     Placement(visible = true, transformation(origin = {-90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.TimeTable uSignal_deltaR(table = [0, 0; 100, 0; 100, -3.0; 101, -3.0; 101, 0; 110, 0; 110, 2.8; 111, 2.8; 111, 0; 150, 0])  annotation(
     Placement(visible = true, transformation(origin = {-90, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.Sensors.Airspeed sensorAirspeed annotation(
-    Placement(visible = true, transformation(origin = {90, 100}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  AircraftDynamics.Sensors.AngleOfAttack sensorAlpha annotation(
-    Placement(visible = true, transformation(origin = {90, 70}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  AircraftDynamics.Sensors.Altitude sensorAltitude annotation(
-    Placement(visible = true, transformation(origin = {90, 40}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  AircraftDynamics.Sensors.FlightPathAngle sensorGamma annotation(
-    Placement(visible = true, transformation(origin = {90, 10}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   AircraftDynamics.Sensors.PitchAngle sensorTheta annotation(
-    Placement(visible = true, transformation(origin = {90, -20}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  AircraftDynamics.Sensors.BankAngle sensorPhi annotation(
-    Placement(visible = true, transformation(origin = {90, -50}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  AircraftDynamics.Sensors.HeadingAngle sensorPsi annotation(
-    Placement(visible = true, transformation(origin = {90, -80}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  AircraftDynamics.Sensors.SideSlipAngle sensorBeta annotation(
-    Placement(visible = true, transformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-  AircraftDynamics.Sensors.Mach sensorMach annotation(
-    Placement(visible = true, transformation(origin = {30, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+    Placement(visible = true, transformation(origin = {82, -43}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 equation
-  connect(AirplaneDyn.FltStatesBus1, sensorMach.FltStatesBus1) annotation(
-    Line(points = {{60, -33}, {60, -94}, {30, -94}, {30, -100}}, color = {255, 204, 51}, thickness = 0.5));
-  connect(AirplaneDyn.FltStatesBus1, sensorBeta.FltStatesBus1) annotation(
-    Line(points = {{60, -33}, {60, -100}}, color = {255, 204, 51}, thickness = 0.5));
-  connect(AirplaneDyn.FltStatesBus1, sensorPsi.FltStatesBus1) annotation(
-    Line(points = {{60, -33}, {72, -33}, {72, -80}, {80, -80}}, color = {255, 204, 51}, thickness = 0.5));
-  connect(AirplaneDyn.FltStatesBus1, sensorAirspeed.FltStatesBus1) annotation(
-    Line(points = {{60, -33}, {64, -33}, {64, 100}, {80, 100}}, color = {255, 204, 51}, thickness = 0.5));
-  connect(AirplaneDyn.FltStatesBus1, sensorAlpha.FltStatesBus1) annotation(
-    Line(points = {{60, -33}, {66, -33}, {66, 70}, {80, 70}}, color = {255, 204, 51}, thickness = 0.5));
-  connect(AirplaneDyn.FltStatesBus1, sensorAltitude.FltStatesBus1) annotation(
-    Line(points = {{60, -33}, {68, -33}, {68, 40}, {80, 40}}, color = {255, 204, 51}, thickness = 0.5));
-  connect(AirplaneDyn.FltStatesBus1, sensorGamma.FltStatesBus1) annotation(
-    Line(points = {{60, -33}, {70, -33}, {70, 10}, {80, 10}}, color = {255, 204, 51}, thickness = 0.5));
-  connect(AirplaneDyn.FltStatesBus1, sensorTheta.FltStatesBus1) annotation(
-    Line(points = {{60, -33}, {70, -33}, {70, -20}, {80, -20}}, color = {255, 204, 51}, thickness = 0.5));
-  connect(AirplaneDyn.FltStatesBus1, sensorPhi.FltStatesBus1) annotation(
-    Line(points = {{60, -33}, {74, -33}, {74, -50}, {80, -50}}, color = {255, 204, 51}, thickness = 0.5));
   connect(uSignal_deltaR.y, from_deg3.u) annotation(
     Line(points = {{-78, -70}, {-64, -70}, {-64, -70}, {-62, -70}}, color = {0, 0, 127}));
   connect(uSignal_deltaA.y, from_deg2.u) annotation(
