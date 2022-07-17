@@ -69,7 +69,7 @@ setting about gui
 ''''''
 rootframe= tk.Tk()  # main gui window
 
-rootframe.geometry("1200x900")
+rootframe.geometry("1200x1000")
 
 # table display gui
 treeview=ttk.Treeview(rootframe)
@@ -79,10 +79,11 @@ treeview.heading(1, text="variable")
 treeview.heading(2, text="value")
 treeview.pack()
 
-height_PFD=800
+height_PFD=900
 width_PFD=800
 lenUnitPitch=500
 canvasPFD = tk.Canvas(rootframe, bg = "white", height=height_PFD, width=width_PFD)
+canvasPFD.pack()
 canvasDatTbl= tk.Canvas(rootframe, bg="white", height=900, width=400)
 
 
@@ -216,6 +217,30 @@ def disp_rectBackground(phi, theta, xCtr=width_PFD/2,yCtr=height_PFD/2,
         tag=tag)
 #***** end def *****
 
+
+'''---------------------------------------------------------'''
+''''''
+def disp_Vvector(alpha, beta, lenUnitAngle=lenUnitPitch, radius=20, 
+                 xCtr=width_PFD/2, yCtr=height_PFD/2, wingSpan=40, VSheight=15, lineWidth=2.0, 
+                 tagFslg="", tagLW="", tagRW="", tagVS=""):
+    ctr= np.array([xCtr+beta*lenUnitAngle, yCtr+alpha*lenUnitAngle])
+    r0= np.array([ctr[0]-radius, ctr[1]-radius])
+    r1= np.array([ctr[0]+radius, ctr[1]+radius])
+    
+    r0_lw= np.array([ctr[0]-radius-1.0/2.0*wingSpan, ctr[1]])
+    r1_lw= np.array([ctr[0]-radius, ctr[1]])
+    r0_rw= np.array([ctr[0]+radius, ctr[1]])
+    r1_rw= np.array([ctr[0]+radius+1.0/2.0*wingSpan, ctr[1]])
+    r0_vs= np.array([ctr[0], ctr[1]-radius-VSheight])
+    r1_vs= np.array([ctr[0], ctr[1]-radius])
+    
+    canvasPFD.create_oval(r0[0], r0[1], r1[0], r1[1], width=lineWidth, tag=tagFslg)
+    canvasPFD.create_line(r0_lw[0],r0_lw[1], r1_lw[0],r1_lw[1], width=lineWidth, tag=tagLW)
+    canvasPFD.create_line(r0_rw[0],r0_rw[1], r1_rw[0],r1_rw[1], width=lineWidth, tag=tagRW)
+    canvasPFD.create_line(r0_vs[0],r0_vs[1], r1_vs[0],r1_vs[1], width=lineWidth, tag=tagVS)
+#***** end def *****
+
+
 '''---------------------------------------------------------'''
 ''''''
 def disp_value(val, x=10, y=height_PFD/2, fontsize=18):
@@ -230,105 +255,95 @@ def disp_value(val, x=10, y=height_PFD/2, fontsize=18):
 ''''''
 def mainroutine():
     
-    # generate canvas
+    # ----- generate canvas
     canvasPFD.place(x=0,y=0)
     canvasDatTbl.place(x=800, y=0)
     
     if(os.path.exists(fullPathDataFile)==True):
-        # read data csv
+        # ----- read data csv
         [dataMatrix, nRow, nCol]= readcsv(fileFullPath=fullPathDataFile)
         vel= float(dataMatrix[1][1])
         alt= float(dataMatrix[2][1])
         phi= float(dataMatrix[3][1])
         theta= float(dataMatrix[4][1])
         psi= float(dataMatrix[5][1])
-        Z_dot= float(dataMatrix[11][1])
+        alpha= float(dataMatrix[6][1])
+        beta= float(dataMatrix[7][1])
+        Z_dot= float(dataMatrix[13][1])
         
         phi_deg= phi*180.0/math.pi
+        theta_deg= theta*180.0/math.pi
         psi_deg= psi*180.0/math.pi
         vs= -1.0*Z_dot
         
+        '''
         x = treeview.get_children()
         disp_CenterCross()
+        '''
         
-        # delete items displayed on window
-        for item in x:
-            treeview.delete(item)
-            canvasPFD.delete("ground")
+        # -------------------- delete items displayed on window --------------------
+        for i in range(9):
+            tag_temp= str((i+1.0)*10) + "deg-pitch"
+            canvasPFD.delete(tag_temp)
             
-            canvasPFD.delete("0deg-pitch")
-            
-            canvasPFD.delete("10deg-pitch")
-            canvasPFD.delete("20deg-pitch")
-            canvasPFD.delete("30deg-pitch")
-            canvasPFD.delete("40deg-pitch")
-            canvasPFD.delete("50deg-pitch")
-            canvasPFD.delete("60deg-pitch")
-            canvasPFD.delete("70deg-pitch")
-            canvasPFD.delete("80deg-pitch")
-            canvasPFD.delete("90deg-pitch")
-            
-            canvasPFD.delete("-10deg-pitch")
-            canvasPFD.delete("-20deg-pitch")
-            canvasPFD.delete("-30deg-pitch")
-            canvasPFD.delete("-40deg-pitch")
-            canvasPFD.delete("-50deg-pitch")
-            canvasPFD.delete("-60deg-pitch")
-            canvasPFD.delete("-70deg-pitch")
-            canvasPFD.delete("-80deg-pitch")
-            canvasPFD.delete("-90deg-pitch")
+            tag_temp= str((i+1.0)*(-10)) + "deg-pitch"
+            canvasPFD.delete(tag_temp)
         #----- end for -----
         
-        # re-display
+        canvasPFD.delete("0deg-pitch")
+        canvasPFD.delete(("Vvector_Fslg"))
+        canvasPFD.delete(("Vvector_LW"))
+        canvasPFD.delete(("Vvector_RW"))
+        canvasPFD.delete(("Vvector_VS"))
+        
+        '''
+        for item in x:
+            treeview.delete(item)
+        #----- end for -----
+        '''
+        
+        # -------------------- re-display --------------------
+        disp_rectBackground(phi, theta, fill="chocolate1", tag="ground")
+        disp_rectBackground(phi, theta, yOfst=-45*math.pi/180*lenUnitPitch, fill="cyan", tag="sky")
+        disp_lineLevel(phi=phi, theta=theta, linewidth=2.0, tag="0deg-pitch")    # 0-deg-pitch
+        
+        k=0.3
+        for i in range(9):
+            yOfst_temp= (i+1.0)*(-10)*math.pi/180*lenUnitPitch
+            tag_temp= str((i+1.0)*10) + "deg-pitch"
+            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=yOfst_temp, length=k*width_PFD, tag=tag_temp)    # 10s-deg-pitch
+            
+            yOfst_temp= (i+1.0)*(10)*math.pi/180*lenUnitPitch
+            tag_temp= str((i+1.0)*(-10)) + "deg-pitch"
+            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=yOfst_temp, length=k*width_PFD, tag=tag_temp)    # -10s-deg-pitch
+        #----- end for -----
+        
+        disp_CenterCross()
+        disp_value(val= "bank: "+str(round(phi_deg,2)), x=1/2*width_PFD-20, y=10, fontsize=16)     # display bank angle
+        disp_value(val= "pitch: "+str(round(theta_deg,2)), x=1/2*width_PFD-20, y=40, fontsize=16)     # display pitch angle
+        disp_value(val= "Heading", x=1/2*width_PFD-50, y=height_PFD-80)     # label heading angle
+        disp_value(val= str(round(psi_deg)), x=1/2*width_PFD-30, y=height_PFD-50)     # display heading angle
+        disp_value(val= str(round(vel))+" m/s", x=80)   # display velocity
+        disp_value(val= str(round(alt))+" m", x=1/2*width_PFD+220)     # display altitude
+        disp_value(val= str(round(vs))+" m/s", x=1/2*width_PFD+280, y=height_PFD/2+40)     # vertical speed
+        
+        disp_Vvector(alpha=alpha, beta=beta, 
+                     tagFslg="Vvector_Fslg", tagLW="Vvector_LW", tagRW="Vvector_RW", tagVS="Vvector_VS")
+        
+        '''
         timeRunning= time.time() - timeBegin
         treeview.insert("","end",values=("time (after python script began)", timeRunning))
         
         i=0
         for i in range(nRow):
             treeview.insert("","end",values=(dataMatrix[i][0],dataMatrix[i][1]))
-            
-            disp_rectBackground(phi, theta, fill="chocolate1", tag="ground")
-            disp_rectBackground(phi, theta, yOfst=-45*math.pi/180*lenUnitPitch,
-                                fill="cyan", tag="ground")
-            
-            disp_lineLevel(phi=phi, theta=theta, linewidth=2.0, tag="0deg-pitch")    # 0-deg-pitch
-            
-            k=0.3
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=-10*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="10deg-pitch")    # 10-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=-20*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="20deg-pitch")    # 20-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=-30*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="30deg-pitch")    # 30-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=-40*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="40deg-pitch")    # 40-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=-50*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="50deg-pitch")    # 50-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=-60*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="60deg-pitch")    # 60-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=-70*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="70deg-pitch")    # 70-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=-80*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="80deg-pitch")    # 80-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=-90*math.pi/180*lenUnitPitch, length=1.5*k*width_PFD, tag="90deg-pitch")    # 90-deg-pitch
-            
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=10*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="-10deg-pitch")    # -10-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=20*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="-20deg-pitch")    # -20-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=30*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="-30deg-pitch")    # -30-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=40*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="-40deg-pitch")    # -40-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=50*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="-50deg-pitch")    # -50-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=60*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="-60deg-pitch")    # -60-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=70*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="-70deg-pitch")    # -70-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=80*math.pi/180*lenUnitPitch, length=k*width_PFD, tag="-80deg-pitch")    # -80-deg-pitch
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=90*math.pi/180*lenUnitPitch, length=1.5*k*width_PFD, tag="-90deg-pitch")    # -90-deg-pitch
-            
-            disp_CenterCross()
-            
-            disp_value(val= str(round(phi_deg,2)), x=1/2*width_PFD-20, y=10, fontsize=16)     # display altitude
-            disp_value(val= str(round(vel))+" m/s", x=80)   # display velocity
-            disp_value(val= str(round(alt))+" m", x=1/2*width_PFD+220)     # display altitude
-            disp_value(val= str(round(vs))+" m/s", x=1/2*width_PFD+280, y=height_PFD/2+40)     # display altitude
-            disp_value(val= str(round(psi_deg)), x=1/2*width_PFD-30, y=height_PFD-50)     # display altitude
-            
         #***** end for *****
-        ''''''
+        '''
     else:
         print("failed to open file")
     #***** end if *****
     
-    # command of recursive call, with specific time interval
+    # ----- command of recursive call, with specific time interval
     rootframe.after(tInterval, mainroutine)
 #***** end def *****
 
@@ -338,22 +353,22 @@ def mainroutine():
 main script
 ----------------------------------------------------------------------'''
 ''''''
-# read data csv
+# ---------- read data csv
 [dataMatrix, nRow, nCol]= readcsv(fileFullPath=fullPathDataFile)
 
-# display info of scv data
+# ---------- display info of scv data
 timeRunning= time.time() - timeBegin
-treeview.insert("","end",values=("time(in python script)", timeRunning))
+#treeview.insert("","end",values=("time(in python script)", timeRunning))
 i=0
 for i in range(nRow):
     treeview.insert( "","end",values=(dataMatrix[i][0],dataMatrix[i][1]) )
 #***** end for *****
 
 
-# call routine of display & update, with specific time interval
+# ---------- call routine of display & update, with specific time interval
 rootframe.after(tInterval, mainroutine)
 
-# continue display & update of csv data until window is closed
+# ---------- continue display & update of csv data until window is closed
 rootframe.mainloop()
 
 print('********** End of pyConsole02.py **********')

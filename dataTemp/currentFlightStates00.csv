@@ -1,9 +1,11 @@
 time[s],29.900000
 V,102
 alt,2000
-phi,-0.1
-theta,0.04
+phi,-0.2
+theta,-0.2
 psi,3.14
+alpha, 0.15
+beta, 0.2
 u,100.0
 v,0.0
 w,5.0
