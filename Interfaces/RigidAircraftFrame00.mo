@@ -183,6 +183,9 @@ equation
   VisInfoOut.theta[1] = phi;
   VisInfoOut.theta[2] = theta;
   VisInfoOut.theta[3] = psi;
+  VisInfoOut.V[1]= u;
+  VisInfoOut.V[2]= v;
+  VisInfoOut.V[3]= w;
 //-----
   
 /*------------------------------

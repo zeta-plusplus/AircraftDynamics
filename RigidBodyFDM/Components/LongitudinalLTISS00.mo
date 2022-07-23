@@ -442,6 +442,9 @@ equation
   VisInfoOut.theta[3] = 0.0;
   VisInfoOut.alpha= y_alpha;
   VisInfoOut.beta= 0.0;
+  VisInfoOut.V[1]= y_u;
+  VisInfoOut.V[2]= 0.0;
+  VisInfoOut.V[3]= y_u*tan(y_theta);
 //-----
 //----- flight condition -----
   connect(DerLongi.infoBusFlt.U1, U1);

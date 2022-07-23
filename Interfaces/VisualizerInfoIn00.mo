@@ -4,6 +4,7 @@ connector VisualizerInfoIn00
   import Units= Modelica.SIunits;
   //-----
   input Units.Position r[3] "position (global frame); xEast, xNorth, alt";
+  input Units.Velocity V[3] "u, v, w";
   input Units.Angle theta[3] "attitude angles; roll, pitch, yaw";
   input Units.Angle alpha "angle of attack";
   input Units.Angle beta "sideslip angle";

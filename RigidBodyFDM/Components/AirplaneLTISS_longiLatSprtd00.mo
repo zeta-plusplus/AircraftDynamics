@@ -295,6 +295,9 @@ equation
   VisInfoOut.theta[3] = fltStates.psi;
   VisInfoOut.alpha = fltStates.alpha;
   VisInfoOut.beta= fltStates.beta;
+  VisInfoOut.V[1]= fltStates.u;
+  VisInfoOut.V[2]= fltStates.v;
+  VisInfoOut.V[3]= fltStates.w;
 //-----
   
   

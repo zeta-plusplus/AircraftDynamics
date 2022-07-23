@@ -431,6 +431,9 @@ equation
   VisInfoOut.theta[3] = y_psi;
   VisInfoOut.alpha= 0.0;
   VisInfoOut.beta=y_beta;
+  VisInfoOut.V[1]= 0.0;
+  VisInfoOut.V[2]= U1*sin(y_beta);
+  VisInfoOut.V[3]= 0.0;
 //-----
 
 //----- flight condition -----

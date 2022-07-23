@@ -281,13 +281,16 @@ equation
   VisInfoOut.theta[3] = fltStates.psi;
   VisInfoOut.alpha= fltStates.alpha;
   VisInfoOut.beta= fltStates.beta;
+  VisInfoOut.V[1]=fltStates.u;
+  VisInfoOut.V[2]=fltStates.v;
+  VisInfoOut.V[3]=fltStates.w;
   //-----
   
   /*------------------------------
   interface; internal -- connector
   ------------------------------*/
-  connect(FltStatesBus1.fltStates, fltStates);
-  connect(FltStatesBus1.fltAng4disp, fltAng4disp);
+  //connect(FltStatesBus1.fltStates, fltStates);
+  //connect(FltStatesBus1.fltAng4disp, fltAng4disp);
 //--
   connect(u_deltaT, FltDynLongiSS.u_deltaT) annotation(
     Line(points = {{-140, 40}, {-116, 40}, {-116, 9}, {-42, 9}}, color = {0, 0, 127}));

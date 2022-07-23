@@ -27,8 +27,6 @@ model AirplaneLTISS_longiLatSprtd00_ex02
     Placement(visible = true, transformation(origin = {-90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.TimeTable uSignal_deltaR(table = [0, 0; 100, 0; 100, -3.0; 101, -3.0; 101, 0; 110, 0; 110, 2.8; 111, 2.8; 111, 0; 150, 0])  annotation(
     Placement(visible = true, transformation(origin = {-90, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.Sensors.PitchAngle sensorTheta annotation(
-    Placement(visible = true, transformation(origin = {82, -43}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
 equation
   connect(uSignal_deltaR.y, from_deg3.u) annotation(
     Line(points = {{-78, -70}, {-64, -70}, {-64, -70}, {-62, -70}}, color = {0, 0, 127}));

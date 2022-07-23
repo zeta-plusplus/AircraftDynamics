@@ -50,7 +50,7 @@ equation
     Line(points = {{-38, 50}, {-28, 50}, {-28, 3}, {-2, 3}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-100, -120}, {120, 120}})),
-    __OpenModelica_commandLineOptions = "",
+    __OpenModelica_commandLineOptions = "-d=initialization, --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600",
     experiment(StartTime = 0, StopTime = 150, Tolerance = 1e-06, Interval = 0.01),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
 end visAtt_AirplaneLTISS_6DoF00_ex01;

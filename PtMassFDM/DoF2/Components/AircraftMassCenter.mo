@@ -63,6 +63,9 @@ equation
   VisInfoOut.theta[3] = 0.0;
   VisInfoOut.alpha= fltStates.alpha;
   VisInfoOut.beta= 0.0;
+  VisInfoOut.V[1]= fltStates.u;
+  VisInfoOut.V[2]= fltStates.v;
+  VisInfoOut.V[3]= fltStates.w;
 //-----
   
   
