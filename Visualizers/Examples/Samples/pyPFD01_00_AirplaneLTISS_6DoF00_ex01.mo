@@ -27,6 +27,8 @@ model pyPFD01_00_AirplaneLTISS_6DoF00_ex01
     Placement(visible = true, transformation(origin = {-90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable uSignal_deltaR(fileName = Modelica.Utilities.Files.loadResource("modelica://AircraftDynamics/Visualizers/Examples/Samples/uSignals001_AirplaneLTISS_longiLatSprtd00_ex02.txt"), tableName = "deltaR", tableOnFile = true) annotation(
     Placement(visible = true, transformation(origin = {-90, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  AircraftDynamics.Visualizers.interactive_pyPFD01_00 pyPFD(tInterval = 0.03)  annotation(
+    Placement(visible = true, transformation(origin = {90, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(uSignal_deltaR.y[1], from_deg3.u) annotation(
     Line(points = {{-79, -70}, {-62, -70}}, color = {0, 0, 127}));
@@ -44,6 +46,8 @@ equation
     Line(points = {{-38, 10}, {-36, 10}, {-36, -3}, {-2, -3}}, color = {0, 0, 127}));
   connect(from_deg1.y, AirplaneDyn.u_deltaE) annotation(
     Line(points = {{-38, 50}, {-28, 50}, {-28, 3}, {-2, 3}}, color = {0, 0, 127}));
+  connect(AirplaneDyn.VisInfoOut, pyPFD.VisInfoIn) annotation(
+    Line(points = {{57, 20}, {57, 50}, {80, 50}}, color = {95, 95, 95}));
   annotation(
     Diagram(coordinateSystem(extent = {{-100, -120}, {120, 120}})),
     __OpenModelica_commandLineOptions = "-d=initialization, --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600",

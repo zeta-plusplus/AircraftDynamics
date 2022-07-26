@@ -19,40 +19,26 @@ import numpy
 '''--------------------
 declare/instantiation/initialization
 --------------------'''
+vel: float=0.0
+alt: float= 0.0
+theta: float= 0.0
+phi: float= 0.0
+phi_deg: float= 0.0
+theta_deg: float= 0.0
+psi_deg: float= 0.0
+vs: float= 0.0
+
 #-----
-global simTime
-global vel
-global alt
-global theta
-global phi
-global phi_deg
-global theta_deg
-global psi_deg
-global vs
-#-----
-global simTime_prev
-global dmy_prev
-global alt_prev
-global phi_prev
-global theta_prev
-global psi_prev
-global alpha_prev
-global beta_prev
-global Z_dot_prev
-global vel_prev
-#-----
-global d_simTime
-global d_dmy
-global d_alt
-global d_phi
-global d_theta
-global d_psi
-global d_alpha
-global d_beta
-global d_Z_dot
-global d_vel
-#-----
-global flagInit
+simTime_prev: float= 0.0
+dmy_prev: float= 0.0
+alt_prev: float= 0.0
+phi_prev: float= 0.0
+theta_prev: float= 0.0
+psi_prev: float= 0.0
+alpha_prev: float= 0.0
+beta_prev: float= 0.0
+Z_dot_prev: float= 0.0
+vel_prev: float= 0.0
 
 
 '''----------------------------------------------------------------------
@@ -83,7 +69,6 @@ print('fullPathDataFile: ' + str(fullPathDataFile))
 print('exist data file: ' + str( os.path.exists(fullPathDataFile) ))
 print('')
 
-flagInit=True
 
 '''--------------------
 setting about time handling
@@ -91,7 +76,7 @@ setting about time handling
 ''''''
 timeBegin=time.time()
 timeLim=10000000
-tInterval=30    #[ms]
+tInterval=20    #[ms]
 
 
 '''--------------------
@@ -139,17 +124,6 @@ alpha= 0.0
 beta= 0.0
 Z_dot= 0.0
 vel= 0.0
-
-d_simTime= 0.0
-d_dmy= 0.0
-d_alt= 0.0
-d_phi= 0.0
-d_theta= 0.0
-d_psi= 0.0
-d_alpha= 0.0
-d_beta= 0.0
-d_Z_dot= 0.0
-d_vel= 0.0
 
 phi_deg= 0.0
 theta_deg= 0.0
@@ -322,268 +296,173 @@ def disp_value(val, x=10, y=height_PFD/2, fontsize=18):
 '''-----------------------------------------------------------------------------'''
 '''-----------------------------------------------------------------------------'''
 ''''''
-def mainroutine(flagInit, simTime_prev, alt_prev, \
-                phi_prev, theta_prev, psi_prev, \
-                alpha_prev, beta_prev, Z_dot_prev, vel_prev, \
-                d_simTime, d_alt, \
-                d_phi, d_theta, d_psi, \
-                d_alpha, d_beta, d_Z_dot, d_vel):
-    #--------------------
-    timeRunning= time.time() - timeBegin
+def mainroutine():
     
-    #-----
+    
     if(os.path.exists(fullPathDataFile)==True):
         # ----- read data csv
         [dataMatrix, nRow, nCol]= readcsv(fileFullPath=fullPathDataFile)
-        cols_dataMatrix= [len(v) for v in dataMatrix]
+        #print(str(nRow))
+        #print(str(nCol))
         
-        if(nRow==17):
-            i=0
+        if(nRow==18)and(nCol==2):
+            simTime= float(dataMatrix[0][1])
+            dmy= float(dataMatrix[1][1])
+            alt= float(dataMatrix[2][1])
+            phi= float(dataMatrix[3][1])
+            theta= float(dataMatrix[4][1])
+            psi= float(dataMatrix[5][1])
+            alpha= float(dataMatrix[6][1])
+            beta= float(dataMatrix[7][1])
+            Z_dot= float(dataMatrix[13][1])
+            vel= float(dataMatrix[17][1])
             
-            if(cols_dataMatrix[i]==2):
-                simTime= float(dataMatrix[i][1])
-            else:
-                simTime= simTime_prev + d_simTime*tInterval
-            #***** end if *****
-            i=i+1
+            phi_deg= phi*180.0/math.pi
+            theta_deg= theta*180.0/math.pi
+            psi_deg= psi*180.0/math.pi
+            vs= -1.0*Z_dot
             
-            if(cols_dataMatrix[i]==2):
-                vel= float(dataMatrix[i][1])
-            else:
-                vel= vel_prev + d_vel*tInterval
-            #***** end if *****
-            i=i+1
-            
-            if(cols_dataMatrix[i]==2):
-                alt= float(dataMatrix[i][1])
-            else:
-                alt= alt_prev + d_alt*tInterval
-            #***** end if *****
-            i=i+1
-            
-            if(cols_dataMatrix[i]==2):
-                phi= float(dataMatrix[i][1])
-            else:
-                phi= phi_prev + d_phi*tInterval
-            #***** end if *****
-            i=i+1
-            
-            if(cols_dataMatrix[i]==2):
-                theta= float(dataMatrix[i][1])
-            else:
-                theta= theta_prev + d_theta*tInterval
-            #***** end if *****
-            i=i+1
-            
-            if(cols_dataMatrix[i]==2):
-                psi= float(dataMatrix[i][1])
-            else:
-                psi= psi_prev + d_psi*tInterval
-            #***** end if *****
-            i=i+1
-            
-            if(cols_dataMatrix[i]==2):
-                alpha= float(dataMatrix[i][1])
-            else:
-                alpha= alpha_prev + d_alpha*tInterval
-            #***** end if *****
-            i=i+1
-            
-            if(cols_dataMatrix[i]==2):
-                beta= float(dataMatrix[i][1])
-            else:
-                beta= beta_prev + d_beta*tInterval
-            #***** end if *****
-            i=i+1
-            
-            if(cols_dataMatrix[i]==2):
-                Z_dot= float(dataMatrix[i][1])
-            else:
-                Z_dot= Z_dot_prev + d_Z_dot*tInterval
-            #***** end if *****
-            i=i+1
-            
-            d_simTime=(simTime-simTime_prev)/tInterval
-            d_alt= (alt-alt_prev)/tInterval
-            d_phi= (phi-phi_prev)/tInterval
-            d_theta= (theta-theta_prev)/tInterval
-            d_psi= (psi-psi_prev)/tInterval
-            d_alpha= (alpha-alpha_prev)/tInterval
-            d_beta= (beta-beta_prev)/tInterval
-            d_Z_dot= (Z_dot-Z_dot_prev)/tInterval
-            d_vel= (vel-vel_prev)/tInterval
-            
+            '''
+            simTime_prev= simTime
+            dmy_prev= dmy
+            alt_prev= alt
+            phi_prev= phi
+            theta_prev= theta
+            psi_prev= psi
+            alpha_prev= alpha
+            beta_prev= beta
+            Z_dot_prev= Z_dot
+            vel_prev= vel
+            '''
+        '''
         else:
-            if(flagInit==False):
-                simTime= simTime_prev + d_simTime*tInterval
-                alt= alt_prev + d_alt*tInterval
-                phi= phi_prev + d_phi*tInterval
-                theta= theta_prev + d_theta*tInterval
-                psi= psi_prev + d_psi*tInterval
-                alpha= alpha_prev + d_alpha*tInterval
-                beta= beta_prev + d_beta*tInterval
-                Z_dot= Z_dot_prev + d_Z_dot*tInterval
-                vel= vel_prev + d_vel*tInterval
-            else:
-                simTime= simTime_prev
-                alt= alt_prev
-                phi= phi_prev
-                theta= theta_prev
-                psi= psi_prev
-                alpha= alpha_prev
-                beta= beta_prev
-                Z_dot= Z_dot_prev
-                vel= vel_prev
-            #***** end if *****
-        #***** end if *****
+            simTime= simTime_prev
+            dmy= dmy_prev
+            alt= alt_prev
+            phi= phi
+            theta= theta_prev
+            psi= psi_prev
+            alpha= alpha_prev
+            beta= beta_prev
+            Z_dot= Z_dot_prev
+            vel= vel_prev
+        '''    
+        #----- end if -----
         
-        if(flagInit==True):
-            flagInit=False
-        #***** end if *****
-        
-        phi_deg= phi*180.0/math.pi
-        theta_deg= theta*180.0/math.pi
-        psi_deg= psi*180.0/math.pi
-        vs= -1.0*Z_dot
-        
-        # -------------------- delete items displayed on window --------------------
-        for i in range(9):
-            tag_temp= str((i+1.0)*10) + "deg-pitch"
-            canvasPFD.delete(tag_temp)
-            
-            tag_temp= str((i+1.0)*(-10)) + "deg-pitch"
-            canvasPFD.delete(tag_temp)
-        #----- end for -----
-        
-        canvasPFD.delete("0deg-pitch")
-        canvasPFD.delete(("Vvector_Fslg"))
-        canvasPFD.delete(("Vvector_LW"))
-        canvasPFD.delete(("Vvector_RW"))
-        canvasPFD.delete(("Vvector_VS"))
-        
-        # -------------------- re-display --------------------
-        disp_rectBackground(phi, theta, fill="chocolate1", tag="ground")
-        disp_rectBackground(phi, theta, yOfst=-45*math.pi/180*lenUnitPitch, fill="cyan", tag="sky")
-        disp_lineLevel(phi=phi, theta=theta, linewidth=2.0, tag="0deg-pitch")    # 0-deg-pitch
-        
-        k=0.3
-        for i in range(9):
-            yOfst_temp= (i+1.0)*(-10)*math.pi/180*lenUnitPitch
-            tag_temp= str((i+1.0)*10) + "deg-pitch"
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=yOfst_temp, length=k*width_PFD, tag=tag_temp)    # 10s-deg-pitch
-            
-            yOfst_temp= (i+1.0)*(10)*math.pi/180*lenUnitPitch
-            tag_temp= str((i+1.0)*(-10)) + "deg-pitch"
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=yOfst_temp, length=k*width_PFD, tag=tag_temp)    # -10s-deg-pitch
-        #----- end for -----
-        
+        '''
+        x = treeview.get_children()
         disp_CenterCross()
-        disp_value(val= "bank: "+str(round(phi_deg,2)), x=1/2*width_PFD-20, y=10, fontsize=16)     # display bank angle
-        disp_value(val= "pitch: "+str(round(theta_deg,2)), x=1/2*width_PFD-20, y=40, fontsize=16)     # display pitch angle
+        '''
         
-        disp_value(val= "Heading", x=1/2*width_PFD-50, y=height_PFD-110)     # label heading angle
-        disp_value(val= str(round(psi_deg)), x=1/2*width_PFD-30, y=height_PFD-80)     # display heading angle
-        
-        disp_value(val= str(round(vel))+" m/s", x=80)   # display velocity
-        disp_value(val= str(round(alt))+" m", x=1/2*width_PFD+220)     # display altitude
-        disp_value(val= str(round(vs))+" m/s", x=1/2*width_PFD+280, y=height_PFD/2+40)     # vertical speed
-        
-        disp_Vvector(alpha=alpha, beta=beta, 
-                     tagFslg="Vvector_Fslg", tagLW="Vvector_LW", tagRW="Vvector_RW", tagVS="Vvector_VS")
-        
-        disp_value(val= "Sim time: "+str(round(simTime,2)), 
-                   x=1/2*width_PFD-70, y=height_PFD-40, fontsize=12)     # 
-        disp_value(val= "time after begin: "+str(round(timeRunning,2)), 
-                   x=1/2*width_PFD-90, y=height_PFD-20, fontsize=12)     # 
-        
+            # -------------------- delete items displayed on window --------------------
+            for i in range(9):
+                tag_temp= str((i+1.0)*10) + "deg-pitch"
+                canvasPFD.delete(tag_temp)
+                
+                tag_temp= str((i+1.0)*(-10)) + "deg-pitch"
+                canvasPFD.delete(tag_temp)
+            #----- end for -----
+            
+            canvasPFD.delete("0deg-pitch")
+            canvasPFD.delete(("Vvector_Fslg"))
+            canvasPFD.delete(("Vvector_LW"))
+            canvasPFD.delete(("Vvector_RW"))
+            canvasPFD.delete(("Vvector_VS"))
+            
+            '''
+            for item in x:
+                treeview.delete(item)
+            #----- end for -----
+            '''
+            
+            # -------------------- re-display --------------------
+            disp_rectBackground(phi, theta, fill="chocolate1", tag="ground")
+            disp_rectBackground(phi, theta, yOfst=-45*math.pi/180*lenUnitPitch, fill="cyan", tag="sky")
+            disp_lineLevel(phi=phi, theta=theta, linewidth=2.0, tag="0deg-pitch")    # 0-deg-pitch
+            
+            k=0.3
+            for i in range(9):
+                yOfst_temp= (i+1.0)*(-10)*math.pi/180*lenUnitPitch
+                tag_temp= str((i+1.0)*10) + "deg-pitch"
+                disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=yOfst_temp, length=k*width_PFD, tag=tag_temp)    # 10s-deg-pitch
+                
+                yOfst_temp= (i+1.0)*(10)*math.pi/180*lenUnitPitch
+                tag_temp= str((i+1.0)*(-10)) + "deg-pitch"
+                disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=yOfst_temp, length=k*width_PFD, tag=tag_temp)    # -10s-deg-pitch
+            #----- end for -----
+            
+            disp_CenterCross()
+            disp_value(val= "bank: "+str(round(phi_deg,2)), x=1/2*width_PFD-20, y=10, fontsize=16)     # display bank angle
+            disp_value(val= "pitch: "+str(round(theta_deg,2)), x=1/2*width_PFD-20, y=40, fontsize=16)     # display pitch angle
+            
+            disp_value(val= "Heading", x=1/2*width_PFD-50, y=height_PFD-90)     # label heading angle
+            disp_value(val= str(round(psi_deg)), x=1/2*width_PFD-30, y=height_PFD-60)     # display heading angle
+            
+            disp_value(val= str(round(vel))+" m/s", x=80)   # display velocity
+            disp_value(val= str(round(alt))+" m", x=1/2*width_PFD+220)     # display altitude
+            disp_value(val= str(round(vs))+" m/s", x=1/2*width_PFD+280, y=height_PFD/2+40)     # vertical speed
+            
+            disp_Vvector(alpha=alpha, beta=beta, 
+                         tagFslg="Vvector_Fslg", tagLW="Vvector_LW", tagRW="Vvector_RW", tagVS="Vvector_VS")
+            
+            timeRunning= time.time() - timeBegin
+            disp_value(val= "Sim time: "+str(round(simTime,2)), x=1/2*width_PFD-70, y=height_PFD-20, fontsize=12)     # display bank angle
+            
+            #-----
+            '''
+            simTime_prev= simTime
+            dmy_prev= dmy
+            alt_prev= alt
+            phi_prev= phi
+            theta_prev= theta
+            psi_prev= psi
+            alpha_prev= alpha
+            beta_prev= beta
+            Z_dot_prev= Z_dot
+            vel_prev= vel
+            '''
+            '''
+            treeview.insert("","end",values=("time (after python script began)", timeRunning))
+            
+            i=0
+            for i in range(nRow):
+                treeview.insert("","end",values=(dataMatrix[i][0],dataMatrix[i][1]))
+            #***** end for *****
+            '''
+            
     else:
         print("failed to open file")
     #***** end if *****
     
-    simTime_prev= simTime
-    vel_prev= vel
-    alt_prev= alt
-    phi_prev= phi
-    theta_prev= theta
-    psi_prev= psi
-    alpha_prev= alpha
-    beta_prev= beta
-    Z_dot_prev= Z_dot
-    
     # ----- command of recursive call, with specific time interval
-    rootframe.after(tInterval, mainroutine, \
-                    flagInit, simTime_prev, alt_prev, \
-                    phi_prev, theta_prev, psi_prev, \
-                    alpha_prev, beta_prev, Z_dot_prev, vel_prev, \
-                    d_simTime, d_alt, \
-                    d_phi, d_theta, d_psi, \
-                    d_alpha, d_beta, d_Z_dot, d_vel)
-    #-----
-    
-    return flagInit, simTime_prev, alt_prev, \
-        phi_prev, theta_prev, psi_prev, \
-        alpha_prev, beta_prev, Z_dot_prev, vel_prev, \
-        d_simTime, d_alt, \
-        d_phi, d_theta, d_psi, \
-        d_alpha, d_beta, d_Z_dot, d_vel
-    ''''''
+    rootframe.after(tInterval, mainroutine)
 #***** end def *****
 
-
-'''---------------------------------------------------------'''
-''''''
-def initialize(flagInit, simTime_prev, alt_prev, \
-            phi_prev, theta_prev, psi_prev, \
-            alpha_prev, beta_prev, Z_dot_prev, vel_prev):
-    
-    flagInit=True
-    simTime= 0.0
-    alt= 0.0
-    phi= 0.0
-    theta= 0.0
-    psi= 0.0
-    alpha= 0.0
-    beta= 0.0
-    Z_dot= 0.0
-    vel= 0.0
-    
-    simTime_prev= simTime
-    alt_prev= alt
-    phi_prev= phi
-    theta_prev= theta
-    psi_prev= psi
-    alpha_prev= alpha
-    beta_prev= beta
-    Z_dot_prev= Z_dot
-    vel_prev= vel
-    
-    return flagInit, simTime_prev, alt_prev, \
-        phi_prev, theta_prev, psi_prev, \
-        alpha_prev, beta_prev, Z_dot_prev, vel_prev
-    ''''''
-#***** end def *****
 
 
 '''----------------------------------------------------------------------
 main script
 ----------------------------------------------------------------------'''
+''''''
 # ---------- read data csv
 [dataMatrix, nRow, nCol]= readcsv(fileFullPath=fullPathDataFile)
-[flagInit, simTime_prev, alt_prev, phi_prev, theta_prev, psi_prev, alpha_prev, beta_prev, Z_dot_prev, vel_prev] \
-    = initialize(flagInit, simTime_prev, alt_prev, phi_prev, theta_prev, psi_prev, alpha_prev, beta_prev, Z_dot_prev, vel_prev)
 
 # ----- generate canvas
-canvasPFD.place(x=0, y=0)
+canvasPFD.place(x=0,y=0)
 canvasDatTbl.place(x=800, y=0)
 
+# ---------- display info of scv data
+#timeRunning= time.time() - timeBegin
+#treeview.insert("","end",values=("time(in python script)", timeRunning))
+
+#i=0
+#for i in range(nRow):
+#   treeview.insert( "","end",values=(dataMatrix[i][0],dataMatrix[i][1]) )
+#***** end for *****
+
+
 # ---------- call routine of display & update, with specific time interval
-rootframe.after(tInterval, mainroutine, \
-                flagInit, simTime_prev, alt_prev, \
-                phi_prev, theta_prev, psi_prev, \
-                alpha_prev, beta_prev, Z_dot_prev, vel_prev, \
-                d_simTime, d_alt, \
-                d_phi, d_theta, d_psi, \
-                d_alpha, d_beta, d_Z_dot, d_vel)
+rootframe.after(tInterval, mainroutine)
 
 # ---------- continue display & update of csv data until window is closed
 rootframe.mainloop()

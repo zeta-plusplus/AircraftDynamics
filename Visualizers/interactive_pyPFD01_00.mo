@@ -40,9 +40,7 @@ block interactive_pyPFD01_00
   --------------------------------------------- */
   Interfaces.VisualizerInfoIn00 VisInfoIn annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-16, -16}, {16, 16}}, rotation = 0)));
-  
-//******************************************************************************************
-
+  //******************************************************************************************
     InteractiveSimulation.Utilities.TimeSignalOut timeSignalOut1 annotation(
     Placement(visible = true, transformation(origin = {-70, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 protected
@@ -63,7 +61,6 @@ protected
       "u", "v", "w", 
       "X_dot", "Y_dot", "Z_dot", 
       "xEast", "xNorth", "alt"};
-  
   //******************************************************************************************
 initial algorithm
 //----- display inputs on command line -----
@@ -92,8 +89,7 @@ equation
   end for;  
   /**/
   V= sqrt(VisInfoIn.V[1]^2.0 + VisInfoIn.V[3]^2.0 + VisInfoIn.V[3]^2.0);
-  
-  //-----
+//-----
   variables2Print[1]= timeSignalOut1.y;
   variables2Print[2]= V;
   variables2Print[3]= VisInfoIn.r[3];
@@ -111,11 +107,10 @@ equation
   variables2Print[15]= VisInfoIn.r[1];
   variables2Print[16]= VisInfoIn.r[2];
   variables2Print[17]= VisInfoIn.r[3];
-  //-----
-  
+//-----
   annotation(
     defaultComponentName = "pyPFD",
-    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-12, -77}, extent = {{-88, -1}, {112, -21}}, textString = "%name")}, coordinateSystem(initialScale = 0.1)),
+    Icon(graphics = {Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-12, -101}, extent = {{-88, -1}, {112, -21}}, textString = "%name")}, coordinateSystem(initialScale = 0.1)),
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.02),
     __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
 end interactive_pyPFD01_00;

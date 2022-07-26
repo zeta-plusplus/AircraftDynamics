@@ -273,9 +273,9 @@ equation
   connect(fltStates.theta, ResolveFrameRotational.busAttitude.theta);
   connect(fltStates.psi, ResolveFrameRotational.busAttitude.psi);
 //-----
-  VisInfoOut.r[1] = fltStates.xEast;
-  VisInfoOut.r[2] = fltStates.xNorth;
-  VisInfoOut.r[3] = fltStates.alt;
+  VisInfoOut.r[1] = fltStates.YG;
+  VisInfoOut.r[2] = fltStates.XG;
+  VisInfoOut.r[3] = -1.0*fltStates.ZG;
   VisInfoOut.theta[1] = fltStates.phi;
   VisInfoOut.theta[2] = fltStates.theta;
   VisInfoOut.theta[3] = fltStates.psi;
@@ -356,6 +356,7 @@ equation
 /*
 */
 //----------
+
   annotation(
     defaultComponentName = "AirplaneDyn",
     Icon(graphics = {Text(origin = {2, -192}, extent = {{-181, 8}, {178, -8}}, textString = "%name")}, coordinateSystem(initialScale = 0.1, extent = {{-180, -180}, {180, 180}})),
