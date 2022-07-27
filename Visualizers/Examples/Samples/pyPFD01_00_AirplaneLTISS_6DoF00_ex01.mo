@@ -27,8 +27,10 @@ model pyPFD01_00_AirplaneLTISS_6DoF00_ex01
     Placement(visible = true, transformation(origin = {-90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.CombiTimeTable uSignal_deltaR(fileName = Modelica.Utilities.Files.loadResource("modelica://AircraftDynamics/Visualizers/Examples/Samples/uSignals001_AirplaneLTISS_longiLatSprtd00_ex02.txt"), tableName = "deltaR", tableOnFile = true) annotation(
     Placement(visible = true, transformation(origin = {-90, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.Visualizers.interactive_pyPFD01_00 pyPFD(tInterval = 0.03)  annotation(
+  AircraftDynamics.Visualizers.interactive_pyPFD01_00 pyPFD(tInterval = 0.02)  annotation(
     Placement(visible = true, transformation(origin = {90, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1(enable = true) annotation(
+    Placement(visible = true, transformation(origin = {30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(uSignal_deltaR.y[1], from_deg3.u) annotation(
     Line(points = {{-79, -70}, {-62, -70}}, color = {0, 0, 127}));

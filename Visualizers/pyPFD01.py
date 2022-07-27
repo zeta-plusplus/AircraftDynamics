@@ -16,41 +16,148 @@ import pathlib
 import math
 import numpy
 
+
+class flightStates:
+    '''--------------------
+    declare/instantiation/initialization
+    --------------------'''
+    time: float()
+    #-----
+    vel: float()
+    theta: float()
+    phi: float()
+    psi: float()
+    alpha: float()
+    beta: float()
+    u: float()
+    v: float()
+    w: float()
+    X_dot: float()
+    Y_dot: float()
+    Z_dot: float()
+    xEast: float()
+    xNorth: float()
+    alt: float()
+    vs: float()
+    #-----
+    d_vel: float()
+    d_theta: float()
+    d_phi: float()
+    d_psi: float()
+    d_alpha: float()
+    d_beta: float()
+    d_u: float()
+    d_v: float()
+    d_w: float()
+    d_X_dot: float()
+    d_Y_dot: float()
+    d_Z_dot: float()
+    d_xEast: float()
+    d_xNorth: float()
+    d_alt: float()
+    #-----
+    phi_deg: float()
+    theta_deg: float()
+    psi_deg: float()
+    alpha_deg: float()
+    beta_deg: float()
+    
+    def __init__(self):
+        self.time= 0.0
+        #-----
+        self.vel= 0.0
+        self.theta= 0.0
+        self.phi= 0.0
+        self.psi= 0.0
+        self.alpha= 0.0
+        self.beta= 0.0
+        self.u= 0.0
+        self.v= 0.0
+        self.w= 0.0
+        self.X_dot= 0.0
+        self.Y_dot= 0.0
+        self.Z_dot= 0.0
+        self.xEast= 0.0
+        self.xEast= 0.0
+        self.alt= 0.0
+        self.vs= 0.0
+        #-----
+        self.d_vel= 0.0
+        self.d_theta= 0.0
+        self.d_phi= 0.0
+        self.d_psi= 0.0
+        self.d_alpha= 0.0
+        self.d_beta= 0.0
+        self.d_u= 0.0
+        self.d_v= 0.0
+        self.d_w= 0.0
+        self.d_X_dot= 0.0
+        self.d_Y_dot= 0.0
+        self.d_Z_dot= 0.0
+        self.d_xEast= 0.0
+        self.d_xEast= 0.0
+        self.d_alt= 0.0
+        self.d_vs= 0.0
+        #-----
+        self.phi_deg= 0.0
+        self.theta_deg= 0.0
+        self.psi_deg= 0.0
+        self.alpha_deg= 0.0
+        self.beta_deg= 0.0
+    #********** end def **********
+    
+    def resetAttributes(self):
+        self.time= 0.0
+        #-----
+        self.vel= 0.0
+        self.theta= 0.0
+        self.phi= 0.0
+        self.psi= 0.0
+        self.alpha= 0.0
+        self.beta= 0.0
+        self.u= 0.0
+        self.v= 0.0
+        self.w= 0.0
+        self.X_dot= 0.0
+        self.Y_dot= 0.0
+        self.Z_dot= 0.0
+        self.xEast= 0.0
+        self.xEast= 0.0
+        self.alt= 0.0
+        self.vs= 0.0
+        #-----
+        self.d_vel= 0.0
+        self.d_theta= 0.0
+        self.d_phi= 0.0
+        self.d_psi= 0.0
+        self.d_alpha= 0.0
+        self.d_beta= 0.0
+        self.d_u= 0.0
+        self.d_v= 0.0
+        self.d_w= 0.0
+        self.d_X_dot= 0.0
+        self.d_Y_dot= 0.0
+        self.d_Z_dot= 0.0
+        self.d_xEast= 0.0
+        self.d_xEast= 0.0
+        self.d_alt= 0.0
+        self.d_vs= 0.0
+        #-----
+        self.phi_deg= 0.0
+        self.theta_deg= 0.0
+        self.psi_deg= 0.0
+        self.alpha_deg= 0.0
+        self.beta_deg= 0.0
+    #********** end def **********
+#********** end class **********
+
+
 '''--------------------
 declare/instantiation/initialization
 --------------------'''
-#-----
-global simTime
-global vel
-global alt
-global theta
-global phi
-global phi_deg
-global theta_deg
-global psi_deg
-global vs
-#-----
-global simTime_prev
-global dmy_prev
-global alt_prev
-global phi_prev
-global theta_prev
-global psi_prev
-global alpha_prev
-global beta_prev
-global Z_dot_prev
-global vel_prev
-#-----
-global d_simTime
-global d_dmy
-global d_alt
-global d_phi
-global d_theta
-global d_psi
-global d_alpha
-global d_beta
-global d_Z_dot
-global d_vel
+fltState= flightStates()
+fltStatePrev= flightStates()
+fltStateSave= flightStates()
 #-----
 global flagInit
 
@@ -91,7 +198,8 @@ setting about time handling
 ''''''
 timeBegin=time.time()
 timeLim=10000000
-tInterval=30    #[ms]
+tInterval=20    #[ms]
+tIntervalRead= 2 #[ms]
 
 
 '''--------------------
@@ -117,44 +225,6 @@ canvasPFD = tk.Canvas(rootframe, bg = "white", height=height_PFD, width=width_PF
 canvasPFD.pack()
 canvasDatTbl= tk.Canvas(rootframe, bg="white", height=900, width=400)
 
-#-----------
-simTime_prev= 0.0
-dmy_prev= 0.0
-alt_prev= 0.0
-phi_prev= 0.0
-theta_prev= 0.0
-psi_prev= 0.0
-alpha_prev= 0.0
-beta_prev= 0.0
-Z_dot_prev= 0.0
-vel_prev= 0.0
-
-simTime= 0.0
-dmy= 0.0
-alt= 0.0
-phi= 0.0
-theta= 0.0
-psi= 0.0
-alpha= 0.0
-beta= 0.0
-Z_dot= 0.0
-vel= 0.0
-
-d_simTime= 0.0
-d_dmy= 0.0
-d_alt= 0.0
-d_phi= 0.0
-d_theta= 0.0
-d_psi= 0.0
-d_alpha= 0.0
-d_beta= 0.0
-d_Z_dot= 0.0
-d_vel= 0.0
-
-phi_deg= 0.0
-theta_deg= 0.0
-psi_deg= 0.0
-vs= 0.0
 
 '''----------------------------------------------------------------------
 define sub-routines
@@ -312,7 +382,7 @@ def disp_Vvector(alpha, beta, lenUnitAngle=lenUnitPitch, radius=20,
 
 '''---------------------------------------------------------'''
 ''''''
-def disp_value(val, x=10, y=height_PFD/2, fontsize=18):
+def disp_value(val, x=10, y=height_PFD/2, fontsize=18, tag=""):
     font_val= font.Font(size=fontsize)
     label_val = tk.Label(text=val, font=font_val)
     label_val.place(x=x, y=y)
@@ -322,16 +392,115 @@ def disp_value(val, x=10, y=height_PFD/2, fontsize=18):
 '''-----------------------------------------------------------------------------'''
 '''-----------------------------------------------------------------------------'''
 ''''''
-def mainroutine(flagInit, simTime_prev, alt_prev, \
-                phi_prev, theta_prev, psi_prev, \
-                alpha_prev, beta_prev, Z_dot_prev, vel_prev, \
-                d_simTime, d_alt, \
-                d_phi, d_theta, d_psi, \
-                d_alpha, d_beta, d_Z_dot, d_vel):
+def mainroutine(flagInit, \
+                fltState: flightStates, fltStatePrev: flightStates, fltStateSave: flightStates):
     #--------------------
     timeRunning= time.time() - timeBegin
     
+    rootframe.after(tIntervalRead, readFltStatesDat, \
+                    flagInit, fltState, fltStatePrev, fltStateSave)
     #-----
+    if(flagInit==True):
+        flagInit=False
+    #***** end if *****
+    
+    fltState.d_vel= (fltState.vel - fltStatePrev.vel) / tInterval
+    fltState.d_alt= (fltState.alt - fltStatePrev.alt) / tInterval
+    fltState.d_phi= (fltState.phi - fltStatePrev.phi) / tInterval
+    fltState.d_theta= (fltState.vel - fltStatePrev.vel) / tInterval
+    fltState.d_psi= (fltState.vel - fltStatePrev.vel) / tInterval
+    fltState.d_alpha= (fltState.vel - fltStatePrev.vel) / tInterval
+    fltState.d_beta= (fltState.vel - fltStatePrev.vel) / tInterval
+    fltState.d_u= (fltState.vel - fltStatePrev.vel) / tInterval
+    fltState.d_v= (fltState.vel - fltStatePrev.vel) / tInterval
+    fltState.d_w= (fltState.vel - fltStatePrev.vel) / tInterval
+    fltState.d_X_dot= (fltState.vel - fltStatePrev.vel) / tInterval
+    fltState.d_Y_dot= (fltState.vel - fltStatePrev.vel) / tInterval
+    fltState.xEast= (fltState.vel - fltStatePrev.vel) / tInterval
+    fltState.xNorth= (fltState.vel - fltStatePrev.vel) / tInterval
+    ''''''
+    fltState.phi_deg= fltState.phi*180.0/math.pi
+    fltState.theta_deg= fltState.theta*180.0/math.pi
+    fltState.psi_deg= fltState.psi*180.0/math.pi
+    fltState.vs= -1.0*fltState.Z_dot
+    
+    # -------------------- delete items displayed on window --------------------
+    for i in range(9):
+        tag_temp= str((i+1.0)*10) + "deg-pitch"
+        canvasPFD.delete(tag_temp)
+        
+        tag_temp= str((i+1.0)*(-10)) + "deg-pitch"
+        canvasPFD.delete(tag_temp)
+    #----- end for -----
+    
+    canvasPFD.delete("0deg-pitch")
+    canvasPFD.delete("Vvector_Fslg")
+    canvasPFD.delete("Vvector_LW")
+    canvasPFD.delete("Vvector_RW")
+    canvasPFD.delete("Vvector_VS")
+    
+    # -------------------- re-display --------------------
+    disp_rectBackground(fltState.phi, fltState.theta, fill="chocolate1", tag="ground")
+    disp_rectBackground(fltState.phi, fltState.theta, \
+                        yOfst=-45*math.pi/180*lenUnitPitch, fill="cyan", tag="sky")
+    disp_lineLevel(phi=fltState.phi, theta=fltState.theta, \
+                   linewidth=2.0, tag="0deg-pitch")    # 0-deg-pitch
+    
+    k=0.3
+    for i in range(9):
+        yOfst_temp= (i+1.0)*(-10)*math.pi/180*lenUnitPitch
+        tag_temp= str((i+1.0)*10) + "deg-pitch"
+        disp_lineLevel(phi=fltState.phi, theta=fltState.theta, \
+                       xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=yOfst_temp, \
+                           length=k*width_PFD, tag=tag_temp)    # 10s-deg-pitch
+        
+        yOfst_temp= (i+1.0)*(10)*math.pi/180*lenUnitPitch
+        tag_temp= str((i+1.0)*(-10)) + "deg-pitch"
+        disp_lineLevel(phi=fltState.phi, theta=fltState.theta, \
+                       xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=yOfst_temp, \
+                           length=k*width_PFD, tag=tag_temp)    # -10s-deg-pitch
+    #----- end for -----
+    
+    disp_CenterCross()
+    disp_value(val= "bank: "+str(round(fltState.phi_deg,2)), x=1/2*width_PFD-20, y=10, fontsize=16, tag="disp_bank")     # display bank angle
+    disp_value(val= "pitch: "+str(round(fltState.theta_deg,2)), x=1/2*width_PFD-20, y=40, fontsize=16, tag="disp_pitch")     # display pitch angle
+    
+    disp_value(val= "Heading", x=1/2*width_PFD-50, y=height_PFD-110, tag="label_heading")     # label heading angle
+    disp_value(val= str(round(fltState.psi_deg)), x=1/2*width_PFD-30, y=height_PFD-80, tag="disp_heading")     # display heading angle
+    
+    disp_value(val= str(round(fltState.vel))+" m/s", x=80, tag="disp_vel")   # display velocity
+    disp_value(val= str(round(fltState.alt))+" m", x=1/2*width_PFD+220, tag="disp_alt")     # display altitude
+    disp_value(val= str(round(fltState.vs))+" m/s", x=1/2*width_PFD+280, y=height_PFD/2+40, tag="disp_vs")     # vertical speed
+    
+    disp_Vvector(alpha=fltState.alpha, beta=fltState.beta, 
+                 tagFslg="Vvector_Fslg", tagLW="Vvector_LW", tagRW="Vvector_RW", tagVS="Vvector_VS")
+    
+    disp_value(val= "Sim time: "+str(round(fltState.time,2)), 
+               x=1/2*width_PFD-70, y=height_PFD-40, fontsize=12, tag="disp_simTime")     # 
+    disp_value(val= "time after begin: "+str(round(timeRunning,2)), 
+               x=1/2*width_PFD-90, y=height_PFD-20, fontsize=12, tag="disp_appTime")     # 
+    
+    #else:
+    #    print("failed to open file")
+    #***** end if *****
+    
+    fltStatePrev= fltState
+    
+    # ----- command of recursive call, with specific time interval
+    rootframe.after(tInterval, mainroutine, \
+                    flagInit, fltState, fltStatePrev, fltStateSave)
+    #-----
+    
+    return flagInit, fltState, fltStatePrev, fltStateSave
+    ''''''
+#***** end def *****
+
+
+'''---------------------------------------------------------'''
+''''''
+def readFltStatesDat(flagInit, \
+                     fltState: flightStates(), fltStatePrev: flightStates(), fltStateSave: flightStates()):
+    
     if(os.path.exists(fullPathDataFile)==True):
         # ----- read data csv
         [dataMatrix, nRow, nCol]= readcsv(fileFullPath=fullPathDataFile)
@@ -341,225 +510,139 @@ def mainroutine(flagInit, simTime_prev, alt_prev, \
             i=0
             
             if(cols_dataMatrix[i]==2):
-                simTime= float(dataMatrix[i][1])
+                fltState.time= float(dataMatrix[i][1])
             else:
-                simTime= simTime_prev + d_simTime*tInterval
+                fltState.time= fltStatePrev.time + tInterval
             #***** end if *****
             i=i+1
             
             if(cols_dataMatrix[i]==2):
-                vel= float(dataMatrix[i][1])
+                fltState.vel= float(dataMatrix[i][1])
             else:
-                vel= vel_prev + d_vel*tInterval
+                fltState.vel= fltStatePrev.vel + fltStatePrev.d_vel*tInterval
             #***** end if *****
             i=i+1
             
             if(cols_dataMatrix[i]==2):
-                alt= float(dataMatrix[i][1])
+                fltState.alt= float(dataMatrix[i][1])
             else:
-                alt= alt_prev + d_alt*tInterval
+                fltState.alt= fltStatePrev.alt + fltStatePrev.d_alt*tInterval
             #***** end if *****
             i=i+1
             
             if(cols_dataMatrix[i]==2):
-                phi= float(dataMatrix[i][1])
+                fltState.phi= float(dataMatrix[i][1])
             else:
-                phi= phi_prev + d_phi*tInterval
+                fltState.phi= fltStatePrev.phi + fltStatePrev.d_phi*tInterval
             #***** end if *****
             i=i+1
             
             if(cols_dataMatrix[i]==2):
-                theta= float(dataMatrix[i][1])
+                fltState.theta= float(dataMatrix[i][1])
             else:
-                theta= theta_prev + d_theta*tInterval
+                fltState.theta= fltStatePrev.theta + fltStatePrev.d_theta*tInterval
             #***** end if *****
             i=i+1
             
             if(cols_dataMatrix[i]==2):
-                psi= float(dataMatrix[i][1])
+                fltState.psi= float(dataMatrix[i][1])
             else:
-                psi= psi_prev + d_psi*tInterval
+                fltState.psi= fltStatePrev.psi + fltStatePrev.d_psi*tInterval
             #***** end if *****
             i=i+1
             
             if(cols_dataMatrix[i]==2):
-                alpha= float(dataMatrix[i][1])
+                fltState.alpha= float(dataMatrix[i][1])
             else:
-                alpha= alpha_prev + d_alpha*tInterval
+                fltState.alpha= fltStatePrev.alpha + fltStatePrev.d_alpha*tInterval
             #***** end if *****
             i=i+1
             
             if(cols_dataMatrix[i]==2):
-                beta= float(dataMatrix[i][1])
+                fltState.beta= float(dataMatrix[i][1])
             else:
-                beta= beta_prev + d_beta*tInterval
+                fltState.beta= fltStatePrev.beta + fltStatePrev.d_beta*tInterval
             #***** end if *****
             i=i+1
             
             if(cols_dataMatrix[i]==2):
-                Z_dot= float(dataMatrix[i][1])
+                fltState.u= float(dataMatrix[i][1])
             else:
-                Z_dot= Z_dot_prev + d_Z_dot*tInterval
+                fltState.u= fltStatePrev.u + fltStatePrev.d_u*tInterval
             #***** end if *****
             i=i+1
             
-            d_simTime=(simTime-simTime_prev)/tInterval
-            d_alt= (alt-alt_prev)/tInterval
-            d_phi= (phi-phi_prev)/tInterval
-            d_theta= (theta-theta_prev)/tInterval
-            d_psi= (psi-psi_prev)/tInterval
-            d_alpha= (alpha-alpha_prev)/tInterval
-            d_beta= (beta-beta_prev)/tInterval
-            d_Z_dot= (Z_dot-Z_dot_prev)/tInterval
-            d_vel= (vel-vel_prev)/tInterval
+            if(cols_dataMatrix[i]==2):
+                fltState.v= float(dataMatrix[i][1])
+            else:
+                fltState.v= fltStatePrev.v + fltStatePrev.d_v*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.w= float(dataMatrix[i][1])
+            else:
+                fltState.w= fltStatePrev.w + fltStatePrev.d_w*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.X_dot= float(dataMatrix[i][1])
+            else:
+                fltState.X_dot= fltStatePrev.X_dot + fltStatePrev.d_X_dot*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.Y_dot= float(dataMatrix[i][1])
+            else:
+                fltState.Y_dot= fltStatePrev.Y_dot + fltStatePrev.d_Y_dot*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.Z_dot= float(dataMatrix[i][1])
+            else:
+                fltState.Z_dot= fltStatePrev.Z_dot + fltStatePrev.d_Z_dot*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.xEast= float(dataMatrix[i][1])
+            else:
+                fltState.xEast= fltStatePrev.xEast + fltStatePrev.d_xEast*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.xNorth= float(dataMatrix[i][1])
+            else:
+                fltState.xNorth= fltStatePrev.xNorth + fltStatePrev.d_xNorth*tInterval
+            #***** end if *****
+            i=i+1
+            
+            fltStateSave= fltState
             
         else:
-            if(flagInit==False):
-                simTime= simTime_prev + d_simTime*tInterval
-                alt= alt_prev + d_alt*tInterval
-                phi= phi_prev + d_phi*tInterval
-                theta= theta_prev + d_theta*tInterval
-                psi= psi_prev + d_psi*tInterval
-                alpha= alpha_prev + d_alpha*tInterval
-                beta= beta_prev + d_beta*tInterval
-                Z_dot= Z_dot_prev + d_Z_dot*tInterval
-                vel= vel_prev + d_vel*tInterval
-            else:
-                simTime= simTime_prev
-                alt= alt_prev
-                phi= phi_prev
-                theta= theta_prev
-                psi= psi_prev
-                alpha= alpha_prev
-                beta= beta_prev
-                Z_dot= Z_dot_prev
-                vel= vel_prev
-            #***** end if *****
+            fltState= fltStateSave
         #***** end if *****
-        
-        if(flagInit==True):
-            flagInit=False
-        #***** end if *****
-        
-        phi_deg= phi*180.0/math.pi
-        theta_deg= theta*180.0/math.pi
-        psi_deg= psi*180.0/math.pi
-        vs= -1.0*Z_dot
-        
-        # -------------------- delete items displayed on window --------------------
-        for i in range(9):
-            tag_temp= str((i+1.0)*10) + "deg-pitch"
-            canvasPFD.delete(tag_temp)
-            
-            tag_temp= str((i+1.0)*(-10)) + "deg-pitch"
-            canvasPFD.delete(tag_temp)
-        #----- end for -----
-        
-        canvasPFD.delete("0deg-pitch")
-        canvasPFD.delete(("Vvector_Fslg"))
-        canvasPFD.delete(("Vvector_LW"))
-        canvasPFD.delete(("Vvector_RW"))
-        canvasPFD.delete(("Vvector_VS"))
-        
-        # -------------------- re-display --------------------
-        disp_rectBackground(phi, theta, fill="chocolate1", tag="ground")
-        disp_rectBackground(phi, theta, yOfst=-45*math.pi/180*lenUnitPitch, fill="cyan", tag="sky")
-        disp_lineLevel(phi=phi, theta=theta, linewidth=2.0, tag="0deg-pitch")    # 0-deg-pitch
-        
-        k=0.3
-        for i in range(9):
-            yOfst_temp= (i+1.0)*(-10)*math.pi/180*lenUnitPitch
-            tag_temp= str((i+1.0)*10) + "deg-pitch"
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=yOfst_temp, length=k*width_PFD, tag=tag_temp)    # 10s-deg-pitch
-            
-            yOfst_temp= (i+1.0)*(10)*math.pi/180*lenUnitPitch
-            tag_temp= str((i+1.0)*(-10)) + "deg-pitch"
-            disp_lineLevel(phi=phi, theta=theta, xCtr=width_PFD/2, yCtr=height_PFD/2, xOfst=0, yOfst=yOfst_temp, length=k*width_PFD, tag=tag_temp)    # -10s-deg-pitch
-        #----- end for -----
-        
-        disp_CenterCross()
-        disp_value(val= "bank: "+str(round(phi_deg,2)), x=1/2*width_PFD-20, y=10, fontsize=16)     # display bank angle
-        disp_value(val= "pitch: "+str(round(theta_deg,2)), x=1/2*width_PFD-20, y=40, fontsize=16)     # display pitch angle
-        
-        disp_value(val= "Heading", x=1/2*width_PFD-50, y=height_PFD-110)     # label heading angle
-        disp_value(val= str(round(psi_deg)), x=1/2*width_PFD-30, y=height_PFD-80)     # display heading angle
-        
-        disp_value(val= str(round(vel))+" m/s", x=80)   # display velocity
-        disp_value(val= str(round(alt))+" m", x=1/2*width_PFD+220)     # display altitude
-        disp_value(val= str(round(vs))+" m/s", x=1/2*width_PFD+280, y=height_PFD/2+40)     # vertical speed
-        
-        disp_Vvector(alpha=alpha, beta=beta, 
-                     tagFslg="Vvector_Fslg", tagLW="Vvector_LW", tagRW="Vvector_RW", tagVS="Vvector_VS")
-        
-        disp_value(val= "Sim time: "+str(round(simTime,2)), 
-                   x=1/2*width_PFD-70, y=height_PFD-40, fontsize=12)     # 
-        disp_value(val= "time after begin: "+str(round(timeRunning,2)), 
-                   x=1/2*width_PFD-90, y=height_PFD-20, fontsize=12)     # 
-        
     else:
-        print("failed to open file")
+        fltState= fltStateSave
     #***** end if *****
     
-    simTime_prev= simTime
-    vel_prev= vel
-    alt_prev= alt
-    phi_prev= phi
-    theta_prev= theta
-    psi_prev= psi
-    alpha_prev= alpha
-    beta_prev= beta
-    Z_dot_prev= Z_dot
-    
-    # ----- command of recursive call, with specific time interval
-    rootframe.after(tInterval, mainroutine, \
-                    flagInit, simTime_prev, alt_prev, \
-                    phi_prev, theta_prev, psi_prev, \
-                    alpha_prev, beta_prev, Z_dot_prev, vel_prev, \
-                    d_simTime, d_alt, \
-                    d_phi, d_theta, d_psi, \
-                    d_alpha, d_beta, d_Z_dot, d_vel)
-    #-----
-    
-    return flagInit, simTime_prev, alt_prev, \
-        phi_prev, theta_prev, psi_prev, \
-        alpha_prev, beta_prev, Z_dot_prev, vel_prev, \
-        d_simTime, d_alt, \
-        d_phi, d_theta, d_psi, \
-        d_alpha, d_beta, d_Z_dot, d_vel
-    ''''''
+    return flagInit, fltState, fltStatePrev, fltStateSave
 #***** end def *****
 
 
 '''---------------------------------------------------------'''
 ''''''
-def initialize(flagInit, simTime_prev, alt_prev, \
-            phi_prev, theta_prev, psi_prev, \
-            alpha_prev, beta_prev, Z_dot_prev, vel_prev):
-    
+def initialize(flagInit, fltState, fltStatePrev, fltStateSave):
     flagInit=True
-    simTime= 0.0
-    alt= 0.0
-    phi= 0.0
-    theta= 0.0
-    psi= 0.0
-    alpha= 0.0
-    beta= 0.0
-    Z_dot= 0.0
-    vel= 0.0
-    
-    simTime_prev= simTime
-    alt_prev= alt
-    phi_prev= phi
-    theta_prev= theta
-    psi_prev= psi
-    alpha_prev= alpha
-    beta_prev= beta
-    Z_dot_prev= Z_dot
-    vel_prev= vel
-    
-    return flagInit, simTime_prev, alt_prev, \
-        phi_prev, theta_prev, psi_prev, \
-        alpha_prev, beta_prev, Z_dot_prev, vel_prev
+    fltState.resetAttributes()
+    fltStatePrev.resetAttributes()
+    fltStateSave.resetAttributes()
+    return flagInit, \
+        fltState, fltStatePrev, fltStateSave
     ''''''
 #***** end def *****
 
@@ -568,22 +651,24 @@ def initialize(flagInit, simTime_prev, alt_prev, \
 main script
 ----------------------------------------------------------------------'''
 # ---------- read data csv
+fltState.__init__()
+fltStatePrev.__init__()
+fltStateSave.__init__()
+
 [dataMatrix, nRow, nCol]= readcsv(fileFullPath=fullPathDataFile)
-[flagInit, simTime_prev, alt_prev, phi_prev, theta_prev, psi_prev, alpha_prev, beta_prev, Z_dot_prev, vel_prev] \
-    = initialize(flagInit, simTime_prev, alt_prev, phi_prev, theta_prev, psi_prev, alpha_prev, beta_prev, Z_dot_prev, vel_prev)
+[flagInit, fltState, fltStatePrev, fltStateSave] \
+    = initialize(flagInit, fltState, fltStatePrev, fltStateSave)
 
 # ----- generate canvas
 canvasPFD.place(x=0, y=0)
 canvasDatTbl.place(x=800, y=0)
 
 # ---------- call routine of display & update, with specific time interval
+rootframe.after(tIntervalRead, readFltStatesDat, \
+                flagInit, fltState, fltStatePrev, fltStateSave)
+    
 rootframe.after(tInterval, mainroutine, \
-                flagInit, simTime_prev, alt_prev, \
-                phi_prev, theta_prev, psi_prev, \
-                alpha_prev, beta_prev, Z_dot_prev, vel_prev, \
-                d_simTime, d_alt, \
-                d_phi, d_theta, d_psi, \
-                d_alpha, d_beta, d_Z_dot, d_vel)
+                flagInit, fltState, fltStatePrev, fltStateSave)
 
 # ---------- continue display & update of csv data until window is closed
 rootframe.mainloop()
