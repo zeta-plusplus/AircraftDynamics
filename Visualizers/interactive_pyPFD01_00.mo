@@ -29,7 +29,7 @@ block interactive_pyPFD01_00
   parameter String namePythonPath = "C:\Program Files\Python310";
   parameter String nameFileDataCSV = "currentFlightStates00.csv";
   parameter String namePathDataCSV = "modelica://AircraftDynamics/dataTemp";
-  parameter Modelica.SIunits.Time tInterval = 0.1 "in [s]";
+  parameter Modelica.SIunits.Time tInterval = 0.01 "in [s]";
   /* ---------------------------------------------
               Internal variables
        --------------------------------------------- */

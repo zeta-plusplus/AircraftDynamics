@@ -198,8 +198,8 @@ setting about time handling
 ''''''
 timeBegin=time.time()
 timeLim=10000000
-tInterval=20    #[ms]
-tIntervalRead= 2 #[ms]
+tInterval=5    #[ms]
+tIntervalRead= 1 #[ms]
 
 
 '''--------------------
@@ -422,7 +422,7 @@ def mainroutine(flagInit, \
     fltState.phi_deg= fltState.phi*180.0/math.pi
     fltState.theta_deg= fltState.theta*180.0/math.pi
     fltState.psi_deg= fltState.psi*180.0/math.pi
-    fltState.vs= -1.0*fltState.Z_dot
+    fltState.vs= fltState.Z_dot
     
     # -------------------- delete items displayed on window --------------------
     for i in range(9):

@@ -237,7 +237,7 @@ initial equation
   fltStates.gamma = gamma1;
 //**********************************************************************
 equation
-  connect(FltStatesBus1.theta, fltStates.theta);
+  //connect(FltStatesBus1.theta, fltStates.theta);
   //connect(FltStatesBus1.fltStates, fltStates);
   //connect(FltStatesBus1.fltAng4disp, fltAng4disp);
 //--
@@ -287,17 +287,17 @@ equation
   connect(Flt2Fluid.y_qBar, FltDynLateralSS.u_q1bar) annotation(
     Line(points = {{-79, 64}, {-72, 64}, {-72, -38}, {-42, -38}}, color = {0, 0, 127}));
 //-----
-  VisInfoOut.r[1] = fltStates.xEast;
-  VisInfoOut.r[2] = fltStates.xNorth;
-  VisInfoOut.r[3] = fltStates.alt;
+  VisInfoOut.r[1] = fltStates.YG;
+  VisInfoOut.r[2] = fltStates.XG;
+  VisInfoOut.r[3] = -1.0*fltStates.ZG;
   VisInfoOut.theta[1] = fltStates.phi;
   VisInfoOut.theta[2] = fltStates.theta;
   VisInfoOut.theta[3] = fltStates.psi;
-  VisInfoOut.alpha = fltStates.alpha;
+  VisInfoOut.alpha= fltStates.alpha;
   VisInfoOut.beta= fltStates.beta;
-  VisInfoOut.V[1]= fltStates.u;
-  VisInfoOut.V[2]= fltStates.v;
-  VisInfoOut.V[3]= fltStates.w;
+  VisInfoOut.V[1]=fltStates.u;
+  VisInfoOut.V[2]=fltStates.v;
+  VisInfoOut.V[3]=fltStates.w;
 //-----
   
   
