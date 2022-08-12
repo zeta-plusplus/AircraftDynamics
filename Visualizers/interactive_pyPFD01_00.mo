@@ -54,13 +54,19 @@ protected
   parameter String nameFullPathPyScript = Files.loadResource(namePathPyScript);
   parameter String nameFilePathPyScript = namePathPyScript + "/" + nameFilePyScript;
   parameter String nameFullFilePathPyScript = Files.loadResource(nameFilePathPyScript);
-  parameter Integer nVariables = 17 "number of variables";
+  parameter Integer nVariables = 31 "number of variables";
   parameter String nameVariables[nVariables] 
-    = {"time[s]", "V", "alt", 
+    = {"time[s]", 
+      "V", "alt", 
       "phi", "theta", "psi", "alpha", "beta",
-      "u", "v", "w", 
-      "X_dot", "Y_dot", "Z_dot", 
-      "xEast", "xNorth", "alt"};
+      "u", "v", "w",
+      "X_dot", "Y_dot", "Z_dot",
+      "xEast", "xNorth",
+      "d_V", "d_alt",
+      "d_phi", "d_theta", "d_psi", "d_alpha", "d_beta",
+      "d_u", "d_v", "d_w",
+      "d_X_dot", "d_Y_dot", "d_Z_dot",
+      "d_xEast", "d_xNorth"};
   //******************************************************************************************
 initial algorithm
 //----- display inputs on command line -----
@@ -106,7 +112,23 @@ equation
   variables2Print[14]= der(VisInfoIn.r[3]);
   variables2Print[15]= VisInfoIn.r[1];
   variables2Print[16]= VisInfoIn.r[2];
-  variables2Print[17]= VisInfoIn.r[3];
+  //---
+  variables2Print[17]= der(V);
+  variables2Print[18]= der(VisInfoIn.r[3]);
+  variables2Print[19]= der(theta4disp[1]);
+  variables2Print[20]= der(theta4disp[2]);
+  variables2Print[21]= der(theta4disp[3]);
+  variables2Print[22]= der(VisInfoIn.alpha);
+  variables2Print[23]= der(VisInfoIn.beta);
+  variables2Print[24]= der(VisInfoIn.V[1]);
+  variables2Print[25]= der(VisInfoIn.V[2]);
+  variables2Print[26]= der(VisInfoIn.V[3]);
+  variables2Print[27]= der(variables2Print[12]);
+  variables2Print[28]= der(variables2Print[13]);
+  variables2Print[29]= der(variables2Print[14]);
+  variables2Print[30]= der(VisInfoIn.r[1]);
+  variables2Print[31]= der(VisInfoIn.r[2]);
+  
 //-----
   annotation(
     defaultComponentName = "pyPFD",

@@ -96,7 +96,7 @@ class flightStates:
         self.d_Y_dot= 0.0
         self.d_Z_dot= 0.0
         self.d_xEast= 0.0
-        self.d_xNorth= 0.0
+        self.d_xEast= 0.0
         self.d_alt= 0.0
         self.d_vs= 0.0
         #-----
@@ -200,15 +200,16 @@ setting about time handling
 ''''''
 timeBegin=time.time()
 timeLim=10000000
-tIntervalRead= 20 #[ms]
-tInterval=10    #[ms]
+tInterval=5    #[ms]
+tIntervalRead= 1 #[ms]
+
 
 '''--------------------
 setting about gui
 --------------------'''
 ''''''
 rootframe= tk.Tk()  # main gui window
-#rootframe2= tk.Tk()  # main gui window
+rootframe2= tk.Tk()  # main gui window
 
 rootframe.geometry("1200x1000")
 height_PFD=900
@@ -219,51 +220,12 @@ canvasPFD.pack()
 canvasDatTbl= tk.Canvas(rootframe, bg="white", height=900, width=400)
 
 # table display gui
-'''
 treeview=ttk.Treeview(rootframe2)
 treeview["show"]= "headings"
 treeview["columns"]=(1,2)
 treeview.heading(1, text="variable")
 treeview.heading(2, text="value")
 treeview.pack()
-'''
-
-# ----- generate canvas
-canvasPFD.place(x=0, y=0)
-canvasDatTbl.place(x=800, y=0)
-
-
-'''
-disp_value(val= "bank: "+str(round(fltState.phi_deg,2)), x=1/2*width_PFD-20, y=10, fontsize=16, tag="disp_bank")     # display bank angle
-disp_value(val= "pitch: "+str(round(fltState.theta_deg,2)), x=1/2*width_PFD-20, y=40, fontsize=16, tag="disp_pitch")     # display pitch angle
-
-disp_value(val= "Heading", x=1/2*width_PFD-50, y=height_PFD-110, tag="label_heading")     # label heading angle
-disp_value(val= str(round(fltState.psi_deg)), x=1/2*width_PFD-30, y=height_PFD-80, tag="disp_heading")     # display heading angle
-
-disp_value(val= str(round(fltState.vel))+" m/s", x=80, tag="disp_vel")   # display velocity
-#disp_value(val= str(round(fltState.alt))+" m", x=1/2*width_PFD+220, tag="disp_alt")     # display altitude
-disp_value(val= str(round(fltState.vs))+" m/s", x=1/2*width_PFD+280, y=height_PFD/2+40, tag="disp_vs")     # vertical speed
-
-disp_Vvector(alpha=fltState.alpha, beta=fltState.beta, 
-             tagFslg="Vvector_Fslg", tagLW="Vvector_LW", tagRW="Vvector_RW", tagVS="Vvector_VS")
-
-disp_value(val= "Sim time: "+str(round(fltState.time,3)), 
-           x=1/2*width_PFD-70, y=height_PFD-40, fontsize=12, tag="disp_simTime")     # 
-disp_value(val= "time after begin: "+str(round(timeRunning,2)), 
-           x=1/2*width_PFD-90, y=height_PFD-20, fontsize=12, tag="disp_appTime")     # 
-'''
-
-# ----- generate value labels
-''''''
-label_bank= tk.Label(text="bank: 0", font=font.Font(size=16)); label_bank.place(x=1/2*width_PFD-20, y=10)     # display bank angle
-label_pitch= tk.Label(text="pitch: 0", font=font.Font(size=16)); label_pitch.place(x=1/2*width_PFD-20, y=40)     # display pitch angle
-
-label_headingLabel= tk.Label(text="heading", font=font.Font(size=16)); label_headingLabel.place(x=1/2*width_PFD-50, y=height_PFD-110)     # label heading angle
-label_heading= tk.Label(text="0", font=font.Font(size=16)); label_heading.place(x=1/2*width_PFD-30, y=height_PFD-80)     # display heading angle
-
-label_vel= tk.Label(text="0 m/s", font=font.Font(size=18)); label_vel.place(x=80, y=height_PFD/2)   # display velocity
-label_alt= tk.Label(text="0 m", font=font.Font(size=18)); label_alt.place(x=1/2*width_PFD+220, y=height_PFD/2)     # display altitude
-label_VS= tk.Label(text="0 m", font=font.Font(size=18)); label_VS.place(x=1/2*width_PFD+280, y=height_PFD/2+40)     # vertical speed
 
 
 
@@ -430,29 +392,37 @@ def disp_value(val, x=10, y=height_PFD/2, fontsize=18, tag=""):
 #***** end def *****
 
 
-'''---------------------------------------------------------'''
-''''''
-
-
 '''-----------------------------------------------------------------------------'''
 '''-----------------------------------------------------------------------------'''
 ''''''
-def mainroutine(flagInit, flagRead, \
+def mainroutine(flagInit, \
                 fltState: flightStates, fltStatePrev: flightStates, fltStateSave: flightStates):
-    swPrintDbg=False
     #--------------------
     timeRunning= time.time() - timeBegin
     
-    [flagInit, flagRead, fltState, fltStatePrev, fltStateSave] \
-        =readFltStatesDat(flagInit, flagRead, timeRunning, tInterval, fltState, fltStatePrev, fltStateSave)
+    rootframe.after(tIntervalRead, readFltStatesDat, \
+                    flagInit, flagRead, fltState, fltStatePrev, fltStateSave)
+    
     #-----
     if(flagInit==True):
         flagInit=False
     #***** end if *****
     
-    if(swPrintDbg==True):
-        print(str(round(timeRunning,3))+": mainroutine: "+str(flagRead))
-    #***** end if *****
+    fltState.d_vel= (fltState.vel - fltStatePrev.vel) / tIntervalRead
+    fltState.d_alt= (fltState.alt - fltStatePrev.alt) / tIntervalRead
+    fltState.d_phi= (fltState.phi - fltStatePrev.phi) / tIntervalRead
+    fltState.d_theta= (fltState.theta - fltStatePrev.theta) / tIntervalRead
+    fltState.d_psi= (fltState.psi - fltStatePrev.psi) / tIntervalRead
+    fltState.d_alpha= (fltState.alpha - fltStatePrev.alpha) / tIntervalRead
+    fltState.d_beta= (fltState.beta - fltStatePrev.beta) / tIntervalRead
+    fltState.d_u= (fltState.u - fltStatePrev.u) / tIntervalRead
+    fltState.d_v= (fltState.v - fltStatePrev.v) / tIntervalRead
+    fltState.d_w= (fltState.w - fltStatePrev.w) / tIntervalRead
+    fltState.d_X_dot= (fltState.X_dot - fltStatePrev.X_dot) / tIntervalRead
+    fltState.d_Y_dot= (fltState.Y_dot - fltStatePrev.Y_dot) / tIntervalRead
+    #fltState.d_xEast= (fltState.xEast - fltStatePrev.xEast) / tIntervalRead
+    #fltState.d_xNorth= (fltState.xNorth - fltStatePrev.xNorth) / tIntervalRead
+    
     ''''''
     fltState.phi_deg= fltState.phi*180.0/math.pi
     fltState.theta_deg= fltState.theta*180.0/math.pi
@@ -497,17 +467,6 @@ def mainroutine(flagInit, flagRead, \
     #----- end for -----
     
     disp_CenterCross()
-    
-    # update display values
-    label_bank["text"]="bank: "+str(round(fltState.phi_deg,2))
-    label_pitch["text"]="pitch: "+str(round(fltState.theta_deg,2))
-    label_heading["text"]=str(round(fltState.psi_deg))
-    
-    label_vel["text"]=str(round(fltState.vel))+" m/s"
-    label_alt["text"]=str(round(fltState.alt))+" m"
-    label_VS["text"]=str(round(fltState.vs))+" m/s"
-    
-    '''
     disp_value(val= "bank: "+str(round(fltState.phi_deg,2)), x=1/2*width_PFD-20, y=10, fontsize=16, tag="disp_bank")     # display bank angle
     disp_value(val= "pitch: "+str(round(fltState.theta_deg,2)), x=1/2*width_PFD-20, y=40, fontsize=16, tag="disp_pitch")     # display pitch angle
     
@@ -515,14 +474,13 @@ def mainroutine(flagInit, flagRead, \
     disp_value(val= str(round(fltState.psi_deg)), x=1/2*width_PFD-30, y=height_PFD-80, tag="disp_heading")     # display heading angle
     
     disp_value(val= str(round(fltState.vel))+" m/s", x=80, tag="disp_vel")   # display velocity
-    #disp_value(val= str(round(fltState.alt))+" m", x=1/2*width_PFD+220, tag="disp_alt")     # display altitude
+    disp_value(val= str(round(fltState.alt))+" m", x=1/2*width_PFD+220, tag="disp_alt")     # display altitude
     disp_value(val= str(round(fltState.vs))+" m/s", x=1/2*width_PFD+280, y=height_PFD/2+40, tag="disp_vs")     # vertical speed
     
-    '''
     disp_Vvector(alpha=fltState.alpha, beta=fltState.beta, 
                  tagFslg="Vvector_Fslg", tagLW="Vvector_LW", tagRW="Vvector_RW", tagVS="Vvector_VS")
     
-    disp_value(val= "Sim time: "+str(round(fltState.time,3)), 
+    disp_value(val= "Sim time: "+str(round(fltState.time,2)), 
                x=1/2*width_PFD-70, y=height_PFD-40, fontsize=12, tag="disp_simTime")     # 
     disp_value(val= "time after begin: "+str(round(timeRunning,2)), 
                x=1/2*width_PFD-90, y=height_PFD-20, fontsize=12, tag="disp_appTime")     # 
@@ -531,322 +489,161 @@ def mainroutine(flagInit, flagRead, \
     
     # ----- command of recursive call, with specific time interval
     rootframe.after(tInterval, mainroutine, \
-                    flagInit, flagRead, 
-                    fltState, fltStatePrev, fltStateSave)
+                    flagInit, fltState, fltStatePrev, fltStateSave)
     #-----
     
-    return flagInit, flagRead, fltState, fltStatePrev, fltStateSave
+    return flagInit, fltState, fltStatePrev, fltStateSave
     ''''''
 #***** end def *****
 
 
 '''---------------------------------------------------------'''
 ''''''
-def readFltStatesDat(flagInit, flagRead, timeRunning, tInterval, \
+def readFltStatesDat(flagInit, flagRead, \
                      fltState: flightStates(), fltStatePrev: flightStates(), fltStateSave: flightStates()):
-    swPrintDbg=True
-    flagRead=False
     
+    flagRead=False
     if(os.path.exists(fullPathDataFile)==True):
         # ----- read data csv
         [dataMatrix, nRow, nCol]= readcsv(fileFullPath=fullPathDataFile)
         cols_dataMatrix= [len(v) for v in dataMatrix]
         
-        if(swPrintDbg==True):
-            print("timeRunning="+str(round(timeRunning,3)))
-            print("nRow="+str(nRow))
-            print("nCol="+str(nCol))
-            print(cols_dataMatrix)
-        #***** end if *****
-        
-        flagReadDat=[False]*31
-        i=0
-        flagRead=True
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.time=float(dataMatrix[i][1])
-            flagReadDat[i]=True
+        if(nRow==17)and(nCol==2):
+            i=0
+            flagRead=True
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.time= float(dataMatrix[i][1])
+            else:
+                fltState.time= fltStatePrev.time + tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.vel= float(dataMatrix[i][1])
+            else:
+                fltState.vel= fltStatePrev.vel + fltStatePrev.d_vel*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.alt= float(dataMatrix[i][1])
+            else:
+                fltState.alt= fltStatePrev.alt + fltStatePrev.d_alt*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.phi= float(dataMatrix[i][1])
+            else:
+                fltState.phi= fltStatePrev.phi + fltStatePrev.d_phi*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.theta= float(dataMatrix[i][1])
+            else:
+                fltState.theta= fltStatePrev.theta + fltStatePrev.d_theta*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.psi= float(dataMatrix[i][1])
+            else:
+                fltState.psi= fltStatePrev.psi + fltStatePrev.d_psi*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.alpha= float(dataMatrix[i][1])
+            else:
+                fltState.alpha= fltStatePrev.alpha + fltStatePrev.d_alpha*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.beta= float(dataMatrix[i][1])
+            else:
+                fltState.beta= fltStatePrev.beta + fltStatePrev.d_beta*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.u= float(dataMatrix[i][1])
+            else:
+                fltState.u= fltStatePrev.u + fltStatePrev.d_u*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.v= float(dataMatrix[i][1])
+            else:
+                fltState.v= fltStatePrev.v + fltStatePrev.d_v*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.w= float(dataMatrix[i][1])
+            else:
+                fltState.w= fltStatePrev.w + fltStatePrev.d_w*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.X_dot= float(dataMatrix[i][1])
+            else:
+                fltState.X_dot= fltStatePrev.X_dot + fltStatePrev.d_X_dot*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.Y_dot= float(dataMatrix[i][1])
+            else:
+                fltState.Y_dot= fltStatePrev.Y_dot + fltStatePrev.d_Y_dot*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.Z_dot= float(dataMatrix[i][1])
+            else:
+                fltState.Z_dot= fltStatePrev.Z_dot + fltStatePrev.d_Z_dot*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.xEast= float(dataMatrix[i][1])
+            else:
+                fltState.xEast= fltStatePrev.xEast + fltStatePrev.d_xEast*tInterval
+            #***** end if *****
+            i=i+1
+            
+            if(cols_dataMatrix[i]==2):
+                fltState.xNorth= float(dataMatrix[i][1])
+            else:
+                fltState.xNorth= fltStatePrev.xNorth + fltStatePrev.d_xNorth*tInterval
+            #***** end if *****
+            i=i+1
+            
+            fltStateSave= copy.deepcopy(fltState)
         else:
-            fltState.time= fltStatePrev.time + tInterval
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.vel= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.vel= fltStatePrev.vel + fltStatePrev.d_vel*tInterval
-            fltState.vel= fltStatePrev.vel
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.alt= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.alt= fltStatePrev.alt + fltStatePrev.d_alt*tInterval
-            fltState.alt= fltStatePrev.alt
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.phi= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.phi= fltStatePrev.phi + fltStatePrev.d_phi*tInterval
-            fltState.phi= fltStatePrev.phi
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.theta= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.theta= fltStatePrev.theta + fltStatePrev.d_theta*tInterval
-            fltState.theta= fltStatePrev.theta
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.psi= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.psi= fltStatePrev.psi + fltStatePrev.d_psi*tInterval
-            fltState.psi= fltStatePrev.psi
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.alpha= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.alpha= fltStatePrev.alpha + fltStatePrev.d_alpha*tInterval
-            fltState.alpha= fltStatePrev.alpha
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.beta= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.beta= fltStatePrev.beta + fltStatePrev.d_beta*tInterval
-            fltState.beta= fltStatePrev.beta
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.u= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.u= fltStatePrev.u + fltStatePrev.d_u*tInterval
-            fltState.u= fltStatePrev.u
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.v= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.v= fltStatePrev.v + fltStatePrev.d_v*tInterval
-            fltState.v= fltStatePrev.v
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.w= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.w= fltStatePrev.w + fltStatePrev.d_w*tInterval
-            fltState.w= fltStatePrev.w
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.X_dot= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.X_dot= fltStatePrev.X_dot + fltStatePrev.d_X_dot*tInterval
-            fltState.X_dot= fltStatePrev.X_dot
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.Y_dot= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.Y_dot= fltStatePrev.Y_dot + fltStatePrev.d_Y_dot*tInterval
-            fltState.Y_dot= fltStatePrev.Y_dot
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.Z_dot= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.Z_dot= fltStatePrev.Z_dot + fltStatePrev.d_Z_dot*tInterval
-            fltState.Z_dot= fltStatePrev.Z_dot
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.xEast= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.xEast= fltStatePrev.xEast + fltStatePrev.d_xEast*tInterval
-            fltState.xEast= fltStatePrev.xEast
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.xNorth= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            #fltState.xNorth= fltStatePrev.xNorth + fltStatePrev.d_xNorth*tInterval
-            fltState.xNorth= fltStatePrev.xNorth
-        #***** end if *****
-        i=i+1
-        
-        #----------
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_vel= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_vel= fltStatePrev.d_vel
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_alt= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_alt= fltStatePrev.d_alt
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_phi= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_phi= fltStatePrev.d_phi
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_theta= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_theta= fltStatePrev.d_theta
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_psi= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_psi= fltStatePrev.d_psi
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_alpha= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_alpha= fltStatePrev.d_alpha
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_beta= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_beta= fltStatePrev.d_beta
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_u= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_u= fltStatePrev.d_u
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_v= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_v= fltStatePrev.d_v
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_w= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_w= fltStatePrev.d_w
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_X_dot= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_X_dot= fltStatePrev.d_X_dot
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_Y_dot= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_Y_dot= fltStatePrev.d_Y_dot
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_Z_dot= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_Z_dot= fltStatePrev.d_Z_dot
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_xEast= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_xEast= fltStatePrev.d_xEast
-        #***** end if *****
-        i=i+1
-        
-        if(i<nRow)and(cols_dataMatrix[i]==2):
-            fltState.d_xNorth= float(dataMatrix[i][1])
-            flagReadDat[i]=True
-        else:
-            fltState.d_xNorth= fltStatePrev.d_xNorth
-        #***** end if *****
-        i=i+1
-        
-        #----------
-        fltStateSave= copy.deepcopy(fltState)
-        
-        if(swPrintDbg==True):
-            print("fltState.time="+str(round(fltState.time,3)))
-            print(flagReadDat)
+            flagRead=False
+            fltState= copy.deepcopy(fltStateSave)
+            #[fltState, fltStatePrev]= state_by_deriv(fltState=fltState, fltStatePrev=fltStatePrev, dt=tInterval)
         #***** end if *****
     else:
         flagRead=False
         fltState= copy.deepcopy(fltStateSave)
+        #[fltState, fltStatePrev]= state_by_deriv(fltState=fltState, fltStatePrev=fltStatePrev, dt=tIntervalRead)
     #***** end if *****
     
-    #print("readFltStatesDat: "+str(flagRead))
+    print(flagRead)
     return flagInit, flagRead, fltState, fltStatePrev, fltStateSave
 #***** end def *****
 
 
 '''---------------------------------------------------------'''
 ''''''
-def state_by_deriv(fltState: flightStates(), fltStatePrev: flightStates(), dt):
+def state_by_deriv(fltState, fltStatePrev, dt):
     
     fltState.time= fltStatePrev.time + dt
     fltState.vel= fltStatePrev.vel + fltStatePrev.d_vel*dt
@@ -861,7 +658,7 @@ def state_by_deriv(fltState: flightStates(), fltStatePrev: flightStates(), dt):
 
 '''---------------------------------------------------------'''
 ''''''
-def initialize(flagInit: flightStates(), fltState: flightStates(), fltStatePrev: flightStates(), fltStateSave: flightStates()):
+def initialize(flagInit, fltState, fltStatePrev, fltStateSave):
     flagInit=True
     fltState.resetAttributes()
     fltStatePrev.resetAttributes()
@@ -873,8 +670,8 @@ def initialize(flagInit: flightStates(), fltState: flightStates(), fltStatePrev:
 
 
 '''---------------------------------------------------------'''
-'''
-def update_Rootframe2_Treeview(fltState: flightStates()):
+''''''
+def update_Rootframe2_Treeview():
     x = treeview.get_children()
         
     # delete table displayed on window
@@ -885,17 +682,14 @@ def update_Rootframe2_Treeview(fltState: flightStates()):
     # re-display info of scv data
     timeRunning= time.time() - timeBegin
     treeview.insert("","end",values=("time (after python script began)", timeRunning))
-    treeview.insert("","end",values=("d_vel",fltState.d_vel))
+    treeview.insert("","end",values=("alt",fltState.alt))
+    treeview.insert("","end",values=("alt_prev",fltStatePrev.alt))
     treeview.insert("","end",values=("d_alt",fltState.d_alt))
-    treeview.insert("","end",values=("d_phi",fltState.d_phi))
-    treeview.insert("","end",values=("d_theta",fltState.d_theta))
-    treeview.insert("","end",values=("d_psi",fltState.d_psi))
     
     # command of recursive call, with specific time interval
-    rootframe2.after(tInterval, update_Rootframe2_Treeview, \
-                     fltState)
+    rootframe2.after(tInterval, update_Rootframe2_Treeview)
 #***** end def *****
-'''
+
 
 '''----------------------------------------------------------------------
 main script
@@ -909,19 +703,19 @@ fltStateSave.__init__()
 [flagInit, fltState, fltStatePrev, fltStateSave] \
     = initialize(flagInit, fltState, fltStatePrev, fltStateSave)
 
-'''
 # ----- generate canvas
 canvasPFD.place(x=0, y=0)
 canvasDatTbl.place(x=800, y=0)
-'''
+
 # ---------- call routine of display & update, with specific time interval
+#rootframe.after(tIntervalRead, readFltStatesDat, \
+#                flagInit, flagRead, fltState, fltStatePrev, fltStateSave)
+
 rootframe.after(tInterval, mainroutine, \
-                flagInit, flagRead, \
-                fltState, fltStatePrev, fltStateSave)
-'''    
-rootframe2.after(tInterval, update_Rootframe2_Treeview, \
-                 fltState)
-'''
+                flagInit, fltState, fltStatePrev, fltStateSave)
+    
+rootframe2.after(tInterval, update_Rootframe2_Treeview)
+''''''
 # ---------- continue display & update of csv data until window is closed
 rootframe.mainloop()
 

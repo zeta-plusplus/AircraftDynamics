@@ -19,7 +19,7 @@ model pyPFD01_00_AirplaneLTISS_6DoF00_ex01
     Placement(visible = true, transformation(origin = {-20, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain_Tnominal(k = AirplaneDyn.m_par * 9.81 * 0.2) annotation(
     Placement(visible = true, transformation(origin = {-20, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.Visualizers.interactive_pyPFD01_00 pyPFD(tInterval = 0.005)  annotation(
+  AircraftDynamics.Visualizers.interactive_pyPFD01_00 pyPFD(tInterval = 0.02)  annotation(
     Placement(visible = true, transformation(origin = {100, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime1(enable = true) annotation(
     Placement(visible = true, transformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -110,14 +110,14 @@ equation
     Line(points = {{-198, -74}, {-172, -74}}, color = {255, 0, 255}));
   connect(keyboardKeyInput.keyState, accumulate5.u) annotation(
     Line(points = {{-199, -104}, {-172, -104}}, color = {255, 0, 255}));
-  connect(add_deltaE.y, dispVarPyConsole.u_variables[1]) annotation(
-    Line(points = {{-88, 80}, {-54, 80}, {-54, -110}, {-46, -110}}, color = {0, 0, 127}));
-  connect(add_fracT.y, dispVarPyConsole.u_variables[2]) annotation(
-    Line(points = {{-98, 20}, {-68, 20}, {-68, -110}, {-46, -110}}, color = {0, 0, 127}));
-  connect(add_deltaA.y, dispVarPyConsole.u_variables[3]) annotation(
-    Line(points = {{-90, -30}, {-76, -30}, {-76, -110}, {-46, -110}}, color = {0, 0, 127}));
   connect(add_deltaR.y, dispVarPyConsole.u_variables[4]) annotation(
     Line(points = {{-108, -84}, {-86, -84}, {-86, -110}, {-46, -110}}, color = {0, 0, 127}));
+  connect(add_deltaA.y, dispVarPyConsole.u_variables[3]) annotation(
+    Line(points = {{-90, -30}, {-76, -30}, {-76, -110}, {-46, -110}}, color = {0, 0, 127}));
+  connect(add_fracT.y, dispVarPyConsole.u_variables[2]) annotation(
+    Line(points = {{-98, 20}, {-68, 20}, {-68, -110}, {-46, -110}}, color = {0, 0, 127}));
+  connect(add_deltaE.y, dispVarPyConsole.u_variables[1]) annotation(
+    Line(points = {{-88, 80}, {-54, 80}, {-54, -110}, {-46, -110}}, color = {0, 0, 127}));
   annotation(
     Diagram(coordinateSystem(extent = {{-260, -120}, {120, 120}})),
     __OpenModelica_commandLineOptions = "-d=initialization, --maxMixedDeterminedIndex=1000, --maxSizeLinearTearing=400, --maxSizeNonlinearTearing=600",
