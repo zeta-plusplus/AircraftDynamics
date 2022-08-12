@@ -232,27 +232,6 @@ treeview.pack()
 canvasPFD.place(x=0, y=0)
 canvasDatTbl.place(x=800, y=0)
 
-
-'''
-disp_value(val= "bank: "+str(round(fltState.phi_deg,2)), x=1/2*width_PFD-20, y=10, fontsize=16, tag="disp_bank")     # display bank angle
-disp_value(val= "pitch: "+str(round(fltState.theta_deg,2)), x=1/2*width_PFD-20, y=40, fontsize=16, tag="disp_pitch")     # display pitch angle
-
-disp_value(val= "Heading", x=1/2*width_PFD-50, y=height_PFD-110, tag="label_heading")     # label heading angle
-disp_value(val= str(round(fltState.psi_deg)), x=1/2*width_PFD-30, y=height_PFD-80, tag="disp_heading")     # display heading angle
-
-disp_value(val= str(round(fltState.vel))+" m/s", x=80, tag="disp_vel")   # display velocity
-#disp_value(val= str(round(fltState.alt))+" m", x=1/2*width_PFD+220, tag="disp_alt")     # display altitude
-disp_value(val= str(round(fltState.vs))+" m/s", x=1/2*width_PFD+280, y=height_PFD/2+40, tag="disp_vs")     # vertical speed
-
-disp_Vvector(alpha=fltState.alpha, beta=fltState.beta, 
-             tagFslg="Vvector_Fslg", tagLW="Vvector_LW", tagRW="Vvector_RW", tagVS="Vvector_VS")
-
-disp_value(val= "Sim time: "+str(round(fltState.time,3)), 
-           x=1/2*width_PFD-70, y=height_PFD-40, fontsize=12, tag="disp_simTime")     # 
-disp_value(val= "time after begin: "+str(round(timeRunning,2)), 
-           x=1/2*width_PFD-90, y=height_PFD-20, fontsize=12, tag="disp_appTime")     # 
-'''
-
 # ----- generate value labels
 ''''''
 label_bank= tk.Label(text="bank: 0", font=font.Font(size=16)); label_bank.place(x=1/2*width_PFD-20, y=10)     # display bank angle
@@ -265,6 +244,8 @@ label_vel= tk.Label(text="0 m/s", font=font.Font(size=18)); label_vel.place(x=80
 label_alt= tk.Label(text="0 m", font=font.Font(size=18)); label_alt.place(x=1/2*width_PFD+220, y=height_PFD/2)     # display altitude
 label_VS= tk.Label(text="0 m", font=font.Font(size=18)); label_VS.place(x=1/2*width_PFD+280, y=height_PFD/2+40)     # vertical speed
 
+label_simTime= tk.Label(text="Sim Time: 0 s", font=font.Font(size=12)); label_simTime.place(x=1/2*width_PFD-60, y=height_PFD-40)     # simulation time
+label_appTime= tk.Label(text="App Time: 0 s", font=font.Font(size=12)); label_appTime.place(x=1/2*width_PFD-60, y=height_PFD-20)     # simulation time
 
 
 '''----------------------------------------------------------------------
@@ -497,6 +478,8 @@ def mainroutine(flagInit, flagRead, \
     #----- end for -----
     
     disp_CenterCross()
+    disp_Vvector(alpha=fltState.alpha, beta=fltState.beta, 
+                 tagFslg="Vvector_Fslg", tagLW="Vvector_LW", tagRW="Vvector_RW", tagVS="Vvector_VS")
     
     # update display values
     label_bank["text"]="bank: "+str(round(fltState.phi_deg,2))
@@ -507,25 +490,8 @@ def mainroutine(flagInit, flagRead, \
     label_alt["text"]=str(round(fltState.alt))+" m"
     label_VS["text"]=str(round(fltState.vs))+" m/s"
     
-    '''
-    disp_value(val= "bank: "+str(round(fltState.phi_deg,2)), x=1/2*width_PFD-20, y=10, fontsize=16, tag="disp_bank")     # display bank angle
-    disp_value(val= "pitch: "+str(round(fltState.theta_deg,2)), x=1/2*width_PFD-20, y=40, fontsize=16, tag="disp_pitch")     # display pitch angle
-    
-    disp_value(val= "Heading", x=1/2*width_PFD-50, y=height_PFD-110, tag="label_heading")     # label heading angle
-    disp_value(val= str(round(fltState.psi_deg)), x=1/2*width_PFD-30, y=height_PFD-80, tag="disp_heading")     # display heading angle
-    
-    disp_value(val= str(round(fltState.vel))+" m/s", x=80, tag="disp_vel")   # display velocity
-    #disp_value(val= str(round(fltState.alt))+" m", x=1/2*width_PFD+220, tag="disp_alt")     # display altitude
-    disp_value(val= str(round(fltState.vs))+" m/s", x=1/2*width_PFD+280, y=height_PFD/2+40, tag="disp_vs")     # vertical speed
-    
-    '''
-    disp_Vvector(alpha=fltState.alpha, beta=fltState.beta, 
-                 tagFslg="Vvector_Fslg", tagLW="Vvector_LW", tagRW="Vvector_RW", tagVS="Vvector_VS")
-    
-    disp_value(val= "Sim time: "+str(round(fltState.time,3)), 
-               x=1/2*width_PFD-70, y=height_PFD-40, fontsize=12, tag="disp_simTime")     # 
-    disp_value(val= "time after begin: "+str(round(timeRunning,2)), 
-               x=1/2*width_PFD-90, y=height_PFD-20, fontsize=12, tag="disp_appTime")     # 
+    label_simTime["text"]="Sim time: "+str(round(fltState.time,3))
+    label_appTime["text"]="App time: "+str(round(timeRunning,3))
     
     fltStatePrev= copy.deepcopy(fltState)
     
