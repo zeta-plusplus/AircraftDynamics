@@ -237,15 +237,14 @@ canvasDatTbl.place(x=800, y=0)
 label_bank= tk.Label(text="bank: 0", font=font.Font(size=16)); label_bank.place(x=1/2*width_PFD-20, y=10)     # display bank angle
 label_pitch= tk.Label(text="pitch: 0", font=font.Font(size=16)); label_pitch.place(x=1/2*width_PFD-20, y=40)     # display pitch angle
 
-label_headingLabel= tk.Label(text="heading", font=font.Font(size=16)); label_headingLabel.place(x=1/2*width_PFD-50, y=height_PFD-110)     # label heading angle
-label_heading= tk.Label(text="0", font=font.Font(size=16)); label_heading.place(x=1/2*width_PFD-30, y=height_PFD-80)     # display heading angle
+label_heading= tk.Label(text="0", font=font.Font(size=20)); label_heading.place(x=1/2*width_PFD-20, y=height_PFD-140)     # display heading angle
 
 label_vel= tk.Label(text="0 m/s", font=font.Font(size=18)); label_vel.place(x=80, y=height_PFD/2)   # display velocity
 label_alt= tk.Label(text="0 m", font=font.Font(size=18)); label_alt.place(x=1/2*width_PFD+220, y=height_PFD/2)     # display altitude
 label_VS= tk.Label(text="0 m", font=font.Font(size=18)); label_VS.place(x=1/2*width_PFD+280, y=height_PFD/2+40)     # vertical speed
 
-label_simTime= tk.Label(text="Sim Time: 0 s", font=font.Font(size=12)); label_simTime.place(x=1/2*width_PFD-60, y=height_PFD-40)     # simulation time
-label_appTime= tk.Label(text="App Time: 0 s", font=font.Font(size=12)); label_appTime.place(x=1/2*width_PFD-60, y=height_PFD-20)     # simulation time
+label_simTime= tk.Label(text="Sim Time: 0 s", font=font.Font(size=12)); label_simTime.place(x=0, y=height_PFD-40)     # simulation time
+label_appTime= tk.Label(text="App Time: 0 s", font=font.Font(size=12)); label_appTime.place(x=0, y=height_PFD-20)     # simulation time
 
 
 '''----------------------------------------------------------------------
@@ -297,37 +296,6 @@ def disp_CenterCross(xCtr=width_PFD/2,yCtr=height_PFD/2, width=200, height=100, 
     canvasPFD.create_line(r1_1[0],r1_1[1], r1_2[0],r1_2[1], width=linewidth)
     canvasPFD.create_line(r2_1[0],r2_1[1], r2_2[0],r2_2[1], width=linewidth)
     
-#***** end def *****
-
-
-'''---------------------------------------------------------'''
-''''''
-def disp_lineLevel(phi, theta, xCtr=width_PFD/2,yCtr=height_PFD/2, xOfst=0, yOfst=0, length=2*width_PFD, 
-                   linewidth=1.5, tag=""):
-    r1= numpy.array([xCtr-1/2*length+xOfst, yCtr+yOfst])
-    r2= numpy.array([xCtr+1/2*length+xOfst, yCtr+yOfst])
-    r1pri= r1
-    r2pri= r2
-    
-    Rtheta=numpy.array([[math.cos(-1.0*phi), -1.0*math.sin(-1.0*phi)],
-                     [math.sin(-1.0*phi), math.cos(-1.0*phi)]])
-    
-    r1pri= r1
-    r2pri= r2
-    
-    r1pri= r1+ numpy.array([0, theta*lenUnitPitch])
-    r2pri= r2+ numpy.array([0, theta*lenUnitPitch])
-    
-    r1pri= r1pri + numpy.array([-xCtr, -yCtr])
-    r2pri= r2pri + numpy.array([-xCtr, -yCtr])
-    
-    r1pri= numpy.dot(Rtheta, r1pri)
-    r2pri= numpy.dot(Rtheta, r2pri)
-    
-    r1pri= r1pri + numpy.array([xCtr, yCtr])
-    r2pri= r2pri + numpy.array([xCtr, yCtr])
-    
-    canvasPFD.create_line(r1pri[0],r1pri[1], r2pri[0],r2pri[1], width=linewidth, tag=tag)
 #***** end def *****
 
 
@@ -404,6 +372,87 @@ def disp_Vvector(alpha, beta, lenUnitAngle=lenUnitPitch, radius=20,
 
 '''---------------------------------------------------------'''
 ''''''
+def disp_lineLevel(phi, theta, xCtr=width_PFD/2,yCtr=height_PFD/2, xOfst=0, yOfst=0, length=2*width_PFD, 
+                   linewidth=1.5, tag=""):
+    r1= numpy.array([xCtr-1/2*length+xOfst, yCtr+yOfst])
+    r2= numpy.array([xCtr+1/2*length+xOfst, yCtr+yOfst])
+    r1pri= r1
+    r2pri= r2
+    
+    Rtheta=numpy.array([[math.cos(-1.0*phi), -1.0*math.sin(-1.0*phi)],
+                     [math.sin(-1.0*phi), math.cos(-1.0*phi)]])
+    
+    r1pri= r1
+    r2pri= r2
+    
+    r1pri= r1+ numpy.array([0, theta*lenUnitPitch])
+    r2pri= r2+ numpy.array([0, theta*lenUnitPitch])
+    
+    r1pri= r1pri + numpy.array([-xCtr, -yCtr])
+    r2pri= r2pri + numpy.array([-xCtr, -yCtr])
+    
+    r1pri= numpy.dot(Rtheta, r1pri)
+    r2pri= numpy.dot(Rtheta, r2pri)
+    
+    r1pri= r1pri + numpy.array([xCtr, yCtr])
+    r2pri= r2pri + numpy.array([xCtr, yCtr])
+    
+    canvasPFD.create_line(r1pri[0],r1pri[1], r2pri[0],r2pri[1], width=linewidth, tag=tag)
+#***** end def *****
+
+
+'''---------------------------------------------------------'''
+''''''
+def disp_directionalGyro(psi, linewidth=1.5, tag="dirGyro"):
+    radius= 1/4*width_PFD
+    xCtr=1/2*width_PFD
+    yCtr=height_PFD+30
+    Rrot=[]
+    r1=[]
+    r2=[]
+    r1pri=[]
+    r2pri=[]
+    tag_lines=["0deg", "45deg", "90deg", "135deg"]
+    
+    #----------
+    canvasPFD.create_oval(xCtr-radius, yCtr-radius, \
+                          xCtr+radius, yCtr+radius, \
+                          width=linewidth, fill="gray80", tag=tag)
+    
+    canvasPFD.create_line(xCtr, yCtr-radius-20, xCtr, yCtr, width=linewidth+0.5, fill="Black", arrow=tk.FIRST)
+        
+    Rpsi= numpy.array([[math.cos(-1.0*psi), -1.0*math.sin(-1.0*psi)],
+                     [math.sin(-1.0*psi), math.cos(-1.0*psi)]])
+    
+    Rrot.append(Rpsi)
+    
+    for i in range(3):
+        Rrot.append(numpy.array([[math.cos(-1.0*psi-(i+1)*math.pi/4.0), -1.0*math.sin(-1.0*psi-(i+1)*math.pi/4.0)],
+                     [math.sin(-1.0*psi-(i+1)*math.pi/4.0), math.cos(-1.0*psi-(i+1)*math.pi/4.0)]]))
+    
+    for i in range(4):
+        r1.append(numpy.array([xCtr, yCtr-radius-5]))
+        r2.append(numpy.array([xCtr, yCtr+radius+5]))
+        
+        r1pri=r1
+        r2pri=r2
+        
+        r1pri[i]= r1pri[i] + numpy.array([-xCtr, -yCtr])
+        r2pri[i]= r2pri[i] + numpy.array([-xCtr, -yCtr])
+        
+        r1pri[i]= numpy.dot(Rrot[i], r1pri[i])
+        r2pri[i]= numpy.dot(Rrot[i], r2pri[i])
+        
+        r1pri[i]= r1pri[i] + numpy.array([xCtr, yCtr])
+        r2pri[i]= r2pri[i] + numpy.array([xCtr, yCtr])
+        
+        canvasPFD.create_line(r1pri[i][0],r1pri[i][1], r2pri[i][0],r2pri[i][1], width=linewidth, tag=tag_lines[i], fill="gray25")
+    #***** end for *****
+#***** end def *****
+
+
+'''---------------------------------------------------------'''
+''''''
 def disp_value(val, x=10, y=height_PFD/2, fontsize=18, tag=""):
     font_val= font.Font(size=fontsize)
     label_val = tk.Label(text=val, font=font_val)
@@ -418,7 +467,7 @@ def disp_value(val, x=10, y=height_PFD/2, fontsize=18, tag=""):
 '''-----------------------------------------------------------------------------'''
 '''-----------------------------------------------------------------------------'''
 ''''''
-def mainroutine(flagInit, flagRead, \
+def updatePFD(flagInit, flagRead, \
                 fltState: flightStates, fltStatePrev: flightStates, fltStateSave: flightStates):
     swPrintDbg=False
     #--------------------
@@ -432,7 +481,7 @@ def mainroutine(flagInit, flagRead, \
     #***** end if *****
     
     if(swPrintDbg==True):
-        print(str(round(timeRunning,3))+": mainroutine: "+str(flagRead))
+        print(str(round(timeRunning,3))+": updatePFD: "+str(flagRead))
     #***** end if *****
     ''''''
     fltState.phi_deg= fltState.phi*180.0/math.pi
@@ -480,6 +529,7 @@ def mainroutine(flagInit, flagRead, \
     disp_CenterCross()
     disp_Vvector(alpha=fltState.alpha, beta=fltState.beta, 
                  tagFslg="Vvector_Fslg", tagLW="Vvector_LW", tagRW="Vvector_RW", tagVS="Vvector_VS")
+    disp_directionalGyro(psi=fltState.psi)
     
     # update display values
     label_bank["text"]="bank: "+str(round(fltState.phi_deg,2))
@@ -496,7 +546,7 @@ def mainroutine(flagInit, flagRead, \
     fltStatePrev= copy.deepcopy(fltState)
     
     # ----- command of recursive call, with specific time interval
-    rootframe.after(tInterval, mainroutine, \
+    rootframe.after(tInterval, updatePFD, \
                     flagInit, flagRead, 
                     fltState, fltStatePrev, fltStateSave)
     #-----
@@ -510,7 +560,9 @@ def mainroutine(flagInit, flagRead, \
 ''''''
 def readFltStatesDat(flagInit, flagRead, timeRunning, tInterval, \
                      fltState: flightStates(), fltStatePrev: flightStates(), fltStateSave: flightStates()):
-    swPrintDbg=True
+    swPrintDbg=False
+    
+    #-----
     flagRead=False
     
     if(os.path.exists(fullPathDataFile)==True):
@@ -881,7 +933,7 @@ canvasPFD.place(x=0, y=0)
 canvasDatTbl.place(x=800, y=0)
 '''
 # ---------- call routine of display & update, with specific time interval
-rootframe.after(tInterval, mainroutine, \
+rootframe.after(tInterval, updatePFD, \
                 flagInit, flagRead, \
                 fltState, fltStatePrev, fltStateSave)
 '''    
