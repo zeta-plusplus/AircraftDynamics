@@ -5,11 +5,14 @@ model TwoBodyOrbital00
   import units = Modelica.Units.SI;
   parameter Integer nEdgeM1 = 361;
   parameter units.Length rM1 = 6378.137*10.0^3.0;
-  parameter units.Mass m1 = 5.972*10.0^(24.0) "default value is mass of the earch";
-  parameter units.Mass m2 = 68585 "default value is empty mass of space shuttle orbiter";
-  parameter units.Length r2_init[3] = {(6378.137 + 400)*10.0^3.0, 0.0, 0.0};
-  parameter units.Length v2_init[3] = {0.0, 7670, 0.0};
+  parameter units.Mass m1_par = 5.972*10.0^(24.0) "default value is mass of the earch";
+  parameter units.Mass m2_par = 68585 "default value is empty mass of space shuttle orbiter";
+  parameter units.Length r2_init[3] = {(6378.137+400)*10.0^3.0, 0.0, 0.0};
+  parameter units.Velocity v2_init[3] = {0.0, 7670, 0.0};
   
+  
+  units.Mass m1;
+  units.Mass m2;
   Real mu;
   units.Length r2[3];
   units.Velocity v2[3];
@@ -39,6 +42,8 @@ initial equation
   end for;
   
 equation
+  m1= m1_par;
+  m2= m2_par;
   
   mu = Modelica.Constants.G*(m1 + m2);
   mag_r2 = (r2[1]^2 + r2[2]^2 + r2[3])^(0.5);
