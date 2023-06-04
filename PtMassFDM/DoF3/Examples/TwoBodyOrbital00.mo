@@ -34,6 +34,10 @@ model TwoBodyOrbital00
   units.Length Alt;
   units.Velocity v1Abs;
   units.Velocity v2Abs;
+  units.Velocity v1_2Abs;
+  units.Acceleration a1Abs;
+  units.Acceleration a2Abs;
+  units.Acceleration a1_2Abs;
   
 protected
   parameter units.Length xEdgeM1[nEdgeM1](each fixed=false) annotation(
@@ -68,6 +72,10 @@ equation
   Alt= mag_r1_2 - rM1;
   v1Abs= (v1[1]^2 + v1[2]^2 + v1[3]^2 )^(0.5);
   v2Abs= (v2[1]^2 + v2[2]^2 + v2[3]^2 )^(0.5);
+  v1_2Abs= (v1_2[1]^2 + v1_2[2]^2 + v1_2[3]^2 )^(0.5);
+  a1Abs= (a1[1]^2 + a1[2]^2 + a1[3]^2 )^(0.5);
+  a2Abs= (a2[1]^2 + a2[2]^2 + a2[3]^2 )^(0.5);
+  a1_2Abs= (a1_2[1]^2 + a1_2[2]^2 + a1_2[3]^2 )^(0.5);
   //-----
   for i in 1:3 loop
     r1_2[i]= r2[i] - r1[i];
