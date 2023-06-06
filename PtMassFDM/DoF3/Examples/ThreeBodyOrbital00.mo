@@ -25,29 +25,56 @@ model ThreeBodyOrbital00
   units.Mass m3;
   
   units.Length r1[3];
+  units.Length r2[3];
   units.Length r3[3];
+  
   units.Length r1_3[3];
+  units.Length r1_2[3];
+  
   units.Velocity v1[3];
+  units.Velocity v2[3];
   units.Velocity v3[3];
+  
   units.Velocity v1_3[3];
+  units.Velocity v1_2[3];
+  
   units.Acceleration a1[3];
+  units.Acceleration a2[3];
   units.Acceleration a3[3];
+  
   units.Acceleration a1_3[3];
+  units.Acceleration a1_2[3];
+  
   units.Force Fg1_3[3];
   units.Force Fg3_1[3];
   
+  units.Force Fg1_2[3];
+  units.Force Fg2_1[3];
+  
   //---
   units.Length mag_r1;
+  units.Length mag_r2;
   units.Length mag_r3;
+  
   units.Length mag_r1_3;
+  units.Length mag_r1_2;
+  
   units.Length Alt;
+  
   units.Velocity v1Abs;
+  units.Velocity v2Abs;
   units.Velocity v3Abs;
+  
   units.Velocity v1_3Abs;
+  units.Velocity v1_2Abs;
+  
   units.Acceleration a1Abs;
+  units.Acceleration a2Abs;
   units.Acceleration a3Abs;
+  
   units.Acceleration a1_3Abs;
-
+  units.Acceleration a1_2Abs;
+  
 protected
   parameter units.Length r2_init[3](each fixed=false) annotation(
     HideResult = false);
@@ -70,11 +97,11 @@ initial equation
   
   for i in 1:3 loop
     r1[i] = r1_init[i];
-    //r2[i] = r2_init[i];
+    r2[i] = r2_init[i];
     r3[i] = r3_init[i];
     
     v1[i] = v1_init[i];
-    //v2[i] = v2_init[i];
+    v2[i] = v2_init[i];
     v3[i] = v3_init[i];
     
   end for;
@@ -85,31 +112,57 @@ equation
   m3= m3_par;
   
   mag_r1 = (r1[1]^2 + r1[2]^2 + r1[3]^2)^(0.5);
+  mag_r2 = (r2[1]^2 + r2[2]^2 + r2[3]^2)^(0.5);
   mag_r3 = (r3[1]^2 + r3[2]^2 + r3[3]^2)^(0.5);
+  
   mag_r1_3 = (r1_3[1]^2 + r1_3[2]^2 + r1_3[3]^2)^(0.5);
+  mag_r1_2 = (r1_2[1]^2 + r1_2[2]^2 + r1_2[3]^2)^(0.5);
+  
   Alt= mag_r1_3 - rM1;
+  
   v1Abs= (v1[1]^2 + v1[2]^2 + v1[3]^2 )^(0.5);
+  v2Abs= (v2[1]^2 + v2[2]^2 + v2[3]^2 )^(0.5);
   v3Abs= (v3[1]^2 + v3[2]^2 + v3[3]^2 )^(0.5);
+  
   v1_3Abs= (v1_3[1]^2 + v1_3[2]^2 + v1_3[3]^2 )^(0.5);
+  v1_2Abs= (v1_2[1]^2 + v1_2[2]^2 + v1_2[3]^2 )^(0.5);
+  
   a1Abs= (a1[1]^2 + a1[2]^2 + a1[3]^2 )^(0.5);
+  a2Abs= (a2[1]^2 + a2[2]^2 + a2[3]^2 )^(0.5);
   a3Abs= (a3[1]^2 + a3[2]^2 + a3[3]^2 )^(0.5);
+  
   a1_3Abs= (a1_3[1]^2 + a1_3[2]^2 + a1_3[3]^2 )^(0.5);
+  a1_2Abs= (a1_2[1]^2 + a1_2[2]^2 + a1_2[3]^2 )^(0.5);
   //-----
   for i in 1:3 loop
     r1_3[i]= r3[i] - r1[i];
+    r1_2[i]= r2[i] - r1[i];
+    
     v1_3[i]= v3[i] - v1[i];
+    v1_2[i]= v2[i] - v1[i];
+    
     a1_3[i]= a3[i] - a1[i];
+    a1_2[i]= a2[i] - a1[i];
     
     der(r1[i]) = v1[i];
+    der(r2[i]) = v2[i];
     der(r3[i]) = v3[i];
+    
     der(v1[i]) = a1[i];
+    der(v2[i]) = a2[i];
     der(v3[i]) = a3[i];
     
     Fg1_3[i]= Modelica.Constants.G*m1*m3/(mag_r1_3^3.0)*r1_3[i];
     Fg3_1[i]= Modelica.Constants.G*m1*m3/(mag_r1_3^3.0)*(-1.0)*r1_3[i];
     
-    a1[i]= Fg1_3[i]/m1;
+    Fg1_2[i]= Modelica.Constants.G*m1*m2/(mag_r1_2^3.0)*r1_2[i];
+    Fg2_1[i]= Modelica.Constants.G*m1*m2/(mag_r1_2^3.0)*(-1.0)*r1_2[i];
+    
+    //a1[i]= (Fg1_3[i]+Fg1_2[i])/m1;
+    a1[i]=0.0;
+    
     a3[i]= Fg3_1[i]/m3;
+    a2[i]= Fg2_1[i]/m2;
     
   end for;
   
