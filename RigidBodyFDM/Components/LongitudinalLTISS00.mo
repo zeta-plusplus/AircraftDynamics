@@ -9,7 +9,7 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
   import Modelica.Constants;
   import Modelica.Utilities.Streams;
   import Modelica.Math.Matrices;
-  import Modelica.SIunits;
+  import units = Modelica.Units.SI;
   /********************************************************
                      Declaration
       ********************************************************/
@@ -50,34 +50,34 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
             parameters
       --------------------------------------------- */
   //********** Initial States **********
-  parameter Modelica.SIunits.Angle alpha1 = 5.0 * (Constants.pi / 180.0) "AoA, in equilibrium at initial" annotation(
+  parameter units.Angle alpha1 = 5.0 * (Constants.pi / 180.0) "AoA, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
-  parameter Modelica.SIunits.Angle gamma1 = 0.0 "flight path, in equilibrium at initial" annotation(
+  parameter units.Angle gamma1 = 0.0 "flight path, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
-  parameter Modelica.SIunits.AngularVelocity q1 = 0.0 "pitch rate, in equilibrium at initial" annotation(
+  parameter units.AngularVelocity q1 = 0.0 "pitch rate, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
   //---
-  parameter Modelica.SIunits.Velocity u0 = 0.0 "velocity along x-axis, deviation from equilibrium at initial" annotation(
+  parameter units.Velocity u0 = 0.0 "velocity along x-axis, deviation from equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
-  parameter Modelica.SIunits.Angle alpha0 = 0.0 "AoA, deviation from equilibrium at initial" annotation(
+  parameter units.Angle alpha0 = 0.0 "AoA, deviation from equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
-  parameter Modelica.SIunits.AngularVelocity q0 = 0.0 "pitch rate, deviation from equilibrium" annotation(
+  parameter units.AngularVelocity q0 = 0.0 "pitch rate, deviation from equilibrium" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
-  parameter Modelica.SIunits.Angle theta0 = 0.0 "pitch, deviation from equilibrium at initial" annotation(
+  parameter units.Angle theta0 = 0.0 "pitch, deviation from equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
   //********** Aircraft Properties **********
-  parameter SIunits.Area S_par = 16.165129 "" annotation(
+  parameter units.Area S_par = 16.165129 "" annotation(
     Dialog(group = "Aircraft Properties"));
-  parameter SIunits.Length cBar_par = 1.49352 "" annotation(
+  parameter units.Length cBar_par = 1.49352 "" annotation(
     Dialog(group = "Aircraft Properties"));
-  parameter SIunits.Mass m_par = 1202.01978 "" annotation(
+  parameter units.Mass m_par = 1202.01978 "" annotation(
     Dialog(group = "Aircraft Properties"));
-  parameter SIunits.MomentOfInertia Iyy_par = 1824.9309607 "" annotation(
+  parameter units.MomentOfInertia Iyy_par = 1824.9309607 "" annotation(
     Dialog(group = "Aircraft Properties"));
   //---
-  parameter SIunits.Angle thetaTi_par = 2.0 * (Constants.pi / 180.0) "inclination of thrust instllation, in pich" annotation(
+  parameter units.Angle thetaTi_par = 2.0 * (Constants.pi / 180.0) "inclination of thrust instllation, in pich" annotation(
     Dialog(group = "Aircraft Properties"));
-  parameter SIunits.Angle psiTi_par = 0.0 * (Constants.pi / 180.0) "inclination of thrust installation, in yaw" annotation(
+  parameter units.Angle psiTi_par = 0.0 * (Constants.pi / 180.0) "inclination of thrust installation, in yaw" annotation(
     Dialog(group = "Aircraft Properties"));
   parameter Real xBarTi_par = 0.1 "non-dim distance, + == foward of CG, thrust acting point - C.G., x-axis" annotation(
     Dialog(group = "Aircraft Properties"));
@@ -123,9 +123,9 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
   parameter Real CmDeltaE = -1.122 annotation(
     Dialog(group = "M-related-Coefficients"));
   //********** Steady Flight Condition **********
-  parameter SIunits.Velocity U1_par = 67.3295 "" annotation(
+  parameter units.Velocity U1_par = 67.3295 "" annotation(
     Dialog(group = "Steady Flight Condition"));
-  parameter SIunits.Pressure q1bar_par = 2384.17 "" annotation(
+  parameter units.Pressure q1bar_par = 2384.17 "" annotation(
     Dialog(group = "Steady Flight Condition"));
   /* ---------------------------------------------
             Internal variables
@@ -206,23 +206,23 @@ protected
   /* ---------------------------------------------
             parameters not fixed yet
     --------------------------------------------- */
-  parameter SIunits.Acceleration g(fixed = false) "";
-  parameter SIunits.Velocity U1(fixed = false) "";
-  parameter SIunits.Pressure q1bar(fixed = false) "";
-  parameter SIunits.Area S(fixed = false) "";
-  parameter SIunits.Length cBar(fixed = false) "";
-  parameter SIunits.Mass m(fixed = false) "";
-  parameter SIunits.MomentOfInertia Iyy(fixed = false) "";
+  parameter units.Acceleration g(fixed = false) "";
+  parameter units.Velocity U1(fixed = false) "";
+  parameter units.Pressure q1bar(fixed = false) "";
+  parameter units.Area S(fixed = false) "";
+  parameter units.Length cBar(fixed = false) "";
+  parameter units.Mass m(fixed = false) "";
+  parameter units.MomentOfInertia Iyy(fixed = false) "";
   //---
-  parameter SIunits.Angle thetaTi(fixed = false) "";
-  parameter SIunits.Angle psiTi(fixed = false) "";
+  parameter units.Angle thetaTi(fixed = false) "";
+  parameter units.Angle psiTi(fixed = false) "";
   parameter Real xBarTi(fixed = false) "";
   parameter Real zBarTi(fixed = false) "";
   //---
-  parameter Modelica.SIunits.Angle theta1(fixed = false) annotation(
+  parameter units.Angle theta1(fixed = false) annotation(
     fixed = false,
     HideResult = false);
-  parameter Modelica.SIunits.Velocity u1(fixed = false) annotation(
+  parameter units.Velocity u1(fixed = false) annotation(
     fixed = false,
     HideResult = false);
   //-----

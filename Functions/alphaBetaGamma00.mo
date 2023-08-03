@@ -3,18 +3,18 @@ within AircraftDynamics.Functions;
 function alphaBetaGamma00
   extends Modelica.Icons.Function;
   //****************************************
-  import Units= Modelica.SIunits;
+  import units= Modelica.Units.SI;
   //****************************************
-  input Units.Velocity u;
-  input Units.Velocity v;
-  input Units.Velocity w;
-  input Units.Velocity dXG;
-  input Units.Velocity dYG;
-  input Units.Velocity dZG;
+  input units.Velocity u;
+  input units.Velocity v;
+  input units.Velocity w;
+  input units.Velocity dXG;
+  input units.Velocity dYG;
+  input units.Velocity dZG;
   //----------
-  output Units.Angle alpha;
-  output Units.Angle beta;
-  output Units.Angle gamma;
+  output units.Angle alpha;
+  output units.Angle beta;
+  output units.Angle gamma;
   
 algorithm
   alpha:= atan2(w, u);

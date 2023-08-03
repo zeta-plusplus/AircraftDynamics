@@ -1,23 +1,27 @@
 within AircraftDynamics.RigidBodyFDM.Components;
 
 model DerivativesLateralNonDim2Dim00
+  
+  //
   import AircraftDynamics;
+  import units = Modelica.Units.SI;
+  
   /* ---------------------------------------------
             Internal variables
     --------------------------------------------- */
-  Modelica.SIunits.Velocity U1;
-  Modelica.SIunits.Pressure q1bar;
-  Modelica.SIunits.Angle theta1;
-  Modelica.SIunits.Acceleration g;
-  Modelica.SIunits.Area S;
-  Modelica.SIunits.Mass m;
-  Modelica.SIunits.MomentOfInertia Ixx;
-  Modelica.SIunits.MomentOfInertia Izz;
-  Modelica.SIunits.MomentOfInertia Ixz;
-  Modelica.SIunits.Length b;
+  units.Velocity U1;
+  units.Pressure q1bar;
+  units.Angle theta1;
+  units.Acceleration g;
+  units.Area S;
+  units.Mass m;
+  units.MomentOfInertia Ixx;
+  units.MomentOfInertia Izz;
+  units.MomentOfInertia Ixz;
+  units.Length b;
   //---
-  Modelica.SIunits.MomentOfInertia I1;
-  Modelica.SIunits.MomentOfInertia I2;
+  units.MomentOfInertia I1;
+  units.MomentOfInertia I2;
   
   //----------
   Real CYbeta;

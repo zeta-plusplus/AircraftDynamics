@@ -2,8 +2,14 @@ within AircraftDynamics.Functions;
 
 function calcAngles4display
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Angle angCumulative;
-  output Modelica.SIunits.Angle ang4disp;
+  //
+  import units = Modelica.Units.SI;
+  
+  //
+  input units.Angle angCumulative;
+  
+  //
+  output units.Angle ang4disp;
 algorithm
   if( (2.0*Modelica.Constants.pi) <= angCumulative)then
     ang4disp:=mod(angCumulative, 2.0*Modelica.Constants.pi);

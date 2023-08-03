@@ -8,7 +8,7 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
           ********************************************************/
   import Modelica.Constants;
   import Modelica.Utilities.Streams;
-  import Modelica.SIunits;
+  import units = Modelica.Units.SI;
   /********************************************************
                                Declaration
           ********************************************************/
@@ -59,42 +59,42 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
                       parameters
           --------------------------------------------- */
   //********** Initial States **********
-  parameter Modelica.SIunits.Angle beta1 = 0.0 * (Constants.pi / 180.0) "sideslip, in equilibrium at initial" annotation(
+  parameter units.Angle beta1 = 0.0 * (Constants.pi / 180.0) "sideslip, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
-  parameter Modelica.SIunits.Angle phi1 = 0.0 * (Constants.pi / 180.0) "roll, in equilibrium at initial" annotation(
+  parameter units.Angle phi1 = 0.0 * (Constants.pi / 180.0) "roll, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
-  parameter Modelica.SIunits.Angle psi1 = 0.0 * (Constants.pi / 180.0) "heading, in equilibrium at initial" annotation(
+  parameter units.Angle psi1 = 0.0 * (Constants.pi / 180.0) "heading, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
-  parameter Modelica.SIunits.AngularVelocity p1 = 0.0 * (Constants.pi / 180.0) "roll rate, in equilibrium at initial" annotation(
+  parameter units.AngularVelocity p1 = 0.0 * (Constants.pi / 180.0) "roll rate, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
-  parameter Modelica.SIunits.AngularVelocity r1 = 0.0 * (Constants.pi / 180.0) "yaw rate, in equilibrium at initial" annotation(
+  parameter units.AngularVelocity r1 = 0.0 * (Constants.pi / 180.0) "yaw rate, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
-  parameter Modelica.SIunits.Angle theta1 = 0.8994698 * (Constants.pi / 180.0) "pitch, in equilibrium at initial" annotation(
+  parameter units.Angle theta1 = 0.8994698 * (Constants.pi / 180.0) "pitch, in equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "in equilibrium"));
   //---
-  parameter Modelica.SIunits.Angle beta0 = 0.0 * (Constants.pi / 180.0) "sideslip, deviation from equilibrium at initial" annotation(
+  parameter units.Angle beta0 = 0.0 * (Constants.pi / 180.0) "sideslip, deviation from equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
-  parameter Modelica.SIunits.Angle phi0 = 0.0 * (Constants.pi / 180.0) "roll, deviation from equilibrium at initial" annotation(
+  parameter units.Angle phi0 = 0.0 * (Constants.pi / 180.0) "roll, deviation from equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
-  parameter Modelica.SIunits.Angle psi0 = 0.0 * (Constants.pi / 180.0) "heading, deviation from equilibrium at initial" annotation(
+  parameter units.Angle psi0 = 0.0 * (Constants.pi / 180.0) "heading, deviation from equilibrium at initial" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
-  parameter Modelica.SIunits.AngularVelocity p0 = 0.0 * (Constants.pi / 180.0) "roll rate, deviation from equilibrium" annotation(
+  parameter units.AngularVelocity p0 = 0.0 * (Constants.pi / 180.0) "roll rate, deviation from equilibrium" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
-  parameter Modelica.SIunits.AngularVelocity r0 = 0.0 * (Constants.pi / 180.0) "yaw rate, deviation from equilibrium" annotation(
+  parameter units.AngularVelocity r0 = 0.0 * (Constants.pi / 180.0) "yaw rate, deviation from equilibrium" annotation(
     Dialog(tab = "Initial states", group = "deviation from equilibrium"));
   //---
   //********** Aircraft Properties **********
-  parameter SIunits.Area S_par = 16.165129 "" annotation(
+  parameter units.Area S_par = 16.165129 "" annotation(
     Dialog(group = "Aircraft Properties"));
-  parameter SIunits.Length b_par = 10.9728 "" annotation(
+  parameter units.Length b_par = 10.9728 "" annotation(
     Dialog(group = "Aircraft Properties"));
-  parameter SIunits.Mass m_par = 1202.01978 "" annotation(
+  parameter units.Mass m_par = 1202.01978 "" annotation(
     Dialog(group = "Aircraft Properties"));
-  parameter SIunits.MomentOfInertia Ixx_par = 1285.3154166 "" annotation(
+  parameter units.MomentOfInertia Ixx_par = 1285.3154166 "" annotation(
     Dialog(group = "Aircraft Properties"));
-  parameter SIunits.MomentOfInertia Izz_par = 2666.89390765 "" annotation(
+  parameter units.MomentOfInertia Izz_par = 2666.89390765 "" annotation(
     Dialog(group = "Aircraft Properties"));
-  parameter SIunits.MomentOfInertia Ixz_par = 0.0 "" annotation(
+  parameter units.MomentOfInertia Ixz_par = 0.0 "" annotation(
     Dialog(group = "Aircraft Properties"));
   //********** Characteristics **********
   parameter Real CYbeta = -0.393 annotation(
@@ -143,9 +143,9 @@ block LateralLTISS00 "Lateral/Directional FDM with Linear Time Invariant Steady 
     Dialog(group = "N-related-Coefficients"));
   //-----
   //********** Steady Flight Condition **********
-  parameter SIunits.Velocity U1_par = 67.3295 "" annotation(
+  parameter units.Velocity U1_par = 67.3295 "" annotation(
     Dialog(group = "Steady Flight Condition"));
-  parameter SIunits.Pressure q1bar_par = 2384.17 "" annotation(
+  parameter units.Pressure q1bar_par = 2384.17 "" annotation(
     Dialog(group = "Steady Flight Condition"));
   /* ---------------------------------------------
                       Internal variables
@@ -227,15 +227,15 @@ protected
   redeclare parameter Real x0[5](each fixed = false) "Initial state vector" annotation(
     HideResult = false);
   //-----
-  parameter SIunits.Acceleration g(fixed = false) "";
-  parameter SIunits.Velocity U1(fixed = false) "";
-  parameter SIunits.Pressure q1bar(fixed = false) "";
-  parameter SIunits.Area S(fixed = false) "";
-  parameter SIunits.Length b(fixed = false) "";
-  parameter SIunits.Mass m(fixed = false) "";
-  parameter SIunits.MomentOfInertia Ixx(fixed = false) "";
-  parameter SIunits.MomentOfInertia Izz(fixed = false) "";
-  parameter SIunits.MomentOfInertia Ixz(fixed = false) "";
+  parameter units.Acceleration g(fixed = false) "";
+  parameter units.Velocity U1(fixed = false) "";
+  parameter units.Pressure q1bar(fixed = false) "";
+  parameter units.Area S(fixed = false) "";
+  parameter units.Length b(fixed = false) "";
+  parameter units.Mass m(fixed = false) "";
+  parameter units.MomentOfInertia Ixx(fixed = false) "";
+  parameter units.MomentOfInertia Izz(fixed = false) "";
+  parameter units.MomentOfInertia Ixz(fixed = false) "";
   //---
   parameter Real Ybeta_pri(fixed = false) annotation(
     HideResult = false);

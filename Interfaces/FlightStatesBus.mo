@@ -2,63 +2,63 @@ within AircraftDynamics.Interfaces;
 
 expandable connector FlightStatesBus
   extends Modelica.Icons.SignalBus;
-  import SI= Modelica.SIunits;
+  import units = Modelica.Units.SI;
   /********************************************************
                          Declaration
   ********************************************************/
   /*-------------------------
   -------------------------*/
-  SI.Velocity u "velocity along airframe x-axis";
-  SI.Velocity v "velocity along airframe y-axis";
-  SI.Velocity w "velocity along airframe z-axis";
+  units.Velocity u "velocity along airframe x-axis";
+  units.Velocity v "velocity along airframe y-axis";
+  units.Velocity w "velocity along airframe z-axis";
   
-  SI.Velocity V "flight velocity, or 'TAS'";
+  units.Velocity V "flight velocity, or 'TAS'";
   Real Mn "flight mach number";
   
-  SI.Velocity dXG "velocity along X-Global";
-  SI.Velocity dYG "velocity along Y-Global";
-  SI.Velocity dZG "velocity along Z-Global";
+  units.Velocity dXG "velocity along X-Global";
+  units.Velocity dYG "velocity along Y-Global";
+  units.Velocity dZG "velocity along Z-Global";
   
-  SI.Position XG "position based on X-Global";
-  SI.Position YG "position based on Y-Global";
-  SI.Position ZG "position based on Z-Global, -1*alt";
-  SI.Position xNorth "position in direction of north";
-  SI.Position xEast "position in direction of east";
-  SI.Position alt "flight altitude";
-  
-  /*-------------------------
-  -------------------------*/
-  SI.Force Xf "Force along airframe x-axis";
-  SI.Force Yf "Force along airframe y-axis";
-  SI.Force Zf "Force along airframe z-axis";
-  
-  SI.Force Ftan "force tangent to flight velocity, not along x-axis";
-  SI.Force Fcentr "centripital force which is perpendicular to flight velocity, not along z-axis";
-  SI.Force Fturn "centripital force of horizontal turning circle";
+  units.Position XG "position based on X-Global";
+  units.Position YG "position based on Y-Global";
+  units.Position ZG "position based on Z-Global, -1*alt";
+  units.Position xNorth "position in direction of north";
+  units.Position xEast "position in direction of east";
+  units.Position alt "flight altitude";
   
   /*-------------------------
   -------------------------*/
-  SI.Angle alpha "angle of attack";
-  SI.Angle gamma "flight path angle";
-  SI.Angle beta "sideslip angle";
+  units.Force Xf "Force along airframe x-axis";
+  units.Force Yf "Force along airframe y-axis";
+  units.Force Zf "Force along airframe z-axis";
+  
+  units.Force Ftan "force tangent to flight velocity, not along x-axis";
+  units.Force Fcentr "centripital force which is perpendicular to flight velocity, not along z-axis";
+  units.Force Fturn "centripital force of horizontal turning circle";
   
   /*-------------------------
   -------------------------*/
-  SI.Angle theta "pitch angle";
-  SI.Angle phi "bank angle";
-  SI.Angle psi "heading angle";
+  units.Angle alpha "angle of attack";
+  units.Angle gamma "flight path angle";
+  units.Angle beta "sideslip angle";
   
   /*-------------------------
   -------------------------*/
-  SI.AngularVelocity p "angular velocity around airframe x-axis";
-  SI.AngularVelocity q "angular velocity around airframe y-axis";
-  SI.AngularVelocity r "angular velocity around airframe z-axis";
+  units.Angle theta "pitch angle";
+  units.Angle phi "bank angle";
+  units.Angle psi "heading angle";
   
   /*-------------------------
   -------------------------*/
-  SI.MomentOfForce L "moment around airframe x-axis";
-  SI.MomentOfForce M "moment around airframe y-axis";
-  SI.MomentOfForce N "moment around airframe z-axis";
+  units.AngularVelocity p "angular velocity around airframe x-axis";
+  units.AngularVelocity q "angular velocity around airframe y-axis";
+  units.AngularVelocity r "angular velocity around airframe z-axis";
+  
+  /*-------------------------
+  -------------------------*/
+  units.MomentOfForce L "moment around airframe x-axis";
+  units.MomentOfForce M "moment around airframe y-axis";
+  units.MomentOfForce N "moment around airframe z-axis";
   
   annotation (defaultComponentName="FltStatesBus");
   

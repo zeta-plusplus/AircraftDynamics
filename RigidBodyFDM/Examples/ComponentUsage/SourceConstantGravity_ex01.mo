@@ -16,5 +16,6 @@ equation
   connect(airplaneDyn.VisInfoOut, animAircraft.VisInfoIn) annotation(
     Line(points = {{52, 60}, {52, 80}, {70, 80}}, color = {95, 95, 95}));
   annotation(
-    experiment(StartTime = 0, StopTime = 200, Tolerance = 1e-08, Interval = 0.01));
+    experiment(StartTime = 0, StopTime = 200, Tolerance = 1e-08, Interval = 0.01),
+  __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl", variableFilter = ".*"));
 end SourceConstantGravity_ex01;

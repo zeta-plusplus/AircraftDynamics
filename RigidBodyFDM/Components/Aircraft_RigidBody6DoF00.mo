@@ -37,42 +37,43 @@ equation
   end for;
   
   //----------
-  //connect(fltStatesBus, );
-  connect(fltStatesBus.phi, phi);
-  connect(fltStatesBus.theta, theta);
-  connect(fltStatesBus.psi, psi);
+  /*
+  fltStatesBus.phi= phi;
+  fltStatesBus.theta= theta;
+  fltStatesBus.psi= psi;
   
-  connect(fltStatesBus.alpha, alpha);
-  connect(fltStatesBus.beta, beta);
-  connect(fltStatesBus.gamma, gamma);
+  fltStatesBus.alpha= alpha;
+  fltStatesBus.beta= beta;
+  fltStatesBus.gamma= gamma;
   
-  connect(fltStatesBus.L, L);
-  connect(fltStatesBus.M, M);
-  connect(fltStatesBus.N, N);
+  fltStatesBus.L= L;
+  fltStatesBus.M= M;
+  fltStatesBus.N= N;
   
-  connect(fltStatesBus.p, p);
-  connect(fltStatesBus.q, q);
-  connect(fltStatesBus.r, r);
+  fltStatesBus.p= p;
+  fltStatesBus.q= q;
+  fltStatesBus.r= r;
   
-  connect(fltStatesBus.u, u);
-  connect(fltStatesBus.v, v);
-  connect(fltStatesBus.w, w);
+  fltStatesBus.u= u;
+  fltStatesBus.v= v;
+  fltStatesBus.w= w;
   
-  connect(fltStatesBus.Xf, Xf);
-  connect(fltStatesBus.Yf, Yf);
-  connect(fltStatesBus.Zf, Zf);
+  fltStatesBus.Xf= Xf;
+  fltStatesBus.Yf= Yf;
+  fltStatesBus.Zf= Zf;
   
-  connect(fltStatesBus.alt, alt);
-  connect(fltStatesBus.xEast, xEast);
-  connect(fltStatesBus.xNorth, xNorth);
+  fltStatesBus.alt= alt;
+  fltStatesBus.xEast= xEast;
+  fltStatesBus.xNorth= xNorth;
   
-  connect(fltStatesBus.dXG, dXG);
-  connect(fltStatesBus.dYG, dYG);
-  connect(fltStatesBus.dZG, dZG);
+  fltStatesBus.dXG= dXG;
+  fltStatesBus.dYG= dYG;
+  fltStatesBus.dZG= dZG;
   
-  connect(fltStatesBus.XG, XG);
-  connect(fltStatesBus.YG, YG);
-  connect(fltStatesBus.ZG, ZG);
+  fltStatesBus.XG= XG;
+  fltStatesBus.YG= YG;
+  fltStatesBus.ZG= ZG;
+  */
   //----------
   
 /*------------------------------

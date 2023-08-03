@@ -3,23 +3,23 @@ within AircraftDynamics.Functions;
 function flightPathFormula00
   extends Modelica.Icons.Function;
   //****************************************
-  import Units= Modelica.SIunits;
+  import units= Modelica.Units.SI;
   //****************************************
-  input Units.Velocity u;
-  input Units.Velocity v;
-  input Units.Velocity w;
-  input Units.Angle phi;
-  input Units.Angle theta;
-  input Units.Angle psi;
+  input units.Velocity u;
+  input units.Velocity v;
+  input units.Velocity w;
+  input units.Angle phi;
+  input units.Angle theta;
+  input units.Angle psi;
   //----------
-  output Units.Velocity dXG;
-  output Units.Velocity dYG;
-  output Units.Velocity dZG;
+  output units.Velocity dXG;
+  output units.Velocity dYG;
+  output units.Velocity dZG;
   
 //****************************************
 protected
-  Units.Velocity vector_v[3] "velocity vector along body frame";
-  Units.Velocity vector_dr[3] "velocity vector in global frame";
+  units.Velocity vector_v[3] "velocity vector along body frame";
+  units.Velocity vector_dr[3] "velocity vector in global frame";
   Real rotPsi[3,3];
   Real rotPhi[3,3];
   Real rotTheta[3,3];

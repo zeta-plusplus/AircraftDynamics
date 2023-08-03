@@ -5,8 +5,7 @@ model AttitudeVelocity2Position00
                     imports
   ********************************************************/
   import Modelica.Constants;
-  import Modelica.SIunits;
-  
+  import units = Modelica.Units.SI;
   
   /********************************************************
                        Declaration
@@ -14,13 +13,13 @@ model AttitudeVelocity2Position00
   /* ---------------------------------------------
               Internal variables
   --------------------------------------------- */
-  SIunits.Angle theta "pitch";
-  SIunits.Angle phi "bank";
-  SIunits.Angle psi "heading";
+  units.Angle theta "pitch";
+  units.Angle phi "bank";
+  units.Angle psi "heading";
   
-  SIunits.Velocity velocityAlongBody[3] "velocity vector along body frame";
-  SIunits.Velocity velocityInGlobal[3] "velocity vector in global frame";
-  SIunits.Position position[3] "position vector in global frame";
+  units.Velocity velocityAlongBody[3] "velocity vector along body frame";
+  units.Velocity velocityInGlobal[3] "velocity vector in global frame";
+  units.Position position[3] "position vector in global frame";
   
   Real rotPsi[3,3];
   Real rotPhi[3,3];

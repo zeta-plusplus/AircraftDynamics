@@ -1,20 +1,20 @@
 within AircraftDynamics.Interfaces;
 
 connector InCntrSrcForceMoment6DoF00
-  import Units= Modelica.SIunits;
+  import units= Modelica.Units.SI;
   //----------
   
-  input Units.Force F[3] "force along body axes, X, Y, Z";
-  input Units.MomentOfForce M[3] "moment about body axes, L, M, N";
+  input units.Force F[3] "force along body axes, X, Y, Z";
+  input units.MomentOfForce M[3] "moment about body axes, L, M, N";
   //-----
-  output Units.Mass m "mass";
-  output Units.Position r[3] "position (global frame); xEast, xNorth, alt";
-  output Units.Angle theta[3] "attitude angles; phi(roll), theta(pitch), psi(yaw)";
-  output Units.Angle alpha "angle of attack";
-  output Units.Angle beta "sideslip angle";
-  output Units.AngularVelocity omega[3] "angular velocity along body axes; p, q, r";
-  output Units.Velocity v[3] "velocity along body axes; u, v, w";
-  output Units.Position rCG[3] "";
+  output units.Mass m "mass";
+  output units.Position r[3] "position (global frame); xEast, xNorth, alt";
+  output units.Angle theta[3] "attitude angles; phi(roll), theta(pitch), psi(yaw)";
+  output units.Angle alpha "angle of attack";
+  output units.Angle beta "sideslip angle";
+  output units.AngularVelocity omega[3] "angular velocity along body axes; p, q, r";
+  output units.Velocity v[3] "velocity along body axes; u, v, w";
+  output units.Position rCG[3] "";
   
 annotation (defaultComponentName="InCntrSrcForceMoment",
    Icon(coordinateSystem(

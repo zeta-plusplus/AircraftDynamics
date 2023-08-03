@@ -9,12 +9,12 @@ model ThreeBodyOrbital00
   parameter units.Mass m3_par = 68585 "default value is empty mass of space shuttle orbiter";
   parameter units.Length r1_init[3] = {0.0, 0.0, 0.0};
   parameter units.Length r2Abs_init = 384399*10.0^(3.0);
-  parameter Real phi_r2_deg_init = -30.0;
+  parameter Real phi_r2_deg_init = -40.0;
   parameter Real phi_v2_deg_init = phi_r2_deg_init + 90.0;
   parameter units.Velocity v2Abs_init = 1.022*10.0^(3.0);
   parameter units.Length r3_init[3] = {-1.0*(6378.137 + 400)*10.0^3.0, 0.0, 0.0};
   parameter units.Velocity v1_init[3] = {0.0, 0.0, 0.0};
-  parameter units.Velocity v3_init[3] = {0.0, -10000.0, 0.0};
+  parameter units.Velocity v3_init[3] = {0.0, -10750.0, 0.0};
   units.Mass m1;
   units.Mass m2;
   units.Mass m3;
@@ -42,6 +42,14 @@ model ThreeBodyOrbital00
   units.Force Fg2_1[3];
   units.Force Fg2_3[3];
   units.Force Fg3_2[3];
+  /**/
+  units.Force Fg1_3_abs;
+  units.Force Fg3_1_abs;
+  units.Force Fg1_2_abs;
+  units.Force Fg2_1_abs;
+  units.Force Fg2_3_abs;
+  units.Force Fg3_2_abs;
+  
   //---
   units.Length mag_r1;
   units.Length mag_r2;
@@ -107,6 +115,15 @@ equation
   a1_3Abs = (a1_3[1]^2 + a1_3[2]^2 + a1_3[3]^2)^(0.5);
   a1_2Abs = (a1_2[1]^2 + a1_2[2]^2 + a1_2[3]^2)^(0.5);
   a2_3Abs = (a2_3[1]^2 + a2_3[2]^2 + a2_3[3]^2)^(0.5);
+  
+  /**/
+  Fg1_3_abs=(Fg1_3[1]^2+Fg1_3[2]^2+Fg1_3[3]^2)^(0.5);
+  Fg3_1_abs=(Fg3_1[1]^2+Fg3_1[2]^2+Fg3_1[3]^2)^(0.5);
+  Fg1_2_abs=(Fg1_2[1]^2+Fg1_2[2]^2+Fg1_2[3]^2)^(0.5);
+  Fg2_1_abs=(Fg2_1[1]^2+Fg2_1[2]^2+Fg2_1[3]^2)^(0.5);
+  Fg3_2_abs=(Fg3_2[1]^2+Fg3_2[2]^2+Fg3_2[3]^2)^(0.5);
+  Fg2_3_abs=(Fg2_3[1]^2+Fg2_3[2]^2+Fg2_3[3]^2)^(0.5);
+    
 //-----
   for i in 1:3 loop
     r1_3[i] = r3[i] - r1[i];
@@ -130,6 +147,7 @@ equation
     Fg2_1[i] = Modelica.Constants.G*m1*m2/(mag_r1_2^3.0)*(-1.0)*r1_2[i];
     Fg3_2[i] = Modelica.Constants.G*m2*m3/(mag_r2_3^3.0)*r2_3[i];
     Fg2_3[i] = Modelica.Constants.G*m2*m3/(mag_r2_3^3.0)*(-1.0)*r2_3[i];
+    
     a3[i] = (Fg3_1[i] + Fg3_2[i])/m3;
 //a2[i]= (Fg2_1[i] + Fg2_3[i])/m2;
     a2[i] = (Fg2_1[i])/m2;
@@ -137,5 +155,5 @@ equation
     a1[i] = 0.0;
   end for;
   annotation(
-    experiment(StartTime = 0, StopTime = 172800, Tolerance = 1e-06, Interval = 30));
+    experiment(StartTime = 0, StopTime = 500000, Tolerance = 1e-06, Interval = 86.8206));
 end ThreeBodyOrbital00;

@@ -3,24 +3,27 @@ within AircraftDynamics.RigidBodyFDM.Components;
 model DerivativesLongitudinalNonDim2Dim00 "Convert coefficients/derivatives, non-dimensional -> dimentional"
   import AircraftDynamics;
   
+  //
+  import units = Modelica.Units.SI;
+  
   /* ---------------------------------------------
           Internal variables
   --------------------------------------------- */
-  Modelica.SIunits.Velocity U1;
-  Modelica.SIunits.Pressure q1bar;
-  Modelica.SIunits.Angle theta1;
-  Modelica.SIunits.Angle alpha1;
-  Modelica.SIunits.Acceleration g;
-  Modelica.SIunits.Area S;
-  Modelica.SIunits.Mass m;
-  Modelica.SIunits.MomentOfInertia Iyy;
-  Modelica.SIunits.Length cBar;
-  Modelica.SIunits.Angle thetaTi;
-  Modelica.SIunits.Angle psiTi;
+  units.Velocity U1;
+  units.Pressure q1bar;
+  units.Angle theta1;
+  units.Angle alpha1;
+  units.Acceleration g;
+  units.Area S;
+  units.Mass m;
+  units.MomentOfInertia Iyy;
+  units.Length cBar;
+  units.Angle thetaTi;
+  units.Angle psiTi;
   Real xBarTi;
   Real zBarTi;
-  Modelica.SIunits.Length xTi;
-  Modelica.SIunits.Length zTi;
+  units.Length xTi;
+  units.Length zTi;
   
   //----------
   Real CD1;

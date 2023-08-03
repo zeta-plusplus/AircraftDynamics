@@ -3,10 +3,10 @@ within AircraftDynamics.Functions;
 function rotateVector3D00
   extends Modelica.Icons.Function;
   //****************************************
-  import Units= Modelica.SIunits;
+  import units= Modelica.Units.SI;
   //****************************************
   input Real u[3];
-  input Units.Angle theta[3];
+  input units.Angle theta[3];
   //----------
   output Real y[3];
   

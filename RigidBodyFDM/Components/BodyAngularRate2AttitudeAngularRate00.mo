@@ -5,16 +5,16 @@ model BodyAngularRate2AttitudeAngularRate00
                         imports
       ********************************************************/
   import Modelica.Constants;
-  import Modelica.SIunits;
+  import units = Modelica.Units.SI;
   /********************************************************
                            Declaration
       ********************************************************/
   /* ---------------------------------------------
                   Internal variables
       --------------------------------------------- */
-  SIunits.AngularVelocity bodyAngularRate[3] "angular velocity vector of body frame, [p, q, r]";
-  SIunits.AngularVelocity attitudeAngularRate[3] "angular velocity vector of attitude, [phiDot, thetaDot, psiDot]";
-  SIunits.Angle attitude[3] "vector of attitude, [phi, theta, psi]";
+  units.AngularVelocity bodyAngularRate[3] "angular velocity vector of body frame, [p, q, r]";
+  units.AngularVelocity attitudeAngularRate[3] "angular velocity vector of attitude, [phiDot, thetaDot, psiDot]";
+  units.Angle attitude[3] "vector of attitude, [phi, theta, psi]";
   Real rotMatrix[3, 3];
   /* ---------------------------------------------
                       Interface

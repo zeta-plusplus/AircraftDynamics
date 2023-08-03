@@ -8,7 +8,7 @@ block interactive_pyPFD01_00
   import Modelica.Utilities.Files;
   import Modelica.Utilities.System;
   import InteractiveSimulation.Output.Functions;
-  import Units= Modelica.SIunits;
+  import units = Modelica.Units.SI;
   import Modelica.Mechanics.MultiBody.Frames;
   
   /* ---------------------------------------------
@@ -16,8 +16,8 @@ block interactive_pyPFD01_00
   --------------------------------------------- */
   //Units.Angle theta[3] "euler angles of aircraft body, roll, pitch, heading";
   //Units.Angle thetaV[3] "euler angles of velcity vector, roll, pitch heading";
-  Units.Velocity V "velocity";
-  Units.Angle theta4disp[3] "roll, pitch heading";
+  units.Velocity V "velocity";
+  units.Angle theta4disp[3] "roll, pitch heading";
   /**/
   
   /********************************************************
@@ -29,7 +29,7 @@ block interactive_pyPFD01_00
   parameter String namePythonPath = "C:\Program Files\Python310";
   parameter String nameFileDataCSV = "currentFlightStates00.csv";
   parameter String namePathDataCSV = "modelica://AircraftDynamics/dataTemp";
-  parameter Modelica.SIunits.Time tInterval = 0.01 "in [s]";
+  parameter units.Time tInterval = 0.01 "in [s]";
   /* ---------------------------------------------
               Internal variables
        --------------------------------------------- */

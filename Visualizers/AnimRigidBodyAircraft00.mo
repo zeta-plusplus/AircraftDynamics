@@ -1,31 +1,31 @@
 within AircraftDynamics.Visualizers;
 
 model AnimRigidBodyAircraft00
-  import Units= Modelica.SIunits;
+  import units= Modelica.Units.SI;
   import Modelica.Mechanics.MultiBody.Frames;
   
   /* ---------------------------------------------
               parameters
   --------------------------------------------- */
   parameter String fileAircraftMdl="modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR_mod001.dxf";
-  parameter Units.Position CGbody[3]={15, 0, 1};
-  parameter Units.Length lengthOfAxes=200;
-  parameter Units.Length diameterOfAxes=0.25;
+  parameter units.Position CGbody[3]={15, 0, 1};
+  parameter units.Length lengthOfAxes=200;
+  parameter units.Length diameterOfAxes=0.25;
   
-  parameter Units.Length offset_r0[3]={0,0,1000} "initial position offset for animation display";
+  parameter units.Length offset_r0[3]={0,0,1000} "initial position offset for animation display";
   
-  parameter Units.Length length=2 "not used";
-  parameter Units.Length width=1 "not used";
-  parameter Units.Length height= 0.3 "not used";
+  parameter units.Length length=2 "not used";
+  parameter units.Length width=1 "not used";
+  parameter units.Length height= 0.3 "not used";
   
   
   /* ---------------------------------------------
               Internal variables
   --------------------------------------------- */
-  Units.Position r[3];
-  Units.Angle theta[3];
+  units.Position r[3];
+  units.Angle theta[3];
   
-  Units.Angle theta4disp[3] "euler angles of aircraft body 0-360 deg, roll, pitch, heading";
+  units.Angle theta4disp[3] "euler angles of aircraft body 0-360 deg, roll, pitch, heading";
   /**/
   
   /* ---------------------------------------------

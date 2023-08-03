@@ -7,6 +7,7 @@ block AltMN2pTh00
               imports   
   ********************************************************/
   import Modelica.Constants;
+  import units = Modelica.Units.SI;
   /********************************************************
                      Declaration
   ********************************************************/
@@ -22,34 +23,34 @@ block AltMN2pTh00
             parameters
   --------------------------------------------- */
   //--- fluid2Inlet ---
-  parameter Modelica.SIunits.MassFlowRate m_flow2Inlet_init(displayUnit = "kg/s") = -1.0 "" annotation(
+  parameter units.MassFlowRate m_flow2Inlet_init(displayUnit = "kg/s") = -1.0 "" annotation(
     Dialog(tab = "Initialization", group = "fluid2Inlet"));
-  parameter Modelica.SIunits.Pressure p2Inlet_init(displayUnit = "Pa") = 101.3 * 1000 "" annotation(
+  parameter units.Pressure p2Inlet_init(displayUnit = "Pa") = 101.3 * 1000 "" annotation(
     Dialog(tab = "Initialization", group = "fluid2Inlet"));
-  parameter Modelica.SIunits.Temperature T2Inlet_init(displayUnit = "K") = 288.15 "" annotation(
+  parameter units.Temperature T2Inlet_init(displayUnit = "K") = 288.15 "" annotation(
     Dialog(tab = "Initialization", group = "fluid2Inlet"));
-  parameter Modelica.SIunits.SpecificEnthalpy h2Inlet_init(displayUnit = "J/kg") = T2Inlet_init*1.004 * 1000 "" annotation(
+  parameter units.SpecificEnthalpy h2Inlet_init(displayUnit = "J/kg") = T2Inlet_init*1.004 * 1000 "" annotation(
     Dialog(tab = "Initialization", group = "fluid2Inlet"));
   //--- fluidAmb ---
-  parameter Modelica.SIunits.MassFlowRate m_flowAmb_init(displayUnit = "kg/s") = -1.0 * m_flow2Inlet_init "" annotation(
+  parameter units.MassFlowRate m_flowAmb_init(displayUnit = "kg/s") = -1.0 * m_flow2Inlet_init "" annotation(
     Dialog(tab = "Initialization", group = "fluidAmb"));
-  parameter Modelica.SIunits.Pressure pAmb_init(displayUnit = "Pa") = p2Inlet_init "" annotation(
+  parameter units.Pressure pAmb_init(displayUnit = "Pa") = p2Inlet_init "" annotation(
     Dialog(tab = "Initialization", group = "fluidAmb"));
-  parameter Modelica.SIunits.Temperature Tamb_init(displayUnit = "K") = T2Inlet_init "" annotation(
+  parameter units.Temperature Tamb_init(displayUnit = "K") = T2Inlet_init "" annotation(
     Dialog(tab = "Initialization", group = "fluidAmb"));
-  parameter Modelica.SIunits.SpecificEnthalpy hAmb_init(displayUnit = "J/kg") = Tamb_init*1.004 * 1000 "" annotation(
+  parameter units.SpecificEnthalpy hAmb_init(displayUnit = "J/kg") = Tamb_init*1.004 * 1000 "" annotation(
     Dialog(tab = "Initialization", group = "fluidAmb"));
   //--- others ---
   parameter Real MN_init=0.01 "" annotation(
     Dialog(tab = "Initialization", group = "others")
   );
-  parameter Modelica.SIunits.Length alt_init=1.0 "" annotation(
+  parameter units.Length alt_init=1.0 "" annotation(
     Dialog(tab = "Initialization", group = "others")
   );
-  parameter Modelica.SIunits.TemperatureDifference dTamb_init=0.01 "" annotation(
+  parameter units.TemperatureDifference dTamb_init=0.01 "" annotation(
     Dialog(tab = "Initialization", group = "others")
   );
-  parameter Modelica.SIunits.Velocity V_inf_init=0.01 "" annotation(
+  parameter units.Velocity V_inf_init=0.01 "" annotation(
     Dialog(tab = "Initialization", group = "others")
   );
   
@@ -58,32 +59,32 @@ block AltMN2pTh00
   /* ---------------------------------------------
           Internal variables
   --------------------------------------------- */
-  Modelica.SIunits.Length alt(start=alt_init) "altitude" annotation(
+  units.Length alt(start=alt_init) "altitude" annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
   Real MN(start=MN_init) "flight mach number" annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
-  Modelica.SIunits.TemperatureDifference dTamb(start=dTamb_init) "deviation from std atmospheric temperature" annotation(
+  units.TemperatureDifference dTamb(start=dTamb_init) "deviation from std atmospheric temperature" annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
-  Modelica.SIunits.Velocity V_inf(start=V_inf_init) "free stream velocity" annotation(
+  units.Velocity V_inf(start=V_inf_init) "free stream velocity" annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
-  Modelica.SIunits.Velocity Vsound(start=V_inf_init/MN_init) "speed of sound" annotation(
+  units.Velocity Vsound(start=V_inf_init/MN_init) "speed of sound" annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true));
   //----------
-  Modelica.SIunits.AbsolutePressure pAmb(start=pAmb_init) annotation(
+  units.AbsolutePressure pAmb(start=pAmb_init) annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
-  Modelica.SIunits.Temperature Tamb(start=Tamb_init) annotation(
+  units.Temperature Tamb(start=Tamb_init) annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
   //----------
-  Modelica.SIunits.AbsolutePressure pAmbStd(start=pAmb_init) annotation(
+  units.AbsolutePressure pAmbStd(start=pAmb_init) annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
-  Modelica.SIunits.Temperature TambStd(start=Tamb_init) annotation(
+  units.Temperature TambStd(start=Tamb_init) annotation(
     Dialog(tab="Variables", group="start attribute" ,enable=false, showStartAttribute=true)
   );
   //----------
@@ -113,6 +114,7 @@ block AltMN2pTh00
     state.T(start=Tamb_init)
   ) "flow station of static, standard condition";
   //----------
+  
   /* ---------------------------------------------
           Interface
   --------------------------------------------- */
@@ -182,13 +184,13 @@ algorithm
   if environmentAircraftDynSim.alt_ground <= alt and alt < environmentAircraftDynSim.alt_UpBdTropos then
     TambStd := max((environmentAircraftDynSim.T_ground - 0.0064878 * (alt - environmentAircraftDynSim.alt_ground)), 1.0e-10);
     Tamb := max((TambStd + dTamb), 1.0e-10);
-    pAmbStd := max((environmentAircraftDynSim.p_ground * (TambStd / environmentAircraftDynSim.T_ground) ^ (-1.0 * environmentAircraftDynSim.gravity / (environmentAircraftDynSim.LapseR1 * fluidAmbStd.R))), 1.0e-10);
-    pAmb := max((environmentAircraftDynSim.p_ground * (Tamb / environmentAircraftDynSim.T_ground) ^ (-1.0 * environmentAircraftDynSim.gravity / (environmentAircraftDynSim.LapseR1 * fluidAmb.R))), 1.0e-10);
+    pAmbStd := max((environmentAircraftDynSim.p_ground * (TambStd / environmentAircraftDynSim.T_ground) ^ (-1.0 * environmentAircraftDynSim.gravity / (environmentAircraftDynSim.LapseR1 * fluidAmbStd.R_s))), 1.0e-10);
+    pAmb := max((environmentAircraftDynSim.p_ground * (Tamb / environmentAircraftDynSim.T_ground) ^ (-1.0 * environmentAircraftDynSim.gravity / (environmentAircraftDynSim.LapseR1 * fluidAmb.R_s))), 1.0e-10);
   elseif environmentAircraftDynSim.alt_UpBdTropos <= alt and alt < environmentAircraftDynSim.alt_UpBdStratos then
     TambStd := max(environmentAircraftDynSim.T_UpBdTropos, 1.0e-10);
     Tamb := max((TambStd + dTamb), 1.0e-10);
-    pAmbStd := max((environmentAircraftDynSim.p_UpBdTropos * exp(-1.0 * environmentAircraftDynSim.gravity / (fluidAmbStd.R * TambStd) * (alt - environmentAircraftDynSim.T_UpBdTropos))), 1.0e-10);
-    pAmb := max((environmentAircraftDynSim.p_UpBdTropos * exp(-1.0 * environmentAircraftDynSim.gravity / (fluidAmb.R * Tamb) * (alt - environmentAircraftDynSim.T_UpBdTropos))), 1.0e-10);
+    pAmbStd := max((environmentAircraftDynSim.p_UpBdTropos * exp(-1.0 * environmentAircraftDynSim.gravity / (fluidAmbStd.R_s * TambStd) * (alt - environmentAircraftDynSim.T_UpBdTropos))), 1.0e-10);
+    pAmb := max((environmentAircraftDynSim.p_UpBdTropos * exp(-1.0 * environmentAircraftDynSim.gravity / (fluidAmb.R_s * Tamb) * (alt - environmentAircraftDynSim.T_UpBdTropos))), 1.0e-10);
   end if;
 
 

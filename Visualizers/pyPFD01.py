@@ -16,6 +16,7 @@ import pathlib
 import math
 import numpy
 import copy
+from numba import jit
 
 
 class flightStates:
@@ -251,7 +252,7 @@ label_appTime= tk.Label(text="App Time: 0 s", font=font.Font(size=12)); label_ap
 define sub-routines
 ----------------------------------------------------------------------'''
 ''''''
-def readcsv(fileFullPath):
+def readcsv(fileFullPath:str):
     
     # open and read simulation data csv
     if(os.path.exists(fileFullPath)==True):
@@ -286,7 +287,8 @@ def readcsv(fileFullPath):
 
 '''---------------------------------------------------------'''
 ''''''
-def disp_CenterCross(xCtr=width_PFD/2,yCtr=height_PFD/2, width=200, height=100, linewidth=2.0):
+#@jit
+def disp_CenterCross(xCtr: float=width_PFD/2, yCtr:float=height_PFD/2, width:float=200, height:float=100, linewidth:float=2.0):
     r1_1= numpy.array([xCtr-1/2*width, yCtr])
     r1_2= numpy.array([xCtr+1/2*width, yCtr])
     
@@ -301,6 +303,7 @@ def disp_CenterCross(xCtr=width_PFD/2,yCtr=height_PFD/2, width=200, height=100, 
 
 '''---------------------------------------------------------'''
 ''''''
+#@jit
 def disp_rectBackground(phi, theta, xCtr=width_PFD/2,yCtr=height_PFD/2, 
                 xOfst=0, yOfst=45*math.pi/180*lenUnitPitch, 
                 width=2*width_PFD, height=90*math.pi/180*lenUnitPitch, 
@@ -349,6 +352,7 @@ def disp_rectBackground(phi, theta, xCtr=width_PFD/2,yCtr=height_PFD/2,
 
 '''---------------------------------------------------------'''
 ''''''
+#@jit
 def disp_Vvector(alpha, beta, lenUnitAngle=lenUnitPitch, radius=20, 
                  xCtr=width_PFD/2, yCtr=height_PFD/2, wingSpan=40, VSheight=15, lineWidth=2.0, 
                  tagFslg="", tagLW="", tagRW="", tagVS=""):
@@ -372,6 +376,7 @@ def disp_Vvector(alpha, beta, lenUnitAngle=lenUnitPitch, radius=20,
 
 '''---------------------------------------------------------'''
 ''''''
+#@jit
 def disp_lineLevel(phi, theta, xCtr=width_PFD/2,yCtr=height_PFD/2, xOfst=0, yOfst=0, length=2*width_PFD, 
                    linewidth=1.5, tag=""):
     r1= numpy.array([xCtr-1/2*length+xOfst, yCtr+yOfst])
@@ -403,6 +408,7 @@ def disp_lineLevel(phi, theta, xCtr=width_PFD/2,yCtr=height_PFD/2, xOfst=0, yOfs
 
 '''---------------------------------------------------------'''
 ''''''
+#@jit
 def disp_directionalGyro(psi, linewidth=1.5, tag="dirGyro"):
     radius= 1/4*width_PFD
     xCtr=1/2*width_PFD
@@ -453,6 +459,7 @@ def disp_directionalGyro(psi, linewidth=1.5, tag="dirGyro"):
 
 '''---------------------------------------------------------'''
 ''''''
+#@jit
 def disp_value(val, x=10, y=height_PFD/2, fontsize=18, tag=""):
     font_val= font.Font(size=fontsize)
     label_val = tk.Label(text=val, font=font_val)
@@ -467,6 +474,7 @@ def disp_value(val, x=10, y=height_PFD/2, fontsize=18, tag=""):
 '''-----------------------------------------------------------------------------'''
 '''-----------------------------------------------------------------------------'''
 ''''''
+#@jit
 def updatePFD(flagInit, flagRead, \
                 fltState: flightStates, fltStatePrev: flightStates, fltStateSave: flightStates):
     swPrintDbg=False
@@ -558,6 +566,7 @@ def updatePFD(flagInit, flagRead, \
 
 '''---------------------------------------------------------'''
 ''''''
+#@jit
 def readFltStatesDat(flagInit, flagRead, timeRunning, tInterval, \
                      fltState: flightStates(), fltStatePrev: flightStates(), fltStateSave: flightStates()):
     swPrintDbg=False
@@ -864,6 +873,7 @@ def readFltStatesDat(flagInit, flagRead, timeRunning, tInterval, \
 
 '''---------------------------------------------------------'''
 ''''''
+#@jit
 def state_by_deriv(fltState: flightStates(), fltStatePrev: flightStates(), dt):
     
     fltState.time= fltStatePrev.time + dt
@@ -879,6 +889,7 @@ def state_by_deriv(fltState: flightStates(), fltStatePrev: flightStates(), dt):
 
 '''---------------------------------------------------------'''
 ''''''
+#@jit
 def initialize(flagInit: flightStates(), fltState: flightStates(), fltStatePrev: flightStates(), fltStateSave: flightStates()):
     flagInit=True
     fltState.resetAttributes()

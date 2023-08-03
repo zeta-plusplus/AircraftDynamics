@@ -2,14 +2,17 @@ within AircraftDynamics.Functions;
 
 function GlobalFrame2earthConvention
   extends Modelica.Icons.Function;
+  //
+  import units = Modelica.Units.SI;
   
-  input Modelica.SIunits.Position XG;
-  input Modelica.SIunits.Position YG;
-  input Modelica.SIunits.Position ZG;
+  //
+  input units.Position XG;
+  input units.Position YG;
+  input units.Position ZG;
   
-  output Modelica.SIunits.Position xEast;
-  output Modelica.SIunits.Position xNorth;
-  output Modelica.SIunits.Position alt;
+  output units.Position xEast;
+  output units.Position xNorth;
+  output units.Position alt;
 algorithm
   xEast:= YG;
   xNorth:= XG;

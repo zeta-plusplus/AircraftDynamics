@@ -2,16 +2,18 @@ within AircraftDynamics.Records;
 
 record angles4display
   extends Modelica.Icons.Record;
+  
+  import units= Modelica.Units.SI;
   /*-------------------------
   -------------------------*/
-  Modelica.SIunits.Angle alpha "angle of attack";
-  Modelica.SIunits.Angle gamma "flight path angle";
-  Modelica.SIunits.Angle beta "sideslip angle";
+  units.Angle alpha "angle of attack";
+  units.Angle gamma "flight path angle";
+  units.Angle beta "sideslip angle";
   
   /*-------------------------
   -------------------------*/
-  Modelica.SIunits.Angle theta "pitch angle";
-  Modelica.SIunits.Angle phi "bank angle";
-  Modelica.SIunits.Angle psi "heading angle";
+  units.Angle theta "pitch angle";
+  units.Angle phi "bank angle";
+  units.Angle psi "heading angle";
   
 end angles4display;

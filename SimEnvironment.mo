@@ -2,57 +2,59 @@ within AircraftDynamics;
 
 model SimEnvironment
   extends AircraftDynamics.Icons.Icon_SimEnvironment;
+  //
+  import units = Modelica.Units.SI;
   
   /* ---------------------------------------------
       parameters
   --------------------------------------------- */
-  parameter Modelica.SIunits.Time timeRemoveDesConstraint=0.1
+  parameter units.Time timeRemoveDesConstraint=0.1
     "time to keep constraint by design point"
     annotation(
     Dialog(group = "Simulation setting"));
   
   
-  parameter Modelica.SIunits.Temperature Tstd= PropulsionSystem.Constants.constants_earth.Tstd
+  parameter units.Temperature Tstd= PropulsionSystem.Constants.constants_earth.Tstd
     ""
     annotation(
     Dialog(group = "constants of standards"));
   
-  parameter Modelica.SIunits.Pressure pStd= PropulsionSystem.Constants.constants_earth.pStd
+  parameter units.Pressure pStd= PropulsionSystem.Constants.constants_earth.pStd
     ""
     annotation(
     Dialog(group = "constants of standards"));
   
-  parameter Modelica.SIunits.Acceleration gravity= PropulsionSystem.Constants.constants_earth.gravity
+  parameter units.Acceleration gravity= PropulsionSystem.Constants.constants_earth.gravity
     ""
     annotation(
     Dialog(group = "constants of standards"));
   //----- gound -----
-  parameter Modelica.SIunits.Length alt_ground= PropulsionSystem.Constants.constants_earth.alt_ground
+  parameter units.Length alt_ground= PropulsionSystem.Constants.constants_earth.alt_ground
     ""
     annotation(
     Dialog(group = "constants for atmosphere model"));
   
-  parameter Modelica.SIunits.Temperature T_ground= PropulsionSystem.Constants.constants_earth.T_ground
+  parameter units.Temperature T_ground= PropulsionSystem.Constants.constants_earth.T_ground
     ""
     annotation(
     Dialog(group = "constants for atmosphere model"));
   
-  parameter Modelica.SIunits.AbsolutePressure p_ground= PropulsionSystem.Constants.constants_earth.p_ground
+  parameter units.AbsolutePressure p_ground= PropulsionSystem.Constants.constants_earth.p_ground
     ""
     annotation(
     Dialog(group = "constants for atmosphere model"));
   //----- upper bound of troposhere -----
-  parameter Modelica.SIunits.Length alt_UpBdTropos= PropulsionSystem.Constants.constants_earth.alt_UpBdTropos
+  parameter units.Length alt_UpBdTropos= PropulsionSystem.Constants.constants_earth.alt_UpBdTropos
     ""
     annotation(
     Dialog(group = "constants for atmosphere model"));
     
-  parameter Modelica.SIunits.Temperature T_UpBdTropos= PropulsionSystem.Constants.constants_earth.T_UpBdTropos
+  parameter units.Temperature T_UpBdTropos= PropulsionSystem.Constants.constants_earth.T_UpBdTropos
     ""
     annotation(
     Dialog(group = "constants for atmosphere model"));
     
-  parameter Modelica.SIunits.AbsolutePressure p_UpBdTropos= PropulsionSystem.Constants.constants_earth.p_UpBdTropos
+  parameter units.AbsolutePressure p_UpBdTropos= PropulsionSystem.Constants.constants_earth.p_UpBdTropos
     ""
     annotation(
     Dialog(group = "constants for atmosphere model"));
@@ -62,17 +64,17 @@ model SimEnvironment
     annotation(
     Dialog(group = "constants for atmosphere model"));
     //----- upper bound of stratosphere -----
-  parameter Modelica.SIunits.Length alt_UpBdStratos= PropulsionSystem.Constants.constants_earth.alt_UpBdStratos
+  parameter units.Length alt_UpBdStratos= PropulsionSystem.Constants.constants_earth.alt_UpBdStratos
     ""
     annotation(
     Dialog(group = "constants for atmosphere model"));
   
-  parameter Modelica.SIunits.Temperature T_UpBdStratos= PropulsionSystem.Constants.constants_earth.T_UpBdStratos
+  parameter units.Temperature T_UpBdStratos= PropulsionSystem.Constants.constants_earth.T_UpBdStratos
     ""
     annotation(
     Dialog(group = "constants for atmosphere model"));
     
-  parameter Modelica.SIunits.AbsolutePressure p_UpBdStratos= PropulsionSystem.Constants.constants_earth.p_UpBdStratos
+  parameter units.AbsolutePressure p_UpBdStratos= PropulsionSystem.Constants.constants_earth.p_UpBdStratos
     ""
     annotation(
     Dialog(group = "constants for atmosphere model"));

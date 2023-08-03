@@ -3,23 +3,23 @@ within AircraftDynamics.Functions;
 function angularKinematics00
   extends Modelica.Icons.Function;
   //****************************************
-  import Units= Modelica.SIunits;
+  import units= Modelica.Units.SI;
   //****************************************
-  input Units.AngularVelocity p;
-  input Units.AngularVelocity q;
-  input Units.AngularVelocity r;
-  input Units.Angle phi;
-  input Units.Angle theta;
-  input Units.Angle psi;
+  input units.AngularVelocity p;
+  input units.AngularVelocity q;
+  input units.AngularVelocity r;
+  input units.Angle phi;
+  input units.Angle theta;
+  input units.Angle psi;
   //----------
-  output Units.AngularVelocity dPhi;
-  output Units.AngularVelocity dTheta;
-  output Units.AngularVelocity dPsi;
+  output units.AngularVelocity dPhi;
+  output units.AngularVelocity dTheta;
+  output units.AngularVelocity dPsi;
   
 //****************************************
 protected
-  Units.AngularVelocity vector_dTheta[3];
-  Units.AngularVelocity vector_omega[3];
+  units.AngularVelocity vector_dTheta[3];
+  units.AngularVelocity vector_omega[3];
   Real matAngVelOrt[3,3] "orientation of angular velocity vector";
   
 //****************************************  

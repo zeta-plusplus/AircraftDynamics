@@ -3,7 +3,7 @@ within AircraftDynamics.Interfaces;
 model RigidAircraftFrame00
   //----- imports -----
   import Const = Modelica.Constants;
-  import Units = Modelica.SIunits;
+  import units = Modelica.Units.SI;
   /********************************************************
                Declaration
         ********************************************************/
@@ -13,113 +13,113 @@ model RigidAircraftFrame00
   parameter Integer nSrcForceMoment = 1 "Number of sources of forces&moments" annotation(
     Dialog(group = "Connector setting"));
   //---------- Aircraft Properties ----------
-  parameter Units.Mass mTot_par = 1202.01978 "total mass of aircraft body";
-  parameter Units.MomentOfInertia Ixx_par = 1285.3154166;
-  parameter Units.MomentOfInertia Iyy_par = 1824.9309607;
-  parameter Units.MomentOfInertia Izz_par = 2666.89390765;
-  parameter Units.MomentOfInertia Ixy_par = 0.0;
-  parameter Units.MomentOfInertia Iyz_par = 0.0;
-  parameter Units.MomentOfInertia Izx_par = 0.0;
-  parameter Units.Position rCG_par[3] = {1, 0, 0.5} "position vector of CG, origin is nose of aircraft";
+  parameter units.Mass mTot_par = 1202.01978 "total mass of aircraft body";
+  parameter units.MomentOfInertia Ixx_par = 1285.3154166;
+  parameter units.MomentOfInertia Iyy_par = 1824.9309607;
+  parameter units.MomentOfInertia Izz_par = 2666.89390765;
+  parameter units.MomentOfInertia Ixy_par = 0.0;
+  parameter units.MomentOfInertia Iyz_par = 0.0;
+  parameter units.MomentOfInertia Izx_par = 0.0;
+  parameter units.Position rCG_par[3] = {1, 0, 0.5} "position vector of CG, origin is nose of aircraft";
   //-----
   //---------- Initial Conditions ----------
-  parameter Units.Velocity u_init_par = 0 annotation(
+  parameter units.Velocity u_init_par = 0 annotation(
     Dialog(tab = "Initial states"));
-  parameter Units.Velocity v_init_par = 0 annotation(
+  parameter units.Velocity v_init_par = 0 annotation(
     Dialog(tab = "Initial states"));
-  parameter Units.Velocity w_init_par = 0 annotation(
+  parameter units.Velocity w_init_par = 0 annotation(
     Dialog(tab = "Initial states"));
-  parameter Units.Position XG_init_par = 0 annotation(
+  parameter units.Position XG_init_par = 0 annotation(
     Dialog(tab = "Initial states"));
-  parameter Units.Position YG_init_par = 0 annotation(
+  parameter units.Position YG_init_par = 0 annotation(
     Dialog(tab = "Initial states"));
-  parameter Units.Position ZG_init_par = -1000.0 annotation(
+  parameter units.Position ZG_init_par = -1000.0 annotation(
     Dialog(tab = "Initial states"));
-  parameter Units.AngularVelocity p_init_par = 0 annotation(
+  parameter units.AngularVelocity p_init_par = 0 annotation(
     Dialog(tab = "Initial states"));
-  parameter Units.AngularVelocity q_init_par = 0 annotation(
+  parameter units.AngularVelocity q_init_par = 0 annotation(
     Dialog(tab = "Initial states"));
-  parameter Units.AngularVelocity r_init_par = 0 annotation(
+  parameter units.AngularVelocity r_init_par = 0 annotation(
     Dialog(tab = "Initial states"));
-  parameter Units.Angle phi_init_par = 0 annotation(
+  parameter units.Angle phi_init_par = 0 annotation(
     Dialog(tab = "Initial states"));
-  parameter Units.Angle theta_init_par = 5 * Modelica.Constants.pi / 180 annotation(
+  parameter units.Angle theta_init_par = 5 * Modelica.Constants.pi / 180 annotation(
     Dialog(tab = "Initial states"));
-  parameter Units.Angle psi_init_par = 0 annotation(
+  parameter units.Angle psi_init_par = 0 annotation(
     Dialog(tab = "Initial states"));
   /* ---------------------------------------------
                     Internal variables
         --------------------------------------------- */
-  Units.Force sum_u_F[3];
-  Units.MomentOfForce sum_u_M[3];
+  units.Force sum_u_F[3];
+  units.MomentOfForce sum_u_M[3];
   //---------- Aircraft Properties ----------
-  Units.Mass mTot "total mass of aircraft body";
-  Units.Position rCG[3] "position vector of CG, origin is nose of aircraft";
-  Units.MomentOfInertia Ixx;
-  Units.MomentOfInertia Iyy;
-  Units.MomentOfInertia Izz;
-  Units.MomentOfInertia Ixy;
-  Units.MomentOfInertia Ixz;
-  Units.MomentOfInertia Iyx;
-  Units.MomentOfInertia Iyz;
-  Units.MomentOfInertia Izx;
-  Units.MomentOfInertia Izy;
+  units.Mass mTot "total mass of aircraft body";
+  units.Position rCG[3] "position vector of CG, origin is nose of aircraft";
+  units.MomentOfInertia Ixx;
+  units.MomentOfInertia Iyy;
+  units.MomentOfInertia Izz;
+  units.MomentOfInertia Ixy;
+  units.MomentOfInertia Ixz;
+  units.MomentOfInertia Iyx;
+  units.MomentOfInertia Iyz;
+  units.MomentOfInertia Izx;
+  units.MomentOfInertia Izy;
   //-----
   //---------- Aircraft States ----------
-  Units.Position xEast;
-  Units.Position xNorth;
-  Units.Position alt;
-  Units.Position XG(fixed = true, start = XG_init_par) "=xNorth" annotation(
+  units.Position xEast;
+  units.Position xNorth;
+  units.Position alt;
+  units.Position XG(fixed = true, start = XG_init_par) "=xNorth" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.Position YG(fixed = true, start = YG_init_par) "=xEast" annotation(
+  units.Position YG(fixed = true, start = YG_init_par) "=xEast" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.Position ZG(fixed = true, start = ZG_init_par) "=-alt" annotation(
+  units.Position ZG(fixed = true, start = ZG_init_par) "=-alt" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.Velocity dXG;
-  Units.Velocity dYG;
-  Units.Velocity dZG;
-  Units.Acceleration d2XG;
-  Units.Acceleration d2YG;
-  Units.Acceleration d2ZG;
-  Units.Angle phi(fixed = true, start = phi_init_par) annotation(
+  units.Velocity dXG;
+  units.Velocity dYG;
+  units.Velocity dZG;
+  units.Acceleration d2XG;
+  units.Acceleration d2YG;
+  units.Acceleration d2ZG;
+  units.Angle phi(fixed = true, start = phi_init_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.Angle theta(fixed = true, start = theta_init_par) annotation(
+  units.Angle theta(fixed = true, start = theta_init_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.Angle psi(fixed = true, start = psi_init_par) annotation(
+  units.Angle psi(fixed = true, start = psi_init_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.Angle alpha;
-  Units.Angle beta;
-  Units.Angle gamma;
-  Units.Angle phi4disp;
-  Units.Angle theta4disp;
-  Units.Angle psi4disp;
-  Units.Angle alpha4disp;
-  Units.Angle beta4disp;
-  Units.Angle gamma4disp;
-  Units.AngularVelocity dPhi;
-  Units.AngularVelocity dTheta;
-  Units.AngularVelocity dPsi;
-  Units.AngularAcceleration d2phi;
-  Units.AngularAcceleration d2theta;
-  Units.AngularAcceleration d2psi;
-  Units.Velocity u(fixed = true, start = u_init_par) annotation(
+  units.Angle alpha;
+  units.Angle beta;
+  units.Angle gamma;
+  units.Angle phi4disp;
+  units.Angle theta4disp;
+  units.Angle psi4disp;
+  units.Angle alpha4disp;
+  units.Angle beta4disp;
+  units.Angle gamma4disp;
+  units.AngularVelocity dPhi;
+  units.AngularVelocity dTheta;
+  units.AngularVelocity dPsi;
+  units.AngularAcceleration d2phi;
+  units.AngularAcceleration d2theta;
+  units.AngularAcceleration d2psi;
+  units.Velocity u(fixed = true, start = u_init_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.Velocity v(fixed = true, start = v_init_par) annotation(
+  units.Velocity v(fixed = true, start = v_init_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.Velocity w(fixed = true, start = w_init_par) annotation(
+  units.Velocity w(fixed = true, start = w_init_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.AngularVelocity p(fixed = true, start = p_init_par) annotation(
+  units.AngularVelocity p(fixed = true, start = p_init_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.AngularVelocity q(fixed = true, start = q_init_par) annotation(
+  units.AngularVelocity q(fixed = true, start = q_init_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.AngularVelocity r(fixed = true, start = r_init_par) annotation(
+  units.AngularVelocity r(fixed = true, start = r_init_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = true, showStartAttribute = true));
-  Units.Force Xf;
-  Units.Force Yf;
-  Units.Force Zf;
-  Units.MomentOfForce L;
-  Units.MomentOfForce M;
-  Units.MomentOfForce N;
+  units.Force Xf;
+  units.Force Yf;
+  units.Force Zf;
+  units.MomentOfForce L;
+  units.MomentOfForce M;
+  units.MomentOfForce N;
   /* ---------------------------------------------
                     Interfaces
         --------------------------------------------- */
@@ -133,9 +133,9 @@ protected
                     Parameters
         --------------------------------------------- */
   parameter Real k_u_FM[nSrcForceMoment] = ones(nSrcForceMoment) "sum coefficients, all 1";
-  parameter Units.MomentOfInertia Ixz_par = Izx_par;
-  parameter Units.MomentOfInertia Iyx_par = Ixy_par;
-  parameter Units.MomentOfInertia Izy_par = Iyz_par;
+  parameter units.MomentOfInertia Ixz_par = Izx_par;
+  parameter units.MomentOfInertia Iyx_par = Ixy_par;
+  parameter units.MomentOfInertia Izy_par = Iyz_par;
   //**********************************************************************
 equation
 /*------------------------------

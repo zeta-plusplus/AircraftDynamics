@@ -1,13 +1,13 @@
 within AircraftDynamics.Interfaces;
 
 connector VisualizerInfoOut00
-  import Units= Modelica.SIunits;
+  import units = Modelica.Units.SI;
   //-----
-  output Units.Position r[3] "position (global frame); xEast, xNorth, alt";
-  output Units.Velocity V[3] "u, v, w";
-  output Units.Angle theta[3] "attitude angles; roll, pitch, yaw";
-  output Units.Angle alpha "angle of attack";
-  output Units.Angle beta "sideslip angle";
+  output units.Position r[3] "position (global frame); xEast, xNorth, alt";
+  output units.Velocity V[3] "u, v, w";
+  output units.Angle theta[3] "attitude angles; roll, pitch, yaw";
+  output units.Angle alpha "angle of attack";
+  output units.Angle beta "sideslip angle";
   
   
 annotation (defaultComponentName="VisInfoOut",

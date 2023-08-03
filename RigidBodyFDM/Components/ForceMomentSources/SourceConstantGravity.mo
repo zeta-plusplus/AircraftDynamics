@@ -3,19 +3,19 @@ within AircraftDynamics.RigidBodyFDM.Components.ForceMomentSources;
 model SourceConstantGravity
   //----- imports -----
   import Const = Modelica.Constants;
-  import Units = Modelica.SIunits;
+  import units = Modelica.Units.SI;
   
   
   /* ---------------------------------------------
               Internal variables
   --------------------------------------------- */
-  Units.Force Fg[3] "gravity along body frame";
-  Units.Force FgG[3] "gravity along Global frame";
-  Units.Mass mass;
-  Units.Angle phi;
-  Units.Angle theta;
-  Units.Angle psi;
-  Units.Acceleration g;
+  units.Force Fg[3] "gravity along body frame";
+  units.Force FgG[3] "gravity along Global frame";
+  units.Mass mass;
+  units.Angle phi;
+  units.Angle theta;
+  units.Angle psi;
+  units.Acceleration g;
   
   
   /* ---------------------------------------------
@@ -35,7 +35,7 @@ model SourceConstantGravity
   
 //**********************************************************************
 protected  
-  Units.Force FgG_rot[3] "" annotation(
+  units.Force FgG_rot[3] "" annotation(
     fixed = false,
     HideResult = false);
   
