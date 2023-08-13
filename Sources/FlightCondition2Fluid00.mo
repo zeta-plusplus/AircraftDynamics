@@ -226,8 +226,10 @@ equation
   end if;
   y_qBar = dynP;
 //--------------------
-  connect(Vsound, AltMN2pTh.infoBus1.Vsound);
-  connect(infoBus1.Vsound, Vsound);
+  //connect(Vsound, AltMN2pTh.infoBus1.Vsound);
+  //Vsound= AltMN2pTh.infoBus1.Vsound;
+  Vsound= AltMN2pTh.Vsound;
+  //connect(infoBus1.Vsound, Vsound);
   
   /* ---------------------------------------------
     Connections, interface <-> internal variables

@@ -1,30 +1,30 @@
 within AircraftDynamics.Visualizers;
 
 model AnimRigidBodyAircraftAttitude00
-  import Units= Modelica.SIunits;
+  import units= Modelica.Units.SI;
   import Modelica.Mechanics.MultiBody.Frames;
   
   /* ---------------------------------------------
               parameters
   --------------------------------------------- */
   parameter String fileAircraftMdl="modelica://AircraftDynamics/Visualizers/3dmodels/MSN001A1WR_mod001.dxf";
-  parameter Units.Position CGbody[3]={15, 0, -1};
-  parameter Units.Length lengthOfAxes=30;
-  parameter Units.Length diameterOfAxes=0.75;
+  parameter units.Position CGbody[3]={15, 0, -1};
+  parameter units.Length lengthOfAxes=30;
+  parameter units.Length diameterOfAxes=0.75;
   
-  parameter Units.Length length=2 "not used";
-  parameter Units.Length width=1 "not used";
-  parameter Units.Length height= 0.3 "not used";
+  parameter units.Length length=2 "not used";
+  parameter units.Length width=1 "not used";
+  parameter units.Length height= 0.3 "not used";
   
   
   /* ---------------------------------------------
               Internal variables
   --------------------------------------------- */
-  Units.Angle theta[3] "euler angles of aircraft body, roll, pitch, heading";
-  Units.Angle thetaV[3] "euler angles of velcity vector, roll, pitch heading";
+  units.Angle theta[3] "euler angles of aircraft body, roll, pitch, heading";
+  units.Angle thetaV[3] "euler angles of velcity vector, roll, pitch heading";
   
-  Units.Angle theta4disp[3] "euler angles of aircraft body 0-360 deg, roll, pitch, heading";
-  Units.Angle thetaV4disp[3] "euler angles of velcity vector 0-360 deg, roll, pitch heading";
+  units.Angle theta4disp[3] "euler angles of aircraft body 0-360 deg, roll, pitch, heading";
+  units.Angle thetaV4disp[3] "euler angles of velcity vector 0-360 deg, roll, pitch heading";
   /**/
   
   /* ---------------------------------------------
@@ -78,10 +78,10 @@ model AnimRigidBodyAircraftAttitude00
     r_tail = {0,0,0},
     r_head = {-1.3*CGbody[1], 0.0, 0.0},
     r= {0,0,0},
-    diameter= diameterOfAxes*1.05,
+    
     color={0, 255, 0},
     R = RV);
-  /**/
+  /*diameter= diameterOfAxes*1.05,*/
   
   
   /* ---------------------------------------------

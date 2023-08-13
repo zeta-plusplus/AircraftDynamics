@@ -45,6 +45,6 @@ equation
     Line(points = {{32, -110}, {44, -110}, {44, -86}, {58, -86}}, color = {0, 0, 127}));
   annotation(
     experiment(StartTime = 0, StopTime = 50, Tolerance = 1e-08, Interval = 0.01),
-    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl"),
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl", variableFilter = ".*"),
   Diagram(coordinateSystem(extent = {{-140, -140}, {140, 140}})));
 end PropRotorActuatorDisk00_ex03;

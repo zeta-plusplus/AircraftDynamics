@@ -3,24 +3,24 @@ within AircraftDynamics.RigidBodyFDM.Components.ForceMomentSources;
 model ArbitraryDamper00
   //----- imports -----
   import Const = Modelica.Constants;
-  import Units = Modelica.SIunits;
+  import units = Modelica.Units.SI;
   
   
   /* ---------------------------------------------
                 Parameters
   --------------------------------------------- */
-  parameter Units.TranslationalDampingConstant dampX_par=100
+  parameter units.TranslationalDampingConstant dampX_par=100
     "Damping constant, along body x-axis";
-  parameter Units.TranslationalDampingConstant dampY_par=100
+  parameter units.TranslationalDampingConstant dampY_par=100
     "Damping constant, along body y-axis";
-  parameter Units.TranslationalDampingConstant dampZ_par=100
+  parameter units.TranslationalDampingConstant dampZ_par=100
     "Damping constant, along body z-axis";
   
-  parameter Units.RotationalDampingConstant dampL_par=100
+  parameter units.RotationalDampingConstant dampL_par=100
     "Damping constant, in roll rotation";
-  parameter Units.RotationalDampingConstant dampM_par=100
+  parameter units.RotationalDampingConstant dampM_par=100
     "Damping constant, in pitch rotation";
-  parameter Units.RotationalDampingConstant dampN_par=100
+  parameter units.RotationalDampingConstant dampN_par=100
     "Damping constant, in yaw rotation";
   
   
@@ -28,34 +28,34 @@ model ArbitraryDamper00
   /* ---------------------------------------------
                 Internal variables
     --------------------------------------------- */
-  Units.Force F[3] "" annotation(
+  units.Force F[3] "" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  Units.MomentOfForce M[3] "" annotation(
-    Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  
-  Units.TranslationalDampingConstant dampX(start=dampX_par) annotation(
-    Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  Units.TranslationalDampingConstant dampY(start=dampY_par) annotation(
-    Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  Units.TranslationalDampingConstant dampZ(start=dampZ_par) annotation(
+  units.MomentOfForce M[3] "" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
   
-  Units.RotationalDampingConstant dampL(start=dampL_par) annotation(
+  units.TranslationalDampingConstant dampX(start=dampX_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  Units.RotationalDampingConstant dampM(start=dampM_par) annotation(
+  units.TranslationalDampingConstant dampY(start=dampY_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  Units.RotationalDampingConstant dampN(start=dampN_par) annotation(
+  units.TranslationalDampingConstant dampZ(start=dampZ_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
   
-  Units.Power lossPowerTran[3] "power loss, each translational direction" annotation(
+  units.RotationalDampingConstant dampL(start=dampL_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  Units.Power lossPowerRot[3] "power loss, each rotational direction" annotation(
+  units.RotationalDampingConstant dampM(start=dampM_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  Units.Power sumLossPowerTran "power loss, sum, translational" annotation(
+  units.RotationalDampingConstant dampN(start=dampN_par) annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  Units.Power sumLossPowerRot "power loss, sum, rotational" annotation(
+  
+  units.Power lossPowerTran[3] "power loss, each translational direction" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  Units.Power sumLossPower "power loss, sum" annotation(
+  units.Power lossPowerRot[3] "power loss, each rotational direction" annotation(
+    Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
+  units.Power sumLossPowerTran "power loss, sum, translational" annotation(
+    Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
+  units.Power sumLossPowerRot "power loss, sum, rotational" annotation(
+    Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
+  units.Power sumLossPower "power loss, sum" annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
   /**/
   

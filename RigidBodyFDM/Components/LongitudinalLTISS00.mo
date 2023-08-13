@@ -2,7 +2,7 @@ within AircraftDynamics.RigidBodyFDM.Components;
 
 block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Space equations"
   extends AircraftDynamics.Icons.Icon_LongitudinalDynamics;
-  extends AircraftDynamics.RigidBodyFDM.BaseClasses.LTISS00;
+  //extends AircraftDynamics.RigidBodyFDM.BaseClasses.LTISS00;
   /********************************************************
                   imports
       ********************************************************/
@@ -130,11 +130,15 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
   /* ---------------------------------------------
             Internal variables
       --------------------------------------------- */
-  redeclare Real x[4](start = x0) annotation(
+  //redeclare 
+  Real vec_x[4](start = vec_x0) annotation(
+    each fixed=false,
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  redeclare Real u[2] annotation(
+  //redeclare 
+  Real vec_u[2] annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
-  redeclare Real y[6] annotation(
+  //redeclare 
+  Real vec_y[6] annotation(
     Dialog(tab = "Variables", group = "start attribute", enable = false, showStartAttribute = true));
   //---
   /* ---------------------------------------------
@@ -142,7 +146,8 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
       --------------------------------------------- */
   inner outer AircraftDynamics.SimEnvironment environmentAircraftDynSim annotation(
     Placement(visible = true, transformation(origin = {-30, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  discrete AircraftDynamics.RigidBodyFDM.Components.DerivativesLongitudinalNonDim2Dim00 DerLongi annotation(
+  //discrete 
+  AircraftDynamics.RigidBodyFDM.Components.DerivativesLongitudinalNonDim2Dim00 DerLongi annotation(
     Placement(visible = true, transformation(origin = {-20, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   /* ---------------------------------------------
                 Interface
@@ -165,7 +170,7 @@ block LongitudinalLTISS00 "Longitudinal FDM with Linear Time Invariant State Spa
   //---
   Modelica.Blocks.Interfaces.RealInput u_q1bar(unit = "Pa", displayUnit = "Pa") if use_u_q1bar "dynamic pressure, input" annotation(
     Placement(visible = true, transformation(origin = {-140, 50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-130, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput u_S(unit = "m2", displayUnit = "m2") if use_u_S "" annotation(
+  Modelica.Blocks.Interfaces.RealInput u_S(unit = "m2", displayUnit = "m2") if use_u_S==true "" annotation(
     Placement(visible = true, transformation(origin = {-80, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {10, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput u_U1(unit = "m/s", displayUnit = "m/s") if use_u_U1 "" annotation(
     Placement(visible = true, transformation(origin = {-140, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -188,21 +193,28 @@ protected
             redeclare protected parameters
       --------------------------------------------- */
   //---
-  redeclare parameter Real A[4, 4] annotation(
-    fixed = false,
-    HideResult = false);
-  redeclare parameter Real B[4, 2] annotation(
-    fixed = false,
-    HideResult = false);
-  redeclare parameter Real C[6, 4] annotation(
-    fixed = false,
-    HideResult = false);
-  redeclare parameter Real D[6, 2] annotation(
-    fixed = false,
-    HideResult = false);
+  //redeclare 
+  parameter Real mat_A[4, 4] annotation(
+    each fixed = false,
+    each HideResult = false);
+  //redeclare 
+  parameter Real mat_B[4, 2] annotation(
+    each fixed = false,
+    each HideResult = false);
+  //redeclare 
+  parameter Real mat_C[6, 4] annotation(
+    each fixed = false,
+    each HideResult = false);
+  //redeclare 
+  parameter Real mat_D[6, 2] annotation(
+    each fixed = false,
+    each HideResult = false);
   //---
-  redeclare parameter Real x0[4] "Initial state vector" annotation(
-    HideResult = false);
+  //redeclare 
+  parameter Real vec_x0[4] "Initial state vector" annotation(
+    each fixed= false,
+    each HideResult = false);
+  
   /* ---------------------------------------------
             parameters not fixed yet
     --------------------------------------------- */
@@ -296,9 +308,10 @@ protected
   parameter Real XdeltaT_ppri(fixed = false) annotation(
     HideResult = false);
   //---
-  parameter Real dmy = 0.0;
+  parameter Real dmy = 1.0;
   //********************************************************************************
 initial equation
+
 //----- Dimentional derivatives -----
   Xu_pri = DerLongi.Xu_pri;
   Xalpha_pri = DerLongi.Xalpha_pri;
@@ -324,7 +337,7 @@ initial equation
   MdeltaE_pri = DerLongi.MdeltaE_pri;
   MdeltaT_pri = DerLongi.MdeltaT_pri;
 //---
-/**/
+
   Zu_ppri = DerLongi.Zu_ppri;
   Zalpha_ppri = DerLongi.Zalpha_ppri;
   Zq_ppri = DerLongi.Zq_ppri;
@@ -341,6 +354,8 @@ initial equation
   XdeltaE_ppri = DerLongi.XdeltaE_ppri;
   XdeltaT_ppri = DerLongi.XdeltaT_ppri;
 //-----
+/**/
+
 //***** test *****
 /*
   Xu_pri= -0.023564;
@@ -366,26 +381,28 @@ initial equation
   MdeltaE_pri= -15.7002;
   */
 //***** matrices of state space equation *****
-  A = [Xu_pri, Xalpha_pri, Xq_pri, Xtheta_pri; Zu_pri, Zalpha_pri, Zq_pri, Ztheta_pri; Mu_pri, Malpha_pri, Mq_pri, Mtheta_pri; 0.0, 0.0, 1.0, 0.0];
-  B = [XdeltaE_pri, XdeltaT_pri; ZdeltaE_pri, ZdeltaT_pri; MdeltaE_pri, MdeltaT_pri; 0.0, 0.0];
-  C = [Zu_ppri, Zalpha_ppri, Zq_ppri, Ztheta_ppri; Xu_ppri, Xalpha_ppri, Xq_ppri, Xtheta_ppri; 1.0, 0.0, 0.0, 0.0; 0.0, 1.0, 0.0, 0.0; 0.0, 0.0, 1.0, 0.0; 0.0, 0.0, 0.0, 1.0];
-  D = [ZdeltaE_ppri, ZdeltaT_ppri; XdeltaE_ppri, XdeltaT_ppri; 0.0, 0.0; 0.0, 0.0; 0.0, 0.0; 0.0, 0.0];
+  mat_A = [Xu_pri, Xalpha_pri, Xq_pri, Xtheta_pri; Zu_pri, Zalpha_pri, Zq_pri, Ztheta_pri; Mu_pri, Malpha_pri, Mq_pri, Mtheta_pri; 0.0, 0.0, 1.0, 0.0];
+  mat_B = [XdeltaE_pri, XdeltaT_pri; ZdeltaE_pri, ZdeltaT_pri; MdeltaE_pri, MdeltaT_pri; 0.0, 0.0];
+  mat_C = [Zu_ppri, Zalpha_ppri, Zq_ppri, Ztheta_ppri; Xu_ppri, Xalpha_ppri, Xq_ppri, Xtheta_ppri; 1.0, 0.0, 0.0, 0.0; 0.0, 1.0, 0.0, 0.0; 0.0, 0.0, 1.0, 0.0; 0.0, 0.0, 0.0, 1.0];
+  mat_D = [ZdeltaE_ppri, ZdeltaT_ppri; XdeltaE_ppri, XdeltaT_ppri; 0.0, 0.0; 0.0, 0.0; 0.0, 0.0; 0.0, 0.0];
+/**/
 //***** initial condition *****
   g = environmentAircraftDynSim.gravity;
 //-----
   alpha1 = theta1 - gamma1;
   u1 = U1 * cos(alpha1);
 //---
-  x0[1] = u0;
-  x0[2] = alpha0;
-  x0[3] = q0;
-  x0[4] = theta0;
+  vec_x0[1] = u0;
+  vec_x0[2] = alpha0;
+  vec_x0[3] = q0;
+  vec_x0[4] = theta0;
 //***** flight condition *****
   if use_u_U1 == true then
     U1 = u_U1;
   else
     U1 = U1_par;
   end if;
+  //--
   if use_u_q1bar == true then
     q1bar = u_q1bar;
   else
@@ -397,16 +414,19 @@ initial equation
   else
     S = S_par;
   end if;
+  //--
   if use_u_m == true then
     m = u_m;
   else
     m = m_par;
   end if;
+  //--
   if use_u_Iyy == true then
     Iyy = u_Iyy;
   else
     Iyy = Iyy_par;
   end if;
+  //--
   if use_u_cBar == true then
     cBar = u_cBar;
   else
@@ -419,20 +439,73 @@ initial equation
   psiTi = psiTi_par;
 //********************************************************************************
 initial algorithm
+/*
+//----- Dimentional derivatives -----
+  Xu_pri := DerLongi.Xu_pri;
+  Xalpha_pri := DerLongi.Xalpha_pri;
+  Xq_pri := DerLongi.Xq_pri;
+  Xtheta_pri := DerLongi.Xtheta_pri;
+//---
+  Zu_pri := DerLongi.Zu_pri;
+  Zalpha_pri := DerLongi.Zalpha_pri;
+  Zq_pri := DerLongi.Zq_pri;
+  Ztheta_pri := DerLongi.Ztheta_pri;
+//---
+  Mu_pri := DerLongi.Mu_pri;
+  Malpha_pri := DerLongi.Malpha_pri;
+  Mq_pri := DerLongi.Mq_pri;
+  Mtheta_pri := DerLongi.Mtheta_pri;
+//---
+  XdeltaE_pri := DerLongi.XdeltaE_pri;
+  XdeltaT_pri := DerLongi.XdeltaT_pri;
+//---
+  ZdeltaE_pri := DerLongi.ZdeltaE_pri;
+  ZdeltaT_pri := DerLongi.ZdeltaT_pri;
+//---
+  MdeltaE_pri := DerLongi.MdeltaE_pri;
+  MdeltaT_pri := DerLongi.MdeltaT_pri;
+//---
+
+  Zu_ppri := DerLongi.Zu_ppri;
+  Zalpha_ppri := DerLongi.Zalpha_ppri;
+  Zq_ppri := DerLongi.Zq_ppri;
+  Ztheta_ppri := DerLongi.Ztheta_ppri;
+//---
+  ZdeltaE_ppri := DerLongi.ZdeltaE_ppri;
+  ZdeltaT_ppri := DerLongi.ZdeltaT_ppri;
+//-----
+  Xu_ppri := DerLongi.Xu_ppri;
+  Xalpha_ppri := DerLongi.Xalpha_ppri;
+  Xq_ppri := DerLongi.Xq_ppri;
+  Xtheta_ppri := DerLongi.Xtheta_ppri;
+//---
+  XdeltaE_ppri := DerLongi.XdeltaE_ppri;
+  XdeltaT_ppri := DerLongi.XdeltaT_ppri;
+//-----
+*/
+//***** matrices of state space equation *****
+/*
+  mat_A := [Xu_pri, Xalpha_pri, Xq_pri, Xtheta_pri; Zu_pri, Zalpha_pri, Zq_pri, Ztheta_pri; Mu_pri, Malpha_pri, Mq_pri, Mtheta_pri; 0.0, 0.0, 1.0, 0.0];
+  mat_B := [XdeltaE_pri, XdeltaT_pri; ZdeltaE_pri, ZdeltaT_pri; MdeltaE_pri, MdeltaT_pri; 0.0, 0.0];
+  mat_C := [Zu_ppri, Zalpha_ppri, Zq_ppri, Ztheta_ppri; Xu_ppri, Xalpha_ppri, Xq_ppri, Xtheta_ppri; 1.0, 0.0, 0.0, 0.0; 0.0, 1.0, 0.0, 0.0; 0.0, 0.0, 1.0, 0.0; 0.0, 0.0, 0.0, 1.0];
+  mat_D := [ZdeltaE_ppri, ZdeltaT_ppri; XdeltaE_ppri, XdeltaT_ppri; 0.0, 0.0; 0.0, 0.0; 0.0, 0.0; 0.0, 0.0];
+  */
 //********************************************************************************
 equation
 /* ---------------------------------------------
     Connections, interface <-> internal variables
   --------------------------------------------- */
-  u[1] = u_deltaE;
-  u[2] = u_deltaT;
+  vec_u[1] = u_deltaE;
+  vec_u[2] = u_deltaT;
 //---
-  y_u = u1 + x[1];
-  y_alpha = alpha1 + x[2];
-  y_q = q1 + x[3];
-  y_theta = theta1 + x[4];
-  y_aZ = y[1];
-  y_aX = y[2];
+  /**/
+  y_u = u1 + vec_x[1];
+  y_alpha = alpha1 + vec_x[2];
+  y_q = q1 + vec_x[3];
+  y_theta = theta1 + vec_x[4];
+  y_aZ = vec_y[1];
+  y_aX = vec_y[2];
+  
 //-----
   VisInfoOut.r[1] = 0.0;
   VisInfoOut.r[2] = 0.0;
@@ -445,49 +518,60 @@ equation
   VisInfoOut.V[1]= y_u;
   VisInfoOut.V[2]= 0.0;
   VisInfoOut.V[3]= y_u*tan(y_theta);
+  
 //-----
 //----- flight condition -----
-  connect(DerLongi.infoBusFlt.U1, U1);
-  connect(DerLongi.infoBusFlt.q1bar, q1bar);
-  connect(DerLongi.infoBusFlt.g, g);
-  connect(DerLongi.infoBusFlt.theta1, theta1);
-  connect(DerLongi.infoBusFlt.alpha1, alpha1);
+  DerLongi.U1= U1;
+  DerLongi.q1bar= q1bar;
+  DerLongi.g= g;
+  DerLongi.theta1= theta1;
+  DerLongi.alpha1= alpha1;
+
 //----- aircraft properties -----
-  connect(DerLongi.infoBusAircraft.S, S);
-  connect(DerLongi.infoBusAircraft.m, m);
-  connect(DerLongi.infoBusAircraft.Iyy, Iyy);
-  connect(DerLongi.infoBusAircraft.cBar, cBar);
+  DerLongi.S= S;
+  DerLongi.m= m;
+  DerLongi.Iyy= Iyy;
+  DerLongi.cBar= cBar;
+  
 //---
-  connect(DerLongi.infoBusAircraft.thetaTi, thetaTi);
-  connect(DerLongi.infoBusAircraft.psiTi, psiTi);
-  connect(DerLongi.infoBusAircraft.xBarTi, xBarTi);
-  connect(DerLongi.infoBusAircraft.zBarTi, zBarTi);
+  DerLongi.thetaTi= thetaTi;
+  DerLongi.psiTi= psiTi;
+  DerLongi.xBarTi= xBarTi;
+  DerLongi.zBarTi= zBarTi;
+
 //----- Non-dimentional coefficients/derivatives -----
-  connect(DerLongi.infoBusNonDim.CDu, CDu);
-  connect(DerLongi.infoBusNonDim.CD1, CD1);
-  connect(DerLongi.infoBusNonDim.CTXu, CTXu);
-  connect(DerLongi.infoBusNonDim.CTX1, CTX1);
-  connect(DerLongi.infoBusNonDim.CDalpha, CDalpha);
-  connect(DerLongi.infoBusNonDim.CDdeltaE, CDdeltaE);
+  DerLongi.CDu= CDu;
+  DerLongi.CD1= CD1;
+  DerLongi.CTXu= CTXu;
+  DerLongi.CTX1= CTX1;
+  DerLongi.CDalpha= CDalpha;
+  DerLongi.CDdeltaE= CDdeltaE;
 //---
-  connect(DerLongi.infoBusNonDim.CL1, CL1);
-  connect(DerLongi.infoBusNonDim.CLu, CLu);
-  connect(DerLongi.infoBusNonDim.CLalpha, CLalpha);
-  connect(DerLongi.infoBusNonDim.CLalpha_dot, CLalpha_dot);
-  connect(DerLongi.infoBusNonDim.CLq, CLq);
-  connect(DerLongi.infoBusNonDim.CLdeltaE, CLdeltaE);
+  DerLongi.CL1= CL1;
+  DerLongi.CLu= CLu;
+  DerLongi.CLalpha= CLalpha;
+  DerLongi.CLalpha_dot= CLalpha_dot;
+  DerLongi.CLq= CLq;
+  DerLongi.CLdeltaE= CLdeltaE;
 //---
-  connect(DerLongi.infoBusNonDim.Cm1, Cm1);
-  connect(DerLongi.infoBusNonDim.Cmu, Cmu);
-  connect(DerLongi.infoBusNonDim.CmAlpha, CmAlpha);
-  connect(DerLongi.infoBusNonDim.CmAlpha_dot, CmAlpha_dot);
-  connect(DerLongi.infoBusNonDim.Cmq, Cmq);
-  connect(DerLongi.infoBusNonDim.CmDeltaE, CmDeltaE);
+  DerLongi.Cm1= Cm1;
+  DerLongi.Cmu= Cmu;
+  DerLongi.CmAlpha= CmAlpha;
+  DerLongi.CmAlpha_dot= CmAlpha_dot;
+  DerLongi.Cmq= Cmq;
+  DerLongi.CmDeltaE= CmDeltaE;
 //---
-  connect(DerLongi.infoBusNonDim.CmTu, dmy);
+  DerLongi.CmTu= dmy;
 //-- provide dummy input --
-  connect(DerLongi.infoBusNonDim.CmT1, dmy);
-  connect(DerLongi.infoBusNonDim.CmTalpha, dmy);
+  DerLongi.CmT1= dmy;
+  DerLongi.CmTalpha= dmy;
+  
+  
+  //-----
+  der(vec_x) = mat_A * vec_x + mat_B * vec_u;
+  vec_y = mat_C * vec_x + mat_D * vec_u;
+  //---
+  
 //---
 /**/
 /********************************************************

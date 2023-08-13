@@ -3,7 +3,7 @@ within AircraftDynamics.RigidBodyFDM.Components.ForceMomentSources;
 model SourceArbitraryForceMoment00
   //----- imports -----
   import Const = Modelica.Constants;
-  import Units = Modelica.SIunits;
+  import units = Modelica.Units.SI;
   /* ---------------------------------------------
           switches
     --------------------------------------------- */
@@ -40,23 +40,23 @@ model SourceArbitraryForceMoment00
   /* ---------------------------------------------
                 Parameters
     --------------------------------------------- */
-  parameter Units.Force Xf_par = 0 annotation(
+  parameter units.Force Xf_par = 0 annotation(
     Dialog(group = "Forces"));
-  parameter Units.Force Yf_par = 0 annotation(
+  parameter units.Force Yf_par = 0 annotation(
     Dialog(group = "Forces"));
-  parameter Units.Force Zf_par = 0 annotation(
+  parameter units.Force Zf_par = 0 annotation(
     Dialog(group = "Forces"));
-  parameter Units.MomentOfForce L_par = 0 annotation(
+  parameter units.MomentOfForce L_par = 0 annotation(
     Dialog(group = "Moments"));
-  parameter Units.MomentOfForce M_par = 0 annotation(
+  parameter units.MomentOfForce M_par = 0 annotation(
     Dialog(group = "Moments"));
-  parameter Units.MomentOfForce N_par = 0 annotation(
+  parameter units.MomentOfForce N_par = 0 annotation(
     Dialog(group = "Moments"));
   /* ---------------------------------------------
                 Internal variables
     --------------------------------------------- */
-  Units.Force F[3] "";
-  Units.MomentOfForce M[3] "";
+  units.Force F[3] "";
+  units.MomentOfForce M[3] "";
   /* ---------------------------------------------
                   Internal objects
       --------------------------------------------- */

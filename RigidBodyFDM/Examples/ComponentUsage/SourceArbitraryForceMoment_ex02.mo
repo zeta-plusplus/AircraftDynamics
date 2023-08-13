@@ -25,5 +25,5 @@ equation
     Line(points = {{-50, 50}, {-20, 50}, {-20, 20}}, color = {95, 95, 95}));
   annotation(
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-08, Interval = 0.01),
-    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl"));
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl", variableFilter = ".*"));
 end SourceArbitraryForceMoment_ex02;

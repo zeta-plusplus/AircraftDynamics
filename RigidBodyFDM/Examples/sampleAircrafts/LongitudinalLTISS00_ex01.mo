@@ -37,5 +37,5 @@ equation
     Diagram(coordinateSystem(extent = {{-100, -100}, {120, 120}})),
     __OpenModelica_commandLineOptions = "",
     experiment(StartTime = 0, StopTime = 120, Tolerance = 1e-06, Interval = 0.01),
-    __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl", variableFilter = ".*"));
 end LongitudinalLTISS00_ex01;

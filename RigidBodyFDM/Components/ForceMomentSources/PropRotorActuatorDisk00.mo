@@ -3,7 +3,7 @@ within AircraftDynamics.RigidBodyFDM.Components.ForceMomentSources;
 model PropRotorActuatorDisk00
   //----- imports -----
   import Const = Modelica.Constants;
-  import Units = Modelica.SIunits;
+  import units = Modelica.Units.SI;
   import Math= Modelica.Math;
   /* ---------------------------------------------
           switches
@@ -12,7 +12,7 @@ model PropRotorActuatorDisk00
                 Parameters
     --------------------------------------------- */
   parameter Real vectThrustDir_par[3]={1,0,0} "vector of thrust direction wrt aircraft body";
-  parameter Units.Length vectPosIF_par[3]={0,0,0} "position vector of propeller interface, wrt datum of aircraft";
+  parameter units.Length vectPosIF_par[3]={0,0,0} "position vector of propeller interface, wrt datum of aircraft";
   parameter Real CQqCT_par = 0.006/0.05 "torque/thrust";
   parameter Real diam_par= 0.1 "";
   parameter Boolean thrustVectorEQrotationalVector=true "if true, vector direction of rotation and torque are same as thrust vector";
@@ -25,16 +25,16 @@ model PropRotorActuatorDisk00
   Real CQqCT;
   Real QqT;
   Real vectThrustDir[3];
-  Units.Position vectPosIF[3] "position vector of propeller interface, wrt datum of aircraft";
-  Units.Length vectArm[3] "vector of moment arms";
-  Units.Force thrust "";
-  Units.Force F[3] "force vector, input to aircraft body";
-  Units.Torque trq "torque into prop component to drive prop";
-  Units.Torque countTrq "counter-torque outof prop component";
-  Units.Torque vectCountTrq[3] "";
-  Units.MomentOfForce MbyT[3] "moment due to thrust and arm length";
-  Units.MomentOfForce M[3] "moment vector, input to aircraft body";
-  Units.Length diam "";
+  units.Position vectPosIF[3] "position vector of propeller interface, wrt datum of aircraft";
+  units.Length vectArm[3] "vector of moment arms";
+  units.Force thrust "";
+  units.Force F[3] "force vector, input to aircraft body";
+  units.Torque trq "torque into prop component to drive prop";
+  units.Torque countTrq "counter-torque outof prop component";
+  units.Torque vectCountTrq[3] "";
+  units.MomentOfForce MbyT[3] "moment due to thrust and arm length";
+  units.MomentOfForce M[3] "moment vector, input to aircraft body";
+  units.Length diam "";
   
   
   /* ---------------------------------------------

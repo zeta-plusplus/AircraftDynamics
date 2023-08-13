@@ -5,9 +5,9 @@ partial model LTISS00 "Linear Time Invariant State Space"
   /* ---------------------------------------------
         Internal variables
   --------------------------------------------- */
-  replaceable Real x "State vector";
-  replaceable Real u "Input vector";
-  replaceable Real y "Output vector";
+  replaceable Real x[4] "State vector";
+  replaceable Real vec_u[2] "Input vector";
+  replaceable Real y[6] "Output vector";
   //---
   /*
   replaceable Real eigA "eigenvalues of matrix A";
@@ -18,16 +18,16 @@ protected
   /* ---------------------------------------------
         parameters not fixed yet
   --------------------------------------------- */
-  replaceable parameter Real A(each fixed=false) annotation(
+  replaceable parameter Real A[4,4](each fixed=false) annotation(
     fixed=false, HideResult=false);
-  replaceable parameter Real B(each fixed=false) annotation(
+  replaceable parameter Real B[4,2](each fixed=false) annotation(
     fixed=false, HideResult=false);
-  replaceable parameter Real C(each fixed=false) annotation(
+  replaceable parameter Real C[6,4](each fixed=false) annotation(
     fixed=false, HideResult=false);
-  replaceable parameter Real D(each fixed=false) annotation(
+  replaceable parameter Real D[6,2](each fixed=false) annotation(
     fixed=false, HideResult=false);
   //---
-  replaceable parameter Real x0(each fixed=false) "Initial state vector" annotation(
+  replaceable parameter Real x0[4](each fixed=false) "Initial state vector" annotation(
     HideResult=false);
   
   //********************************************************************************
@@ -46,8 +46,8 @@ equation
     Eqns describing physics
   --------------------------------------------- */
   //-----
-  der(x) = A * x + B * u;
-  y = C * x + D * u;
+  der(x) = A * x + B * vec_u;
+  y = C * x + D * vec_u;
   //---
   
   

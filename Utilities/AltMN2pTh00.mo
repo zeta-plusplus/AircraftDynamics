@@ -160,7 +160,7 @@ equation
   y_hTot = fluidTot.h;
   y_V_inf = V_inf;
   y_Vsound= Vsound;
-  connect(infoBus1.Vsound, Vsound);
+  //connect(infoBus1.Vsound, Vsound);
 /* ---------------------------------------------
   Eqns describing physics
   --------------------------------------------- */

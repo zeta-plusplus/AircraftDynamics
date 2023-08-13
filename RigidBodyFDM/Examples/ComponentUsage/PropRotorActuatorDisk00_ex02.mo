@@ -29,5 +29,5 @@ equation
     Line(points = {{-50, -40}, {-20, -40}, {-20, 20}}, color = {95, 95, 95}));
   annotation(
     experiment(StartTime = 0, StopTime = 50, Tolerance = 1e-08, Interval = 0.01),
-    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl"));
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl", variableFilter = ".*"));
 end PropRotorActuatorDisk00_ex02;

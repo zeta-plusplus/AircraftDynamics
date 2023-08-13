@@ -8,7 +8,7 @@ model SourceArbitraryForceMoment_ex01
     Placement(visible = true, transformation(origin = {20, 20}, extent = {{-40, -40}, {40, 40}}, rotation = 0)));
   AircraftDynamics.Visualizers.AnimRigidBodyAircraft00 animAircraft(offset_r0 = {0, 0, -1000}) annotation(
     Placement(visible = true, transformation(origin = {80, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  AircraftDynamics.RigidBodyFDM.Components.ForceMomentSources.SourceArbitraryForceMoment00 forceMomentArbitrary(M_par = 0 * 1000, Zf_par =  (-1.1) * environmentAircraftDynSim.gravity * airplaneDyn.mTot_par) annotation(
+  AircraftDynamics.RigidBodyFDM.Components.ForceMomentSources.SourceArbitraryForceMoment00 forceMomentArbitrary(M_par = 0 * 1000, Zf_par =  (-1.1) * environmentAircraftDynSim.gravity * airplaneDyn.mTot_par, use_u_Xf = false) annotation(
     Placement(visible = true, transformation(origin = {-70, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   AircraftDynamics.RigidBodyFDM.Components.ForceMomentSources.SourceConstantGravity srcGravity annotation(
     Placement(visible = true, transformation(origin = {-30, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -20,5 +20,6 @@ equation
   connect(srcGravity.outCntrSrcForceMoment, airplaneDyn.inCntrSrcForceMoment[2]) annotation(
     Line(points = {{-30, -30}, {-30, 20}, {-20, 20}}, color = {95, 95, 95}));
   annotation(
-    experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-08, Interval = 0.01));
+    experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-08, Interval = 0.01),
+  __OpenModelica_simulationFlags(lv = "LOG_STATS", s = "dassl", variableFilter = ".*"));
 end SourceArbitraryForceMoment_ex01;
